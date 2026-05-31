@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamEdge Administration Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07060f;
+      --surface: rgba(18, 15, 38, 0.85);
+      --surface2: rgba(22, 18, 50, 0.75);
+      --border: rgba(99, 102, 241, 0.18);
+      --border-active: rgba(99, 102, 241, 0.55);
+      --indigo: #6366f1;
+      --violet: #8b5cf6;
+      --emerald: #10b981;
+      --rose: #f43f5e;
+      --amber: #f59e0b;
+      --text: #f1f0f7;
+      --text-muted: #8b88a8;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* BACKGROUND GRADIENT */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 60% 40% at 80% 10%, rgba(99,102,241,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 20% 80%, rgba(244,63,94,0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* CONTAINER */
+    .admin-container {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    /* HEADER */
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 40px; height: 40px;
+      background: rgba(244,63,94,0.15);
+      border: 1px solid rgba(244,63,94,0.35);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .logo-text {
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      border: none;
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 25px rgba(99, 102, 241, 0.35);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid var(--border);
+      color: #a5b4fc;
+    }
+    .btn-secondary:hover {
+      background: rgba(99, 102, 241, 0.08);
+      border-color: var(--indigo);
+      color: #fff;
+    }
+
+    .btn-danger {
+      background: rgba(244, 63, 94, 0.1);
+      border: 1.5px solid rgba(244, 63, 94, 0.25);
+      color: #fca5a5;
+    }
+    .btn-danger:hover {
+      background: rgba(244, 63, 94, 0.2);
+      border-color: var(--rose);
+      color: #fff;
+    }
+
+    /* STATS GRID */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .stat-title {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0.5rem 0;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .stat-desc {
+      font-size: 0.75rem;
+      color: var(--emerald);
+      font-weight: 600;
+    }
+
+    /* MAIN SECTION WRAP */
+    .admin-main {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 1024px) {
+      .admin-main {
+        grid-template-columns: 1fr 380px;
+      }
+    }
+
+    /* CARD BOXES */
+    .admin-card {
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    .card-title-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* TABLE */
+    .table-container {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(10, 8, 20, 0.4);
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    .admin-table th {
+      background: rgba(22, 18, 50, 0.5);
+      padding: 1rem;
+      font-weight: 700;
+      color: #a5b4fc;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .admin-table td {
+      padding: 1rem;
+      color: #c4c2dc;
+      border-bottom: 1px solid rgba(99, 102, 241, 0.08);
+    }
+
+    .admin-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .admin-table tr:hover td {
+      background: rgba(99, 102, 241, 0.04);
+      color: #fff;
+    }
+
+    /* BADGES */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-premium { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); }
+    .badge-free { background: rgba(139, 136, 168, 0.15); color: var(--text-muted); }
+
+    /* FORM STYLES */
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(10, 8, 20, 0.5);
+      border: 1.5px solid rgba(99, 102, 241, 0.18);
+      border-radius: 10px;
+      padding: 0.75rem;
+      color: #fff;
+      font-size: 0.88rem;
+      outline: none;
+      transition: all 0.25s;
+    }
+
+    .form-input:focus {
+      border-color: var(--indigo);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+
+    textarea.form-input {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    /* QUESTIONS LIST SPECIFIC */
+    .search-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .question-list-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .question-list-items::-webkit-scrollbar { width: 3px; }
+    .question-list-items::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 9999px; }
+
+    .q-item {
+      background: rgba(10, 8, 20, 0.35);
+      border: 1px solid rgba(99, 102, 241, 0.08);
+      border-radius: 12px;
+      padding: 1rem;
+      position: relative;
+    }
+
+    .q-item:hover {
+      border-color: rgba(99, 102, 241, 0.25);
+      background: rgba(10, 8, 20, 0.5);
+    }
+
+    .q-item-meta {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .q-item-text {
+      font-size: 0.85rem;
+      color: #e2e0f4;
+      line-height: 1.45;
+      margin-bottom: 0.5rem;
+    }
+
+    .q-item-answer {
+      font-size: 0.75rem;
+      color: var(--emerald);
+      font-weight: 700;
+    }
+
+    .q-item-delete {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      background: rgba(244, 63, 94, 0.15);
+      color: #fca5a5;
+      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    .q-item-delete:hover {
+      background: var(--rose);
+      color: #fff;
+    }
+
+    /* CONFIRM MODAL Overlay */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+      display: none;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--surface2);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+    .modal-box h3 { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 0.6rem; }
+    .modal-box p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5; }
+    .modal-actions { display: flex; gap: 10px; }
+    .modal-cancel { flex: 1; padding: 0.8rem; border: 1px solid var(--border); border-radius: 12px; background: transparent; color: var(--text-muted); font-weight: 700; cursor: pointer; }
+    .modal-confirm { flex: 1; padding: 0.8rem; background: var(--rose); border: none; border-radius: 12px; color: #fff; font-weight: 900; cursor: pointer; }
+
+    /* TOAST */
+    .toast-wrap {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast {
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(18, 15, 38, 0.95);
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: slideIn 0.3s ease forwards;
+    }
+    .toast-success { border-color: var(--emerald); color: #a7f3d0; }
+    .toast-error { border-color: var(--rose); color: #fecaca; }
+    @keyframes slideIn { from{transform:translateX(100px); opacity:0;} to{transform:translateX(0); opacity:1;} }
+  </style>
+</head>
+<body>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="confirm-modal">
+    <div class="modal-box">
+      <div style="font-size:2.5rem;margin-bottom:0.8rem" id="modal-icon">⚠️</div>
+      <h3 id="modal-title">Reset Database?</h3>
+      <p id="modal-msg">This will wipe out all user progress, registered students, and settings. This cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+        <button class="modal-confirm" id="modal-confirm-btn" onclick="executeModalAction()">Wipe DB</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toast-wrap"></div>
+
+  <div class="admin-container">
+    
+    <!-- HEADER -->
+    <header class="admin-header">
+      <div class="brand">
+        <div class="logo-icon">🛡️</div>
+        <div>
+          <h1 class="logo-text">ExamEdge Admin</h1>
+          <p style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Platform Management Portal</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="index.html" class="btn btn-secondary">🏠 Back to App Dashboard</a>
+        <a href="cbt.html" class="btn btn-secondary">📝 Practice CBT Engine</a>
+        <button class="btn btn-danger" onclick="confirmWipeDatabase()">⚠️ Reset System DB</button>
+      </div>
+    </header>
+
+    <!-- STATS GRID -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-title">Total Registered Students</span>
+        <span class="stat-value" id="stat-students">0</span>
+        <span class="stat-desc" id="stat-students-desc">No students recorded</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-title">Question Bank Size</span>
+        <span class="stat-value" id="stat-questions">0</span>
+        <span class="stat-desc" style="color:var(--indigo)" id="stat-questions-desc">Static seeded database</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-title">Avg Student XP</span>
+        <span class="stat-value" id="stat-xp">0</span>
+        <span class="stat-desc" style="color:var(--amber)" id="stat-xp-desc">Mock leaderboard metrics</span>
+      </div>
+    </section>
+
+    <!-- MAIN GRID -->
+    <main class="admin-main">
+      
+      <!-- LEFT SECTION: QUESTION MANAGER -->
+      <div>
+        <div class="admin-card">
+          <div class="card-title-wrap">
+            <h2 class="card-title">📚 Question Bank Manager</h2>
+            <div style="display:flex; gap: 8px; align-items: center;">
+              <button class="btn btn-secondary" onclick="triggerBulkImport()" style="padding:6px 12px;font-size:0.75rem;">📁 Bulk Import JSON</button>
+              <button class="btn btn-secondary" onclick="resetQuestionsDefault()" id="btn-reset-q" style="display:none;padding:6px 12px;font-size:0.75rem;">Reset Default Question Bank</button>
+            </div>
+            <input type="file" id="bulk-import-file" accept=".json" style="display:none;" onchange="handleBulkImport(event)">
+          </div>
+
+          <!-- Question search filters -->
+          <div class="search-bar">
+            <input type="text" id="q-search" class="form-input search-input" placeholder="Search question texts..." oninput="filterQuestions()">
+            <select id="q-subject-filter" class="form-input" style="width:140px;" onchange="filterQuestions()">
+              <option value="All">All Subjects</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="English Language">English Language</option>
+              <option value="Biology">Biology</option>
+              <option value="Chemistry">Chemistry</option>
+              <option value="Physics">Physics</option>
+            </select>
+            <select id="q-year-filter" class="form-input" style="width:110px;" onchange="filterQuestions()">
+              <option value="All">All Years</option>
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2018">2018</option>
+            </select>
+          </div>
+
+          <!-- Questions list scroll wrapper -->
+          <div class="question-list-items" id="question-list-container">
+            <!-- Dynamic loading -->
+          </div>
+        </div>
+
+        <!-- Registered Students Panel -->
+        <div class="admin-card">
+          <div class="card-title-wrap">
+            <h2 class="card-title">👥 Registered Students</h2>
+            <button class="btn btn-danger" onclick="confirmDeleteAllStudents()" style="padding:6px 12px;font-size:0.75rem;">Delete All Student Accounts</button>
+          </div>
+
+          <div class="table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Phone Number</th>
+                  <th>Class</th>
+                  <th>Target Exam</th>
+                  <th>XP</th>
+                  <th>Joined Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="students-table-body">
+                <!-- Loaded Dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SECTION: ADD NEW QUESTION -->
+      <div>
+        <div class="admin-card" style="position: sticky; top: 1.5rem;">
+          <h2 class="card-title" style="margin-bottom:1.2rem;">➕ Add Past Question</h2>
+          
+          <form id="add-question-form" onsubmit="handleQuestionFormSubmit(event)">
+            <div class="form-group">
+              <label class="form-label">Subject</label>
+              <select id="new-q-subject" class="form-input" required>
+                <option value="Mathematics">Mathematics</option>
+                <option value="English Language">English Language</option>
+                <option value="Biology">Biology</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Physics">Physics</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Topic</label>
+                <input type="text" id="new-q-topic" class="form-input" placeholder="e.g. Algebra" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Subtopic</label>
+                <input type="text" id="new-q-subtopic" class="form-input" placeholder="e.g. Surds">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Year</label>
+                <input type="number" id="new-q-year" class="form-input" min="2000" max="2026" value="2025" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Exam Body</label>
+                <select id="new-q-body" class="form-input" required>
+                  <option value="WAEC">WAEC</option>
+                  <option value="JAMB">JAMB</option>
+                  <option value="NECO">NECO</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Question Text</label>
+              <textarea id="new-q-text" class="form-input" placeholder="Enter question description..." required></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Option A</label>
+                <input type="text" id="new-q-opt-a" class="form-input" placeholder="Value A" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Option B</label>
+                <input type="text" id="new-q-opt-b" class="form-input" placeholder="Value B" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Option C</label>
+                <input type="text" id="new-q-opt-c" class="form-input" placeholder="Value C" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Option D</label>
+                <input type="text" id="new-q-opt-d" class="form-input" placeholder="Value D" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Correct Answer</label>
+                <select id="new-q-answer" class="form-input" required>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Difficulty</label>
+                <select id="new-q-difficulty" class="form-input" required>
+                  <option value="easy">Easy</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Explanation & Working</label>
+              <textarea id="new-q-explanation" class="form-input" placeholder="Provide step-by-step resolution details..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.5rem;justify-content:center;">🚀 Save Question to Bank</button>
+          </form>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Load script dependencies -->
+  <script src="questions.js"></script>
+  <script src="database.js"></script>
+
+  <script>
+    // State
+    let activeModalAction = "";
+    let activeDeleteId = "";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      refreshData();
+    });
+
+    function refreshData() {
+      renderStats();
+      renderStudentsList();
+      renderQuestionsList();
+    }
+
+    function renderStats() {
+      // 1. Total Students
+      const list = JSON.parse(localStorage.getItem('EXAMEDGE_all_students') || '[]');
+      document.getElementById("stat-students").textContent = list.length;
+      document.getElementById("stat-students-desc").textContent = list.length === 1 
+        ? "1 student registered" 
+        : `${list.length} student accounts`;
+
+      // 2. Questions length
+      const questionsList = ExamEdgeDB.getQuestions();
+      document.getElementById("stat-questions").textContent = questionsList.length;
+      
+      const customQs = localStorage.getItem("EXAMEDGE_custom_questions");
+      document.getElementById("stat-questions-desc").innerHTML = customQs 
+        ? `<span style="color:var(--amber)">Custom database overrides active</span>` 
+        : `Static seeded database`;
+      document.getElementById("btn-reset-q").style.display = customQs ? "block" : "none";
+
+      // 3. Avg Student XP
+      if (list.length > 0) {
+        const totalXp = list.reduce((sum, item) => sum + (item.xp || 0), 0);
+        const avg = Math.round(totalXp / list.length);
+        document.getElementById("stat-xp").textContent = `${avg} PTS`;
+      } else {
+        document.getElementById("stat-xp").textContent = "0 PTS";
+      }
+    }
+
+    function renderStudentsList() {
+      const list = JSON.parse(localStorage.getItem('EXAMEDGE_all_students') || '[]');
+      const tbody = document.getElementById("students-table-body");
+      tbody.innerHTML = "";
+
+      if (list.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align:center;padding:2rem;color:var(--text-muted)">
+              No registered students found. You can register your account on the <a href="register.html" style="color:var(--indigo);font-weight:700">registration page</a>.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      list.forEach(student => {
+        const joinedDate = student.joinedAt 
+          ? new Date(student.joinedAt).toLocaleDateString('en-NG', { month: 'short', day: 'numeric', year: 'numeric' }) 
+          : 'Seed User';
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td><strong>${student.name}</strong></td>
+          <td class="mono">${student.phone}</td>
+          <td>${student.class || 'SS3'}</td>
+          <td><span class="badge ${student.subscription === 'premium' ? 'badge-premium' : 'badge-free'}">${student.examTarget || 'WAEC'}</span></td>
+          <td class="mono" style="color:var(--indigo);font-weight:700;">${student.xp || 0}</td>
+          <td>${joinedDate}</td>
+          <td>
+            <button class="btn btn-danger" onclick="deleteIndividualStudent('${student.phone}')" style="padding:4px 8px;font-size:0.7rem;">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function renderQuestionsList(questions = null) {
+      const qs = questions || ExamEdgeDB.getQuestions();
+      const container = document.getElementById("question-list-container");
+      container.innerHTML = "";
+
+      if (qs.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:2rem;color:var(--text-muted)">
+            No questions match this filter criteria.
+          </div>
+        `;
+        return;
+      }
+
+      // Sort newest first
+      const displayList = [...qs].reverse();
+
+      displayList.forEach(q => {
+        const item = document.createElement("div");
+        item.className = "q-item";
+        item.innerHTML = `
+          <div class="q-item-meta">
+            <span><strong>${q.subject}</strong> · ${q.topic}</span>
+            <span>WAEC ${q.year} · <span style="color:var(--amber);text-transform:uppercase;font-weight:700">${q.difficulty}</span></span>
+          </div>
+          <div class="q-item-text">${q.question}</div>
+          <div class="q-item-answer">Correct Option: ${q.answer}</div>
+          <button class="q-item-delete" title="Delete Question" onclick="deleteIndividualQuestion('${q.id}')">&times;</button>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function filterQuestions() {
+      const query = document.getElementById("q-search").value.toLowerCase().trim();
+      const subject = document.getElementById("q-subject-filter").value;
+      const year = document.getElementById("q-year-filter").value;
+
+      let list = ExamEdgeDB.getQuestions();
+
+      if (subject !== "All") {
+        list = list.filter(q => q.subject === subject);
+      }
+      if (year !== "All") {
+        list = list.filter(q => q.year === parseInt(year));
+      }
+      if (query !== "") {
+        list = list.filter(q => q.question.toLowerCase().includes(query) || q.topic.toLowerCase().includes(query));
+      }
+
+      renderQuestionsList(list);
+    }
+
+    // FORM ACTION
+    function handleQuestionFormSubmit(e) {
+      e.preventDefault();
+
+      const subject = document.getElementById("new-q-subject").value;
+      const topic = document.getElementById("new-q-topic").value.trim();
+      const subtopic = document.getElementById("new-q-subtopic").value.trim();
+      const year = parseInt(document.getElementById("new-q-year").value);
+      const exam_body = document.getElementById("new-q-body").value;
+      const question = document.getElementById("new-q-text").value.trim();
+      const optA = document.getElementById("new-q-opt-a").value.trim();
+      const optB = document.getElementById("new-q-opt-b").value.trim();
+      const optC = document.getElementById("new-q-opt-c").value.trim();
+      const optD = document.getElementById("new-q-opt-d").value.trim();
+      const answer = document.getElementById("new-q-answer").value;
+      const difficulty = document.getElementById("new-q-difficulty").value;
+      const explanation = document.getElementById("new-q-explanation").value.trim();
+
+      const newQ = {
+        id: "cust-" + Date.now(),
+        subject,
+        topic,
+        subtopic,
+        year,
+        exam_body,
+        type: "MCQ",
+        question,
+        options: {
+          A: optA,
+          B: optB,
+          C: optC,
+          D: optD
+        },
+        answer,
+        explanation,
+        difficulty,
+        tags: [topic.toLowerCase()]
+      };
+
+      const fullList = [...ExamEdgeDB.getQuestions()];
+      fullList.push(newQ);
+      ExamEdgeDB.saveQuestions(fullList);
+
+      showToast("Question added successfully!");
+      document.getElementById("add-question-form").reset();
+      refreshData();
+    }
+
+    // MODAL DIALOGS
+    function confirmWipeDatabase() {
+      openModal(
+        "Wipe Platform Database?",
+        "This will clear ALL LocalStorage keys, resetting study logs, custom questions, and clearing registered student credentials back to a completely blank slate.",
+        "Wipe Everything",
+        "wipe_system"
+      );
+    }
+
+    function confirmDeleteAllStudents() {
+      openModal(
+        "Delete All Student Accounts?",
+        "This will remove the current active profile session and clear the entire registered student database so that the next registration will be the first student record.",
+        "Delete Students",
+        "delete_students"
+      );
+    }
+
+    function deleteIndividualStudent(phone) {
+      activeDeleteId = phone;
+      openModal(
+        "Delete Student Account?",
+        `Are you sure you want to delete the student with phone number ${phone}?`,
+        "Delete Student",
+        "delete_individual_student"
+      );
+    }
+
+    function deleteIndividualQuestion(qId) {
+      activeDeleteId = qId;
+      openModal(
+        "Delete Question from Bank?",
+        "This will remove the selected question from the active database cache list.",
+        "Delete Question",
+        "delete_individual_question"
+      );
+    }
+
+    function resetQuestionsDefault() {
+      ExamEdgeDB.resetQuestions();
+      showToast("Question bank restored to default values!");
+      refreshData();
+    }
+
+    function triggerBulkImport() {
+      document.getElementById("bulk-import-file").click();
+    }
+
+    function handleBulkImport(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (!Array.isArray(imported)) {
+            showToast("Error: Uploaded JSON must be a list of questions.", "error");
+            return;
+          }
+
+          if (imported.length > 0) {
+            const first = imported[0];
+            if (!first.question || !first.subject || !first.options || !first.answer) {
+              showToast("Error: Invalid question format in JSON.", "error");
+              return;
+            }
+          }
+
+          const existingQs = ExamEdgeDB.getQuestions();
+          const existingTexts = new Set(existingQs.map(q => q.question.toLowerCase().trim()));
+
+          let newCount = 0;
+          const merged = [...existingQs];
+
+          imported.forEach(q => {
+            const txt = q.question.toLowerCase().trim();
+            if (!existingTexts.has(txt)) {
+              if (!q.id) {
+                q.id = "imported-" + Math.random().toString(36).substr(2, 9);
+              }
+              merged.push(q);
+              existingTexts.add(txt);
+              newCount++;
+            }
+          });
+
+          ExamEdgeDB.saveQuestions(merged);
+          showToast(`Successfully imported ${newCount} new questions!`);
+          refreshData();
+        } catch (err) {
+          console.error(err);
+          showToast("Error reading file: invalid JSON format.", "error");
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = "";
+    }
+
+    function openModal(title, msg, confirmText, action) {
+      document.getElementById("modal-title").textContent = title;
+      document.getElementById("modal-msg").textContent = msg;
+      
+      const confirmBtn = document.getElementById("modal-confirm-btn");
+      confirmBtn.textContent = confirmText;
+      
+      activeModalAction = action;
+      document.getElementById("confirm-modal").classList.add("open");
+    }
+
+    function closeModal() {
+      document.getElementById("confirm-modal").classList.remove("open");
+      activeModalAction = "";
+      activeDeleteId = "";
+    }
+
+    function executeModalAction() {
+      closeModal();
+      
+      if (activeModalAction === "wipe_system") {
+        ExamEdgeDB.resetSystem();
+        showToast("System database cleared successfully!");
+        setTimeout(() => { window.location.href = "index.html"; }, 1000);
+      } else if (activeModalAction === "delete_students") {
+        ExamEdgeDB.clearAllStudents();
+        showToast("All registered students cleared.");
+        refreshData();
+      } else if (activeModalAction === "delete_individual_student") {
+        const list = JSON.parse(localStorage.getItem('EXAMEDGE_all_students') || '[]');
+        const updated = list.filter(s => s.phone !== activeDeleteId);
+        localStorage.setItem('EXAMEDGE_all_students', JSON.stringify(updated));
+
+        // If active user log in phone is deleted, log them out
+        const currentUser = ExamEdgeDB.getUser();
+        if (currentUser && currentUser.phone === activeDeleteId) {
+          ExamEdgeDB.logout();
+        }
+
+        showToast("Student account deleted.");
+        refreshData();
+      } else if (activeModalAction === "delete_individual_question") {
+        const fullList = ExamEdgeDB.getQuestions();
+        const updated = fullList.filter(q => q.id !== activeDeleteId);
+        
+        // Save as override
+        ExamEdgeDB.saveQuestions(updated);
+        showToast("Question removed from bank.");
+        refreshData();
+      }
+    }
+
+    // HELPERS
+    function showToast(message, type = "success") {
+      const wrap = document.getElementById("toast-wrap");
+      const toast = document.createElement("div");
+      toast.className = `toast toast-${type}`;
+      toast.textContent = message;
+      wrap.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.4s ease";
+        setTimeout(() => { toast.remove(); }, 400);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

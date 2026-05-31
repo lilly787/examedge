@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — ExamEdge</title>
+  <meta name="description" content="Join 100,000+ Nigerian students on ExamEdge. Sign up free in under 2 minutes and start practicing WAEC, NECO & JAMB past questions today.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#07060f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07060f;
+      --surface: rgba(18,15,38,0.85);
+      --surface2: rgba(22,18,50,0.6);
+      --border: rgba(99,102,241,0.18);
+      --indigo: #6366f1;
+      --violet: #8b5cf6;
+      --emerald: #10b981;
+      --rose: #f43f5e;
+      --amber: #f59e0b;
+      --text: #f1f0f7;
+      --muted: #8b88a8;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; }
+
+    /* BG GRADIENT */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 50% 40% at 50% 0%, rgba(99,102,241,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 25% at 90% 60%, rgba(139,92,246,0.08) 0%, transparent 50%);
+    }
+
+    /* ===== LAYOUT ===== */
+    .page-wrap {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .panel-right {
+      min-height: 100vh;
+    }
+
+    .form-panel {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    /* LEFT PANEL — info side */
+    .panel-left {
+      background: rgba(10,8,20,0.3);
+      border-right: 1px solid var(--border);
+      padding: 3rem 3rem 3rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .panel-left::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: -100px;
+      width: 400px; height: 400px;
+      background: rgba(99,102,241,0.07);
+      border-radius: 50%;
+      filter: blur(80px);
+    }
+    .panel-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; margin-bottom: 3rem; }
+    .logo-icon-lg {
+      width: 44px; height: 44px;
+      background: rgba(99,102,241,0.2);
+      border: 1px solid rgba(99,102,241,0.4);
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .logo-text-lg { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.5rem; color: #fff; }
+
+    .panel-headline { font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 1rem; }
+    .gradient-text { background: linear-gradient(135deg, #a5b4fc, #c4b5fd, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .panel-sub { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 2.5rem; }
+
+    /* Feature list */
+    .feature-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 2.5rem; }
+    .feat-item { display: flex; align-items: flex-start; gap: 12px; }
+    .feat-check {
+      width: 26px; height: 26px; flex-shrink: 0;
+      background: rgba(16,185,129,0.15);
+      border: 1px solid rgba(16,185,129,0.35);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; color: var(--emerald); font-weight: 900;
+    }
+    .feat-text { font-size: 0.85rem; color: #c4c2dc; line-height: 1.5; }
+    .feat-text b { color: #fff; }
+
+    /* Social proof */
+    .left-proof {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0.9rem 1.2rem;
+      background: rgba(99,102,241,0.06);
+      border: 1px solid rgba(99,102,241,0.15);
+      border-radius: 14px;
+    }
+    .av-stack { display: flex; }
+    .av-mini {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 2px solid var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 800; color: #fff;
+      margin-left: -8px;
+    }
+    .av-mini:first-child { margin-left: 0; }
+    .proof-text { font-size: 0.8rem; color: var(--muted); }
+    .proof-text b { color: #fff; }
+    .stars-sm { color: #fbbf24; font-size: 0.75rem; letter-spacing: 1px; display: block; margin-top: 2px; }
+
+    /* ===== RIGHT PANEL — form ===== */
+    .panel-right {
+      padding: 3rem 3.5rem 3rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .back-link {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      font-size: 0.78rem; color: var(--muted); text-decoration: none;
+      display: flex; align-items: center; gap: 4px; transition: color 0.2s;
+    }
+    .back-link:hover { color: #fff; }
+
+    .form-header { margin-bottom: 2rem; }
+    .form-header h1 { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 0.3rem; }
+    .form-header p { font-size: 0.85rem; color: var(--muted); }
+
+    /* STEP INDICATOR */
+    .step-indicator {
+      display: flex; align-items: center; gap: 0; margin-bottom: 2rem;
+    }
+    .step-node {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 800;
+      transition: all 0.35s;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .step-node.active { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; box-shadow: 0 0 20px rgba(99,102,241,0.4); }
+    .step-node.done { background: var(--emerald); color: #fff; }
+    .step-node.pending { background: rgba(30,27,60,1); color: rgba(99,102,241,0.3); border: 2px solid rgba(99,102,241,0.15); }
+    .step-node .step-label {
+      position: absolute; top: 44px; left: 50%; transform: translateX(-50%);
+      font-size: 0.62rem; white-space: nowrap; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .step-line { flex: 1; height: 2px; background: rgba(99,102,241,0.12); transition: background 0.4s; }
+    .step-line.done { background: rgba(99,102,241,0.45); }
+
+    /* INPUT STYLES */
+    .input-group { margin-bottom: 1.1rem; }
+    .input-label { display: block; font-size: 0.72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .input-field {
+      width: 100%;
+      background: rgba(10,8,20,0.5);
+      border: 1.5px solid rgba(99,102,241,0.18);
+      border-radius: 13px;
+      padding: 0.9rem 1rem;
+      color: #fff;
+      font-size: 0.93rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: all 0.25s;
+    }
+    .input-field:focus { border-color: rgba(99,102,241,0.65); box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+    .input-field::placeholder { color: rgba(139,136,168,0.45); }
+    select.input-field option { background: #0f0c1e; }
+
+    .phone-row { display: flex; gap: 8px; }
+    .phone-prefix {
+      display: flex; align-items: center;
+      padding: 0 14px;
+      background: rgba(10,8,20,0.5);
+      border: 1.5px solid rgba(99,102,241,0.18);
+      border-radius: 13px;
+      font-size: 0.85rem; color: var(--muted); white-space: nowrap;
+      gap: 6px;
+    }
+
+    /* OTP inputs */
+    .otp-row { display: flex; justify-content: center; gap: 12px; margin-bottom: 1.5rem; }
+    .otp-box {
+      width: 58px; height: 68px;
+      text-align: center; font-size: 1.6rem; font-weight: 900;
+      font-family: 'Outfit', sans-serif;
+      background: rgba(10,8,20,0.5);
+      border: 2px solid rgba(99,102,241,0.2);
+      border-radius: 14px;
+      color: #fff; outline: none;
+      transition: all 0.2s;
+    }
+    .otp-box:focus { border-color: rgba(99,102,241,0.75); box-shadow: 0 0 0 3px rgba(99,102,241,0.15); transform: scale(1.06); }
+    .otp-box.filled { border-color: rgba(99,102,241,0.5); background: rgba(99,102,241,0.1); }
+
+    /* SUBJECT CHIPS */
+    .chip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.2rem; }
+    .subject-chip {
+      padding: 10px 12px;
+      border: 1.5px solid rgba(99,102,241,0.15);
+      border-radius: 12px;
+      background: rgba(10,8,20,0.4);
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      user-select: none;
+    }
+    .subject-chip:hover { border-color: rgba(99,102,241,0.35); color: #c4c2dc; }
+    .subject-chip.selected { background: rgba(99,102,241,0.18); border-color: rgba(99,102,241,0.55); color: #a5b4fc; }
+
+    /* Exam target radio */
+    .exam-radio-row { display: flex; gap: 8px; margin-bottom: 1.1rem; }
+    .exam-radio-opt {
+      flex: 1; padding: 10px 8px; text-align: center;
+      border: 1.5px solid rgba(99,102,241,0.15);
+      border-radius: 12px; cursor: pointer;
+      font-size: 0.83rem; font-weight: 700; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .exam-radio-opt:hover { border-color: rgba(99,102,241,0.35); color: #c4c2dc; }
+    .exam-radio-opt.selected { background: rgba(99,102,241,0.15); border-color: rgba(99,102,241,0.5); color: #a5b4fc; }
+    .exam-radio-opt input { display: none; }
+
+    /* BUTTONS */
+    .btn-main {
+      width: 100%;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 1rem;
+      padding: 1rem;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 10px 28px rgba(99,102,241,0.28);
+      margin-top: 0.5rem;
+    }
+    .btn-main:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(99,102,241,0.38); }
+    .btn-main:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-cta-start {
+      width: 100%;
+      background: linear-gradient(135deg, #f59e0b, #f97316);
+      color: #0a0814;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 1rem;
+      padding: 1rem;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 10px 28px rgba(245,158,11,0.28);
+      margin-top: 0.5rem;
+    }
+    .btn-cta-start:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(245,158,11,0.38); }
+    .btn-cta-start:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* FORM PANELS */
+    .form-panel { display: none; }
+    .form-panel.active { display: block; animation: fadeUp 0.35s ease; }
+    @keyframes fadeUp { from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
+
+    .info-box {
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .info-box.demo { background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.25); color: #a5b4fc; }
+    .info-box.error { background: rgba(244,63,94,0.08); border: 1px solid rgba(244,63,94,0.3); color: #fca5a5; }
+
+    .link-text { color: #a5b4fc; font-weight: 600; text-decoration: none; transition: color 0.2s; }
+    .link-text:hover { color: #c4b5fd; }
+    .sub-text { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 1rem; }
+
+    /* SUCCESS STATE */
+    .success-state { text-align: center; padding: 1.5rem 0; }
+    .success-emoji { font-size: 4rem; margin-bottom: 1rem; display: block; animation: popIn 0.5s ease; }
+    @keyframes popIn { 0%{transform:scale(0) rotate(-15deg);opacity:0} 65%{transform:scale(1.2) rotate(4deg)} 100%{transform:scale(1) rotate(0);opacity:1} }
+    .success-state h2 { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 0.4rem; }
+    .success-state p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.5rem; }
+    .progress-wave {
+      height: 4px; border-radius: 9999px;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899, #f59e0b);
+      background-size: 200% 100%;
+      margin: 1rem 0;
+      animation: waveShift 1.5s linear infinite;
+    }
+    @keyframes waveShift { from{ background-position: 0 0; } to{ background-position: 200% 0; } }
+
+    /* DIVIDER */
+    .divider { display: flex; align-items: center; gap: 10px; margin: 1rem 0; }
+    .divider hr { flex: 1; border: none; border-top: 1px solid rgba(99,102,241,0.1); }
+    .divider span { font-size: 0.72rem; color: rgba(139,136,168,0.4); white-space: nowrap; }
+
+    /* OTP demo hint */
+    .otp-hint {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px;
+      background: rgba(99,102,241,0.1);
+      border-radius: 9999px;
+      font-size: 0.75rem; color: #a5b4fc;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .otp-code { font-weight: 900; font-size: 0.9rem; color: #c4b5fd; letter-spacing: 0.15em; }
+
+    /* Mobile responsive */
+    @media (max-width: 900px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .panel-left { display: none; }
+      .panel-right { padding: 2rem 1.5rem; justify-content: flex-start; padding-top: 4rem; }
+    }
+    @media (max-width: 600px) {
+      .step-node .step-label { display: none; }
+    }
+    @media (max-width: 480px) {
+      .chip-grid { grid-template-columns: 1fr; }
+      .otp-box { width: 44px; height: 54px; font-size: 1.25rem; }
+      .otp-row { gap: 6px; }
+      .phone-prefix { padding: 0 10px; font-size: 0.8rem; }
+      .exam-radio-row { flex-direction: column; gap: 6px; }
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 9999px; }
+
+    /* MOBILE LOGO (shown only on mobile) */
+    .mobile-logo { display: none; flex-direction: row; align-items: center; gap: 10px; margin-bottom: 1.8rem; }
+    @media (max-width: 900px) { .mobile-logo { display: flex; } }
+  </style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- ===== LEFT PANEL ===== -->
+  <div class="panel-left">
+    <div>
+      <a href="landing.html" class="panel-logo">
+        <div class="logo-icon-lg">🎓</div>
+        <span class="logo-text-lg">ExamEdge</span>
+      </a>
+
+      <h2 class="panel-headline">
+        Pass WAEC in<br>
+        <span class="gradient-text">First Sitting.</span>
+      </h2>
+      <p class="panel-sub">
+        Nigeria's most powerful exam prep platform. Real past questions, personalized study plans, and CBT mock exams — all for less than one tutorial session.
+      </p>
+
+      <div class="feature-list">
+        <div class="feat-item">
+          <div class="feat-check">✓</div>
+          <div class="feat-text"><b>5,000+ real past questions</b> from WAEC, NECO & JAMB (2010–2025)</div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-check">✓</div>
+          <div class="feat-text"><b>Timed CBT mock exams</b> — exact replica of digital exam conditions</div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-check">✓</div>
+          <div class="feat-text"><b>Weakness detection</b> — your red topics get automatically drilled daily</div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-check">✓</div>
+          <div class="feat-text"><b>Offline access</b> — no internet needed after download</div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-check">✓</div>
+          <div class="feat-text"><b>Free forever</b> — 20 practice questions daily at zero cost</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="left-proof">
+      <div class="av-stack">
+        <div class="av-mini" style="background:#6366f1">F</div>
+        <div class="av-mini" style="background:#8b5cf6">C</div>
+        <div class="av-mini" style="background:#ec4899">A</div>
+        <div class="av-mini" style="background:#10b981">T</div>
+        <div class="av-mini" style="background:#f59e0b">N</div>
+      </div>
+      <div>
+        <div class="proof-text"><b>100,000+ students</b> already practicing</div>
+        <span class="stars-sm">★★★★★ 4.9/5 · 89% improved WAEC scores</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RIGHT PANEL ===== -->
+  <div class="panel-right">
+    <a href="landing.html" class="back-link">← Back to Home</a>
+
+    <!-- Mobile Logo -->
+    <div class="mobile-logo">
+      <div class="logo-icon-lg">🎓</div>
+      <span class="logo-text-lg">ExamEdge</span>
+    </div>
+
+    <div class="form-header">
+      <h1 id="form-title">Create Your Account</h1>
+      <p id="form-subtitle">Join 100,000+ Nigerian students preparing for WAEC & JAMB. It's completely free to start.</p>
+    </div>
+
+    <!-- STEP INDICATOR -->
+    <div class="step-indicator" style="margin-bottom:2.5rem">
+      <div class="step-node active" id="sn1">
+        1
+        <span class="step-label">Details</span>
+      </div>
+      <div class="step-line" id="sl1"></div>
+      <div class="step-node pending" id="sn2">
+        2
+        <span class="step-label">Verify</span>
+      </div>
+      <div class="step-line" id="sl2"></div>
+      <div class="step-node pending" id="sn3">
+        3
+        <span class="step-label">Subjects</span>
+      </div>
+    </div>
+
+    <!-- ===== STEP 1: DETAILS ===== -->
+    <div class="form-panel active" id="panel-1">
+      <div class="input-group">
+        <label class="input-label" for="reg-name">Full Name</label>
+        <input type="text" id="reg-name" class="input-field" placeholder="e.g. Fatima Yakubu" autocomplete="name">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Phone Number</label>
+        <div class="phone-row">
+          <div class="phone-prefix">🇳🇬 +234</div>
+          <input type="tel" id="reg-phone" class="input-field" placeholder="0812 345 6789" maxlength="11" autocomplete="tel">
+        </div>
+      </div>
+      <div class="input-group">
+        <label class="input-label" for="reg-class">Your Class</label>
+        <select id="reg-class" class="input-field">
+          <option value="">Select your class</option>
+          <option value="SS1">SS1</option>
+          <option value="SS2">SS2</option>
+          <option value="SS3">SS3 — Final Year</option>
+          <option value="Graduate">Graduate / JAMB Repeater</option>
+        </select>
+      </div>
+
+      <div class="info-box demo" id="step1-err" style="display:none">
+        <span>⚠️</span>
+        <span id="step1-err-text">Please check all fields.</span>
+      </div>
+
+      <button class="btn-main" id="btn-send-otp" onclick="sendOTP()">
+        Send Verification Code →
+      </button>
+
+      <div class="sub-text">
+        Already have an account? <a href="index.html" class="link-text">Log In</a>
+      </div>
+    </div>
+
+    <!-- ===== STEP 2: OTP ===== -->
+    <div class="form-panel" id="panel-2">
+      <div style="text-align:center;margin-bottom:1.5rem">
+        <div style="font-size:2.5rem;margin-bottom:0.5rem">📱</div>
+        <h2 style="font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:0.4rem">Verify Your Number</h2>
+        <p style="font-size:0.83rem;color:var(--muted)">Code sent to <span id="otp-phone-shown" style="color:#fff;font-weight:600">+234...</span></p>
+      </div>
+
+      <div style="text-align:center">
+        <div class="otp-hint">
+          Demo OTP: <span class="otp-code" id="otp-code-preview">----</span>
+        </div>
+      </div>
+
+      <div class="otp-row">
+        <input type="text" maxlength="1" class="otp-box" id="otp-0" inputmode="numeric" pattern="[0-9]">
+        <input type="text" maxlength="1" class="otp-box" id="otp-1" inputmode="numeric" pattern="[0-9]">
+        <input type="text" maxlength="1" class="otp-box" id="otp-2" inputmode="numeric" pattern="[0-9]">
+        <input type="text" maxlength="1" class="otp-box" id="otp-3" inputmode="numeric" pattern="[0-9]">
+      </div>
+
+      <div class="info-box error" id="step2-err" style="display:none">
+        <span>⚠️</span>
+        <span id="step2-err-text">Incorrect code. Please check and try again.</span>
+      </div>
+
+      <button class="btn-main" id="btn-verify" onclick="verifyOTP()">
+        Verify & Continue →
+      </button>
+
+      <div class="sub-text" style="margin-top:0.8rem">
+        Didn't receive it? <button onclick="resendCode()" style="background:none;border:none;color:#a5b4fc;font-weight:600;cursor:pointer;font-size:0.78rem;" id="resend-btn">Resend code</button>
+        &nbsp;·&nbsp;
+        <button onclick="goStep(1)" style="background:none;border:none;color:var(--muted);font-size:0.78rem;cursor:pointer;">← Change number</button>
+      </div>
+    </div>
+
+    <!-- ===== STEP 3: SUBJECTS ===== -->
+    <div class="form-panel" id="panel-3">
+      <h3 style="font-size:1rem;font-weight:800;color:#fff;margin-bottom:0.3rem">Pick Your Subjects</h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1rem">Select subjects you're writing in WAEC/JAMB (choose at least 2).</p>
+
+      <div class="chip-grid" id="chip-grid">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="input-group" style="margin-bottom:0.8rem">
+        <label class="input-label">Target Exam</label>
+        <div class="exam-radio-row" id="exam-radio-row">
+          <div class="exam-radio-opt selected" data-val="WAEC" onclick="selectExam(this,'WAEC')"><input type="radio" name="exam" value="WAEC"> WAEC</div>
+          <div class="exam-radio-opt" data-val="JAMB" onclick="selectExam(this,'JAMB')"><input type="radio" name="exam" value="JAMB"> JAMB</div>
+          <div class="exam-radio-opt" data-val="BOTH" onclick="selectExam(this,'BOTH')"><input type="radio" name="exam" value="BOTH"> Both</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label" for="exam-month">Exam Month (approximate)</label>
+        <input type="month" id="exam-month" class="input-field" min="2025-01">
+      </div>
+
+      <div class="info-box error" id="step3-err" style="display:none">
+        <span>⚠️</span>
+        <span id="step3-err-text">Please select at least 2 subjects.</span>
+      </div>
+
+      <button class="btn-cta-start" id="btn-complete" onclick="completeReg()">
+        🚀 Start Practicing Now →
+      </button>
+    </div>
+
+    <!-- ===== SUCCESS STATE ===== -->
+    <div class="form-panel" id="panel-success">
+      <div class="success-state">
+        <span class="success-emoji">🎉</span>
+        <h2>You're All Set!</h2>
+        <p>Your account is ready, <span id="success-first-name" style="color:#fff;font-weight:700"></span>! Time to crush those past questions and get your A1.</p>
+        <div class="progress-wave"></div>
+        <p style="font-size:0.78rem;color:var(--muted);margin-bottom:1.5rem">Redirecting to your dashboard in 3 seconds…</p>
+        <a href="index.html" class="btn-main" style="display:block;text-align:center;text-decoration:none">
+          Go to Dashboard →
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // =================== DATA ===================
+  const SUBJECTS = [
+    { id: 'math', label: '📐 Mathematics' },
+    { id: 'english', label: '📖 English Language' },
+    { id: 'biology', label: '🔬 Biology' },
+    { id: 'chemistry', label: '⚗️ Chemistry' },
+    { id: 'physics', label: '⚡ Physics' },
+    { id: 'economics', label: '💰 Economics' },
+    { id: 'government', label: '🏛️ Government' },
+    { id: 'literature', label: '📚 Literature' },
+    { id: 'agric', label: '🌱 Agric. Science' },
+    { id: 'commerce', label: '🏪 Commerce' },
+  ];
+
+  let state = {
+    name: '', phone: '', cls: '',
+    otp: '',
+    subjects: new Set(['math', 'english']),
+    examTarget: 'WAEC',
+    examDate: '',
+    step: 1
+  };
+
+  // Build subject grid
+  const grid = document.getElementById('chip-grid');
+  SUBJECTS.forEach(s => {
+    const chip = document.createElement('div');
+    chip.className = `subject-chip${state.subjects.has(s.id) ? ' selected' : ''}`;
+    chip.textContent = s.label;
+    chip.id = `chip-${s.id}`;
+    chip.onclick = () => toggleChip(s.id, chip);
+    grid.appendChild(chip);
+  });
+
+  function toggleChip(id, el) {
+    if (state.subjects.has(id)) {
+      if (state.subjects.size <= 2) return; // min 2
+      state.subjects.delete(id);
+      el.classList.remove('selected');
+    } else {
+      state.subjects.add(id);
+      el.classList.add('selected');
+    }
+  }
+
+  function selectExam(el, val) {
+    state.examTarget = val;
+    document.querySelectorAll('.exam-radio-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // =================== STEPS ===================
+  function goStep(n) {
+    document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`panel-${n === 4 ? 'success' : n}`).classList.add('active');
+    state.step = n;
+    updateStepIndicator(n);
+
+    // Update header copy
+    const titles = ['', 'Create Your Account', 'Verify Your Number', 'Choose Your Subjects', ''];
+    const subs = [
+      '',
+      'Join 100,000+ Nigerian students preparing for WAEC & JAMB. It\'s completely free to start.',
+      'Enter the 4-digit code we sent to your phone.',
+      'Tell us what you\'re writing so we can personalize your practice.',
+      ''
+    ];
+    if (titles[n]) {
+      document.getElementById('form-title').textContent = titles[n];
+      document.getElementById('form-subtitle').textContent = subs[n];
+    }
+  }
+
+  function updateStepIndicator(n) {
+    [1,2,3].forEach(i => {
+      const node = document.getElementById(`sn${i}`);
+      if (i < n) {
+        node.className = 'step-node done';
+        node.firstChild.textContent = '✓'; // text node
+        node.textContent = '✓';
+        const label = document.createElement('span');
+        label.className = 'step-label';
+        label.textContent = ['Details','Verify','Subjects'][i-1];
+        node.appendChild(label);
+      } else if (i === n) {
+        node.className = 'step-node active';
+        node.textContent = i;
+        const label = document.createElement('span');
+        label.className = 'step-label';
+        label.textContent = ['Details','Verify','Subjects'][i-1];
+        node.appendChild(label);
+      } else {
+        node.className = 'step-node pending';
+        node.textContent = i;
+        const label = document.createElement('span');
+        label.className = 'step-label';
+        label.textContent = ['Details','Verify','Subjects'][i-1];
+        node.appendChild(label);
+      }
+    });
+    [1,2].forEach(i => {
+      document.getElementById(`sl${i}`).className = `step-line${n > i ? ' done' : ''}`;
+    });
+  }
+
+  // =================== OTP FLOW ===================
+  async function sendOTP() {
+    const name = document.getElementById('reg-name').value.trim();
+    const phone = document.getElementById('reg-phone').value.replace(/\s/g,'');
+    const cls = document.getElementById('reg-class').value;
+
+    if (name.length < 2) { showErr('step1', 'Please enter your full name.'); return; }
+    if (phone.length < 10) { showErr('step1', 'Please enter a valid 10-11 digit phone number.'); return; }
+    if (!cls) { showErr('step1', 'Please select your school class.'); return; }
+
+    hideErr('step1');
+    state.name = name; state.phone = phone; state.cls = cls;
+
+    // Generate OTP
+    state.otp = String(Math.floor(1000 + Math.random() * 9000));
+    document.getElementById('otp-code-preview').textContent = state.otp;
+    document.getElementById('otp-phone-shown').textContent = `+234 ${phone}`;
+
+    const btn = document.getElementById('btn-send-otp');
+    btn.textContent = 'Sending code…';
+    btn.disabled = true;
+    await sleep(900);
+    btn.disabled = false;
+    btn.textContent = 'Send Verification Code →';
+
+    goStep(2);
+    setTimeout(() => document.getElementById('otp-0').focus(), 80);
+  }
+
+  async function verifyOTP() {
+    const entered = [0,1,2,3].map(i => document.getElementById(`otp-${i}`).value).join('');
+    if (entered.length < 4) { showErr('step2', 'Please enter all 4 digits of the code.'); return; }
+    if (entered !== state.otp) {
+      showErr('step2', 'Incorrect code. Check the demo code shown above.');
+      document.querySelectorAll('.otp-box').forEach(el => {
+        el.style.borderColor = 'rgba(244,63,94,0.7)';
+        setTimeout(() => el.style.borderColor = '', 1200);
+      });
+      return;
+    }
+    hideErr('step2');
+    const btn = document.getElementById('btn-verify');
+    btn.textContent = 'Verifying…';
+    btn.disabled = true;
+    await sleep(700);
+    btn.disabled = false;
+    btn.textContent = 'Verify & Continue →';
+    goStep(3);
+  }
+
+  function resendCode() {
+    state.otp = String(Math.floor(1000 + Math.random() * 9000));
+    document.getElementById('otp-code-preview').textContent = state.otp;
+    const btn = document.getElementById('resend-btn');
+    btn.textContent = 'Resent! ✓';
+    setTimeout(() => btn.textContent = 'Resend code', 3000);
+  }
+
+  async function completeReg() {
+    if (state.subjects.size < 2) { showErr('step3', 'Please select at least 2 subjects.'); return; }
+    hideErr('step3');
+
+    const btn = document.getElementById('btn-complete');
+    btn.textContent = '⏳ Setting up your account…';
+    btn.disabled = true;
+    await sleep(1300);
+
+    const user = {
+      id: 's-' + Date.now(),
+      name: state.name,
+      phone: '+234' + state.phone,
+      class: state.cls,
+      subjects: [...state.subjects],
+      examTarget: state.examTarget,
+      examDate: document.getElementById('exam-month').value,
+      subscription: 'free',
+      subscription_tier: 'free',
+      joinedAt: new Date().toISOString(),
+      xp: 0,
+      study_streak: 0,
+      questionsAnswered: 0,
+      exam_date: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(), // 60 days out
+      exam_target: state.examTarget,
+    };
+
+    localStorage.setItem('EXAMEDGE_user', JSON.stringify(user));
+    localStorage.setItem('EXAMEDGE_LOGGED_IN', 'true');
+    addStudentToGlobalList(user);
+
+    document.getElementById('success-first-name').textContent = state.name.split(' ')[0];
+    goStep(4);
+    document.getElementById('form-title').textContent = 'You\'re In! 🎉';
+    document.getElementById('form-subtitle').textContent = 'Your ExamEdge account is all set.';
+
+    // Auto redirect
+    setTimeout(() => { window.location.href = 'index.html'; }, 3000);
+  }
+
+  // =================== HELPERS ===================
+  function addStudentToGlobalList(user) {
+    const list = JSON.parse(localStorage.getItem('EXAMEDGE_all_students') || '[]');
+    const exists = list.find(s => s.phone === user.phone);
+    if (!exists) {
+      list.push({
+        id: user.id,
+        name: user.name,
+        phone: user.phone,
+        class: user.class,
+        subjects: user.subjects,
+        examTarget: user.examTarget,
+        subscription: user.subscription || 'free',
+        joinedAt: user.joinedAt,
+        questionsAnswered: user.questionsAnswered || 0,
+        xp: user.xp || 0
+      });
+      localStorage.setItem('EXAMEDGE_all_students', JSON.stringify(list));
+    }
+  }
+
+  function showErr(step, msg) {
+    const box = document.getElementById(`${step}-err`);
+    const text = document.getElementById(`${step}-err-text`);
+    if (text) text.textContent = msg;
+    if (box) {
+      box.style.display = 'flex';
+      setTimeout(() => { box.style.display = 'none'; }, 5000);
+    }
+  }
+  function hideErr(step) {
+    const box = document.getElementById(`${step}-err`);
+    if (box) box.style.display = 'none';
+  }
+  function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  // =================== OTP AUTO-ADVANCE ===================
+  [0,1,2,3].forEach(i => {
+    const el = document.getElementById(`otp-${i}`);
+    el.addEventListener('input', e => {
+      e.target.value = e.target.value.replace(/\D/g,'').slice(-1);
+      if (e.target.value) {
+        e.target.classList.add('filled');
+        if (i < 3) document.getElementById(`otp-${i+1}`).focus();
+        else document.getElementById('btn-verify').focus();
+      } else {
+        e.target.classList.remove('filled');
+      }
+    });
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Backspace' && !e.target.value && i > 0) {
+        document.getElementById(`otp-${i-1}`).focus();
+      }
+    });
+    el.addEventListener('paste', e => {
+      const data = e.clipboardData.getData('text').replace(/\D/g,'');
+      if (data.length >= 4) {
+        [0,1,2,3].forEach(j => {
+          const inp = document.getElementById(`otp-${j}`);
+          inp.value = data[j] || '';
+          if (data[j]) inp.classList.add('filled');
+        });
+        e.preventDefault();
+      }
+    });
+  });
+
+  // Keyboard enter shortcuts
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      if (state.step === 1) sendOTP();
+      else if (state.step === 2) verifyOTP();
+      else if (state.step === 3) completeReg();
+    }
+  });
+</script>
+</body>
+</html>

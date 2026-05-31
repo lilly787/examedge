@@ -1,0 +1,231 @@
+/* ExamEdge Premium Custom Stylesheet & Design Tokens */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Brand Palettes */
+  --bg-primary: #0a0814;
+  --bg-secondary: #120e29;
+  --card-glass: rgba(22, 18, 48, 0.65);
+  --card-border: rgba(99, 102, 241, 0.15);
+  --card-glow-active: rgba(139, 92, 246, 0.25);
+
+  --accent-purple: #6366f1;   /* Royal Purple */
+  --accent-violet: #8b5cf6;   /* Electric Violet */
+  --accent-amber: #f59e0b;    /* Electric Gold/Amber */
+  --accent-emerald: #10b981;  /* Mint Emerald */
+  --accent-rose: #f43f5e;     /* Coral Rose */
+
+  --text-white: #ffffff;
+  --text-primary: #f1f0f7;
+  --text-muted: #9ca3af;
+  --text-dimmed: #6b7280;
+
+  --font-display: 'Outfit', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base resets & styling */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5);
+}
+
+/* Premium Card Glassmorphism */
+.glass-panel {
+  background: var(--card-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: var(--transition-smooth);
+}
+
+.glass-panel:hover {
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 12px 40px 0 rgba(139, 92, 246, 0.1);
+}
+
+/* Glow Borders & Triggers */
+.glow-purple {
+  box-shadow: 0 0 15px -3px rgba(99, 102, 241, 0.5);
+}
+.glow-amber {
+  box-shadow: 0 0 15px -3px rgba(245, 158, 11, 0.5);
+}
+.glow-emerald {
+  box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.5);
+}
+
+/* Custom Animations */
+
+/* Pulsing streak flame animation */
+@keyframes flame-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.7));
+  }
+  50% {
+    transform: scale(1.15) rotate(-3deg);
+    filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.95));
+  }
+}
+.streak-active {
+  animation: flame-pulse 1.8s infinite ease-in-out;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.floating {
+  animation: float 4s infinite ease-in-out;
+}
+
+/* Shimmer loading placeholder */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+.shimmer-element {
+  background: linear-gradient(90deg, #161233 25%, #251e54 50%, #161233 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Breathing exercise animation (4-second cycle) */
+@keyframes breathing-guide {
+  0%, 100% {
+    transform: scale(1);
+    background-color: rgba(99, 102, 241, 0.2);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+  }
+  50% {
+    transform: scale(1.8);
+    background-color: rgba(139, 92, 246, 0.55);
+    box-shadow: 0 0 50px rgba(139, 92, 246, 0.85);
+  }
+}
+.breathing-circle {
+  animation: breathing-guide 4s infinite ease-in-out;
+}
+
+/* Confetti Burst & Animation Effects */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-50px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background-color: var(--accent-amber);
+  animation: confetti-fall 3s linear forwards;
+  z-index: 9999;
+}
+
+/* Custom Grid for JAMB CBT Mode Question Selector */
+.cbt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 8px;
+}
+
+/* Responsive side slide drawer */
+.drawer-right {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(100%);
+}
+.drawer-right.open {
+  transform: translateX(0);
+}
+
+/* Typing indicator for simulated WhatsApp Bot */
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--text-muted);
+  border-radius: 50%;
+  animation: typing-bounce 1.4s infinite ease-in-out both;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes typing-bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1.0); }
+}
+
+/* ==========================================
+   RESPONSIVE LAYOUT & SAFE AREA FIXES
+   ========================================== */
+
+/* Hide all navigation on Auth View dynamically */
+body.auth-view #sidebar-nav,
+body.auth-view #bottom-nav,
+body.auth-view #mobile-header {
+  display: none !important;
+}
+
+/* Mobile Safe Area Padding for Bottom Navigation Bar (fixes iPhone 12pro address bar clip) */
+#bottom-nav {
+  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom)) !important;
+  height: calc(4rem + env(safe-area-inset-bottom)) !important;
+  box-sizing: border-box;
+}
+
+/* Ensure the main container content doesn't get cut off by mobile bar */
+main {
+  padding-bottom: calc(6rem + env(safe-area-inset-bottom)) !important;
+}
+

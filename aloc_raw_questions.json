@@ -1,0 +1,1662 @@
+[
+  {
+    "id": 1069,
+    "question": "Three children shared a basket of mangoes in such a way that the first child took 1/4 of the mangoes and the second 3/4 of the remainder. What fraction of the mangoes did the third child take?",
+    "option": {
+      "a": "3/16",
+      "b": "7/16",
+      "c": "9/16",
+      "d": "13/16"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "You can use any whole numbers (eg. 1. 2. 3) to represent all the mangoes in the basket.\n\nIf the first child takes 1/4\n it will remain 1 - 1/4 = 3/4\n\n\nNext, the second child takes 3/4 of the remainder\n\nwhich is 3/4 i.e. find 3/4 of 3/4\n\n\n= 3/4 x 3/4\n\n= 9/16\n\nthe fraction remaining now = 3/4 - 9/16\n\n\n= (12−9)/16\n\n\n= 3/16",
+    "examtype": "utme",
+    "examyear": "2021"
+  },
+  {
+    "id": 727,
+    "question": "Simplify (√6+2)<sup>2</sup> −(√6−2)<sup>2</sup> ",
+    "option": {
+      "a": "2√6",
+      "b": "4√6",
+      "c": "8√6",
+      "d": "16√6"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "√6+2)<sup>2</sup> −(√6−2)<sup>2</sup>  =  [(√6+2)+(√6 − 2)][(√6 + 2) − (√6 − 2)]\n\n= (√6 + 2 + √6 − 2)(√6 + 2− √6 + 2)]\n\n\n= (2√6)(4)\n\n\n= 8√6",
+    "examtype": "utme",
+    "examyear": "2012"
+  },
+  {
+    "id": 522,
+    "question": "If 55<sub>x</sub> + 52<sub>x</sub> = 77<sub>10</sub> find X",
+    "option": {
+      "a": "5",
+      "b": "6",
+      "c": "7",
+      "d": "10"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "5 × x<sup>1</sup>  + 5 × x<sup>0</sup> + 5 × x<sup>1</sup> + 2 × x<sup>0</sup> = 77.                                 (change all  to base 10)\n5x + 5 + 5x + 2 = 77\n10x + 7 = 77\n10x = 77-7\n10x = 70\nx = 70/10\nx = 7",
+    "examtype": "utme",
+    "examyear": "2009"
+  },
+  {
+    "id": 235,
+    "question": "The graph of the function y = x<sup>2</sup> + 4 and a straight line PQ are drawn to solve the equation x<sup>2</sup>\n - 3x + 2 = 0. What is the equation of PQ?",
+    "option": {
+      "a": "y = 3x - 2",
+      "b": "y = 3x + 2",
+      "c": " y = 3x - 4",
+      "d": "y = 3x + 4"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "x<sup>2</sup> + 4 = x<sup>2</sup>\n - 3x + 2\n3x + 2 = y",
+    "examtype": "utme",
+    "examyear": "2003"
+  },
+  {
+    "id": 921,
+    "question": "The pie chart shows the monthly expenditure of a public servant. The monthly expenditure on housing is twice that of school fees. How much does the worker spend on housing if his monthly income is N7200?",
+    "option": {
+      "a": "1000",
+      "b": "2000",
+      "c": "3000",
+      "d": "4000"
+    },
+    "section": "",
+    "image": "https://res.cloudinary.com/aloc-ng/image/upload/v1724006285/ALOC-Questions/Mathematics/2018/JAMB_MATH_2018_Q3_y8hiph.jpg",
+    "answer": "b",
+    "solution": "Let the angle for school fees = x°\n\nThen Housing = 2x°\n\n120° + 90° + x° + 2x° = 360°\n\n3x° = 150° ⟹ x° = 50°.\n\nAmount spent on housing = 100/360 × 7200\n= N2000.",
+    "examtype": "utme",
+    "examyear": "2018"
+  },
+  {
+    "id": 563,
+    "question": "What is the mean deviation of x, 2x, x+1 and 3x. If their mean is 2",
+    "option": {
+      "a": "0.5",
+      "b": "1.0",
+      "c": "1.5",
+      "d": "2.0"
+    },
+    "section": "",
+    "image": "https://res.cloudinary.com/aloc-ng/image/upload/v1715547357/ALOC-Questions/Mathematics/2009/MATH_2009_Q42_SOLUTION_pzj4ej.jpg",
+    "answer": "a",
+    "solution": "\nMean =\tx+2x+x+1+3x/4\n \n2 =7x+1/4\n\n8 = 7x+1\n7x = 8-1\n7x = 7\nx = 1\n\n \n\nMean deviation =∑/x-X/n\n \n\n =2/4\n \n\n =1/2\n\n= 0.5",
+    "examtype": "utme",
+    "examyear": "2009"
+  },
+  {
+    "id": 138,
+    "question": "A straight line makes an angle of 30° with the positive x-axis and cuts the y-axis at y = 5. Find the equation of the straight line.",
+    "option": {
+      "a": "y = (x/10) + 5",
+      "b": " y = x + 5",
+      "c": "√3y = - x + 5√3",
+      "d": "√3y = x + 5√3"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "Cos 30 = 5/x\nx cos 30 = 5, => x = 5√3\n\nCoordinates of P = -5, 3, 0\nCoordinates of Q = 0, 5\nGradient of PQ = (y<sub>2</sub>  - y<sub>1</sub> ) (X<sub>2</sub>  - X<sub>1</sub> ) = (5 - 0)/(0 -5√3)\n= 5/5√3 = 1/√3\n\nEquation of PQ = y - y<sub>1</sub>  = m (x -x<sub>1</sub> )\ny - 0 = 1/√3 (x -(-5√3))\n\nThus: √3y = x + 5√3",
+    "examtype": "utme",
+    "examyear": "2001"
+  },
+  {
+    "id": 1186,
+    "question": "The third term of an A.P is 6 and the fifth term is 12. Find the sum of its first twelve terms",
+    "option": {
+      "a": " 201",
+      "b": "144",
+      "c": "198",
+      "d": " 72"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "T<sub>3</sub>  = 6\n\nT<sub>5</sub>  = 12\n\nS<sub>12</sub>  = ?\n\nT<sub>n</sub>  = a + (n - 1)d\n\n⇒ T<sub>3</sub>  = a + 2d = 6 ----- (i)\n\n⇒ T<sub>5</sub>  = a + 4d = 12 ----- (ii)\n\nSubtract equation (ii) from (i)\n\n⇒ -2d = -6\n\n⇒ d(−6/−2) = 3\n\nSubstitute 3 for d in equation (i)\n\n⇒ a + 2(3) = 6\n\n⇒ a + 6 = 6\n\n⇒ a = 6 - 6 = 0\n\nS<sub>n</sub>  = (n(2a+(n−1)d))/2\n⇒ S<sub>12</sub>  = (12(2×0+(12−1)3)/2\n⇒ S<sub>12</sub>  = 6(0 + 11 x 3)\n\n⇒ S<sub>12</sub>  = 6(33)\n\n∴ S<sub>12</sub>  = 198",
+    "examtype": "utme",
+    "examyear": "2023"
+  },
+  {
+    "id": 743,
+    "question": "The angles of a polygon are given by x, 2x, 3x, 4x and 5x respectively. Find the value of x.",
+    "option": {
+      "a": " 24°",
+      "b": "30°",
+      "c": "33°",
+      "d": "36°"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "Since there are 5 angles given, the polygon is a pentagon.\n\nSum of interior angles of a pentagon = (2(5) - 4) x 90° = 540°\n\n∴\n x + 2x + 3x + 4x + 5x = 15x\n\n15x = 540°\n\nx=540/15=36°",
+    "examtype": "utme",
+    "examyear": "2012"
+  },
+  {
+    "id": 231,
+    "question": "The sum of four numbers is 1214<sub>5</sub>\n. What is the average expressed in base five?",
+    "option": {
+      "a": " 114",
+      "b": "141",
+      "c": "401",
+      "d": "411"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "Convert to base 10, divide and then re-convert to base 5.",
+    "examtype": "utme",
+    "examyear": "2003"
+  },
+  {
+    "id": 532,
+    "question": "A polynomial in x whose roots are 4/3 and -3/5 is?",
+    "option": {
+      "a": "15x<sup>2</sup> - 11x – 12",
+      "b": " 15x<sup>2</sup> + 11x – 12",
+      "c": "12x<sup>2</sup> - x – 12",
+      "d": "12x<sup>2</sup> + 11x – 15"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "If 4/3 and -3/5 are roots of a polynomial\nImply x = 4/3 and - 3/5\n3x = 4 and 5x = -3\n∴3x-4 = 0 and 5x+3 = 0 are factors\n(3x-4)(5x+3) = 0 product of the factors\n15x2 + 9x – 20x – 12 = 0 By expansion\n15x2 - 11x – 12 = 0",
+    "examtype": "utme",
+    "examyear": "2009"
+  },
+  {
+    "id": 453,
+    "question": "Evaluate 1011<sup>2</sup><sub>2</sub>  - 101<sup>2</sup><sub>2</sub> ",
+    "option": {
+      "a": " 110000<sub>2</sub> ",
+      "b": "110<sub>2</sub> ",
+      "c": "1100000<sub>2</sub> ",
+      "d": "11000<sub>2</sub> "
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "1011<sup>2</sup><sub>2</sub> - 101<sup>2</sup><sub>2</sub> = (1x2<sup>3</sup> + 0x2<sup>2</sup> + 1x2<sup>1</sup> + 1x2<sup>0</sup>)<sup>2</sup> - (1x2<sup>2</sup> + 0x2<sup>1</sup> + 1x2<sup>2</sup>)2\n(1x8 + 0x4 + 1x2 + 1x1)<sup>2</sup> - (1x4 + 0x2 + 1x1)<sup>2</sup>)\n= (8 + 0 + 2 + 1) <sup>2</sup> - (4 + 0 + 1) <sup>2</sup>\n= 11<sup>2</sup>- 5<sup>2</sup>\n= 16 x 6 = 96\n9610 to base 2\n2/96 = 48 R 0\n2/48 = 24 R 0\n2/24 = 12 R 0\n2/12 = 6 R 0\n2/6 = 3 R 0\n2/3 = 1 R 1\n2/1 = 0 R 1\n1100000<sub>2</sub>",
+    "examtype": "utme",
+    "examyear": "2007"
+  },
+  {
+    "id": 291,
+    "question": "The mean age of a group of students is 15 years. When the age of a teacher, 45 years old, is added to the age of the students, the mean of their ages becomes 18 years. Find the number of the students in the group",
+    "option": {
+      "a": "0",
+      "b": "7",
+      "c": "42",
+      "d": "15"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "Let the number of students = x\nTotal age of the students = 15x\nTotal age including age of the teacher = 15x + 45\nMean of their ages; (15x + 45)/(x + 1) = 18\n= 15x + 45 = 18(x + 1)\n= 15x + 45 = 18x + 18\n= 18x - 15x = 45 - 18\n= 3x = 27\nx = 9",
+    "examtype": "utme",
+    "examyear": "2004"
+  },
+  {
+    "id": 863,
+    "question": "OGIVE is constructed using",
+    "option": {
+      "a": "Third quartile range",
+      "b": "Semi-quartile range",
+      "c": "Cummulative frequency table",
+      "d": "Inter-quartile table"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2016"
+  },
+  {
+    "id": 1102,
+    "question": "If the mean of 2, 5, (x+1), (x+2), 7 and 9 is 6. Find the median",
+    "option": {
+      "a": "5.5",
+      "b": " 5",
+      "c": " 6.5",
+      "d": " 6"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "Firstly; solving for x\n\n6 = (2+5+x+1+x+2+7+9)/6\ncross multiply to have:\n\n6 * 6 = 2 + 5 + x+1 + x+2 + 7 + 9\n\n36 = 2x + 26\n\n36 - 26 = 2x\n\n10 = 2x\n\nx = 5\n\nMedian = 7+6/2\n→ 6.5",
+    "examtype": "utme",
+    "examyear": "2022"
+  },
+  {
+    "id": 625,
+    "question": "If the numbers M, N, Q are in the ratio 5:4:3, find the value of 2N−Q/M",
+    "option": {
+      "a": "2",
+      "b": "3",
+      "c": "1",
+      "d": "4"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "M:N:Q == 5:4:3\n\ni.e M = 5, N = 4, Q = 3\n\nSubstituting values into equation, we have...\n\n2N−Q/M\n\n\n= 2(4)−3/5\n\n\n= 8−3/5\n\n\n= 5/5\n\n\n= 1",
+    "examtype": "utme",
+    "examyear": "2011"
+  },
+  {
+    "id": 818,
+    "question": "Evaluate 3(x + 2) > 6(x + 3)",
+    "option": {
+      "a": " x < 4",
+      "b": "x > -4",
+      "c": "x < -4",
+      "d": "x > 4"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "3(x + 2) > 6(x + 3)\n\n3x + 6 > 6x + 18\n\n3x - 6x > 18 - 6\n\n-3x > 12\n\nx < -4",
+    "examtype": "utme",
+    "examyear": "2013"
+  },
+  {
+    "id": 552,
+    "question": "What is the value of r if the distance between the point (4,2) and (1,r) is 3 units?",
+    "option": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "4"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "A(4,2) and B(1,r), AB = 3 units\n\n3 = √ (x<sup>2</sup>- x<sup>1</sup>)2 + (y<sup>2</sup>-y<sup>1</sup>)2\n\n\n3 = √ (4-1)2 + (2-r)2\n\n\n3 = √ 32 + (2-r)2\n\n\n3 = √ 9 + 4 – 4r + r2\n\n\n3 = √ r2 - 4r + 13\n\n9 = r2 - 4r + 13 By squaring both sides\nr2 - 4r + 4 = 0\n(r-2)(r-2) = 0\nr = 2",
+    "examtype": "utme",
+    "examyear": "2009"
+  },
+  {
+    "id": 245,
+    "question": "Evaluate ∫<sup>2</sup>\n<sub>3</sub>(x2−2x)dx",
+    "option": {
+      "a": "4",
+      "b": "2",
+      "c": "4/3",
+      "d": "1/3"
+    },
+    "section": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n  <msubsup>\n    <mo>&#x222B;<!-- ∫ --></mo>\n    <mrow class=\"MJX-TeXAtom-ORD\">\n      <mn>3</mn>\n    </mrow>\n    <mrow class=\"MJX-TeXAtom-ORD\">\n      <mn>2</mn>\n    </mrow>\n  </msubsup>\n  <mo stretchy=\"false\">(</mo>\n  <msup>\n    <mi>x</mi>\n    <mn>2</mn>\n  </msup>\n  <mo>&#x2212;<!-- − --></mo>\n  <mn>2</mn>\n  <mi>x</mi>\n  <mo stretchy=\"false\">)</mo>\n  <mi>d</mi>\n  <mi>x</mi>\n</math>",
+    "image": "",
+    "answer": "c",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2003"
+  },
+  {
+    "id": 1021,
+    "question": "Find all real number x which satisfy the inequality 1/3 (x + 1) - 1 > 1/5(x + 4) ",
+    "option": {
+      "a": " x < 11",
+      "b": "x < -1",
+      "c": " x > 6",
+      "d": "x > 11"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "1/3 (x + 1) - 1 > 1/5(x + 4)  = (x+1)/3−1 > (x+4)/5\n \n\n(x+1)/3 − (x + 4)/5 − 1 > 0 \n\n= (5x + 5 − 3x − 12)/15\n \n\n2x - 7 > 15\n\n2x > 22 = x > 11",
+    "examtype": "2020",
+    "examyear": "utme"
+  },
+  {
+    "id": 526,
+    "question": "The footballers moved with their tails between their legs.",
+    "option": {
+      "a": "They moved happily because they won the match",
+      "b": "They were unhappy because they had been despised  by their opponents. ",
+      "c": "They were ashamed because they had been defeated ",
+      "d": "they moved with their tails between their legs."
+    },
+    "section": " select the option that best explains the Information conveyed In the sentence. ",
+    "image": "",
+    "answer": "c",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2010",
+    "questionNub": null,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 1331,
+    "question": "Choose the one with the different stress pattern",
+    "option": {
+      "a": "physique",
+      "b": "menace",
+      "c": "challenge",
+      "d": "reckless"
+    },
+    "section": "In the following options lettered A to D, all the words except one have the same stress pattern.",
+    "image": "",
+    "answer": "a",
+    "solution": "Physique has its stress on the second syllable as opposed to other options with the stress on the first syllable",
+    "examtype": "utme",
+    "examyear": "2020",
+    "questionNub": 18,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 655,
+    "question": "<u>Ch</u>urch?",
+    "option": {
+      "a": "feature",
+      "b": "chauffeur",
+      "c": "ocean",
+      "d": "machine"
+    },
+    "section": "<b>In each of questions 59 to 62 choose from the option the word that has the same consonant sound as the represented by the letter(s) underlined.</b>",
+    "image": "",
+    "answer": "a",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2001",
+    "questionNub": 59,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 1497,
+    "question": "Choose the option that best completes the gap. Wherever the leader went people struggled to catch a __________ of him",
+    "option": {
+      "a": "glimpse",
+      "b": "look",
+      "c": "view",
+      "d": "picture"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "To catch a glimpse of someone or something means to briefly look at someone or to briefly see the person or thing. The verb ‘catch’ cannot be used with ‘look’ in option B, ‘view’ in option C and ‘picture’ in option D.",
+    "examtype": "utme",
+    "examyear": "2018",
+    "questionNub": 14,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 1606,
+    "question": "Suleiman's reason for becoming a Muslim in the novel is because Islam brings sense of ______?",
+    "option": {
+      "a": " radicalism and aggression",
+      "b": "boldness and awareness",
+      "c": "kindness and truthfulness",
+      "d": "purpose and discipline"
+    },
+    "section": "This question is based on S. L. Manyika's INDEPENDENCE",
+    "image": "",
+    "answer": "c",
+    "solution": "In chapter 30, Suleiman was resolute about tracing his roots and finally finding his identity amongst his people in Africa and in the religion, Islam",
+    "examtype": "utme",
+    "examyear": "2017",
+    "questionNub": 43,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 1354,
+    "question": "Our chief is very intelligent but he could be <u>parochial</u> in his judgements",
+    "option": {
+      "a": "deep",
+      "b": "broad",
+      "c": "narrow-minded",
+      "d": " kind-hearted"
+    },
+    "section": "From the words lettered A to D, choose the word or group of words that is nearest in meaning to the underlined word as it is used in the sentence\n\n ",
+    "image": "",
+    "answer": "c",
+    "solution": "Parochial means having a limited or narrow scope. Option C best fits this definition.",
+    "examtype": "utme",
+    "examyear": "2020",
+    "questionNub": 41,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 624,
+    "question": "",
+    "option": {
+      "a": "toil",
+      "b": "rejoice",
+      "c": "enjoy",
+      "d": "log"
+    },
+    "section": "<b>In each of questions 28 to 31, choose the word that does not have the same vowel sound as the others.</b>",
+    "image": "",
+    "answer": "d",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2001",
+    "questionNub": 28,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 1131,
+    "question": "He is a clinging child.",
+    "option": {
+      "a": "he is possessive",
+      "b": " he likes to cling with his sister.",
+      "c": " he is a bully",
+      "d": "he is a handsome young man"
+    },
+    "section": "<b>questions 36 - 45 are on LEXIS, STRUCTURE AND ORAL FORMS</b>\nIn each of this question select the option that best explains the information conveyed in the sentence.",
+    "image": "",
+    "answer": "a",
+    "solution": "clinging; means to hold on or be attached to someone or something. \n\n''He is possessive'' is the correct answer.",
+    "examtype": "utme",
+    "examyear": "2013",
+    "questionNub": 39,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 1785,
+    "question": "The lazy man cast a  <u>lustful</u> glance at his neighbour's wife.",
+    "option": {
+      "a": "Envious.",
+      "b": "Hateful.",
+      "c": "Quick.",
+      "d": "Covetous."
+    },
+    "section": "Choose the option <b>nearest</b> in meaning to the underlined word or phrase.",
+    "image": "",
+    "answer": "d",
+    "solution": "lustful; having or showing strong feelings of sexual desire.",
+    "examtype": "utme",
+    "examyear": "2014",
+    "questionNub": 26,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 764,
+    "question": "The Governor told the chief that he was only on a <u>routine tour</u>?",
+    "option": {
+      "a": "normal and regular visit",
+      "b": "unplanned encounter",
+      "c": "surprise and imprompt check",
+      "d": " working visit and homage"
+    },
+    "section": "<b>In each of questions 68 to 84, choose from the option nearest in meaning to the word underlined.</b>\n",
+    "image": "",
+    "answer": "a",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2000",
+    "questionNub": 68,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 1770,
+    "question": "Prolonged strike action <u>debilitated</u> the industry.",
+    "option": {
+      "a": "Stroyed.",
+      "b": "Invigorated.",
+      "c": "Isolated.",
+      "d": "Weakened."
+    },
+    "section": "Choose the option <b>opposite</b> in meaning to the underlined word or phrase.",
+    "image": "",
+    "answer": "b",
+    "solution": "debilitated; in a very weakened and infirm state.\n\ninvigorate; give strength or energy to",
+    "examtype": "utme",
+    "examyear": "2014",
+    "questionNub": 11,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 934,
+    "question": "The girl is angry with her friend who had <u>ensnared</u> her into this relationship?",
+    "option": {
+      "a": "tricked",
+      "b": "encourage",
+      "c": "forced",
+      "d": "enslaved"
+    },
+    "section": "<b>In each of the questions 34 to 48, Choose the option nearest in meaning to the underlined word(s).</b>\n",
+    "image": "",
+    "answer": "a",
+    "solution": "Ensnared;   to trap or gain power over (someone) by dishonest or underhand means.",
+    "examtype": "utme",
+    "examyear": "2011",
+    "questionNub": 39,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 426,
+    "question": "You must practise in order to................perfection.",
+    "option": {
+      "a": "obtain   ",
+      "b": "have",
+      "c": "get ",
+      "d": "achieve"
+    },
+    "section": "choose the option  best completes the gap(s) .",
+    "image": "",
+    "answer": "d",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2008",
+    "questionNub": null,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 1061,
+    "question": "Vacancies in the company will be notified by...........",
+    "option": {
+      "a": "bulletin",
+      "b": "publication",
+      "c": "publicity",
+      "d": "advertisement"
+    },
+    "section": "<b>In each of the question 66 to 85 choose the option that best completes the gap(s)</b>",
+    "image": "",
+    "answer": "d",
+    "solution": "Advertisement; a notice or announcement in a public medium promoting a product, service, or event or publicizing a job vacancy.\n\nVacancies in the company will be notified by advertisement",
+    "examtype": "utme",
+    "examyear": "2012",
+    "questionNub": 67,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 568,
+    "question": "One of the women who .... in the premises.... been  ordered to quit ",
+    "option": {
+      "a": "sells/have ",
+      "b": "sell/has  ",
+      "c": "sell/have",
+      "d": "sells/has"
+    },
+    "section": "choose the option that best completes the gap(s)",
+    "image": "",
+    "answer": "b",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2010",
+    "questionNub": null,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 670,
+    "question": "Some equatorial areas have a <u>sultry</u> climate?",
+    "option": {
+      "a": "a hot",
+      "b": " an inclement",
+      "c": "a temperate",
+      "d": " a stable"
+    },
+    "section": "<b>In each of questions 63 to 77,choose the option opposite in meaning to the underlined word(s).</b>\n",
+    "image": "",
+    "answer": "b",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2001",
+    "questionNub": 74,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 369,
+    "question": "There's a door at either end of the building.",
+    "option": {
+      "a": "The building has two ends and two doors. ",
+      "b": "The building has two ends, but only one doc'",
+      "c": "The building has two ends, but I do not know which of the two has a door. ",
+      "d": "The building has many ends each with a door."
+    },
+    "section": "select the option that best explains the information conveyed in the sentence.",
+    "image": "",
+    "answer": "a",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2007",
+    "questionNub": null,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 726,
+    "question": "T<u>ea</u>r?\n\n. ",
+    "option": {
+      "a": "dare",
+      "b": "care",
+      "c": "here",
+      "d": "wear"
+    },
+    "section": "<b>LEXIS, STRUCTURE AND ORALFORMS</b> In each of the question 26 to 30 Choose the option that has the same vowel sound as the one represented by the letters underlined.\n",
+    "image": "",
+    "answer": "d",
+    "solution": "The verb tear is pronounced as /tɛː/\n\nWear is pronounced as /wɛː/",
+    "examtype": "utme",
+    "examyear": "2000",
+    "questionNub": 30,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 1047,
+    "question": "Justice is difficult to enforce because people are unwilling to accept any loss <u>sovereignty</u>",
+    "option": {
+      "a": "autonomy",
+      "b": "position",
+      "c": "leadership",
+      "d": "kingdom"
+    },
+    "section": "In each of the questions 51 to 65 choose the option <b>nearest in meaning</b> to the underlined word or phrase.",
+    "image": "",
+    "answer": "a",
+    "solution": "sovereignty; In this context it means people are unwilling to loss their independence. A self-governing state.\n\nAutonomy; the right or condition of self-government.",
+    "examtype": "utme",
+    "examyear": "2012",
+    "questionNub": 53,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 630,
+    "question": "Modern dancing has become rather scientific and so requires .......?",
+    "option": {
+      "a": "bizzarre costuming",
+      "b": " some choreographic skill",
+      "c": "immmense instrumentation",
+      "d": "a rapping voice"
+    },
+    "section": "<b>In each of the questions 32 to 56, fill the each gap with the most appropriate option from the list option from the list provided.</b>",
+    "image": "",
+    "answer": "b",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2001",
+    "questionNub": 34,
+    "hasPassage": 0,
+    "category": "others"
+  },
+  {
+    "id": 186,
+    "question": "The theory  which supports the view that the large muscles developed by an athlete will be passed on to the offspring was proposed by",
+    "option": {
+      "a": "Darwin  ",
+      "b": "Lamarck   ",
+      "c": "Pasteur   ",
+      "d": "Mendel."
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2007"
+  },
+  {
+    "id": 325,
+    "question": "In an experiment to determine the percentage of humus and water in a soil sample, the following results were obtained. \nWeight of the evaporating basin alone = 80.5g   Weight of basin and soil = 101.5g    Weight after drying the soil in the oven = 99.0g    Weight of basin and roasted soil = 95.5h\nThe percentage of humus in the soil sample is  \n",
+    "option": {
+      "a": "17.60%",
+      "b": "26.70%",
+      "c": "16.20%",
+      "d": "16.70%"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2011"
+  },
+  {
+    "id": 273,
+    "question": "Yeast respires anaerobically  to covert simple sugar to carbon (IV) oxide and",
+    "option": {
+      "a": "alcohol  ",
+      "b": "acid",
+      "c": "oxygen",
+      "d": "water"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2010"
+  },
+  {
+    "id": 14,
+    "question": "In mammalian males, the excretory and reproductive  systems share the",
+    "option": {
+      "a": "ureter     ",
+      "b": "vas deferens  ",
+      "c": "urethra  ",
+      "d": "Testes."
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2003"
+  },
+  {
+    "id": 38,
+    "question": "An argument against Lamarck’s theory of evolution is that  ",
+    "option": {
+      "a": "disuse of  body part cannot weaken the part  ",
+      "b": "disused part is dropped off in the offspring  ",
+      "c": "acquired traits cannot be passed onto the offspring  ",
+      "d": "traits cannot be acquired through constant use of body parts"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2003"
+  },
+  {
+    "id": 2,
+    "question": "One distinctive feature in the life history  of liverworts is that they exhibit",
+    "option": {
+      "a": "alternation of generation  ",
+      "b": "vegetative reproduction  ",
+      "c": "sexual reproduction",
+      "d": "sexual reproduction"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2003"
+  },
+  {
+    "id": 376,
+    "question": "Which of the following is true in blood transfusion?",
+    "option": {
+      "a": "a person of blood group AB can donate blood only to another person of blood group AB",
+      "b": "Persons of blood groups A and B can donate or receive blood from each other",
+      "c": "A person of blood group AB can receive blood only from persons of blood group A or B  ",
+      "d": "A person of blood group O can donate only to a person of blood group O."
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2012"
+  },
+  {
+    "id": 382,
+    "question": "The significance of a very large number  of termites involved in nuptial swarming is to",
+    "option": {
+      "a": "provide birds with plenty of food",
+      "b": "ensure their perpetuation despite predatory pressure  ",
+      "c": "search for a favourable place to breed  ",
+      "d": "ensure that every individual gets a mate."
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2012"
+  },
+  {
+    "id": 78,
+    "question": "Which of the following is an example of intraspecific competition?",
+    "option": {
+      "a": "a lizard and an ant eater chasing an insect  ",
+      "b": "a worker termite and a solider in a limited space  ",
+      "c": "a hawk and an eagle targeting the same chicken",
+      "d": "yam and potato shoots growing out through the same window"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2004"
+  },
+  {
+    "id": 337,
+    "question": "Lack of space in a population  could lead to an increase in",
+    "option": {
+      "a": "birth rate",
+      "b": "disease rate",
+      "c": "drought   ",
+      "d": "water  scarcity"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2011"
+  },
+  {
+    "id": 106,
+    "question": "The mambilla plateau is a unique Nigeria biome located in",
+    "option": {
+      "a": "Plateau State  ",
+      "b": "Borno state  ",
+      "c": "Taraba state  ",
+      "d": "Benue state"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2005"
+  },
+  {
+    "id": 105,
+    "question": "At which temperature will cockroaches not survive after 10 days?   ",
+    "option": {
+      "a": "15oC",
+      "b": "19oC  ",
+      "c": "24oC  ",
+      "d": "33oC"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2005"
+  },
+  {
+    "id": 96,
+    "question": "The function of the fluid filled pericardium is to",
+    "option": {
+      "a": "reduce the friction caused by the pumping movements of the heart   ",
+      "b": "supply the heart with oxygen and nutrients  ",
+      "c": "prevent disease organisms from attacking the heart  ",
+      "d": "reduce the  intensity of the pumping action of the heart"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2005"
+  },
+  {
+    "id": 125,
+    "question": "Population that doubles in size to constant intervals is an indication of",
+    "option": {
+      "a": "sigmoid   ",
+      "b": "population explosion  ",
+      "c": "rapid growth",
+      "d": "  exponential growth"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2006"
+  },
+  {
+    "id": 356,
+    "question": "In the mammalian male reproductive system, the part that serves as a passage for both urine and semen is the ",
+    "option": {
+      "a": "urethra  ",
+      "b": "ureter  ",
+      "c": "bladder",
+      "d": "seminal vesicle"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2012"
+  },
+  {
+    "id": 384,
+    "question": "From his study of Galapagos finches, Darwin derived his theory of evolution from ",
+    "option": {
+      "a": " comparative anatomy",
+      "b": "comparative physiology",
+      "c": " fossil remains  ",
+      "d": "comparative embryology."
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2012"
+  },
+  {
+    "id": 214,
+    "question": "A boy who is fond of swimming in a pond finds himself passing urine with traces of blood. He is likely to have contracted  ",
+    "option": {
+      "a": "Schistosomiasis",
+      "b": "onchoerciasis",
+      "c": "poliomyelitis  ",
+      "d": "salmonellosis"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2008"
+  },
+  {
+    "id": 125,
+    "question": "Population that doubles in size to constant intervals is an indication of",
+    "option": {
+      "a": "sigmoid   ",
+      "b": "population explosion  ",
+      "c": "rapid growth",
+      "d": "  exponential growth"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2006"
+  },
+  {
+    "id": 291,
+    "question": "The loss of soil through erosion can be reduced by",
+    "option": {
+      "a": "watering",
+      "b": "crop rotation  ",
+      "c": "maturing  ",
+      "d": "irrigation"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2010"
+  },
+  {
+    "id": 172,
+    "question": "The organs that will be most useful  to giant  African rats in finding their way in underground habitats are the  ",
+    "option": {
+      "a": "Eyes   ",
+      "b": "vibrissae",
+      "c": "tails  ",
+      "d": "Nostrils"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2007"
+  },
+  {
+    "id": 10,
+    "question": "The pollution from petroleum spillage in rivers and lakes can best be dispersed by",
+    "option": {
+      "a": "Pouring detergents",
+      "b": "Passing of ships through the area",
+      "c": "Pouring organic solvents",
+      "d": "Evaporation"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2001"
+  },
+  {
+    "id": 132,
+    "question": "The property of chlorine which causes hydrogen chloride to be more ionic than the chlorine molecule is its",
+    "option": {
+      "a": "Electrovalency",
+      "b": "Electron affinity",
+      "c": "Electropositivity",
+      "d": "Electronegativity"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2004"
+  },
+  {
+    "id": 390,
+    "question": "An example of a solid emulsion is",
+    "option": {
+      "a": "Butter",
+      "b": "Hair cream",
+      "c": "Milk",
+      "d": "Cod-liver oil"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "Butter is a solid emulsion — it is water droplets dispersed in a solid fat matrix. Milk is a liquid emulsion (fat droplets in water). Hair cream is a semi-solid emulsion (liquid in liquid). Cod-liver oil is a pure oil, not an emulsion. Therefore butter is the correct example of a solid emulsion.",
+    "examtype": "utme",
+    "examyear": "2016"
+  },
+  {
+    "id": 694,
+    "question": "Balance the following redox reaction: Fe₂O₃ + CO → Fe + CO₂",
+    "option": {
+      "a": "Fe₂O₃ + CO → 2Fe + 2CO₂",
+      "b": "2Fe₂O₃ + 3CO → 4Fe + 3CO₂",
+      "c": "Fe₂O₃ + 2CO → 2Fe + 2CO₂",
+      "d": "Fe₂O₃ + 3CO → 2Fe + 3CO₂"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "Balancing Fe₂O₃ + CO → Fe + CO₂. Fe: 2 on left, so 2Fe on right. O: Fe₂O₃ has 3 oxygen atoms. Each CO takes 1 oxygen to become CO₂, so 3CO are needed to remove all 3 oxygens: Fe₂O₃ + 3CO → 2Fe + 3CO₂. Check: Fe: 2=2; O: 3+3=6 on left, 6 on right; C: 3=3. Balanced.",
+    "examtype": "utme",
+    "examyear": "2023"
+  },
+  {
+    "id": 193,
+    "question": "Equal moles of ethyne and hydrogen iodide react to give",
+    "option": {
+      "a": "CH2 = CH2",
+      "b": "CH2 = CHI",
+      "c": "CH2 – CHI",
+      "d": "CH2 – CI3"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2005"
+  },
+  {
+    "id": 20,
+    "question": "Which of the following best explains the increase in the rate of a chemical reaction as the temperature rises",
+    "option": {
+      "a": "The bonds in the reacting molecules are more readily broken",
+      "b": "The molecules collisions become more violent",
+      "c": "A lower proportion of the molecules has the necessary minimum energy to react",
+      "d": "The collision frequency of the molecules increases"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2001"
+  },
+  {
+    "id": 192,
+    "question": "Sugar is separated from its impurities by",
+    "option": {
+      "a": "Distillation",
+      "b": "Evaporation",
+      "c": "Precipitation",
+      "d": "Crystallization"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2005"
+  },
+  {
+    "id": 143,
+    "question": "ZnO(s) + CO (g) → Zn(s) + CO2 (g). ",
+    "option": {
+      "a": "Decomposed",
+      "b": "Displaced",
+      "c": "Oxidized",
+      "d": "Reduced"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2004"
+  },
+  {
+    "id": 294,
+    "question": "The residual solids from the fractional distillation of petroleum are used as",
+    "option": {
+      "a": "Raw materials for the cracking process",
+      "b": "Fuel for driving tractors",
+      "c": "Fuel for jet engines",
+      "d": "Coatings for pipes"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2010"
+  },
+  {
+    "id": 357,
+    "question": "The enzyme used in the hydrolysis of starch to dextrin and maltose is",
+    "option": {
+      "a": "Zymase",
+      "b": "Sucrase",
+      "c": "Amylase",
+      "d": "Lactase"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "Amylase is the enzyme responsible for the hydrolysis of starch, breaking it down first into dextrin and then into maltose. Zymase converts sugars to ethanol; sucrase hydrolyses sucrose; lactase hydrolyses lactose.",
+    "examtype": "utme",
+    "examyear": "2016"
+  },
+  {
+    "id": 784,
+    "question": "Carbohydrates can generally be represented by the general formula Cₓ(H₂O)ᵧ. For fructose the value of x is",
+    "option": {
+      "a": "3",
+      "b": "12",
+      "c": "5",
+      "d": "6"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "Fructose has the molecular formula C₆H₁₂O₆. Written in the form Cₓ(H₂O)ᵧ: C₆(H₂O)₆, so x = 6 and y = 6. The value of x is 6.",
+    "examtype": "utme",
+    "examyear": "2025"
+  },
+  {
+    "id": 705,
+    "question": "What is the principal ore of iron, from which iron is extracted?",
+    "option": {
+      "a": "Calcite",
+      "b": "Bauxite",
+      "c": "Magnetite",
+      "d": "Hematite"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "The principal ore of iron used for large-scale extraction is hematite (Fe₂O₃), also spelled haematite. It contains a high percentage of iron and is widely available. Iron is extracted from hematite in a blast furnace using coke and limestone. Bauxite is the ore of aluminium, calcite is a form of calcium carbonate, and magnetite (Fe₃O₄) is another iron ore but less commonly used as the principal source.",
+    "examtype": "utme",
+    "examyear": "2023"
+  },
+  {
+    "id": 565,
+    "question": "When water drops are added to calcium carbide in a container and the gas produced is passed through a jet and lighted, the resultant flame is called an?",
+    "option": {
+      "a": "Oxyethene",
+      "b": "Oxyhydrocarbon flame",
+      "c": "Oxyacetylene flame",
+      "d": "Oxymethane flame"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "Calcium carbide (CaC₂) reacts with water to produce acetylene gas (ethyne, C₂H₂): CaC₂ + 2H₂O → Ca(OH)₂ + C₂H₂. When acetylene is burned in the presence of oxygen, it produces the oxyacetylene flame, which reaches temperatures above 3000°C and is used in welding and cutting metals.",
+    "examtype": "utme",
+    "examyear": "2020"
+  },
+  {
+    "id": 334,
+    "question": "All these are electromagnetic waves except",
+    "option": {
+      "a": "White light",
+      "b": "Photon",
+      "c": "X-ray",
+      "d": "Infrared"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "A photon is a quantum (particle) of electromagnetic energy, not a type of electromagnetic wave. White light, X-rays, and infrared radiation are all types of electromagnetic waves within the electromagnetic spectrum.",
+    "examtype": "utme",
+    "examyear": "2015"
+  },
+  {
+    "id": 232,
+    "question": "The element with the electron configuration 1s22s22p3 is",
+    "option": {
+      "a": "Oxygen",
+      "b": "Chlorine",
+      "c": "Nitrogen",
+      "d": "Calcium"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "",
+    "examtype": "utme",
+    "examyear": "2006"
+  },
+  {
+    "id": 732,
+    "question": "127g of sodium chloride was dissolved in 1.0dm³ of distilled water at 25°C. Determine the solubility in moldm⁻³ of sodium chloride at that temperature. [Na = 23, Cl = 35.5]",
+    "option": {
+      "a": "1",
+      "b": "2",
+      "c": "2.2",
+      "d": "4.1"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "Molar mass of NaCl = 23 + 35.5 = 58.5 g/mol. Moles of NaCl = 127 ÷ 58.5 = 2.17 mol. Volume = 1.0 dm³. Solubility = 2.17 ÷ 1.0 = 2.17 mol/dm³ ≈ 2.2 mol/dm³.",
+    "examtype": "utme",
+    "examyear": "2024"
+  },
+  {
+    "id": 432,
+    "question": "The alkyl group is represented by the general formula",
+    "option": {
+      "a": "CₙH₂ₙ",
+      "b": "CₙH₂ₙ - 2",
+      "c": "CₙH₂ₙ + 1",
+      "d": "CₙH₂ₙ + 2"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "An alkyl group is derived from an alkane by removing one hydrogen atom. Alkanes have the formula CₙH₂ₙ₊₂, so removing one H gives the alkyl group CₙH₂ₙ₊₁. Examples: methyl (CH₃, n=1), ethyl (C₂H₅, n=2), propyl (C₃H₇, n=3).",
+    "examtype": "utme",
+    "examyear": "2017"
+  },
+  {
+    "id": 425,
+    "question": "²²⁶₈₈Ra → ˣ₈₆Rn + alpha particle. What is the value of x?",
+    "option": {
+      "a": "226",
+      "b": "220",
+      "c": "227",
+      "d": "222"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "In alpha decay, the mass number decreases by 4 and the atomic number decreases by 2. Mass number of Rn = 226 - 4 = 222. Atomic number of Rn = 88 - 2 = 86. Therefore x = 222, giving ²²²₈₆Rn.",
+    "examtype": "utme",
+    "examyear": "2017"
+  },
+  {
+    "id": 752,
+    "question": "When Sulphur(IV)oxide is passed into solution of acidified tetraoxomanganate(VII), the colour changes from",
+    "option": {
+      "a": "blue to green",
+      "b": "pink to yellow",
+      "c": "purple to colourless",
+      "d": "Orange to green"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "Acidified potassium tetraoxomanganate(VII) (KMnO₄) is purple in colour. SO₂ acts as a reducing agent, reducing the purple MnO₄⁻ ions (Mn oxidation state +7) to colourless Mn²⁺ ions (oxidation state +2). The SO₂ is simultaneously oxidised to SO₄²⁻. The purple colour of the KMnO₄ solution is therefore discharged, turning the solution colourless.",
+    "examtype": "utme",
+    "examyear": "2024"
+  },
+  {
+    "id": 538,
+    "question": "Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂\nThe indicator most suitable for this reaction should have a pH equal to",
+    "option": {
+      "a": "5",
+      "b": "7",
+      "c": "3",
+      "d": "9"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "Na₂CO₃ is a weak base and HCl is a strong acid. At the equivalence point, the resulting solution is slightly acidic with pH around 3.9–5. A suitable indicator must change colour within this range. pH 5 falls within this acidic region. Answer: A.",
+    "examtype": "utme",
+    "examyear": "2019"
+  },
+  {
+    "id": 761,
+    "question": "I. Mass\nII. Density\nIII. Temperature\nIV. Nature of substance\n\n\nwhich of the above affect diffusion?",
+    "option": {
+      "a": " I and II only",
+      "b": "I,II and IV only",
+      "c": "II, III and IV only",
+      "d": " I, II, III and IV"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "Diffusion rates of a substance generally depend on mass, density, and temperature. and nature of substances I II, III, and IV",
+    "examtype": "utme",
+    "examyear": "2007"
+  },
+  {
+    "id": 174,
+    "question": "The two liquids which are often used in thermometer on experiment basic is known as",
+    "option": {
+      "a": "Mercury only",
+      "b": " Alcohol and Water",
+      "c": "Mercury and Alcohol",
+      "d": "Alcohol only"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "Mercury and alcohol are often used in THERMOMETER\n\nNote:Water is never allowed to be used in thermometer because, it doesn’t expand uniformly",
+    "examtype": "utme",
+    "examyear": "2015"
+  },
+  {
+    "id": 926,
+    "question": "Power supply is transmitted at a very high voltage and low current in order to?",
+    "option": {
+      "a": ". make pass through the trasformers",
+      "b": "ncrease the power supply",
+      "c": "make it travel fast",
+      "d": "prevent overheating of the coil"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "High voltage and low current are used to prevent overheating of the transmission lines.",
+    "examtype": "utme",
+    "examyear": "2010"
+  },
+  {
+    "id": 874,
+    "question": "The ability of the human eye to focus object on the retina is referred to as the power of?",
+    "option": {
+      "a": "interference",
+      "b": "diffraction",
+      "c": "accomodation",
+      "d": "superposition"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "Accommodation is the adjustment of the optics of the eye to keep an object in focus on the retina as its distance from the eye varies. ",
+    "examtype": "utme",
+    "examyear": "2009"
+  },
+  {
+    "id": 541,
+    "question": "An explosion occurs at an altitude of 312 m above the ground. If the air temperature is -10.00°C, how long does it take the sound to reach the ground? [velocity of sound at 0°C = 331 ms⁻¹]",
+    "option": {
+      "a": "0.94s",
+      "b": " 0.96s",
+      "c": " 0.93s",
+      "d": "0.95s"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "Given information:\n\nHeight (distance), d = 312 m\nAir temperature, T = -10.00°C\nVelocity of sound at 0°C, v₀ = 331 m/s\nTime, t = ?\n\nSolution:\nStep 1: Calculate velocity of sound at -10°C\nThe velocity of sound in air varies with temperature:\nv = v₀ + 0.6T\nWhere T is in degrees Celsius.\nv = 331 + 0.6(-10)\nv = 331 - 6\nv = 325 m/s\nStep 2: Calculate time for sound to travel\nUsing the formula:\nt = d/v\nt = 312/325\nt = 0.96 s",
+    "examtype": "utme",
+    "examyear": "2023"
+  },
+  {
+    "id": 706,
+    "question": "what is likely to happen if the glass of a thermometer expands more upon heating than the liquid inside?",
+    "option": {
+      "a": "the glass will break",
+      "b": "the glass will shrink",
+      "c": "the liquid will rise up in the stem",
+      "d": "the liquid will go down in the stem"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "when the glass of a thermometer expands more on heating than the liquid inside, the liquid level would fall compared with the tube wall",
+    "examtype": "utme",
+    "examyear": "2006"
+  },
+  {
+    "id": 475,
+    "question": "When the plate area of a capacitor increases?",
+    "option": {
+      "a": "the voltage can withstand increase",
+      "b": "the capacitance decreases",
+      "c": "the capacitance is unaffected",
+      "d": "the capacitance increases"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "Step 1: Recall the capacitance formula\nFor a parallel plate capacitor:\nC = ε₀εᵣA/d\nWhere:\n\nC = capacitance\nε₀ = permittivity of free space\nεᵣ = relative permittivity of dielectric\nA = plate area\nd = distance between plates\n\nStep 2: Analyze the relationship\nFrom the formula:\n\nCapacitance is directly proportional to plate area (A)\nC ∝ A\n\nStep 3: Determine the effect\nWhen plate area (A) increases:\n\nThe numerator of the fraction increases\nTherefore, capacitance (C) increases",
+    "examtype": "utme",
+    "examyear": "2022"
+  },
+  {
+    "id": 668,
+    "question": "A 3 m³ volume of liquid W of density 200 kg m⁻³ is mixed with another liquid L of volume 7 m³ and density 150 kg m⁻³. The density of the mixture is?",
+    "option": {
+      "a": "165 kg m⁻³",
+      "b": "100 kg m⁻³",
+      "c": "265 kg m⁻³",
+      "d": "350 kg m⁻³"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "Given information:\nVolume of liquid W, V_W = 3 m³\nDensity of liquid W, ρ_W = 200 kg m⁻³\nVolume of liquid L, V_L = 7 m³\nDensity of liquid L, ρ_L = 150 kg m⁻³\n\nStep 1: Compute total mass\nMass of W: m_W = ρ_W × V_W = 200 × 3 = 600 kg\nMass of L: m_L = ρ_L × V_L = 150 × 7 = 1050 kg\nTotal mass: m_total = 600 + 1050 = 1650 kg\n\nStep 2: Compute total volume\nTotal volume: V_total = V_W + V_L = 3 + 7 = 10 m³\n\nStep 3: Compute density of mixture\nDensity ρ_mix = m_total / V_total = 1650 / 10 = 165 kg m⁻³",
+    "examtype": "utme",
+    "examyear": "2005"
+  },
+  {
+    "id": 1088,
+    "question": "What happens when three coplanar non-parallel forces are in equilibrium?",
+    "option": {
+      "a": "Their lines of action are parallel.",
+      "b": "They are represented in magnitude only",
+      "c": "They are represented in direction only",
+      "d": "Their lines of action meet at a point"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "Conditions for non-parallel coplanar forces",
+    "examtype": "utme",
+    "examyear": "2014"
+  },
+  {
+    "id": 581,
+    "question": "In a series resonant circuit, the current flowing in the circuit is ",
+    "option": {
+      "a": "maximum",
+      "b": "minimum",
+      "c": "zero",
+      "d": "unaffected"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "At resonance, the circuit's impedance is at its lowest (equal to the resistance), which results in the highest current flow. This condition is achieved when the inductive reactance and capacitive reactance are equal, causing them to cancel each other out.",
+    "examtype": "utme",
+    "examyear": "2024"
+  },
+  {
+    "id": 384,
+    "question": "In what range of temperature is the expansion of water anomalous?",
+    "option": {
+      "a": "+208°C to +212°C",
+      "b": " -80°C to -76°C",
+      "c": "0°C to +4°C",
+      "d": "-4°C to +0°C"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "Understanding anomalous expansion of water:\nNormal behavior: Most liquids expand when heated and contract when cooled.\nAnomalous behavior of water:\nBetween 0°C and 4°C, water behaves differently:\n\nWater contracts when heated from 0°C to 4°C (instead of expanding)\nWater expands when cooled from 4°C to 0°C (instead of contracting)\nWater has maximum density at 4°C\nBelow 0°C, water freezes and expands significantly\n\nWhy this matters:\n\nIce floats on water (less dense)\nAquatic life can survive in frozen lakes (ice on top, water below)\nThis anomaly is crucial for life on Earth\n\nAnalysis of options:\nA. +208°C to +212°C:\n\nNear boiling point; normal behavior ✗\n\nB. -80°C to -76°C:\n\nWater is solid (ice) at these temperatures ✗\n\nC. 0°C to +4°C:\n\nThis is the exact range of anomalous expansion ✓\n\nD. -4°C to +0°C:\n\nWater is solid (ice) below 0°C ✗\n\nAnswer: C. 0°C to +4°C",
+    "examtype": "utme",
+    "examyear": "2020"
+  },
+  {
+    "id": 1026,
+    "question": "After reflection from the concave mirror, rays of light from the sun converges",
+    "option": {
+      "a": "at the radius of curvature",
+      "b": " at the focus",
+      "c": "beyond the radius of curvature",
+      "d": " between the focus and radius of curvature"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "After reflection from a concave mirror, rays of light from the sun (which are parallel rays) converge at the focus. This is the fundamental property that defines the focal point of a concave mirror.\nPractical example: If you hold a concave mirror in sunlight and place paper at the focal point, the concentrated solar energy can ignite the paper, demonstrating how all the parallel sun rays converge at this single point.",
+    "examtype": "utme",
+    "examyear": "2012"
+  },
+  {
+    "id": 1121,
+    "question": "The power of a lens in diopters is ",
+    "option": {
+      "a": "3f ",
+      "b": "1/f",
+      "c": "2f",
+      "d": "f"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "Given information:\nThe power of a lens is defined as the reciprocal of its focal length (in metres).\n\nSolution:\n\nStep 1: Formula for power of a lens\nPower P (in dioptres) = 1 / f, where f is the focal length in metres.",
+    "examtype": "utme",
+    "examyear": "2025"
+  },
+  {
+    "id": 775,
+    "question": "From the diagram above, the bob of the pendulum has the fastest speed at",
+    "option": {
+      "a": "X",
+      "b": "Y",
+      "c": "Z",
+      "d": "W"
+    },
+    "section": "",
+    "image": "https://res.cloudinary.com/aloc-ng/image/upload/v1774431437/ALOC-Questions/Physics/2007/PHYSICS_2007_Q_26_kpwqqs.png",
+    "answer": "a",
+    "solution": "\nEnergy considerations:\nAt the extremes (W and Z):\n\nMaximum potential energy\nMinimum kinetic energy (velocity = 0)\nBob momentarily stops before reversing direction\n\nAt the lowest point (X):\n\nMinimum potential energy\nMaximum kinetic energy\nAll potential energy converted to kinetic energy\nFastest speed\n\nAt intermediate positions (Y):\n\nMixed potential and kinetic energy\nSpeed between zero and maximum\n\nConservation of energy:\nTotal Energy = PE + KE = constant\nAt extremes: E = PE_max + 0\nAt lowest point: E = PE_min + KE_max\nTherefore: KE_max occurs at lowest point (X)",
+    "examtype": "utme",
+    "examyear": "2007"
+  },
+  {
+    "id": 891,
+    "question": "The wave phenomenon demonstrated in the diagram above is?",
+    "option": {
+      "a": "reflection",
+      "b": "deflection",
+      "c": "diffraction",
+      "d": "refraction"
+    },
+    "section": "",
+    "image": "https://res.cloudinary.com/aloc-ng/image/upload/v1774433244/ALOC-Questions/Physics/2009/PHYSICS_2009_Q_42_bdll2o.png",
+    "answer": "c",
+    "solution": "Diffraction is spreading of wave after passing through a sli",
+    "examtype": "utme",
+    "examyear": "2009"
+  },
+  {
+    "id": 1016,
+    "question": "Calculate the temperature change when 500 J of heat is supplied to 100 g of water.\n[specific heat capacity of water = 4200 J kg⁻¹ K⁻¹]",
+    "option": {
+      "a": "12.1 °C",
+      "b": "2.1 °C",
+      "c": "1.2 °C",
+      "d": "0.1 °C"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "Given information:\nHeat supplied, Q = 500 J\nMass of water, m = 100 g = 0.1 kg\nSpecific heat capacity of water, c = 4200 J kg⁻¹ K⁻¹\n\nSolution:\n\nStep 1: Heat formula\nThe heat required to change the temperature of a substance is given by:\nQ = m × c × Δθ\nwhere Δθ is the temperature change.\n\nStep 2: Rearrange for Δθ\nΔθ = Q / (m × c)\n\nStep 3: Substitute values\nΔθ = 500 J / (0.1 kg × 4200 J kg⁻¹ K⁻¹)\nΔθ = 500 / (420)\n\nStep 4: Calculate\nΔθ = 1.1905 °C ≈ 1.2 °C",
+    "examtype": "utme",
+    "examyear": "2012"
+  },
+  {
+    "id": 600,
+    "question": "A generator manufacturing company was contracted to produce an a.c dynamo but inadvertently produced a d.c dynamo. To correct this error, the",
+    "option": {
+      "a": "armature coil should be made of silver",
+      "b": " commutator should be replaced with slip ring",
+      "c": "commutator should be replaced with split rings",
+      "d": "armature coil should be made of aluminium"
+    },
+    "section": "",
+    "image": "",
+    "answer": "b",
+    "solution": "To convert a DC dynamo to an AC dynamo, the split-ring commutator must be replaced with slip rings. This allows the alternating current generated in the rotating coil to be delivered to the external circuit without rectification.",
+    "examtype": "utme",
+    "examyear": "2004"
+  },
+  {
+    "id": 286,
+    "question": "Which of the following best describes the energy changes which take place when a steam engine drives a generator which lights a lamp?",
+    "option": {
+      "a": "heat ----> Light----> Sound ----> Kinetic",
+      "b": "Kinetic ----> Light ----> Heat ----> Electricity",
+      "c": "heat ----> Kinetic ----> Electricity ----> Heat and Light",
+      "d": "electricity ----> Kinetic ----> Heat ----> Light"
+    },
+    "section": "",
+    "image": "",
+    "answer": "c",
+    "solution": "The steam engine uses the Heat supplied from steam to supply kinetic energy into the generator which converts it to electricity to light the lamp, the lamp gives out light and heat as it works",
+    "examtype": "utme",
+    "examyear": "2018"
+  },
+  {
+    "id": 65,
+    "question": "A man of mass 50kg ascends a flight of stair 5m high in 5 seconds. If acceleration due to gravity is 10ms-2 the power expanded is ",
+    "option": {
+      "a": "100W ",
+      "b": "300W ",
+      "c": "250W ",
+      "d": "500W"
+    },
+    "section": "",
+    "image": "",
+    "answer": "d",
+    "solution": "",
+    "examtype": "post-utme",
+    "examyear": "2009"
+  },
+  {
+    "id": 360,
+    "question": "In the molecular explanation of conduction, heat is transferred by the",
+    "option": {
+      "a": " Free electrons",
+      "b": "Free atoms",
+      "c": "Free molecules",
+      "d": "Free solids"
+    },
+    "section": "",
+    "image": "",
+    "answer": "a",
+    "solution": "In the molecular explanation of conduction, heat is transferred primarily by free electrons, especially in metallic conductors where these electrons can move freely and carry thermal energy.",
+    "examtype": "utme",
+    "examyear": "2019"
+  }
+]
