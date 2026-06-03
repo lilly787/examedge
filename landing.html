@@ -232,6 +232,33 @@
       margin-bottom: 4rem;
     }
     .proof-item { display: flex; align-items: center; gap: 8px; }
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1em;
+      height: 1em;
+      color: inherit;
+    }
+    .icon svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+    .hero-badge-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.1rem;
+      height: 1.1rem;
+      background: rgba(99,102,241,0.18);
+      border-radius: 9999px;
+      color: #a5b4fc;
+    }
+    .hero-badge-icon svg { width: 0.7rem; height: 0.7rem; }
+    .rating-stars { display: flex; gap: 0.15rem; align-items: center; }
+    .rating-stars .icon { color: #fbbf24; }
+    .mockup-label-icon { display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; margin-right: 0.35rem; color: #a5b4fc; }
     .avatar-stack { display: flex; }
     .avatar-stack .av {
       width: 28px; height: 28px; border-radius: 50%;
@@ -456,7 +483,11 @@
 
   <!-- MOBILE NAV DRAWER -->
   <div id="mobile-nav">
-    <span class="close-nav" onclick="toggleMobileNav()">✕</span>
+    <span class="close-nav" onclick="toggleMobileNav()" aria-label="Close menu">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+    </span>
     <a href="#features" onclick="toggleMobileNav()">Features</a>
     <a href="#subjects" onclick="toggleMobileNav()">Subjects</a>
     <a href="#pricing" onclick="toggleMobileNav()">Pricing</a>
@@ -468,7 +499,11 @@
   <!-- NAVBAR -->
   <nav id="nav">
     <a href="landing.html" class="nav-logo">
-      <div class="nav-logo-icon">🎓</div>
+      <div class="nav-logo-icon">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l9 4-9 4-9-4 9-4Z" fill="currentColor"/><path d="M4.5 9.5v6.5c0 1.5 2.5 3.5 7.5 4.5 5-1 7.5-3 7.5-4.5V9.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 11.5v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+      </div>
       <span class="nav-logo-text">ExamEdge</span>
     </a>
     <div class="nav-links">
@@ -494,7 +529,10 @@
 
     <div class="hero-badge">
       <div class="live-dot"></div>
-      🇳🇬 Nigeria's #1 WAEC, NECO & JAMB Past Questions Platform
+      <span class="hero-badge-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2 4 5v6c0 5 3.5 9.7 8 11 4.5-1.3 8-6 8-11V5l-8-3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      Nigeria's #1 WAEC, NECO & JAMB Past Questions Platform
     </div>
 
     <h1 class="hero-title">
@@ -508,7 +546,10 @@
 
     <div class="hero-ctas">
       <a href="register.html" class="btn-cta" style="padding:1.1rem 2.2rem;border-radius:16px;font-size:1rem;font-family:'Outfit',sans-serif;">
-        🚀 Start Free — No Credit Card
+        <span class="icon" style="margin-right:0.6rem;" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        Start Free — No Credit Card
       </a>
       <a href="cbt.html" class="btn-ghost" style="padding:1.1rem 2.2rem;border-radius:16px;font-size:1rem;font-family:'Outfit',sans-serif;">
         ▶ Try Live CBT Demo
@@ -526,9 +567,16 @@
         <span><b style="color:#fff">100,000+</b> students practicing</span>
       </div>
       <span style="color:rgba(99,102,241,0.2)">|</span>
-      <div class="proof-item">⭐⭐⭐⭐⭐ <span><b style="color:#fff">4.9/5</b> student rating</span></div>
+      <div class="proof-item rating-stars">
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z"/></svg></span>
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z"/></svg></span>
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z"/></svg></span>
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z"/></svg></span>
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z"/></svg></span>
+        <span><b style="color:#fff">4.9/5</b> student rating</span>
+      </div>
       <span style="color:rgba(99,102,241,0.2)" class="hide-mobile">|</span>
-      <div class="proof-item">🏆 <b style="color:#fff">89%</b> improved their WAEC score</div>
+      <div class="proof-item"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 3h10v4H7V3Zm10 4h2a1 1 0 0 1 1 1v2a5 5 0 0 1-4 4.9V17a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3v-2.1A5 5 0 0 1 4 10V8a1 1 0 0 1 1-1h2V3h10v4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 12v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M9 9h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span> <b style="color:#fff">89%</b> improved their WAEC score</div>
     </div>
 
     <!-- CBT Mockup Preview -->
@@ -541,7 +589,12 @@
               <span style="background:#fbbf24"></span>
               <span style="background:#34d399"></span>
             </div>
-            <span style="font-size:0.72rem;font-weight:700;padding:3px 10px;background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.35);border-radius:6px;color:#c4b5fd;">⏱️ CBT MOCK EXAM</span>
+            <span style="font-size:0.72rem;font-weight:700;padding:3px 10px;background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.35);border-radius:6px;color:#c4b5fd;display:inline-flex;align-items:center;gap:0.35rem;">
+              <span class="mockup-label-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="7.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              CBT MOCK EXAM
+            </span>
             <span style="font-size:0.75rem;color:var(--muted)">WAEC 2023 · Biology</span>
           </div>
           <div style="display:flex;align-items:center;gap:1rem;">
@@ -559,7 +612,8 @@
             <div class="mockup-opt muted"><span class="opt-circle">D</span> All short</div>
           </div>
           <div class="mockup-explanation">
-            ✅ <b>Correct!</b> In a testcross (Tt × tt), the offspring ratio is 1 Tt : 1 tt = <b>½ tall, ½ short</b>. The homozygous recessive parent can only contribute 't' alleles. <span style="color:#fbbf24;font-weight:700;margin-left:4px">+25 XP 🎉</span>
+            <span class="icon" aria-hidden="true" style="margin-right:0.35rem;color:#10b981;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 16.5 5 12l1.4-1.4 3.1 3.1 7.1-7.1L18.5 8l-8.5 8.5Z" fill="currentColor"/></svg></span>
+            <b>Correct!</b> In a testcross (Tt × tt), the offspring ratio is 1 Tt : 1 tt = <b>½ tall, ½ short</b>. The homozygous recessive parent can only contribute 't' alleles. <span style="color:#fbbf24;font-weight:700;margin-left:4px;display:inline-flex;align-items:center;"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2 14.9 8.7 22 9.6 16.5 14.6 17.7 21.9 12 18.4 6.3 21.9 7.5 14.6 2 9.6 9.1 8.7 12 2Z" fill="currentColor"/></svg></span> +25 XP</span>
           </div>
           <div class="mockup-nav-row">
             <div class="nav-dot done">1</div>
@@ -582,22 +636,22 @@
   <!-- TICKER -->
   <div class="ticker">
     <div class="ticker-inner" id="ticker-inner">
-      <span>📐 Mathematics WAEC 2010–2025</span>
-      <span>🔬 Biology Past Questions</span>
-      <span>⚗️ Chemistry All Years</span>
-      <span>⚡ Physics MCQ Bank</span>
-      <span>📖 English Language</span>
-      <span>💰 Economics JAMB</span>
-      <span>🏛️ Government WAEC</span>
-      <span>🌱 Agricultural Science</span>
-      <span>📐 Mathematics WAEC 2010–2025</span>
-      <span>🔬 Biology Past Questions</span>
-      <span>⚗️ Chemistry All Years</span>
-      <span>⚡ Physics MCQ Bank</span>
-      <span>📖 English Language</span>
-      <span>💰 Economics JAMB</span>
-      <span>🏛️ Government WAEC</span>
-      <span>🌱 Agricultural Science</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a9 9 0 1 0 9 9 9 9 0 0 0-9-9Zm1 14.5-4-4 1.4-1.4 2.6 2.6 4.6-4.6L18 10.5Z" fill="currentColor"/></svg></span> Mathematics WAEC 2010–2025</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5Zm0 18a8 8 0 0 1-6.32-12.88A11.93 11.93 0 0 0 12 16a11.93 11.93 0 0 0 6.32-8.88A8 8 0 0 1 12 20Z" fill="currentColor"/></svg></span> Biology Past Questions</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3c-3.86 0-7 2.28-7 5.1 0 2.1 1.28 3.94 3.18 4.8A6.95 6.95 0 0 0 12 21a6.95 6.95 0 0 0 3.82-7.1C17.72 7.94 19 6.1 19 4.1 19 2.28 15.86 0 12 0Zm0 8a2 2 0 1 1 2-2 2 2 0 0 1-2 2Z" fill="currentColor"/></svg></span> Chemistry All Years</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 13h16M12 4v16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span> Physics MCQ Bank</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16v16H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 8h8M8 12h8M8 16h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span> English Language</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 10h16" fill="none" stroke="currentColor" stroke-width="2"/></svg></span> Economics JAMB</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l5 4v9c0 3-2 5-5 5s-5-2-5-5V6z" fill="none" stroke="currentColor" stroke-width="2"/></svg></span> Government WAEC</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16v16H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 12h16" fill="none" stroke="currentColor" stroke-width="2"/></svg></span> Agricultural Science</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a9 9 0 1 0 9 9 9 9 0 0 0-9-9Zm1 14.5-4-4 1.4-1.4 2.6 2.6 4.6-4.6L18 10.5Z" fill="currentColor"/></svg></span> Mathematics WAEC 2010–2025</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5Zm0 18a8 8 0 0 1-6.32-12.88A11.93 11.93 0 0 0 12 16a11.93 11.93 0 0 0 6.32-8.88A8 8 0 0 1 12 20Z" fill="currentColor"/></svg></span> Biology Past Questions</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3c-3.86 0-7 2.28-7 5.1 0 2.1 1.28 3.94 3.18 4.8A6.95 6.95 0 0 0 12 21a6.95 6.95 0 0 0 3.82-7.1C17.72 7.94 19 6.1 19 4.1 19 2.28 15.86 0 12 0Zm0 8a2 2 0 1 1 2-2 2 2 0 0 1-2 2Z" fill="currentColor"/></svg></span> Chemistry All Years</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 13h16M12 4v16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span> Physics MCQ Bank</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16v16H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 8h8M8 12h8M8 16h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span> English Language</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 10h16" fill="none" stroke="currentColor" stroke-width="2"/></svg></span> Economics JAMB</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l5 4v9c0 3-2 5-5 5s-5-2-5-5V6z" fill="none" stroke="currentColor" stroke-width="2"/></svg></span> Government WAEC</span>
+      <span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16v16H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 12h16" fill="none" stroke="currentColor" stroke-width="2"/></svg></span> Agricultural Science</span>
     </div>
   </div>
 
@@ -632,32 +686,32 @@
     </div>
     <div class="features-grid">
       <div class="feature-card glass appear" style="border-radius:18px;">
-        <div class="feat-icon" style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);">⏱️</div>
+        <div class="feat-icon" style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></div>
         <h3>Authentic CBT Mock Exams</h3>
         <p>Experience exact WAEC/JAMB digital exam conditions — timed countdown, question flagging, CBT grid navigator, and instant scorecard.</p>
       </div>
       <div class="feature-card glass appear" style="border-radius:18px;">
-        <div class="feat-icon" style="background:rgba(244,63,94,0.15);border:1px solid rgba(244,63,94,0.3);">🎯</div>
+        <div class="feat-icon" style="background:rgba(244,63,94,0.15);border:1px solid rgba(244,63,94,0.3);"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 5a7 7 0 1 0 7 7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></div>
         <h3>Weakness Detection Engine</h3>
         <p>Our system tracks every answer. Topics below 60% accuracy are flagged red. Drill your weak spots until they're green and you're confident.</p>
       </div>
       <div class="feature-card glass appear" style="border-radius:18px;">
-        <div class="feat-icon" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);">📊</div>
+        <div class="feat-icon" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 17v-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M11 17v-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M15 17v-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M19 17v-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></div>
         <h3>Live Readiness Score</h3>
         <p>Your 0–100% exam readiness score updates after every practice session. Know precisely when you're ready to sit the exam with confidence.</p>
       </div>
       <div class="feature-card glass appear" style="border-radius:18px;">
-        <div class="feat-icon" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);">📅</div>
+        <div class="feat-icon" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="5" width="16" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 9h16" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span></div>
         <h3>Study Planner Calendar</h3>
         <p>Input your exam date. Get a day-by-day revision plan tailored to your weak areas. Auto-adjusts if you miss a study session.</p>
       </div>
       <div class="feature-card glass appear" style="border-radius:18px;">
-        <div class="feat-icon" style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);">📱</div>
+        <div class="feat-icon" style="background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="4" width="10" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="18" r="1" fill="currentColor"/></svg></span></div>
         <h3>Works Fully Offline</h3>
         <p>Download any subject bundle once. Practice thousands of questions without internet. Perfect for Nigeria's variable network conditions.</p>
       </div>
       <div class="feature-card glass appear" style="border-radius:18px;">
-        <div class="feat-icon" style="background:rgba(52,211,153,0.15);border:1px solid rgba(52,211,153,0.3);">💬</div>
+        <div class="feat-icon" style="background:rgba(52,211,153,0.15);border:1px solid rgba(52,211,153,0.3);"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 5h14v12H5z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 9h10M7 13h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M9 19l2-2h4l2 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
         <h3>WhatsApp Daily Questions</h3>
         <p>Opt in to receive one WAEC past question daily via WhatsApp. Reply A/B/C/D. Get instant explanation. Study anywhere, anytime.</p>
       </div>
@@ -672,20 +726,21 @@
       <p>Every subject you're writing in WAEC, NECO, and JAMB — with past questions from 2010 to 2025. Click any subject to practice now.</p>
     </div>
     <div class="subjects-cloud">
-      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;">📐 Mathematics</a>
-      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;">📖 English Language</a>
-      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;">🔬 Biology</a>
-      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;">⚗️ Chemistry</a>
-      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;">⚡ Physics</a>
-      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;">💰 Economics</a>
-      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;">🏛️ Government</a>
-      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;">📚 Literature</a>
-      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;">🌱 Agricultural Science</a>
-      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;">🏪 Commerce</a>
+      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;"><span class="icon" aria-hidden="true" style="margin-right:0.35rem;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 4h12v16H6z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 8h12" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>Mathematics</a>
+      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;"><span class="icon" aria-hidden="true" style="margin-right:0.35rem;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 4h14v16H5z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 8h14" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>English Language</a>
+      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;"><span class="icon" aria-hidden="true" style="margin-right:0.35rem;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 4h12v16H6z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 4v16" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>Biology</a>
+      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;"><span class="icon" aria-hidden="true" style="margin-right:0.35rem;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 4h12v16H6z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 10h8" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>Chemistry</a>
+      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;"><span class="icon" aria-hidden="true" style="margin-right:0.35rem;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 4h12v16H6z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 12h12" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>Physics</a>
+      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;"><span class="icon" aria-hidden="true" style="margin-right:0.35rem;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 4h12v16H6z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 8h6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>Economics</a>
+      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;"><span class="icon" aria-hidden="true" style="margin-right:0.35rem;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 4h12v16H6z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 7h12" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>Government</a>
+      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;"><span class="icon" aria-hidden="true" style="margin-right:0.35rem;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 4h12v16H6z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 14h8" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>Literature</a>
+      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;"><span class="icon" aria-hidden="true" style="margin-right:0.35rem;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 4h12v16H6z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 12h8" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>Agricultural Science</a>
+      <a href="cbt.html" class="subject-tag glass" style="border-radius:9999px;"><span class="icon" aria-hidden="true" style="margin-right:0.35rem;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 4h12v16H6z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 8h10" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>Commerce</a>
     </div>
     <div style="text-align:center;margin-top:2rem">
-      <a href="cbt.html" class="btn-primary" style="padding:0.9rem 2rem;border-radius:14px;font-size:0.95rem;">
-        ⚡ Launch CBT Practice Engine →
+      <a href="cbt.html" class="btn-primary" style="padding:0.9rem 2rem;border-radius:14px;font-size:0.95rem;display:inline-flex;align-items:center;justify-content:center;gap:0.6rem;">
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 12h16M13 6l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        Launch CBT Practice Engine →
       </a>
     </div>
   </section>
@@ -701,21 +756,21 @@
       <div class="step-connector" style="display:none;"></div>
 
       <div class="step-card">
-        <div class="step-icon" style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.3);animation:float 5s ease-in-out infinite">📱</div>
+        <div class="step-icon" style="background:rgba(99,102,241,0.12);border-color:rgba(99,102,241,0.3);animation:float 5s ease-in-out infinite"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="4" width="8" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="18" r="1" fill="currentColor"/></svg></span></div>
         <div class="step-num" style="background:#6366f1">1</div>
         <h3>Sign Up with Phone</h3>
         <p>Enter your phone number and get an OTP in 30 seconds. No email required, no forms to fill out.</p>
       </div>
 
       <div class="step-card">
-        <div class="step-icon" style="background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.3);animation:float 6s ease-in-out infinite 0.5s">📝</div>
+        <div class="step-icon" style="background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.3);animation:float 6s ease-in-out infinite 0.5s"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 4h10v16H7z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 8h10" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 12h4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span></div>
         <div class="step-num" style="background:#8b5cf6">2</div>
         <h3>Pick Your Subjects</h3>
         <p>Select your WAEC/JAMB subjects and set your exam date. We'll build a personalized study plan automatically.</p>
       </div>
 
       <div class="step-card">
-        <div class="step-icon" style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.3);animation:float 7s ease-in-out infinite 1s">🏆</div>
+        <div class="step-icon" style="background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.3);animation:float 7s ease-in-out infinite 1s"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 3h10v4H7z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 7h12v6a5 5 0 0 1-5 5 5 5 0 0 1-5-5V7Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 18a3 3 0 0 0 6 0" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span></div>
         <div class="step-num" style="background:#f59e0b">3</div>
         <h3>Practice & Track</h3>
         <p>Start answering real past questions immediately. Your weakness map and readiness score update after every answer.</p>
@@ -732,7 +787,7 @@
     </div>
     <div class="testimonials-grid">
       <div class="testimonial-card glass appear" style="border-radius:18px;">
-        <div class="stars">★★★★★</div>
+        <div class="stars"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span></div>
         <p class="testimonial-text">"I failed Biology twice. After using ExamEdge for 6 weeks and drilling my weak topics, I scored A1 in WAEC. The weakness map literally showed me exactly where I was losing marks."</p>
         <div class="testimonial-author">
           <div class="author-avatar" style="background:#6366f1">F</div>
@@ -743,7 +798,7 @@
         </div>
       </div>
       <div class="testimonial-card glass appear" style="border-radius:18px;">
-        <div class="stars">★★★★★</div>
+        <div class="stars"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span></div>
         <p class="testimonial-text">"The CBT mock exam is exactly like the real thing. By exam day, I had done over 800 practice questions. Mathematics had no surprises for me. B2 in WAEC!"</p>
         <div class="testimonial-author">
           <div class="author-avatar" style="background:#8b5cf6">C</div>
@@ -754,7 +809,7 @@
         </div>
       </div>
       <div class="testimonial-card glass appear" style="border-radius:18px;">
-        <div class="stars">★★★★★</div>
+        <div class="stars"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21Z" fill="currentColor"/></svg></span></div>
         <p class="testimonial-text">"₦2,500 a month vs ₦15,000 for one tutorial session? No contest. I used ExamEdge from February to June and scored 5 As and 1 B in WAEC. Best investment ever."</p>
         <div class="testimonial-author">
           <div class="author-avatar" style="background:#10b981">A</div>
@@ -848,12 +903,13 @@
     <div class="final-cta-card glass">
       <div class="final-cta-glow"></div>
       <div style="position:relative">
-        <div style="font-size:3.5rem;margin-bottom:1rem">🎓</div>
+        <div style="font-size:3.5rem;margin-bottom:1rem"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l9 4-9 4-9-4 9-4Z" fill="currentColor"/><path d="M4.5 9.5v6.5c0 1.5 2.5 3.5 7.5 4.5 5-1 7.5-3 7.5-4.5V9.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 11.5v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></div>
         <h2>Your WAEC is in <span class="gradient-text">15 days</span>. Are you ready?</h2>
         <p>Every day you wait is a day another student is practicing. Start now — it's completely free.</p>
         <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
           <a href="register.html" class="btn-cta" style="padding:1.1rem 2.5rem;border-radius:16px;font-size:1rem;font-family:'Outfit',sans-serif;">
-            🚀 Sign Up Free — Start in 60 Seconds
+            <span class="icon" aria-hidden="true" style="margin-right:0.6rem;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Sign Up Free — Start in 60 Seconds
           </a>
           <a href="cbt.html" class="btn-ghost" style="padding:1.1rem 2rem;border-radius:16px;font-size:1rem;font-family:'Outfit',sans-serif;">
             ▶ Try CBT Demo
@@ -868,7 +924,9 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="nav-logo-icon">🎓</div>
+        <div class="nav-logo-icon">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l9 4-9 4-9-4 9-4Z" fill="currentColor"/><path d="M4.5 9.5v6.5c0 1.5 2.5 3.5 7.5 4.5 5-1 7.5-3 7.5-4.5V9.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 11.5v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </div>
         <div>
           <div style="font-family:'Outfit',sans-serif;font-weight:900;color:#fff;">ExamEdge</div>
           <div style="font-size:0.72rem;color:var(--muted);">Nigeria's Premier Exam Prep Platform</div>
@@ -885,7 +943,7 @@
     </div>
     <div style="max-width:960px;margin:0 auto">
       <div class="footer-copy">
-        <span>© 2026 ExamEdge. Built for Nigerian students 🇳🇬</span>
+        <span><span class="icon" aria-hidden="true" style="margin-right:0.35rem;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l6 4v11c0 3-3 5-6 5s-6-2-6-5V6Z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>© 2026 ExamEdge. Built for Nigerian students</span>
         <span>WAEC · NECO · JAMB Exam Prep Platform</span>
       </div>
     </div>

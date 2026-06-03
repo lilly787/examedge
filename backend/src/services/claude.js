@@ -97,23 +97,47 @@ Return ONLY valid JSON array:
 }
 
 function buildFallbackPlan(examDate, subjects, hoursPerDay) {
+  const subjList =
+    Array.isArray(subjects) && subjects.length > 0
+      ? subjects
+      : ["Mathematics", "English Language", "Biology", "Chemistry", "Physics"];
+
   const plan = [];
   const end = new Date(examDate);
+  if (Number.isNaN(end.getTime())) {
+    end.setTime(Date.now() + 60 * 86400000);
+  }
   const start = new Date();
+  start.setHours(0, 0, 0, 0);
   let day = 0;
-  while (start <= end && day < 60) {
+  const maxDays = 90;
+
+  while (start <= end && day < maxDays) {
     const d = new Date(start);
     d.setDate(d.getDate() + day);
-    const subject = subjects[day % subjects.length];
+    const subject = subjList[day % subjList.length];
     plan.push({
       date: d.toISOString().split("T")[0],
       subject,
-      topics: ["General revision"],
-      question_count_target: Math.min(30, hoursPerDay * 10),
+      topics: ["Past questions", "Topic revision"],
+      question_count_target: Math.min(30, Math.max(10, (hoursPerDay || 2) * 10)),
     });
     day++;
+  }
+
+  if (!plan.length) {
+    for (let i = 0; i < 14; i++) {
+      const d = new Date();
+      d.setDate(d.getDate() + i);
+      plan.push({
+        date: d.toISOString().split("T")[0],
+        subject: subjList[i % subjList.length],
+        topics: ["General revision"],
+        question_count_target: 20,
+      });
+    }
   }
   return plan;
 }
 
-module.exports = { tutorReply, generateStudyPlan };
+module.exports = { tutorReply, generateStudyPlan, buildFallbackPlan };

@@ -24,12 +24,13 @@ app.use(express.json({ limit: "10mb" }));
 
 app.get("/api/health", async (_req, res) => {
   try {
-    const { query } = require("./db/pool");
+    const { query, isPgMem } = require("./db/pool");
     await query("SELECT 1");
     res.json({
       status: "ok",
       phase: "0-2",
       env: config.nodeEnv,
+      database: isPgMem() ? "pg-mem (no Docker)" : "postgresql",
     });
   } catch (e) {
     res.status(503).json({ status: "degraded", error: e.message });
@@ -82,9 +83,33 @@ app.get("*", (req, res, next) => {
   });
 });
 
-app.listen(config.port, "127.0.0.1", () => {
-  console.log(`\n✅ ExamEdge running at ${config.appUrl}`);
-  console.log(`   API: ${config.appUrl}/api/health`);
-  console.log(`   Student app: ${config.appUrl}/index.html`);
-  console.log(`   Landing: ${config.appUrl}/landing.html\n`);
-});
+async function startServer() {
+  try {
+    const { ensureDatabaseReady } = require("./db/ensure");
+    await ensureDatabaseReady();
+  } catch (e) {
+    console.error("[DB] Startup init failed:", e.message);
+    console.error("       Run: npm run db:setup");
+  }
+
+  app.listen(config.port, "127.0.0.1", () => {
+    const { isPgMem } = require("./db/pool");
+    console.log(`\n✅ ExamEdge running at ${config.appUrl}`);
+    console.log(`   Database: ${isPgMem() ? "in-memory (pg-mem) — no Docker needed" : "PostgreSQL"}`);
+    console.log(`   API: ${config.appUrl}/api/health`);
+    console.log(`   Student app: ${config.appUrl}/index.html`);
+    console.log(`   Landing: ${config.appUrl}/landing.html\n`);
+  });
+}
+
+startServer();
+
+function shutdown() {
+  const { saveBackup, end } = require("./db/pool");
+  saveBackup();
+  end().finally(() => process.exit(0));
+}
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);
+
+// Remove duplicate listen - we use startServer() above

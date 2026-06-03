@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { pool, query } = require("./pool");
+const { query, end, saveBackup, isPgMem } = require("./pool");
 
 const BADGES = [
   { id: "streak-7", name: "7-Day Streak", description: "Studied 7 days in a row", icon: "🔥" },
@@ -66,7 +66,7 @@ async function seedDemoSchool() {
   return school.rows[0].id;
 }
 
-async function main() {
+async function seedDatabase() {
   const questions = parseQuestionsJs();
   console.log(`[Seed] Loading ${questions.length} questions from questions.js...`);
   const count = await seedQuestions(questions);
@@ -92,10 +92,20 @@ async function main() {
     );
   }
 
-  await pool.end();
 }
 
-main().catch((err) => {
-  console.error("[Seed] Failed:", err);
-  process.exit(1);
-});
+if (require.main === module) {
+  const { migrateSchema } = require("./ensure");
+  migrateSchema()
+    .then(() => seedDatabase())
+    .then(() => {
+      if (isPgMem()) saveBackup();
+      return end();
+    })
+    .catch((err) => {
+      console.error("[Seed] Failed:", err);
+      process.exit(1);
+    });
+}
+
+module.exports = { seedDatabase };

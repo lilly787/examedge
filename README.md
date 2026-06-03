@@ -8,18 +8,22 @@ Past questions and exam readiness platform for Nigerian secondary schools (WAEC,
 
 ### 1. Prerequisites
 
-- Node.js 18+
-- Docker (for PostgreSQL) **or** a hosted `DATABASE_URL`
+- **Node.js 18+** (includes `npm`)
 - Python 3 (optional, for ALOC question import)
+- **Docker is optional** — not needed for local development
 
 ### 2. Install and configure
 
-```bash
-cp .env.example .env
+```powershell
+cd examedge
+copy .env.example .env
 npm install
-docker compose up -d
 npm run db:setup
 ```
+
+By default the app uses **pg-mem** (in-memory PostgreSQL). Your data is saved to `data/examedge-db.json` so it persists between restarts — **no Docker required**.
+
+To use real PostgreSQL later (production): set `USE_PG_MEM=false` and `DATABASE_URL=...` in `.env`.
 
 ### 3. Run
 

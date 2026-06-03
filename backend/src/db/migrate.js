@@ -1,13 +1,13 @@
 const fs = require("fs");
 const path = require("path");
-const { pool } = require("./pool");
+const { query, end, saveBackup, isPgMem } = require("./pool");
+const { migrateSchema } = require("./ensure");
 
 async function migrate() {
-  const schemaPath = path.join(__dirname, "schema.sql");
-  const sql = fs.readFileSync(schemaPath, "utf8");
-  await pool.query(sql);
+  await migrateSchema();
   console.log("[DB] Migration complete.");
-  await pool.end();
+  if (isPgMem()) saveBackup();
+  await end();
 }
 
 migrate().catch((err) => {

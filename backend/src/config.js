@@ -1,10 +1,20 @@
-require("dotenv").config({ path: require("path").join(__dirname, "../../.env") });
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "../../.env") });
+
+// Default: pg-mem (no Docker). Set USE_PG_MEM=false + DATABASE_URL for real PostgreSQL.
+const usePgMem =
+  process.env.USE_PG_MEM === "true" ||
+  (process.env.USE_PG_MEM !== "false" && !process.env.DATABASE_URL);
 
 module.exports = {
   port: parseInt(process.env.PORT || "8000", 10),
   nodeEnv: process.env.NODE_ENV || "development",
   jwtSecret: process.env.JWT_SECRET || "examedge-dev-secret-change-in-production",
   appUrl: process.env.APP_URL || "http://127.0.0.1:8000",
+  usePgMem,
+  pgMemBackupPath:
+    process.env.PG_MEM_BACKUP ||
+    path.join(__dirname, "../../data/examedge-db.json"),
   databaseUrl:
     process.env.DATABASE_URL ||
     "postgresql://examedge:examedge@localhost:5432/examedge",

@@ -120,6 +120,10 @@ function navigate(viewName) {
       break;
     case "study-planner":
       if (typeof renderStudyPlannerView === "function") renderStudyPlannerView();
+      else if (typeof ExamEdgeFeatures !== "undefined" && ExamEdgeFeatures.renderStudyPlannerView) {
+        ExamEdgeFeatures.renderStudyPlannerView();
+      }
+      if (typeof refreshIcons === "function") refreshIcons();
       break;
   }
 

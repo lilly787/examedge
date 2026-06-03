@@ -3,9 +3,22 @@ const ExamEdgeBridge = {
   apiOnline: false,
   cachedQuestions: null,
   pendingAttempts: [],
+  initPromise: null,
 
-  async init() {
-    if (!window.EXAMEDGE_CONFIG?.useApi) return;
+  init() {
+    this.initPromise = this._init();
+    return this.initPromise;
+  },
+
+  whenReady() {
+    return this.initPromise || Promise.resolve();
+  },
+
+  async _init() {
+    if (!window.EXAMEDGE_CONFIG?.useApi) {
+      this.patchLogAttempt();
+      return;
+    }
     try {
       await ExamEdgeAPI.health();
       this.apiOnline = true;
@@ -14,6 +27,10 @@ const ExamEdgeBridge = {
       if (ExamEdgeAPI.getToken()) {
         const me = await ExamEdgeAPI.getMe();
         if (me.user) ExamEdgeDB.loginFromApi({ ...me.user, ...(me.student || {}) }, ExamEdgeAPI.getToken());
+      } else if (ExamEdgeDB.getUser()) {
+        const resumed = await this.ensureApiSession();
+        if (!resumed) window._needsApiReauth = true;
+        else window._needsApiReauth = false;
       }
     } catch (e) {
       console.warn("[ExamEdge] API offline — using local question bank.", e.message);
@@ -74,6 +91,21 @@ const ExamEdgeBridge = {
       }
     } catch (e) {
       console.warn("[ExamEdge] Sync pending failed", e.message);
+    }
+  },
+
+  async ensureApiSession() {
+    if (ExamEdgeAPI.getToken()) return true;
+    const user = ExamEdgeDB.getUser();
+    if (!user?.phone || !this.apiOnline) return false;
+    try {
+      const phone = user.phone.replace(/^\+234/, "").replace(/\D/g, "");
+      const res = await ExamEdgeAPI.resumeSession(phone, user.name, user.school_name, user.role);
+      ExamEdgeDB.loginFromApi(res.user, res.token);
+      return true;
+    } catch (e) {
+      console.warn("[ExamEdge] Could not resume API session:", e.message);
+      return false;
     }
   },
 

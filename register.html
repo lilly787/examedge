@@ -14,12 +14,12 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #07060f;
-      --surface: rgba(18,15,38,0.85);
-      --surface2: rgba(22,18,50,0.6);
-      --border: rgba(99,102,241,0.18);
-      --indigo: #6366f1;
-      --violet: #8b5cf6;
+      --bg: #0b0f19;
+      --surface: rgba(17,24,39,0.9);
+      --surface2: rgba(31,41,55,0.6);
+      --border: rgba(79,70,229,0.22);
+      --indigo: #4f46e5;
+      --violet: #6366f1;
       --emerald: #10b981;
       --rose: #f43f5e;
       --amber: #f59e0b;
@@ -308,7 +308,26 @@
 
     /* SUCCESS STATE */
     .success-state { text-align: center; padding: 1.5rem 0; }
-    .success-emoji { font-size: 4rem; margin-bottom: 1rem; display: block; animation: popIn 0.5s ease; }
+    .success-icon { margin-bottom: 1rem; display: flex; justify-content: center; color: var(--emerald); animation: popIn 0.5s ease; }
+    .role-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .role-tab {
+      padding: 0.65rem 0.5rem;
+      border-radius: 11px;
+      border: 1.5px solid var(--border);
+      background: rgba(10,8,20,0.4);
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .role-tab.active {
+      border-color: var(--indigo);
+      background: rgba(79,70,229,0.15);
+      color: #fff;
+    }
+    .ee-icon { width: 1rem; height: 1rem; stroke: currentColor; }
     @keyframes popIn { 0%{transform:scale(0) rotate(-15deg);opacity:0} 65%{transform:scale(1.2) rotate(4deg)} 100%{transform:scale(1) rotate(0);opacity:1} }
     .success-state h2 { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 0.4rem; }
     .success-state p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.5rem; }
@@ -371,7 +390,7 @@
   <div class="panel-left">
     <div>
       <a href="landing.html" class="panel-logo">
-        <div class="logo-icon-lg">🎓</div>
+        <div class="logo-icon-lg"><i data-lucide="graduation-cap" class="ee-icon" style="width:1.4rem;height:1.4rem"></i></div>
         <span class="logo-text-lg">ExamEdge</span>
       </a>
 
@@ -428,7 +447,7 @@
 
     <!-- Mobile Logo -->
     <div class="mobile-logo">
-      <div class="logo-icon-lg">🎓</div>
+      <div class="logo-icon-lg"><i data-lucide="graduation-cap" class="ee-icon" style="width:1.4rem;height:1.4rem"></i></div>
       <span class="logo-text-lg">ExamEdge</span>
     </div>
 
@@ -458,17 +477,29 @@
     <!-- ===== STEP 1: DETAILS ===== -->
     <div class="form-panel active" id="panel-1">
       <div class="input-group">
+        <label class="input-label">I am a</label>
+        <div class="role-tabs" id="role-tabs">
+          <button type="button" class="role-tab active" data-role="student" onclick="setRole('student', this)"><i data-lucide="graduation-cap" class="ee-icon"></i> Student</button>
+          <button type="button" class="role-tab" data-role="teacher" onclick="setRole('teacher', this)"><i data-lucide="book-open" class="ee-icon"></i> Teacher</button>
+          <button type="button" class="role-tab" data-role="parent" onclick="setRole('parent', this)"><i data-lucide="users" class="ee-icon"></i> Parent</button>
+        </div>
+      </div>
+      <div class="input-group">
         <label class="input-label" for="reg-name">Full Name</label>
         <input type="text" id="reg-name" class="input-field" placeholder="e.g. Fatima Yakubu" autocomplete="name">
       </div>
       <div class="input-group">
+        <label class="input-label" for="reg-school">School Name</label>
+        <input type="text" id="reg-school" class="input-field" placeholder="e.g. Queens College, Lagos">
+      </div>
+      <div class="input-group">
         <label class="input-label">Phone Number</label>
         <div class="phone-row">
-          <div class="phone-prefix">🇳🇬 +234</div>
+          <div class="phone-prefix">+234</div>
           <input type="tel" id="reg-phone" class="input-field" placeholder="0812 345 6789" maxlength="11" autocomplete="tel">
         </div>
       </div>
-      <div class="input-group">
+      <div class="input-group" id="student-class-wrap">
         <label class="input-label" for="reg-class">Your Class</label>
         <select id="reg-class" class="input-field">
           <option value="">Select your class</option>
@@ -480,7 +511,7 @@
       </div>
 
       <div class="info-box demo" id="step1-err" style="display:none">
-        <span>⚠️</span>
+        <i data-lucide="alert-circle" class="ee-icon"></i>
         <span id="step1-err-text">Please check all fields.</span>
       </div>
 
@@ -496,7 +527,7 @@
     <!-- ===== STEP 2: OTP ===== -->
     <div class="form-panel" id="panel-2">
       <div style="text-align:center;margin-bottom:1.5rem">
-        <div style="font-size:2.5rem;margin-bottom:0.5rem">📱</div>
+        <div style="margin-bottom:0.5rem;color:var(--indigo);display:flex;justify-content:center"><i data-lucide="smartphone" style="width:2.5rem;height:2.5rem"></i></div>
         <h2 style="font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:0.4rem">Verify Your Number</h2>
         <p style="font-size:0.83rem;color:var(--muted)">Code sent to <span id="otp-phone-shown" style="color:#fff;font-weight:600">+234...</span></p>
       </div>
@@ -515,7 +546,7 @@
       </div>
 
       <div class="info-box error" id="step2-err" style="display:none">
-        <span>⚠️</span>
+        <i data-lucide="alert-circle" class="ee-icon"></i>
         <span id="step2-err-text">Incorrect code. Please check and try again.</span>
       </div>
 
@@ -554,19 +585,19 @@
       </div>
 
       <div class="info-box error" id="step3-err" style="display:none">
-        <span>⚠️</span>
+        <i data-lucide="alert-circle" class="ee-icon"></i>
         <span id="step3-err-text">Please select at least 2 subjects.</span>
       </div>
 
       <button class="btn-cta-start" id="btn-complete" onclick="completeReg()">
-        🚀 Start Practicing Now →
+        Start Practicing Now →
       </button>
     </div>
 
     <!-- ===== SUCCESS STATE ===== -->
     <div class="form-panel" id="panel-success">
       <div class="success-state">
-        <span class="success-emoji">🎉</span>
+        <div class="success-icon"><i data-lucide="circle-check" style="width:4rem;height:4rem"></i></div>
         <h2>You're All Set!</h2>
         <p>Your account is ready, <span id="success-first-name" style="color:#fff;font-weight:700"></span>! Time to crush those past questions and get your A1.</p>
         <div class="progress-wave"></div>
@@ -580,29 +611,68 @@
   </div>
 </div>
 
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="icons.js"></script>
+<script src="examedge-config.js"></script>
+<script src="examedge-api.js"></script>
+<script src="database.js"></script>
+<script src="examedge-bridge.js"></script>
 <script>
-  // =================== DATA ===================
+  const SUBJECT_NAMES = {
+    math: 'Mathematics', english: 'English Language', biology: 'Biology',
+    chemistry: 'Chemistry', physics: 'Physics', economics: 'Economics',
+    government: 'Government', literature: 'Literature',
+    agric: 'Agricultural Science', commerce: 'Commerce'
+  };
+
   const SUBJECTS = [
-    { id: 'math', label: '📐 Mathematics' },
-    { id: 'english', label: '📖 English Language' },
-    { id: 'biology', label: '🔬 Biology' },
-    { id: 'chemistry', label: '⚗️ Chemistry' },
-    { id: 'physics', label: '⚡ Physics' },
-    { id: 'economics', label: '💰 Economics' },
-    { id: 'government', label: '🏛️ Government' },
-    { id: 'literature', label: '📚 Literature' },
-    { id: 'agric', label: '🌱 Agric. Science' },
-    { id: 'commerce', label: '🏪 Commerce' },
+    { id: 'math', label: 'Mathematics' },
+    { id: 'english', label: 'English Language' },
+    { id: 'biology', label: 'Biology' },
+    { id: 'chemistry', label: 'Chemistry' },
+    { id: 'physics', label: 'Physics' },
+    { id: 'economics', label: 'Economics' },
+    { id: 'government', label: 'Government' },
+    { id: 'literature', label: 'Literature' },
+    { id: 'agric', label: 'Agric. Science' },
+    { id: 'commerce', label: 'Commerce' },
   ];
 
   let state = {
-    name: '', phone: '', cls: '',
-    otp: '',
+    name: '', phone: '', school: '', cls: '', role: 'student',
+    otp: '', otpEntered: '', useApi: false,
     subjects: new Set(['math', 'english']),
     examTarget: 'WAEC',
     examDate: '',
     step: 1
   };
+
+  function setRole(role, el) {
+    state.role = role;
+    document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    const wrap = document.getElementById('student-class-wrap');
+    const panel3 = document.getElementById('panel-3');
+    const sn3 = document.getElementById('sn3');
+    if (role === 'student') {
+      wrap.style.display = 'block';
+      panel3.style.display = '';
+      sn3.style.display = '';
+      document.getElementById('sl2').style.display = '';
+    } else {
+      wrap.style.display = 'none';
+      panel3.style.display = 'none';
+      sn3.style.display = 'none';
+      document.getElementById('sl2').style.display = 'none';
+    }
+    refreshIcons();
+  }
+
+  function mapSubjectIds(ids) {
+    return [...ids].map(id => SUBJECT_NAMES[id] || id);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => refreshIcons());
 
   // Build subject grid
   const grid = document.getElementById('chip-grid');
@@ -690,27 +760,50 @@
   async function sendOTP() {
     const name = document.getElementById('reg-name').value.trim();
     const phone = document.getElementById('reg-phone').value.replace(/\s/g,'');
+    const school = document.getElementById('reg-school').value.trim();
     const cls = document.getElementById('reg-class').value;
 
     if (name.length < 2) { showErr('step1', 'Please enter your full name.'); return; }
+    if (school.length < 2) { showErr('step1', 'Please enter your school name.'); return; }
     if (phone.length < 10) { showErr('step1', 'Please enter a valid 10-11 digit phone number.'); return; }
-    if (!cls) { showErr('step1', 'Please select your school class.'); return; }
+    if (state.role === 'student' && !cls) { showErr('step1', 'Please select your school class.'); return; }
 
     hideErr('step1');
-    state.name = name; state.phone = phone; state.cls = cls;
+    state.name = name; state.phone = phone; state.school = school; state.cls = cls || 'SS3';
 
-    // Generate OTP
-    state.otp = String(Math.floor(1000 + Math.random() * 9000));
-    document.getElementById('otp-code-preview').textContent = state.otp;
     document.getElementById('otp-phone-shown').textContent = `+234 ${phone}`;
 
     const btn = document.getElementById('btn-send-otp');
     btn.textContent = 'Sending code…';
     btn.disabled = true;
-    await sleep(900);
+
+    if (window.EXAMEDGE_CONFIG?.useApi !== false) {
+      await ExamEdgeBridge.whenReady();
+      state.useApi = !!ExamEdgeBridge.apiOnline;
+    }
+
+    if (state.useApi) {
+      try {
+        const res = await ExamEdgeAPI.sendOtp(phone);
+        document.getElementById('otp-code-preview').textContent = res.devCode || '••••';
+        btn.disabled = false;
+        btn.textContent = 'Send Verification Code →';
+        goStep(2);
+        setTimeout(() => document.getElementById('otp-0').focus(), 80);
+        return;
+      } catch (e) {
+        showErr('step1', e.message || 'Could not send code. Try again.');
+        btn.disabled = false;
+        btn.textContent = 'Send Verification Code →';
+        return;
+      }
+    }
+
+    state.otp = String(Math.floor(1000 + Math.random() * 9000));
+    document.getElementById('otp-code-preview').textContent = state.otp;
+    await sleep(600);
     btn.disabled = false;
     btn.textContent = 'Send Verification Code →';
-
     goStep(2);
     setTimeout(() => document.getElementById('otp-0').focus(), 80);
   }
@@ -718,7 +811,8 @@
   async function verifyOTP() {
     const entered = [0,1,2,3].map(i => document.getElementById(`otp-${i}`).value).join('');
     if (entered.length < 4) { showErr('step2', 'Please enter all 4 digits of the code.'); return; }
-    if (entered !== state.otp) {
+
+    if (!state.useApi && entered !== state.otp) {
       showErr('step2', 'Incorrect code. Check the demo code shown above.');
       document.querySelectorAll('.otp-box').forEach(el => {
         el.style.borderColor = 'rgba(244,63,94,0.7)';
@@ -726,62 +820,110 @@
       });
       return;
     }
+
     hideErr('step2');
+    state.otpEntered = entered;
     const btn = document.getElementById('btn-verify');
     btn.textContent = 'Verifying…';
     btn.disabled = true;
-    await sleep(700);
+
+    if (state.role !== 'student') {
+      await finishRegistration();
+      btn.disabled = false;
+      return;
+    }
+
+    await sleep(400);
     btn.disabled = false;
     btn.textContent = 'Verify & Continue →';
     goStep(3);
   }
 
-  function resendCode() {
-    state.otp = String(Math.floor(1000 + Math.random() * 9000));
-    document.getElementById('otp-code-preview').textContent = state.otp;
+  async function resendCode() {
+    if (state.useApi) {
+      try {
+        const res = await ExamEdgeAPI.sendOtp(state.phone);
+        document.getElementById('otp-code-preview').textContent = res.devCode || '••••';
+      } catch (_) {}
+    } else {
+      state.otp = String(Math.floor(1000 + Math.random() * 9000));
+      document.getElementById('otp-code-preview').textContent = state.otp;
+    }
     const btn = document.getElementById('resend-btn');
-    btn.textContent = 'Resent! ✓';
+    btn.textContent = 'Resent';
     setTimeout(() => btn.textContent = 'Resend code', 3000);
   }
 
   async function completeReg() {
     if (state.subjects.size < 2) { showErr('step3', 'Please select at least 2 subjects.'); return; }
     hideErr('step3');
-
     const btn = document.getElementById('btn-complete');
-    btn.textContent = '⏳ Setting up your account…';
+    btn.textContent = 'Setting up your account…';
     btn.disabled = true;
-    await sleep(1300);
+    await finishRegistration();
+    btn.disabled = false;
+  }
+
+  async function finishRegistration() {
+    const examMonth = document.getElementById('exam-month')?.value || '';
+    const examDate = examMonth ? `${examMonth}-01` : null;
+    const subjects = mapSubjectIds(state.subjects);
+    const profile = {
+      name: state.name,
+      role: state.role,
+      school_name: state.school,
+      ss_class: state.cls,
+      subjects,
+      exam_target: state.examTarget,
+      exam_date: examDate,
+    };
+
+    if (state.useApi && state.otpEntered) {
+      try {
+        const res = await ExamEdgeAPI.verifyOtp(state.phone, state.otpEntered, profile);
+        ExamEdgeDB.loginFromApi(res.user, res.token);
+        showSuccessAndRedirect(res.user.name);
+        return;
+      } catch (e) {
+        showErr(state.role === 'student' ? 'step3' : 'step2', e.message || 'Registration failed');
+        return;
+      }
+    }
 
     const user = {
-      id: 's-' + Date.now(),
+      id: 'u-' + Date.now(),
       name: state.name,
       phone: '+234' + state.phone,
+      school_name: state.school,
+      role: state.role,
       class: state.cls,
-      subjects: [...state.subjects],
+      ss_class: state.cls,
+      subjects: state.role === 'student' ? subjects : [],
       examTarget: state.examTarget,
-      examDate: document.getElementById('exam-month').value,
+      exam_target: state.examTarget,
+      examDate: examMonth,
+      exam_date: examDate || new Date(Date.now() + 60 * 86400000).toISOString(),
       subscription: 'free',
       subscription_tier: 'free',
       joinedAt: new Date().toISOString(),
       xp: 0,
       study_streak: 0,
       questionsAnswered: 0,
-      exam_date: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(), // 60 days out
-      exam_target: state.examTarget,
     };
 
-    localStorage.setItem('EXAMEDGE_user', JSON.stringify(user));
-    localStorage.setItem('EXAMEDGE_LOGGED_IN', 'true');
-    addStudentToGlobalList(user);
+    ExamEdgeDB.loginProfile(user);
+    if (state.role === 'student') addStudentToGlobalList(user);
+    showSuccessAndRedirect(user.name);
+  }
 
-    document.getElementById('success-first-name').textContent = state.name.split(' ')[0];
+  function showSuccessAndRedirect(name) {
+    document.getElementById('success-first-name').textContent = name.split(' ')[0];
     goStep(4);
-    document.getElementById('form-title').textContent = 'You\'re In! 🎉';
+    document.getElementById('form-title').textContent = 'You\'re In!';
     document.getElementById('form-subtitle').textContent = 'Your ExamEdge account is all set.';
-
-    // Auto redirect
-    setTimeout(() => { window.location.href = 'index.html'; }, 3000);
+    refreshIcons();
+    const dest = state.role === 'teacher' ? 'teacher.html' : state.role === 'parent' ? 'parent.html' : 'index.html';
+    setTimeout(() => { window.location.href = dest; }, 3000);
   }
 
   // =================== HELPERS ===================

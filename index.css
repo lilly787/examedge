@@ -3,14 +3,14 @@
 
 :root {
   /* Brand Palettes */
-  --bg-primary: #0a0814;
-  --bg-secondary: #120e29;
-  --card-glass: rgba(22, 18, 48, 0.65);
-  --card-border: rgba(99, 102, 241, 0.15);
-  --card-glow-active: rgba(139, 92, 246, 0.25);
+  --bg-primary: #0b0f19;
+  --bg-secondary: #111827;
+  --card-glass: rgba(17, 24, 39, 0.72);
+  --card-border: rgba(79, 70, 229, 0.2);
+  --card-glow-active: rgba(79, 70, 229, 0.22);
 
-  --accent-purple: #6366f1;   /* Royal Purple */
-  --accent-violet: #8b5cf6;   /* Electric Violet */
+  --accent-purple: #4f46e5;
+  --accent-violet: #6366f1;
   --accent-amber: #f59e0b;    /* Electric Gold/Amber */
   --accent-emerald: #10b981;  /* Mint Emerald */
   --accent-rose: #f43f5e;     /* Coral Rose */
@@ -56,11 +56,22 @@ h1, h2, h3, h4, h5, h6 {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(79, 70, 229, 0.35);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.5);
+  background: rgba(99, 102, 241, 0.5);
+}
+
+.ee-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex-shrink: 0;
+  stroke: currentColor;
+}
+.ee-icon-lg {
+  width: 1.35rem;
+  height: 1.35rem;
 }
 
 /* Premium Card Glassmorphism */

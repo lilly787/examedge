@@ -1,7 +1,7 @@
 const express = require("express");
 const { query } = require("../db/pool");
 const { authRequired, requireRole } = require("../middleware/auth");
-const { tutorReply, generateStudyPlan } = require("../services/claude");
+const { tutorReply, buildFallbackPlan } = require("../services/claude");
 const { getWeaknessMap } = require("../services/analytics");
 
 const router = express.Router();
@@ -31,35 +31,43 @@ router.post("/tutor", authRequired, async (req, res) => {
   }
 });
 
-router.post("/study-plan", authRequired, requireRole("student"), async (req, res) => {
+router.post("/study-plan", authRequired, async (req, res) => {
   try {
     const { exam_date, subjects, hours_per_day = 2 } = req.body;
-    const weakness = await getWeaknessMap(req.user.id);
-    const weakTopics = [];
-    Object.keys(weakness).forEach((sub) => {
-      Object.keys(weakness[sub]).forEach((top) => {
-        if (weakness[sub][top].status === "Needs Work") {
-          weakTopics.push(`${sub}: ${top}`);
-        }
-      });
-    });
+    if (!exam_date) {
+      return res.status(400).json({ error: "Exam date is required" });
+    }
 
-    const { plan, simulated } = await generateStudyPlan({
-      examDate: exam_date,
-      subjects: subjects || [],
-      weaknessMap: weakTopics,
-      hoursPerDay: hours_per_day,
-    });
+    const subjectList = Array.isArray(subjects) ? subjects : [];
+    const plan = buildFallbackPlan(exam_date, subjectList, hours_per_day);
 
-    const inserted = await query(
-      `INSERT INTO study_plans (student_id, plan_json, exam_date) VALUES ($1, $2, $3) RETURNING id`,
-      [req.user.id, JSON.stringify(plan), exam_date]
-    );
+    let planId = null;
+    if (req.user.role === "student") {
+      try {
+        const inserted = await query(
+          `INSERT INTO study_plans (student_id, plan_json, exam_date) VALUES ($1, $2, $3) RETURNING id`,
+          [req.user.id, JSON.stringify(plan), exam_date]
+        );
+        planId = inserted.rows[0].id;
+      } catch (saveErr) {
+        console.warn("[study-plan] could not save to DB:", saveErr.message);
+      }
+    }
 
-    res.json({ plan_id: inserted.rows[0].id, plan, simulated });
+    res.json({ plan_id: planId, plan, simulated: false });
   } catch (e) {
-    res.status(500).json({ error: e.message });
+    console.error("[study-plan]", e);
+    res.status(500).json({ error: e.message || "Could not generate study plan" });
   }
+});
+
+router.post("/study-plan/local", async (req, res) => {
+  const { exam_date, subjects, hours_per_day = 2 } = req.body;
+  if (!exam_date) {
+    return res.status(400).json({ error: "Exam date is required" });
+  }
+  const plan = buildFallbackPlan(exam_date, subjects || [], hours_per_day);
+  res.json({ plan, simulated: false });
 });
 
 router.get("/study-plan/latest", authRequired, requireRole("student"), async (req, res) => {

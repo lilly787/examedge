@@ -11,6 +11,8 @@ window.triggerOTPSending = async function triggerOTPSendingApi() {
   }
   window._authPending = { phone, name };
 
+  if (window.EXAMEDGE_CONFIG?.useApi) await ExamEdgeBridge.whenReady();
+
   if (ExamEdgeBridge?.apiOnline) {
     try {
       const res = await ExamEdgeAPI.sendOtp(phone);
@@ -46,6 +48,8 @@ window.verifyOTPCode = async function verifyOTPCodeApi() {
   const name =
     pending.name || document.getElementById("auth-name-input")?.value.trim();
 
+  if (window.EXAMEDGE_CONFIG?.useApi) await ExamEdgeBridge.whenReady();
+
   if (ExamEdgeBridge?.apiOnline) {
     try {
       const res = await ExamEdgeAPI.verifyOtp(phone, entered, {
@@ -62,6 +66,7 @@ window.verifyOTPCode = async function verifyOTPCodeApi() {
         exam_target: "WAEC",
       });
       ExamEdgeDB.loginFromApi(res.user, res.token);
+      window._needsApiReauth = false;
       showToast(`Welcome, ${res.user.name}!`, "success");
       navigate("dashboard");
       return;
@@ -70,7 +75,12 @@ window.verifyOTPCode = async function verifyOTPCodeApi() {
       return;
     }
   }
-  if (typeof _verifyOTPCode === "function") _verifyOTPCode();
+  if (typeof _verifyOTPCode === "function") {
+    _verifyOTPCode();
+    if (ExamEdgeBridge?.apiOnline) {
+      setTimeout(() => ExamEdgeBridge.ensureApiSession(), 500);
+    }
+  }
 };
 
 // ——— Paystack ———
@@ -108,7 +118,64 @@ window.openPaystackSim = async function openPaystackReal() {
   }
 };
 
+const SUBJECT_ID_TO_NAME = {
+  math: "Mathematics",
+  english: "English Language",
+  biology: "Biology",
+  chemistry: "Chemistry",
+  physics: "Physics",
+  economics: "Economics",
+  government: "Government",
+  literature: "Literature",
+  agric: "Agricultural Science",
+  commerce: "Commerce",
+};
+
+function normalizePlannerSubjects(subjects) {
+  if (!Array.isArray(subjects) || !subjects.length) {
+    return [
+      "Mathematics",
+      "English Language",
+      "Biology",
+      "Chemistry",
+      "Physics",
+    ];
+  }
+  return subjects.map((s) => SUBJECT_ID_TO_NAME[s] || s);
+}
+
+function buildLocalStudyPlan(examDate, subjects, hoursPerDay) {
+  const plan = [];
+  const end = new Date(examDate || Date.now() + 60 * 86400000);
+  const start = new Date();
+  let day = 0;
+  const subjList = normalizePlannerSubjects(subjects);
+
+  while (start <= end && day < 60) {
+    const d = new Date(start);
+    d.setDate(d.getDate() + day);
+    const subject = subjList[day % subjList.length];
+    plan.push({
+      date: d.toISOString().split("T")[0],
+      subject,
+      topics: ["General revision", "Past questions"],
+      question_count_target: Math.min(30, (hoursPerDay || 2) * 10),
+    });
+    day++;
+  }
+  return plan;
+}
+
 const ExamEdgeFeatures = {
+  async ensureApiSession() {
+    if (ExamEdgeAPI.getToken()) return true;
+    if (ExamEdgeBridge?.apiOnline) {
+      const ok = await ExamEdgeBridge.ensureApiSession();
+      if (ok) return true;
+    }
+    return false;
+  },
+
   async devActivatePremium() {
     try {
       await ExamEdgeAPI.devActivatePremium("monthly");
@@ -193,12 +260,24 @@ function renderStudyPlannerView() {
   const container = document.getElementById("view-study-planner");
   if (!container) return;
   const user = ExamEdgeDB.getUser();
+  const needsSignIn =
+    window.EXAMEDGE_CONFIG?.useApi &&
+    window._needsApiReauth &&
+    !ExamEdgeAPI.getToken();
 
   container.innerHTML = `
     <div class="mb-8">
-      <h2 class="text-2xl font-black text-white">📅 AI Study Planner</h2>
+      <h2 class="text-2xl font-black text-white flex items-center gap-2">${iconHtml("calendar-days", "w-6 h-6 text-indigo-400")} Study Planner</h2>
       <p class="text-gray-400 text-sm mt-1">Day-by-day revision schedule until your exam</p>
     </div>
+    ${
+      needsSignIn
+        ? `<div class="mb-6 p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-100 text-sm">
+            Sign in with your phone number to save and generate AI study plans.
+            <button onclick="navigate('auth')" class="ml-2 underline font-semibold text-amber-300">Sign in</button>
+          </div>`
+        : ""
+    }
     <div class="glass-panel p-6 rounded-2xl border border-indigo-500/10 mb-6 grid gap-4 md:grid-cols-3">
       <div>
         <label class="text-xs text-gray-400 uppercase font-bold">Exam date</label>
@@ -212,33 +291,94 @@ function renderStudyPlannerView() {
         <button onclick="ExamEdgeFeatures.generatePlan()" class="w-full bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold py-2.5 rounded-xl">Generate Plan</button>
       </div>
     </div>
+    <div id="planner-auth-hint" class="hidden mb-4 p-3 rounded-xl bg-amber-950/30 border border-amber-500/30 text-amber-200 text-xs"></div>
     <div id="planner-calendar" class="space-y-2"></div>`;
 
+  if (!ExamEdgeAPI.getToken()) {
+    const hint = document.getElementById("planner-auth-hint");
+    if (hint) {
+      hint.classList.remove("hidden");
+      hint.innerHTML =
+        'You are using offline login. Click <button type="button" onclick="ExamEdgeFeatures.ensureApiSession().then(ok => showToast(ok ? \"Connected!\" : \"Could not connect\", ok ? \"success\" : \"error\"))" class="underline font-bold">Connect account</button> or sign out and log in again with OTP.';
+    }
+  }
+
   ExamEdgeFeatures.loadExistingPlan();
+  refreshIcons();
 }
 
 ExamEdgeFeatures.generatePlan = async function () {
   const user = ExamEdgeDB.getUser();
+  if (!user) {
+    showToast("Please log in first", "error");
+    navigate("auth");
+    return;
+  }
   const examDate = document.getElementById("planner-exam-date")?.value;
   const hours = parseInt(document.getElementById("planner-hours")?.value || "2", 10);
-  const subjects = user.subjects || [
-    "Mathematics",
-    "English Language",
-    "Biology",
-    "Chemistry",
-    "Physics",
-  ];
+  const subjects = normalizePlannerSubjects(user.subjects);
 
-  try {
-    const res = await ExamEdgeAPI.generateStudyPlan(examDate, subjects, hours);
-    ExamEdgeFeatures.renderPlanCalendar(res.plan);
-    showToast("Study plan generated!", "success");
-  } catch (e) {
-    showToast(e.message, "error");
+  if (!examDate) {
+    showToast("Please choose an exam date", "error");
+    return;
   }
+
+  const btn = document.querySelector("#view-study-planner button[onclick*='generatePlan']");
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "Generating…";
+  }
+
+  if (window.EXAMEDGE_CONFIG?.useApi) await ExamEdgeBridge.whenReady();
+
+  let plan = null;
+
+  if (ExamEdgeBridge?.apiOnline) {
+    try {
+      const localRes = await ExamEdgeAPI.generateStudyPlanLocal(examDate, subjects, hours);
+      plan = localRes.plan;
+    } catch (_) {}
+  }
+
+  if (!plan?.length) {
+    plan = buildLocalStudyPlan(examDate, subjects, hours);
+  }
+
+  if (ExamEdgeAPI.getToken()) {
+    try {
+      await ExamEdgeAPI.generateStudyPlan(examDate, subjects, hours);
+      window._needsApiReauth = false;
+      document.getElementById("planner-auth-hint")?.classList.add("hidden");
+    } catch (_) {}
+  } else {
+    await ExamEdgeFeatures.ensureApiSession();
+  }
+
+  ExamEdgeFeatures.renderPlanCalendar(plan);
+  localStorage.setItem(
+    "EXAMEDGE_study_plan",
+    JSON.stringify({ plan, exam_date: examDate })
+  );
+  if (user.exam_date !== examDate) {
+    ExamEdgeDB.updateUser({ exam_date: examDate });
+  }
+
+  if (btn) {
+    btn.disabled = false;
+    btn.textContent = "Generate Plan";
+  }
+  showToast("Your study plan is ready", "success");
 };
 
 ExamEdgeFeatures.loadExistingPlan = async function () {
+  const saved = localStorage.getItem("EXAMEDGE_study_plan");
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      if (data.plan) ExamEdgeFeatures.renderPlanCalendar(data.plan);
+    } catch (_) {}
+  }
+
   if (!ExamEdgeAPI.getToken()) return;
   try {
     const res = await ExamEdgeAPI.getLatestStudyPlan();

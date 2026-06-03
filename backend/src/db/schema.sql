@@ -1,6 +1,5 @@
 -- ExamEdge PostgreSQL schema (Phases 0–2)
-
-CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+-- gen_random_uuid() is registered in pool.js for pg-mem; use pgcrypto on real PostgreSQL if needed.
 
 CREATE TABLE IF NOT EXISTS schools (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -21,6 +20,7 @@ CREATE TABLE IF NOT EXISTS users (
   email TEXT UNIQUE,
   phone TEXT UNIQUE NOT NULL,
   role TEXT NOT NULL DEFAULT 'student' CHECK (role IN ('student', 'teacher', 'parent', 'admin')),
+  school_name TEXT,
   school_id UUID REFERENCES schools(id) ON DELETE SET NULL,
   subscription_tier TEXT DEFAULT 'free',
   google_id TEXT,

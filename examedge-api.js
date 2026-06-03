@@ -47,6 +47,24 @@ const ExamEdgeAPI = {
     });
   },
 
+  async resumeSession(phone, name, schoolName, role) {
+    return ExamEdgeAPI.request("/auth/session/resume", {
+      method: "POST",
+      body: JSON.stringify({ phone, name, school_name: schoolName, role }),
+    });
+  },
+
+  async generateStudyPlanLocal(examDate, subjects, hoursPerDay) {
+    return ExamEdgeAPI.request("/ai/study-plan/local", {
+      method: "POST",
+      body: JSON.stringify({
+        exam_date: examDate,
+        subjects,
+        hours_per_day: hoursPerDay,
+      }),
+    });
+  },
+
   async getMe() {
     return ExamEdgeAPI.request("/auth/me");
   },

@@ -13,7 +13,7 @@
 
   <!-- Manifest and PWA Icons -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0a0814">
+  <meta name="theme-color" content="#0b0f19">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -26,8 +26,8 @@
         extend: {
           colors: {
             brand: {
-              purple: '#6366f1',
-              violet: '#8b5cf6',
+              purple: '#4f46e5',
+              violet: '#6366f1',
               amber: '#f59e0b',
               emerald: '#10b981',
               rose: '#f43f5e',
@@ -41,7 +41,7 @@
   <!-- Premium Styles -->
   <link rel="stylesheet" href="index.css">
 </head>
-<body class="auth-view bg-[#0a0814] text-[#f1f0f7] min-h-screen flex flex-col">
+<body class="auth-view bg-[#0b0f19] text-[#f1f0f7] min-h-screen flex flex-col">
 
   <!-- 1. SMS Banner Notification Simulator Container (Floated Notification) -->
   <div id="sms-banner-container" class="fixed top-0 left-0 w-full z-[99999] flex flex-col gap-1"></div>
@@ -50,12 +50,12 @@
   <div class="flex flex-1 flex-col lg:flex-row min-h-screen">
     
     <!-- Desktop Sidebar Panel Navigation -->
-    <aside id="sidebar-nav" class="hidden lg:flex flex-col w-64 bg-[#0c0a1a] border-r border-[#1e1a3b] p-6 justify-between select-none">
+    <aside id="sidebar-nav" class="hidden lg:flex flex-col w-64 bg-[#111827] border-r border-indigo-950/50 p-6 justify-between select-none">
       <div>
         <!-- Logo Brand -->
         <div id="nav-logo-btn" class="flex items-center gap-3 mb-10 cursor-pointer group">
-          <div class="bg-indigo-600/20 p-2.5 rounded-xl border border-indigo-500/25 group-hover:border-indigo-400 transition-all">
-            <span class="text-xl">🎓</span>
+          <div class="bg-indigo-600/20 p-2.5 rounded-xl border border-indigo-500/25 group-hover:border-indigo-400 transition-all text-indigo-400">
+            <i data-lucide="graduation-cap" class="ee-icon-lg"></i>
           </div>
           <div>
             <h1 class="text-lg font-black tracking-tight text-white font-display">ExamEdge</h1>
@@ -66,31 +66,31 @@
         <!-- Navigation Links -->
         <nav class="flex flex-col gap-2">
           <button data-view="dashboard" onclick="navigate('dashboard')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
-            <span>🏠</span> Smart Study Home
+            <i data-lucide="layout-dashboard" class="ee-icon"></i> Smart Study Home
           </button>
           
           <button data-view="practice" onclick="navigate('practice')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
-            <span>📝</span> Practice CBT Engine
+            <i data-lucide="clipboard-list" class="ee-icon"></i> Practice CBT Engine
           </button>
 
           <button data-view="leaderboard" onclick="navigate('leaderboard')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
-            <span>🏆</span> Leaderboard
+            <i data-lucide="trophy" class="ee-icon"></i> Leaderboard
           </button>
 
           <button data-view="wellbeing" onclick="navigate('wellbeing')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
-            <span>🌿</span> Wellbeing Corner
+            <i data-lucide="heart-pulse" class="ee-icon"></i> Wellbeing Corner
           </button>
 
           <button data-view="study-planner" onclick="navigate('study-planner')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
-            <span>📅</span> Study Planner
+            <i data-lucide="calendar-days" class="ee-icon"></i> Study Planner
           </button>
 
           <button data-view="settings" onclick="navigate('settings')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
-            <span>⚙️</span> Settings & Upgrade
+            <i data-lucide="settings" class="ee-icon"></i> Settings & Upgrade
           </button>
 
           <a href="admin.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 hover:bg-rose-950/20 hover:text-rose-400 border-l-2 border-transparent transition-all">
-            <span>🛡️</span> Admin Panel
+            <i data-lucide="shield" class="ee-icon"></i> Admin Panel
           </a>
         </nav>
       </div>
@@ -103,14 +103,13 @@
     </aside>
 
     <!-- Mobile Top Navigation Header -->
-    <header id="mobile-header" class="flex lg:hidden bg-[#0c0a1a] border-b border-[#1e1a3b] px-6 py-4 flex justify-between items-center z-40 select-none">
-      <div class="flex items-center gap-2" onclick="navigate('dashboard')">
-        <span class="text-xl">🎓</span>
+    <header id="mobile-header" class="flex lg:hidden bg-[#111827] border-b border-indigo-950/50 px-6 py-4 flex justify-between items-center z-40 select-none">
+      <div class="flex items-center gap-2 text-indigo-400" onclick="navigate('dashboard')">
+        <i data-lucide="graduation-cap" class="ee-icon-lg"></i>
         <h1 class="text-base font-black tracking-tight text-white font-display">ExamEdge</h1>
       </div>
       <div class="flex items-center gap-3">
-        <!-- Streak badge inside mobile top -->
-        <span class="text-xs font-bold px-2.5 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-lg">🔥 Streak Active</span>
+        <span class="text-xs font-bold px-2.5 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-lg flex items-center gap-1"><i data-lucide="flame" class="w-3.5 h-3.5"></i> Streak</span>
       </div>
     </header>
 
@@ -144,21 +143,21 @@
     </main>
 
     <!-- Mobile Floating Bottom Navigation Bar -->
-    <nav id="bottom-nav" class="flex lg:hidden fixed bottom-0 left-0 w-full bg-[#0c0a1a] border-t border-[#1e1a3b] py-3 px-4 flex justify-around items-center z-50 select-none shadow-2xl">
+    <nav id="bottom-nav" class="flex lg:hidden fixed bottom-0 left-0 w-full bg-[#111827] border-t border-indigo-950/50 py-3 px-4 flex justify-around items-center z-50 select-none shadow-2xl">
       <button onclick="navigate('dashboard')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-gray-400">
-        <span class="text-lg">🏠</span> Home
+        <i data-lucide="layout-dashboard" class="ee-icon-lg"></i> Home
       </button>
       <button onclick="navigate('practice')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-gray-400">
-        <span class="text-lg">📝</span> CBT Practice
+        <i data-lucide="clipboard-list" class="ee-icon-lg"></i> Practice
       </button>
       <button onclick="navigate('leaderboard')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-gray-400">
-        <span class="text-lg">🏆</span> Rank
+        <i data-lucide="trophy" class="ee-icon-lg"></i> Rank
       </button>
       <button onclick="navigate('wellbeing')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-gray-400">
-        <span class="text-lg">🌿</span> Peace
+        <i data-lucide="heart-pulse" class="ee-icon-lg"></i> Peace
       </button>
       <button onclick="navigate('settings')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-gray-400">
-        <span class="text-lg">⚙️</span> Settings
+        <i data-lucide="settings" class="ee-icon-lg"></i> Settings
       </button>
     </nav>
   </div>
@@ -205,7 +204,7 @@
 
     <!-- Floating Chat circle button -->
     <button id="whatsapp-widget" onclick="toggleWhatsApp()" class="w-14 h-14 bg-emerald-500 hover:bg-emerald-600 text-slate-950 rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/30 transition-all outline-none border-2 border-emerald-400/40 floating">
-      <span class="text-2xl">💬</span>
+      <i data-lucide="message-circle" class="w-7 h-7"></i>
     </button>
   </div>
 
@@ -215,6 +214,8 @@
   <!-- ---------------------------------------------------- -->
   <!-- 5. JAVASCRIPT LOGIC LOADER -->
   <!-- ---------------------------------------------------- -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="icons.js"></script>
   <script src="examedge-config.js"></script>
   <script src="examedge-api.js"></script>
   <script src="questions.js"></script>
@@ -225,6 +226,7 @@
 
   <!-- PWA Service Worker Registration -->
   <script>
+    document.addEventListener('DOMContentLoaded', () => refreshIcons());
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('service-worker.js')

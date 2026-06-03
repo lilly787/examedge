@@ -38,6 +38,7 @@ const DEFAULT_USER = {
   email: "chidi.adebayo@gmail.com",
   role: "student",
   school_name: "Government College, Lagos",
+  role: "student",
   subscription_tier: "free", // "free" or "premium"
   ss_class: "SS3",
   subjects: ["Mathematics", "English Language", "Biology", "Chemistry", "Physics"],
@@ -93,6 +94,14 @@ const ExamEdgeDB = {
     return userProfile;
   },
 
+  loginProfile: (profile) => {
+    const userProfile = { ...DEFAULT_USER, ...profile };
+    storage.set("user", userProfile);
+    localStorage.setItem("EXAMEDGE_LOGGED_IN", "true");
+    ExamEdgeDB.init();
+    return userProfile;
+  },
+
   // Log in from API response (Phases 1–2 backend)
   loginFromApi: (apiUser, token) => {
     if (token && typeof ExamEdgeAPI !== "undefined") {
@@ -106,14 +115,18 @@ const ExamEdgeDB = {
       name: apiUser.name,
       phone: apiUser.phone,
       role: apiUser.role || "student",
+      school_name: apiUser.school_name || DEFAULT_USER.school_name,
       subscription_tier: apiUser.subscription_tier || "free",
       ss_class: apiUser.ss_class || DEFAULT_USER.ss_class,
-      subjects: apiUser.subjects || DEFAULT_USER.subjects,
+      subjects: Array.isArray(apiUser.subjects)
+        ? apiUser.subjects
+        : typeof apiUser.subjects === "string"
+          ? JSON.parse(apiUser.subjects || "[]")
+          : DEFAULT_USER.subjects,
       exam_target: apiUser.exam_target || "WAEC",
       exam_date: apiUser.exam_date || DEFAULT_USER.exam_date,
       study_streak: apiUser.study_streak || 0,
       parent_link_code: apiUser.parent_link_code,
-      school_name: apiUser.school_name || DEFAULT_USER.school_name
     };
     storage.set("user", userProfile);
     localStorage.setItem("EXAMEDGE_LOGGED_IN", "true");
@@ -126,6 +139,9 @@ const ExamEdgeDB = {
     storage.remove("daily_limit");
     storage.remove("xp");
     storage.remove("leaderboard");
+    localStorage.removeItem("EXAMEDGE_LOGGED_IN");
+    if (typeof ExamEdgeAPI !== "undefined") ExamEdgeAPI.setToken(null);
+    else localStorage.removeItem("EXAMEDGE_token");
   },
 
   getUser: () => {
