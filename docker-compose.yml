@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: examedge
+      POSTGRES_PASSWORD: examedge
+      POSTGRES_DB: examedge
+    ports:
+      - "5432:5432"
+    volumes:
+      - examedge_pg:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  examedge_pg:

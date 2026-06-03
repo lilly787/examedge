@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamEdge — School Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body class="bg-[#0a0814] text-white min-h-screen p-6">
+  <div class="max-w-3xl mx-auto">
+    <a href="landing.html" class="text-indigo-400 text-sm">← Home</a>
+    <h1 class="text-3xl font-black mt-4 mb-8">🏫 School Institutional Portal</h1>
+
+    <div class="glass-panel p-6 rounded-2xl border border-amber-500/20 mb-6">
+      <p class="text-sm text-gray-400 mb-4">Register your school, bulk-enroll students via CSV JSON, and upload internal past questions.</p>
+      <input id="school-name" placeholder="School name" class="w-full mb-2 bg-indigo-950/40 border rounded-xl px-4 py-2">
+      <input id="admin-phone" placeholder="Admin phone" class="w-full mb-2 bg-indigo-950/40 border rounded-xl px-4 py-2">
+      <button onclick="registerSchool()" class="w-full bg-amber-500 text-slate-950 font-bold py-2 rounded-xl">Register school (admin)</button>
+    </div>
+
+    <div id="stats" class="glass-panel p-6 rounded-2xl hidden"></div>
+  </div>
+  <script src="examedge-config.js"></script>
+  <script src="examedge-api.js"></script>
+  <script>
+    async function registerSchool() {
+      const phone = document.getElementById("admin-phone").value;
+      const send = await ExamEdgeAPI.sendOtp(phone);
+      const code = prompt(send.devCode ? `Enter OTP (dev: ${send.devCode})` : "Enter OTP from SMS");
+      const auth = await ExamEdgeAPI.verifyOtp(phone, code, {
+        name: "School Admin",
+        role: "admin",
+      });
+      ExamEdgeAPI.setToken(auth.token);
+      const res = await ExamEdgeAPI.request("/schools/register", {
+        method: "POST",
+        body: JSON.stringify({
+          name: document.getElementById("school-name").value,
+          state: "Lagos",
+          type: "public",
+        }),
+      });
+      alert(`School registered! Code: ${res.school_code}`);
+      const dash = await ExamEdgeAPI.request("/schools/dashboard");
+      document.getElementById("stats").classList.remove("hidden");
+      document.getElementById("stats").innerHTML = `
+        <p>Total students: ${dash.total_students}</p>
+        <p>Active (7 days): ${dash.active_last_7_days}</p>`;
+    }
+  </script>
+</body>
+</html>

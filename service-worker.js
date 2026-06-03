@@ -1,11 +1,16 @@
 // ExamEdge Offline-First PWA Service Worker
-const CACHE_NAME = "examedge-cache-v2";
+const CACHE_NAME = "examedge-cache-v3";
 const ASSETS_TO_CACHE = [
   "index.html",
+  "landing.html",
   "index.css",
   "questions.js",
   "database.js",
   "app.js",
+  "examedge-config.js",
+  "examedge-api.js",
+  "examedge-bridge.js",
+  "examedge-features.js",
   "manifest.json",
   "https://cdn.tailwindcss.com",
   "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap",

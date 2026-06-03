@@ -81,6 +81,10 @@
             <span>🌿</span> Wellbeing Corner
           </button>
 
+          <button data-view="study-planner" onclick="navigate('study-planner')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
+            <span>📅</span> Study Planner
+          </button>
+
           <button data-view="settings" onclick="navigate('settings')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
             <span>⚙️</span> Settings & Upgrade
           </button>
@@ -133,6 +137,9 @@
 
       <!-- Screen 7: Settings & Payments Controls -->
       <section id="view-settings" class="app-view hidden"></section>
+
+      <!-- Screen 8: AI Study Planner (Phase 2) -->
+      <section id="view-study-planner" class="app-view hidden"></section>
 
     </main>
 
@@ -208,9 +215,13 @@
   <!-- ---------------------------------------------------- -->
   <!-- 5. JAVASCRIPT LOGIC LOADER -->
   <!-- ---------------------------------------------------- -->
+  <script src="examedge-config.js"></script>
+  <script src="examedge-api.js"></script>
   <script src="questions.js"></script>
   <script src="database.js"></script>
+  <script src="examedge-bridge.js"></script>
   <script src="app.js"></script>
+  <script src="examedge-features.js"></script>
 
   <!-- PWA Service Worker Registration -->
   <script>

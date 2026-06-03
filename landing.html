@@ -826,6 +826,23 @@
     </div>
   </section>
 
+  <!-- ===== PHASE 0 WAITLIST ===== -->
+  <section id="waitlist" class="section" style="padding:4rem 1.5rem;max-width:560px;margin:0 auto">
+    <div class="section-header appear" style="text-align:center;margin-bottom:2rem">
+      <div class="section-label">Early Access</div>
+      <h2>Join the <span class="gradient-text">Waitlist</span></h2>
+      <p style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem">Be first when we launch. No spam — WAEC prep tips only.</p>
+    </div>
+    <form id="waitlist-form" class="glass appear" style="border-radius:20px;padding:1.5rem;display:grid;gap:0.75rem">
+      <input type="text" id="wl-name" placeholder="Your name" required style="padding:0.85rem;border-radius:12px;border:1px solid var(--border);background:rgba(18,15,38,0.6);color:#fff">
+      <input type="tel" id="wl-phone" placeholder="Phone (e.g. 08031234567)" style="padding:0.85rem;border-radius:12px;border:1px solid var(--border);background:rgba(18,15,38,0.6);color:#fff">
+      <input type="email" id="wl-email" placeholder="Email (optional)" style="padding:0.85rem;border-radius:12px;border:1px solid var(--border);background:rgba(18,15,38,0.6);color:#fff">
+      <button type="submit" class="btn-primary" style="padding:1rem;border-radius:14px;font-family:'Outfit',sans-serif">Get Early Access →</button>
+      <p id="wl-msg" style="font-size:0.8rem;color:var(--muted);text-align:center;min-height:1.2em"></p>
+      <p id="wl-count" style="font-size:0.75rem;color:#a5b4fc;text-align:center"></p>
+    </form>
+  </section>
+
   <!-- ===== FINAL CTA ===== -->
   <section class="final-cta">
     <div class="final-cta-card glass">
@@ -915,6 +932,35 @@
         if (el) el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
       }
     }, 1000);
+  </script>
+  <script src="examedge-config.js"></script>
+  <script src="examedge-api.js"></script>
+  <script>
+    (async function () {
+      try {
+        const c = await ExamEdgeAPI.getWaitlistCount();
+        document.getElementById("wl-count").textContent =
+          c.count > 0 ? `${c.count}+ students on the waitlist` : "Be among the first to join";
+      } catch (_) {}
+    })();
+    document.getElementById("waitlist-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const msg = document.getElementById("wl-msg");
+      try {
+        const res = await ExamEdgeAPI.joinWaitlist({
+          name: document.getElementById("wl-name").value,
+          phone: document.getElementById("wl-phone").value,
+          email: document.getElementById("wl-email").value,
+          source: "landing",
+        });
+        msg.textContent = "You're on the list! We'll WhatsApp you when we launch.";
+        msg.style.color = "#10b981";
+        document.getElementById("wl-count").textContent = `${res.total}+ on waitlist`;
+      } catch (err) {
+        msg.textContent = err.message || "Could not join — try again.";
+        msg.style.color = "#f43f5e";
+      }
+    });
   </script>
 </body>
 </html>

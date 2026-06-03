@@ -1,110 +1,110 @@
 # ExamEdge
 
-A progressive web application (PWA) for managing and practicing medical exam questions, with support for Computer-Based Testing (CBT) and question import functionality.
+Past questions and exam readiness platform for Nigerian secondary schools (WAEC, NECO, JAMB).
 
-## Features
+**Phases 0–2** are implemented: waitlist, full backend API, student PWA, teacher/parent/school portals, Paystack, Claude AI tutor, study planner, WhatsApp bot hooks, offline bundles, gamification.
 
-- 📱 **Progressive Web App**: Works offline with service worker support
-- 🧪 **CBT Interface**: Computer-based testing mode for exam preparation
-- 📚 **Question Management**: Import and organize medical exam questions
-- 👥 **User Authentication**: User registration and login system
-- 🔧 **Admin Panel**: Manage questions and user data
-- 💾 **Local Database**: Store questions and progress locally using IndexedDB
+## Quick start
 
-## Technologies Used
+### 1. Prerequisites
 
-- **Frontend**: HTML5, CSS3, JavaScript
-- **Backend**: Node.js with Express (via database.js)
-- **Database**: IndexedDB (client-side), with Python import tools
-- **Other**: Service Worker, Web Manifest for PWA capabilities
+- Node.js 18+
+- Docker (for PostgreSQL) **or** a hosted `DATABASE_URL`
+- Python 3 (optional, for ALOC question import)
 
-## Project Structure
+### 2. Install and configure
 
-```
-examedge/
-├── index.html              # Main landing page
-├── landing.html            # Landing/home page
-├── cbt.html                # Computer-Based Testing interface
-├── admin.html              # Admin dashboard
-├── register.html           # User registration page
-├── app.js                  # Main application logic
-├── questions.js            # Question management functions
-├── database.js             # Database operations
-├── index.css               # Styling
-├── manifest.json           # PWA manifest
-├── service-worker.js       # Service worker for offline support
-├── import_aloc_questions.py # Python script for importing ALOC questions
-├── aloc_raw_questions.json  # Raw ALOC question data
-└── aloc_mapped_questions.json # Processed ALOC questions
-```
-
-## Getting Started
-
-### Prerequisites
-- Node.js and npm (for server)
-- Python 3 (for question import script)
-- Modern web browser with service worker support
-
-### Installation
-
-1. Clone the repository:
 ```bash
-git clone https://github.com/lilly787/examedge.git
-cd examedge
-```
-
-2. Install dependencies:
-```bash
+cp .env.example .env
 npm install
+docker compose up -d
+npm run db:setup
 ```
 
-3. Start the development server:
+### 3. Run
+
 ```bash
 npm start
 ```
 
-4. Open your browser and navigate to `http://localhost:3000`
+Open:
 
-### Importing Questions
+| URL | Purpose |
+|-----|---------|
+| http://127.0.0.1:8000/landing.html | Marketing + waitlist (Phase 0) |
+| http://127.0.0.1:8000/index.html | Student PWA (Phases 1–2) |
+| http://127.0.0.1:8000/teacher.html | Teacher dashboard |
+| http://127.0.0.1:8000/parent.html | Parent portal |
+| http://127.0.0.1:8000/school-portal.html | School admin |
+| http://127.0.0.1:8000/api/health | API health check |
 
-To import ALOC questions:
+### 4. Environment keys (optional but recommended)
 
-```bash
-python import_aloc_questions.py
+| Variable | Purpose |
+|----------|---------|
+| `TERMII_API_KEY` | Real SMS OTP |
+| `PAYSTACK_SECRET_KEY` / `PAYSTACK_PUBLIC_KEY` | Payments |
+| `ANTHROPIC_API_KEY` | AI tutor + study plans |
+| `WHATSAPP_TOKEN` + `WHATSAPP_PHONE_NUMBER_ID` | WhatsApp Business bot |
+
+Without keys, the app runs in **dev mode** (OTP printed to server console, simulated Paystack, AI fallback messages).
+
+## Architecture
+
+```
+examedge/
+├── backend/src/          # Express + PostgreSQL API
+│   ├── routes/           # auth, questions, progress, ai, payments, …
+│   ├── services/         # OTP, Paystack, Claude, WhatsApp, analytics
+│   └── db/schema.sql     # Full data model
+├── index.html + app.js   # Student PWA (offline-first)
+├── examedge-api.js       # Frontend API client
+├── examedge-bridge.js    # API ↔ localStorage sync
+├── examedge-features.js  # Paystack, AI tutor, study planner
+├── questions.js          # Question bank (seeded into Postgres)
+└── import_aloc_questions.py
 ```
 
-This will process the raw questions and prepare them for use in the application.
+## API overview
 
-## Usage
+| Endpoint | Description |
+|----------|-------------|
+| `POST /api/auth/otp/send` | Send phone OTP |
+| `POST /api/auth/otp/verify` | Verify OTP → JWT |
+| `GET /api/questions` | Filter question bank |
+| `POST /api/progress` | Log attempt + weakness/readiness |
+| `POST /api/ai/tutor` | Claude tutor (Premium) |
+| `POST /api/ai/study-plan` | AI study calendar |
+| `POST /api/payments/initialize` | Paystack checkout |
+| `POST /api/whatsapp/webhook` | WhatsApp Cloud API |
+| `POST /api/waitlist` | Phase 0 waitlist |
 
-### For Students
-1. **Register**: Create a new account on the registration page
-2. **Login**: Access your account
-3. **Practice**: Use the CBT interface to practice exam questions
-4. **Track Progress**: Monitor your performance over time
+## Question bank (5,000+ target)
 
-### For Administrators
-1. **Access Admin Panel**: Navigate to `/admin.html`
-2. **Manage Questions**: Add, edit, or delete exam questions
-3. **User Management**: View and manage user accounts
-4. **Import Questions**: Use the Python script to bulk import questions
+Current seed loads all questions from `questions.js`. To grow the bank:
 
-## Offline Support
+```bash
+python import_aloc_questions.py YOUR_ALOC_TOKEN 30
+npm run db:seed
+```
 
-The app includes a service worker that enables offline functionality. Once visited, the app will cache essential resources and continue to work even without an internet connection.
+Or bulk upload via `POST /api/questions/bulk` (admin).
 
-## Contributing
+## Subscription tiers (enforced in API)
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+- **Free:** 20 questions/day (`daily_limits` table)
+- **Premium:** Unlimited + AI tutor + offline downloads
+- **School:** Teacher + analytics (see school routes)
+
+## Phase status
+
+| Phase | Status |
+|-------|--------|
+| 0 — Validate | Waitlist + docs; market tasks manual |
+| 1 — MVP | Backend, auth, CBT, progress, Paystack, WhatsApp hooks, PWA offline |
+| 2 — AI | Weakness/readiness (server), Claude tutor, study planner, badges, leaderboards |
+| 3+ | React Native app scaffold in `/mobile` — build when ready |
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For issues or questions, please open an issue on the GitHub repository.
-
----
-
-**ExamEdge** - Making exam preparation accessible and effective for everyone.
+MIT

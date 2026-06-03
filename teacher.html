@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamEdge — Teacher Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body class="bg-[#0a0814] text-white min-h-screen p-6">
+  <div class="max-w-4xl mx-auto">
+    <a href="index.html" class="text-indigo-400 text-sm">← Back to student app</a>
+    <h1 class="text-3xl font-black mt-4 mb-2">👩‍🏫 Teacher Dashboard</h1>
+    <p class="text-gray-400 text-sm mb-8">Class management, assignments, and at-risk student alerts (Phase 3)</p>
+
+    <div id="auth-block" class="glass-panel p-6 rounded-2xl border border-indigo-500/20 mb-6">
+      <h2 class="font-bold mb-4">Teacher login (phone OTP)</h2>
+      <input id="phone" placeholder="8031234567" class="w-full mb-2 bg-indigo-950/40 border border-indigo-900/60 rounded-xl px-4 py-2">
+      <input id="otp" placeholder="OTP code" class="w-full mb-2 bg-indigo-950/40 border border-indigo-900/60 rounded-xl px-4 py-2">
+      <button onclick="teacherSendOtp()" class="w-full bg-indigo-600 py-2 rounded-xl font-bold mb-2">Send OTP</button>
+      <button onclick="teacherLogin()" class="w-full bg-violet-600 py-2 rounded-xl font-bold">Login as Teacher</button>
+      <p id="dev-otp" class="text-xs text-amber-400 mt-2"></p>
+    </div>
+
+    <div id="dashboard" class="hidden space-y-6">
+      <div class="flex gap-3">
+        <button onclick="loadClasses()" class="bg-indigo-600 px-4 py-2 rounded-xl text-sm font-bold">Refresh Classes</button>
+        <button onclick="createDemoClass()" class="bg-emerald-600 px-4 py-2 rounded-xl text-sm font-bold">+ Demo Class</button>
+      </div>
+      <div id="classes-list"></div>
+      <div id="students-panel" class="glass-panel p-6 rounded-2xl border border-indigo-500/10 hidden">
+        <h3 class="font-bold mb-4">Class students</h3>
+        <div id="students-list"></div>
+      </div>
+    </div>
+  </div>
+  <script src="examedge-config.js"></script>
+  <script src="examedge-api.js"></script>
+  <script>
+    let pendingPhone = "";
+    async function teacherSendOtp() {
+      pendingPhone = document.getElementById("phone").value;
+      const res = await ExamEdgeAPI.sendOtp(pendingPhone);
+      document.getElementById("dev-otp").textContent = res.devCode ? `Dev OTP: ${res.devCode}` : "OTP sent";
+    }
+    async function teacherLogin() {
+      const code = document.getElementById("otp").value;
+      const res = await ExamEdgeAPI.verifyOtp(pendingPhone, code, {
+        name: "Demo Teacher",
+        role: "teacher",
+        subjects: ["Mathematics", "Biology"],
+      });
+      ExamEdgeAPI.setToken(res.token);
+      document.getElementById("auth-block").classList.add("hidden");
+      document.getElementById("dashboard").classList.remove("hidden");
+      loadClasses();
+    }
+    async function loadClasses() {
+      const data = await ExamEdgeAPI.getClasses();
+      document.getElementById("classes-list").innerHTML = (data.classes || [])
+        .map(c => `<div class="glass-panel p-4 rounded-xl mb-2 border border-indigo-500/10">
+          <b>${c.name}</b> — ${c.subject || "All"}
+          <button onclick="viewStudents('${c.id}')" class="ml-3 text-indigo-400 text-xs">View students →</button>
+        </div>`).join("") || "<p class='text-gray-500'>No classes yet.</p>";
+    }
+    async function createDemoClass() {
+      await ExamEdgeAPI.createClass({
+        name: "SS3 Science A",
+        ss_level: "SS3",
+        subject: "Biology",
+        student_ids: [],
+      });
+      loadClasses();
+    }
+    async function viewStudents(classId) {
+      const data = await ExamEdgeAPI.getClassStudents(classId);
+      document.getElementById("students-panel").classList.remove("hidden");
+      document.getElementById("students-list").innerHTML = (data.students || [])
+        .map(s => `<div class="py-2 border-b border-indigo-900/30 text-sm">
+          ${s.name} — Readiness: ${s.readiness_score || 0}%
+          ${s.at_risk ? '<span class="text-rose-400 ml-2">⚠ At risk</span>' : ""}
+        </div>`).join("") || "<p>No students in class.</p>";
+    }
+  </script>
+</body>
+</html>

@@ -81,7 +81,7 @@ const ExamEdgeDB = {
     }
   },
 
-  // Log in student via phone
+  // Log in student via phone (local / demo)
   login: (phone, name = "Chidi Adebayo") => {
     const userProfile = {
       ...DEFAULT_USER,
@@ -90,6 +90,33 @@ const ExamEdgeDB = {
     };
     storage.set("user", userProfile);
     ExamEdgeDB.init();
+    return userProfile;
+  },
+
+  // Log in from API response (Phases 1–2 backend)
+  loginFromApi: (apiUser, token) => {
+    if (token && typeof ExamEdgeAPI !== "undefined") {
+      ExamEdgeAPI.setToken(token);
+    } else if (token) {
+      localStorage.setItem("EXAMEDGE_token", token);
+    }
+    const userProfile = {
+      ...DEFAULT_USER,
+      id: apiUser.id,
+      name: apiUser.name,
+      phone: apiUser.phone,
+      role: apiUser.role || "student",
+      subscription_tier: apiUser.subscription_tier || "free",
+      ss_class: apiUser.ss_class || DEFAULT_USER.ss_class,
+      subjects: apiUser.subjects || DEFAULT_USER.subjects,
+      exam_target: apiUser.exam_target || "WAEC",
+      exam_date: apiUser.exam_date || DEFAULT_USER.exam_date,
+      study_streak: apiUser.study_streak || 0,
+      parent_link_code: apiUser.parent_link_code,
+      school_name: apiUser.school_name || DEFAULT_USER.school_name
+    };
+    storage.set("user", userProfile);
+    localStorage.setItem("EXAMEDGE_LOGGED_IN", "true");
     return userProfile;
   },
 

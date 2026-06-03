@@ -1,4 +1,4 @@
-// ExamEdge Question Bank — 217 questions total
+// ExamEdge Question Bank — 382 questions total
 // Last updated via ALOC importer
 
 const EXAMEDGE_QUESTIONS = [
@@ -5106,6 +5106,3966 @@ const EXAMEDGE_QUESTIONS = [
       "physics",
       "jamb",
       "2019"
+    ]
+  },
+  {
+    "id": "aloc-380",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2006,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The gradient of a curve is 2x + 7 and the curve passes through point (2, 0). find the equation of the curve.",
+    "options": {
+      "A": "y = x<sup>2</sup> + 7x + 9",
+      "B": "y = x<sup>2</sup> + 7x - 18",
+      "C": "y = x<sup>2</sup> + 7x + 18",
+      "D": "y = x<sup>2</sup> + 14x + 11"
+    },
+    "answer": "B",
+    "explanation": "dy/dx = 2x + 7\ny = ∫2x + 7\ny = x2 + 7x + C at (2,0)\n0 = 22 + 7(2) + C\n0 = 4 + 14 + C\n0 = 18 + C\nC = -18\n∴ The equation is y = x<sup>2</sup> + 7x - 18",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2006"
+    ]
+  },
+  {
+    "id": "aloc-646",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2011,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "A chord of circle of radius 7cm is 5cm from the centre of the circle.What is the length of the chord?",
+    "options": {
+      "A": "4√6 cm",
+      "B": "3√6 cm",
+      "C": ". 6√6 cm",
+      "D": "2√6 cm"
+    },
+    "answer": "A",
+    "explanation": "From Pythagoras theorem\n\n|OA|2 = |AN|2 + |ON|2\n\n72 = |AN|2 + (5)2\n\n49 = |AN|2 + 25\n\n|AN|2 = 49 - 25 = 24\n\n|AN| = √24\n\n\n= √4 x 6\n\n\n= 2√6 cm\n\n|AN| = |NB| (A line drawn from the centre of a circle to a chord, divides the chord into two equal parts)\n\n|AN| + |NB| = |AB|\n\n2√6 + 2√6 = |AB|\n\n|AB| = 4√6 cm",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2011"
+    ]
+  },
+  {
+    "id": "aloc-1132",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2022,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Factorize 4a<sub>2</sub> - 9b<sub>2</sub>",
+    "options": {
+      "A": "(2a-3b) (2a+3b)",
+      "B": "(2a-b) (2a+3b)",
+      "C": "(2a-3b) (a+3b)",
+      "D": "(a-3b) (a+3b)"
+    },
+    "answer": "A",
+    "explanation": "Check:\n(2a-3b) (2a+3b)\n\n4a<sub>2</sub> + 6ab - 6ab - 9b<sub>2</sub>\n                                                                                                                     4a<sub>2</sub> - 9b<sub>2</sub>",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2022"
+    ]
+  },
+  {
+    "id": "aloc-327",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Evaluate ((〖81〗<sup>(3/4)</sup> -〖27〗<sup>(1/3)</sup>)))/(3×2^3 )",
+    "options": {
+      "A": "3",
+      "B": "1",
+      "C": "1/3",
+      "D": "1/8"
+    },
+    "answer": "B",
+    "explanation": "(81<sup>(3/4)</sup> - 27<sup>(1/3)</sup>)/(3×2<sup>3</sup> )=((3<sup>(3-3/4)</sup>-33<sup>(3-3/4)</sup>))/(3×2<sup>3</sup> )=(3<sup>3</sup> -3)/(3 ×8) = (27 - 3 ) / 24 = 24/24 = 1",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-135",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2001,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Factorize 4x<sup>2</sup>  - 9y<sup>2</sup>  + 20x + 25",
+    "options": {
+      "A": "(2x -3y + 5)(2x - 3y - 5)",
+      "B": "(2x - 3y)(2x + 3y)",
+      "C": "(2x - 3y +5)(2x + 3y + 5)",
+      "D": "(2x + 5)(2x - 9y +5)"
+    },
+    "answer": "C",
+    "explanation": "Given: 4x<sup>2</sup> - 9y<sup>2</sup> + 20x + 25\nCollect like terms: 4x<sup>2</sup> + 20x + 25 - 9y<sup>2</sup> (2x + 5)(2x + 5) - 9y<sup>2</sup> \n(2x + 5)<sup>2</sup> - (3y)<sup>2</sup>                            (2x - 3y +5)(2x + 3y + 5)",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2001"
+    ]
+  },
+  {
+    "id": "aloc-85",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2000,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "if (x - 1), (x + 1) and (x - 2) are factors of the polynomial ax<sup>3</sup> + bx<sup>2</sup> + cx - 1, find a, b, c in that order.",
+    "options": {
+      "A": "-1/2, 1., 1/2",
+      "B": "1/2, 1, 1/2",
+      "C": "1/2, 1, -1/2",
+      "D": "1/2, -1, 1/2"
+    },
+    "answer": "A",
+    "explanation": "This is a polynomial of the 3rd order, thus x should have three answers. Use the factors given to get values of x as 1, -1 and -2.\nForm three equations, and carry out elimination and subsequent substitution to get a = -1/2, b = 1, and c = 1/2",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2000"
+    ]
+  },
+  {
+    "id": "aloc-617",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "If three unbiased coins are tossed, find the probability that they are all heads",
+    "options": {
+      "A": "1/2",
+      "B": "1/3",
+      "C": "1/9",
+      "D": "1/8"
+    },
+    "answer": "D",
+    "explanation": "P(H) = 1/2 and P(T) = 1/2\n\nUsing the binomial prob. distribution,\n\n(H + T)3 = H3 + 3H2T1 + 3HT2 + T3\n\nHence the probability that three heads show in a toss of the three coins is H3\n\n= (1/2)3\n\n= 1/8",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "aloc-572",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Evaluate (81/16)<sup>−1/4</sup> × 2<sup>−1</sup>",
+    "options": {
+      "A": "1/3",
+      "B": "3",
+      "C": "6",
+      "D": "1/6"
+    },
+    "answer": "A",
+    "explanation": "〖(81/16)〗<sup>(-1)/4)</sup> × 2<sup>-1</sup> =1 /〖(81/16)〗<sup>(1/4)</sup>^(1/4) × 1/2=〖(16/81)〗<sup>1/4</sup> × 1/2=〖(2/3)〗<sup>(4×1/4)</sup>= 2/3 × 1/2 = 1/3",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "aloc-358",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The table above shows that the scores of a group of students in a test. If the average score is 3.5, find the value of x",
+    "options": {
+      "A": "1",
+      "B": "2",
+      "C": "3",
+      "D": "4"
+    },
+    "answer": "B",
+    "explanation": "mean = (60+5x)/(18+x).  3.5 =(60+5)/(x18+x). 7/2 = (60+5x)/(18+x)\n\n7(18+x) = 2(60+5x)\n126 + 7x = 120 + 10x\n10x - 7x = 126 - 120\n3x = 6\nx = 2",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-981",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2019,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Find the mean of the data.",
+    "options": {
+      "A": "3.26",
+      "B": "4.91",
+      "C": "6.57",
+      "D": "3.0"
+    },
+    "answer": "A",
+    "explanation": "Mean = ∑fx/∑f\n= 150/46\n= 3.26",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2019"
+    ]
+  },
+  {
+    "id": "aloc-116",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2000,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The cumulative frequency curve represents the ages of ages of students in a school. What age group do 70% of the students belongs?",
+    "options": {
+      "A": "17.5 - 20.5",
+      "B": "16.5 - 19.5",
+      "C": "15.5 - 19.5",
+      "D": "15.5 - 18.5"
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2000"
+    ]
+  },
+  {
+    "id": "aloc-151",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2001,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Find the rate of change of the volume, V of a sphere with respect to its radius, r when r = 1.",
+    "options": {
+      "A": "12π",
+      "B": "4π",
+      "C": "24π",
+      "D": "8π"
+    },
+    "answer": "B",
+    "explanation": "Volume of sphere, V = 4/3 x πr<sup>3</sup>\nRate of change of V = dv/dr\nThus if V = 4/3 x πr<sup>3</sup>,\n=> dv/dr = 4πr<sup>2</sup>\n\nAt r = 1, Rate = 4 x π x 1 = 4π",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2001"
+    ]
+  },
+  {
+    "id": "aloc-32",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2008,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Factorize 16(3x +2y)2 -25(a+2b)2",
+    "options": {
+      "A": "(12x + 8y -5a-10b)(12x+8y-5a-10b)",
+      "B": "20(3x +2y-a-2b)(3x+2y+a+1-2b)",
+      "C": "(12x +8y+5a+10b)(12x +8y-5a-10b)",
+      "D": "20(3x +2y+ a+2b)(3x + 2y+a+2b)"
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2008"
+    ]
+  },
+  {
+    "id": "aloc-179",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2002,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Find the derivative of y=sin<sup>2</sup>(5x)\n with respect to x.",
+    "options": {
+      "A": "10 sin 5x cos 5x",
+      "B": "5 sin5x cos 5x",
+      "C": "2 sin 5x cos 5x",
+      "D": "15 sin 5x cos 5x"
+    },
+    "answer": "A",
+    "explanation": "y=sin<sup>2</sup>(5x)\n \nLet u = sin 5x\n\ndu/dx=5cos5x\n∴y=u<sup>2</sup>\nd/ydu=2u\ndy/dx=2u. 5 cos 5x\n= 10u cos 5x\n= 10 sin 5x cos 5x",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2002"
+    ]
+  },
+  {
+    "id": "aloc-285",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2004,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Evaluate ∫_<sub>1</sub><sup>3</sup>(X<sup>2</sup>-1)dx",
+    "options": {
+      "A": "2/3",
+      "B": "-2/3",
+      "C": "-6(2/3)",
+      "D": "6(2/3)"
+    },
+    "answer": "D",
+    "explanation": "∫<sub>1</sub><sup>3</sup>(X<sup>2</sup>-1)dx =〖[1/3 x<sup>2</sup>-x]〗<sub>1</sub><sup>3</sup>=(9-3)-(1/3-1)=6-(-2/3)=6+2/3 = 6 (2/3)",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2004"
+    ]
+  },
+  {
+    "id": "aloc-637",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2011,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Solve the inequality -6(x + 3) ≤ 4(x - 2)",
+    "options": {
+      "A": "x ≤ 2",
+      "B": "x ≥ -1",
+      "C": "x ≥ -2",
+      "D": "x ≤ -1"
+    },
+    "answer": "B",
+    "explanation": "-6(x + 3) ≤ 4(x - 2)\n\n-6(x +3) ≤ 4(x - 2)\n\n-6x -18 ≤ 4x - 8\n\n-18 + 8 ≤ 4x +6x\n\n-10 ≤ 10x\n\n10x ≥ -10\n\nx ≥ -1",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2011"
+    ]
+  },
+  {
+    "id": "aloc-610",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "A cylindrical pipe 50m long with radius 7m has one end open. What is the total surface area of the pipe?",
+    "options": {
+      "A": "749πm<sup>2</sup>",
+      "B": "700πm<sup>2</sup>",
+      "C": "350πm<sup>2</sup>",
+      "D": "98πm<sup>2</sup>"
+    },
+    "answer": "A",
+    "explanation": "Total surface area of the cylindrical pipe = area of circular base + curved surface area\n\n= πr<sup>2</sup> + 2πrh\n\n= π x 7<sup>2</sup> + 2π x 7 x 50\n\n= 49π + 700π\n= 749πm<sup>2</sup>",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "aloc-534",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2009,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "W is directly proportional to U. If W = 5 when U = 3, find U when W = 2/7",
+    "options": {
+      "A": "6/35",
+      "B": "10/21",
+      "C": "21/10",
+      "D": "35/6"
+    },
+    "answer": "A",
+    "explanation": "W∝U.   W=KU.  K = W/U. K = 5/3.    W = 5/3U.   2/7=5/3U.  U = 2/7 × 3/5.   U = 6/35",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2009"
+    ]
+  },
+  {
+    "id": "aloc-756",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2012,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Evaluate <sup>n+1</sup>C<sub>n-2</sub> If n =15",
+    "options": {
+      "A": "3630",
+      "B": "3360",
+      "C": "1120",
+      "D": "560"
+    },
+    "answer": "D",
+    "explanation": "n+1(n−2)/(n+1)!\n\n\n(n+1)+(n−2)!(n−2)!/(n+1)!\n\n\n(n+1)(n+1−1)(n+1−2)(n+1−3)/!3!(n−2)!\n\n\n(n+1)(n)(n−1)(n−2)/!3!(n−2)!\n\n\n(n+1)(n)(n−1/)3!\n\n\nSince n = 15\n\n(15+1)(15)(15−1)/3!\n\n\n16×15×14/3×2×1\n\n\n= 560",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2012"
+    ]
+  },
+  {
+    "id": "aloc-1003",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2019,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "If S = (4t + 3)(t - 2), find ds/dt when t = 5 secs.",
+    "options": {
+      "A": "50 units per sec",
+      "B": "35 units per sec",
+      "C": "22 units per sec",
+      "D": "13 units per sec"
+    },
+    "answer": "B",
+    "explanation": "s=(4t+3)(t−2)\n \nds/dt=(4t+3)(1)+(t−2)(4)\n= 4t+3+4t−8\n= 8t - 5\n\nds/dt(t=5secs)=8(5)−5\n= 40 - 5 \n\n= 35 units per sec",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2019"
+    ]
+  },
+  {
+    "id": "aloc-582",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "From the cyclic quadrilateral TUVW above, find the value of x",
+    "options": {
+      "A": "26°",
+      "B": "24°",
+      "C": "20°",
+      "D": "23°"
+    },
+    "answer": "B",
+    "explanation": "TUVW is a cyclic quad\n3χ + 20 + 88 = 180 (opp ∠ s of a cyclic quad are supplementary)\n3χ + 108 = 180\n3χ = 180 - 108\n3χ = 72\nχ = 72/3\nχ = 24°",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "aloc-505",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2008,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Evaluate ∫<sub>1</sub> <sup>2</sup>〖(6x<sup>2</sup>-2x)dx〗〗",
+    "options": {
+      "A": "16",
+      "B": "13",
+      "C": "12",
+      "D": "11"
+    },
+    "answer": "D",
+    "explanation": "∫<sub>2</sub><sup>2</sup> 〖(6x<sup>2</sup> -2x)dx=[(6x<sup>3</sup> )/3-(2x<sup>2</sup> )/2 ]<sub>1</sub><sup>2</sup> = [2x<sup>3</sup> -x<sup>2</sup>  ]<sub>1</sub><sup>2</sup>  〗",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2008"
+    ]
+  },
+  {
+    "id": "aloc-351",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Find the derivative of y = sin(2x<sup>3</sup>\n + 3x - 4)",
+    "options": {
+      "A": "cos (2x<sup>3</sup> + 3x - 4)",
+      "B": "-cos (2x<sup>3</sup> + 3x - 4)",
+      "C": "(6x<sup>2</sup> + 3) cos (2x<sup>3</sup> + 3x - 4)",
+      "D": "-(6x<sup>2</sup> + 3) cos (2x<sup>3</sup> + 3x - 4)"
+    },
+    "answer": "C",
+    "explanation": "y = sin (2x<sup>3</sup>\n + 3x - 4)\nlet u = 2x<sup>3</sup>\n + 3x - 4\n∴du/dx = 6x<sup>2</sup>\n\ny = sin u\ndy/du = cos u\ndy/dx = du/dx * dy/du\n∴dy/dx = (6x<sup>2</sup>\n + 3) cos u\n= (6x<sup>2</sup>\n + 3)cos(2x<sup>3</sup>\n + 3x - 4)",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-379",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2006,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "For what of n is <sup>n+1</sup> C<sub>3</sub> = 4(<sup> n</sup>C<sub>3</sub>)?",
+    "options": {
+      "A": "6",
+      "B": "5",
+      "C": "4",
+      "D": "3"
+    },
+    "answer": "D",
+    "explanation": "<sup>n+1</sup>C<sub>3</sub = 4 (<sup> n</sup> C<sub>3</sub>)frac(n+1)!(n+1-3)!3!=4(n!/((n-3)!3!))frac(n+1)n!(n-2)(n-3)!=4(n!/(n-3!))\"\\=\"  (n+1)/(n-2)=4/1 \"\\n\"+1=4(n-2)\"\\n\"+1=4n-8\"\\-\" 3n=-9frac-9-3\"\\n\"=3",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2006"
+    ]
+  },
+  {
+    "id": "aloc-1065",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2021,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Find the derivative of the function y = 2x<sup>2</sup>(2x - 1) at the point x = -1?",
+    "options": {
+      "A": "18",
+      "B": "16",
+      "C": "-4",
+      "D": "-6"
+    },
+    "answer": "B",
+    "explanation": "y = 2x<sup>2</sup>(2x - 1)\ny = 4x<sup>3</sup> - 2x<sup>2</sup>\n\ndy/dx = 12x<sup>2</sup>\n - 4x\nat x = -1\ndy/dx = 12(-1)<sup>2</sup>\n - 4(-1)\n= 12 + 4\n= 16",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2021"
+    ]
+  },
+  {
+    "id": "aloc-1115",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2022,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The locus of points equidistant from a fixed point.",
+    "options": {
+      "A": "circle",
+      "B": "perpendicular lines",
+      "C": "straight line",
+      "D": "bisector"
+    },
+    "answer": "A",
+    "explanation": "Definition of a circle",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2022"
+    ]
+  },
+  {
+    "id": "aloc-946",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2018,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Divide the L.C.M of 48, 64 and 80 by their H.C.F",
+    "options": {
+      "A": "20",
+      "B": "30",
+      "C": "48",
+      "D": "60"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2018"
+    ]
+  },
+  {
+    "id": "aloc-954",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2018,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Evaluate (2√3 - 4) (2√3 + 4)",
+    "options": {
+      "A": "-4",
+      "B": "-2",
+      "C": "2",
+      "D": "4"
+    },
+    "answer": "A",
+    "explanation": "2√3 - 4) ( 2√3 + 4)\n\n= 12 + 8√3 - 8√3 – 16\n\n= 12 – 16\n= -4",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2018"
+    ]
+  },
+  {
+    "id": "aloc-1134",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2022,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Three times a certain number (x), minus 2 is less than the number minus 6.Find the possible values of x.",
+    "options": {
+      "A": "x <-2",
+      "B": "x>2",
+      "C": "x>-2",
+      "D": "x<2"
+    },
+    "answer": "A",
+    "explanation": "Three times a certain number (x) = 3x\n\nminus 2 = -2\n\nis less than = <\n\nthe number minus 6 = x -6\n\nMathematically; 3x - 2 < x - 6\n\ncollect like terms\n\n3x - x < -6 + 2\n\n2x < -4\n\nx < -2 is  the possible values of x",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2022"
+    ]
+  },
+  {
+    "id": "aloc-287",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2004,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "find the mean deviation of 1, 2, 3 and 4",
+    "options": {
+      "A": "2.5",
+      "B": "2.0",
+      "C": "1.0",
+      "D": "1.5"
+    },
+    "answer": "C",
+    "explanation": "X = 1, 2, 3, 4; ∑X = 10\nx = ∑X/n = 10/4 = 2.5\nX - x = -1.5, -0.5, 0.5, 1.5\nlX - xl = 1.5, 0.5, 0.5, 1.5; ∑lX - xl = 4.0\nmean deviation = (∑lX - xl)/n\n= 4.0/4\n= 1.0",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2004"
+    ]
+  },
+  {
+    "id": "aloc-746",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2012,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The distance between the point (4, 3) and the intersection of y = 2x + 4 and y = 7 - x is",
+    "options": {
+      "A": "√13",
+      "B": "3√2",
+      "C": "√26",
+      "D": "10√5"
+    },
+    "answer": "B",
+    "explanation": "P<sub>1</sub> (4, 3), P<sub>2</sub> (x, y)\n\ny = 2x + 4 .....(1)\n\ny = 7 - x .....(2)\n\nSubstitute (2) in (1)\n\n7 - x = 2x + 4\n\n7 - 4 = 2x + x\n\n3 = 3x\n\nx = 1\n\nSubstitute in eqn (2)\n\ny = 7 - x\n\ny = 7 - 1\n\ny = 6\n\nP<sub>2</sub> (1, 6)\n\nDistance between 2 points is given as\n\nD =√ (x<sub>2</sub>−x<sub>1</sub>)<sup>2</sup>+(y<sub>2</sub> − y<sub>1</sub>)\n\n\nD = √(1−4)<sup>2</sup>+(6−3)<sup>2</sup>\n\n\nD = √(−3)<sup>2</sup>+(3)<sup>2</sup>\n\n\nD = √9+9\n\n\nD = √18\n\n\nD = √9×2\n\n\nD = 3√2",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2012"
+    ]
+  },
+  {
+    "id": "aloc-1072",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2021,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Three brothers in a business deal share the profit at the end of a contract. The first received 13\n of the profit and the second 23\n of the remainder. If the third received the remaining N12000.00 how much profit did they share?",
+    "options": {
+      "A": "N60 000.00",
+      "B": "N54 000.00",
+      "C": "N48 000.00",
+      "D": "N42 000.00"
+    },
+    "answer": "B",
+    "explanation": "use \"T\" to represent the total profit. The first receives 1/3 T\n\nremaining, 1 - 1/3 = 2/3T\n\nThe seconds receives the remaining, which is 2/3  also\n\n2/3 x 2/3 x 4/9\n\nThe third receives the left over, which is 2/3T - 4/9T = ((6−4)/9)/T\n= 2/9T\n\nThe third receives 2/9T which is equivalent to N12000\n\nIf 2/9T = N12, 000\nT = 12000/(2/9)\n\n\n= N54, 000",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2021"
+    ]
+  },
+  {
+    "id": "aloc-1015",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2019,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "If the volume of a frustrum is given as V=πh/3(R<sup>2</sup + Rr + r<sup>2</sup), find dV/dR\n.",
+    "options": {
+      "A": "πh/3(2R + r)",
+      "B": "2R + r + πh/3",
+      "C": "πh/3(2R<sup>2</sup + r + 2r)",
+      "D": "2R<sup>2</sup/3πh"
+    },
+    "answer": "A",
+    "explanation": "V=πh/3(R<sup>2</sup + Rr + r<sup>2</sup)\nV = πR<sup>2</suph/3 + πRrh/3 + πr<sup>2</suph/3\ndV/dR = 2πRh/3 + πrh3\n= π/3(2R + r)",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2019"
+    ]
+  },
+  {
+    "id": "aloc-265",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2003,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Find the number of committees of three that can be formed \nconsisting of two men and one woman from four men \nand three women.",
+    "options": {
+      "A": "24",
+      "B": "18",
+      "C": "3",
+      "D": "6"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2003"
+    ]
+  },
+  {
+    "id": "aloc-471",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2007,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Calculate the length of an arc of a circle diameter 14 cm, which subtends an angle of 90°\n at the center of the circle",
+    "options": {
+      "A": "7π/2 cm",
+      "B": "7π cm",
+      "C": "14π cm",
+      "D": "7π/4 cm"
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2007"
+    ]
+  },
+  {
+    "id": "aloc-547",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2009,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "A chord drawn 5 cm away from the center of a circle of radius 13 cm. Calculate the length of the chord?",
+    "options": {
+      "A": "7cm",
+      "B": "9cm",
+      "C": "12cm",
+      "D": "24cm"
+    },
+    "answer": "D",
+    "explanation": "x<sup>2</sup> + 5<sup>2</sup> = 13<sup>2</sup>\nx<sup>2</sup> + 25 = 169\nx<sup>2</sup> = 144\n\nx = √ 144 \n\n= 12\nLength of the chord AB = 2x\n2×12= 24cm",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2009"
+    ]
+  },
+  {
+    "id": "aloc-1007",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2019,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "If 2<sup>(x+y)</sup>\n = 16 and 4<sup>(x-y)</sup>=1/32\n, find the values of x and y.",
+    "options": {
+      "A": "x = 3/4, y = 11/4",
+      "B": "x = 3/4, y = 13/4",
+      "C": "x = 2/3, y = 4/5",
+      "D": "x = 2/3, y = 13/4"
+    },
+    "answer": "B",
+    "explanation": "2<sup>(x+y)</sup>\n = 16 ; 4<sup>(x-y)</sup> = 1/32.\n\n⟹2<sup>(x+y)</sup>=2<sup>4</sup>\nx + y = 4...(1)\n2<sup>(2(x−y))</sup> = 2<sup>(−5)</sup>\n2<sup>(2(x−2y))</sup> = <sup>(−5)</sup>\n⟹2x − 2y = −5...(2)\nSolving the equations (1) and (2) simultaneously, we have\n\nx = 3/4 and y = 13/4",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2019"
+    ]
+  },
+  {
+    "id": "aloc-101",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2000,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "If the mean of the numbers 0, (x+2), (3x+6), and (4x+8) is 4, find their mean deviation.",
+    "options": {
+      "A": "0",
+      "B": "2",
+      "C": "3",
+      "D": "4"
+    },
+    "answer": "C",
+    "explanation": "Mean = {0 + (x+2) + (3x+6) + (4x+8)}/4 = 4\n=> 0 + (x+2) + (3x+6) + (4x+8) = 16\n8x + 16 = 16\nx = 0\nNow prepare a table showing the deviation of each of 0, (x+2), (3x+6) and (4x+8), adding the deviations will give 12.\nThus M.D = 12/4 = 3",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2000"
+    ]
+  },
+  {
+    "id": "aloc-740",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2012,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The binary operation on the set of real numbers is defined by m*n = mn/2\n for all m, n ∈ R. If the identity element is 2, find the inverse of -5",
+    "options": {
+      "A": "−4/5",
+      "B": "−2/5",
+      "C": "4",
+      "D": "5"
+    },
+    "answer": "A",
+    "explanation": "m * n = mn/2\n\n\nIdentify, e = 2\n\nLet a ∈ R, then\n\na * a<sub>-1</sub> = e\n\na * a<sub>-1</sub> = 2\n\n-5 * a<sub>-1</sub> = 2\n−5×a<sub>-1</sub> /2 = 2\n\n\na<sub>-1</sub> = 2 × 2/−5\n\n\na<sub>-1</sub> = −4/5",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2012"
+    ]
+  },
+  {
+    "id": "aloc-645",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2011,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "What is the size of each interior angle of a 12-sided regular polygon?",
+    "options": {
+      "A": "120°",
+      "B": "150°",
+      "C": "30°",
+      "D": "180°"
+    },
+    "answer": "B",
+    "explanation": "Interior angle = (n - 2)180\n\nbut, n = 12\n\n= (12 -2)180\n\n= 10 x 180\n\n= 1800\n\nlet each interior angle = x\n\nx = (n−2)180/n\n\n\nx = 1800/12\n\n\n= 150°",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2011"
+    ]
+  },
+  {
+    "id": "aloc-112",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2000,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "In the diagram above, EFGH is a circle center O. Fh is a diameter and GE is a chord which meets FH at right angle at the point N. If NH = 8cm and EG = 24cm, calculate FH.",
+    "options": {
+      "A": "16 cm",
+      "B": "20 cm",
+      "C": "26 cm",
+      "D": "32 cm"
+    },
+    "answer": "D",
+    "explanation": "The locus of X is the perpendicular bisector of PQ",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2000"
+    ]
+  },
+  {
+    "id": "aloc-109",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2000,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The expression ax<sup>2</sup> + bx + c equals 5 at x = 1. If its derivative is 2x + 1, what are the values of a, b, c respectively?",
+    "options": {
+      "A": "1, 3, 1",
+      "B": "1, 2, 1",
+      "C": "2, 1, 1",
+      "D": "1, 1, 3"
+    },
+    "answer": "D",
+    "explanation": "At x = 1, substituting x = 1 in the equation: ax<sup>2</sup> + bx + c = 5;\nf(1) => a + b + c = 5 .....(1)\n\nTaking the first derivative of f(x) in the original equation gives dy/dx = 2ax + b = 2x + 1 (given)....(2)\n\nFrom (2),=> b = 1, and 2ax = 2x, => a = 1.\n\nsubstituting into (1) 1 + 1 + c = 5, => c = 5 - 2 = 3\n\nThus a = 1, b = 1 and c = 3",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2000"
+    ]
+  },
+  {
+    "id": "aloc-44",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2008,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "With replacement",
+    "options": {
+      "A": "0.9,",
+      "B": "1,",
+      "C": "0.4,",
+      "D": "0.49"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2008"
+    ]
+  },
+  {
+    "id": "aloc-542",
+    "subject": "Mathematics",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2009,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "If P = []  evaluate x if |P| = -10",
+    "options": {
+      "A": "-5",
+      "B": "-2",
+      "C": "2",
+      "D": "5"
+    },
+    "answer": "D",
+    "explanation": "(x+3)(x-1) - {(x+1)(x+2)} = -10\nx<sup>2</sup>  - x + 3x - 3 - {x2 + 2x + x + 2} = -10\nx<sup>2</sup>  + 2x - 3 - {x<sup>2</sup>  + 3x + 2} = -10\n-x - 5 = -10\n-5 + 10 = x\n5 = x\n∴x = 5",
+    "difficulty": "medium",
+    "tags": [
+      "mathematics",
+      "jamb",
+      "2009"
+    ]
+  },
+  {
+    "id": "aloc-459",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2009,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The boy is <i>indolent</i> to do well at school?",
+    "options": {
+      "A": "intelligent",
+      "B": "industrious",
+      "C": "inactive",
+      "D": "stothful."
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2009"
+    ]
+  },
+  {
+    "id": "aloc-519",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2009,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "I AM called Uche a pilot.",
+    "options": {
+      "A": "What did Lam call Uche",
+      "B": "Did Okoro call Uche a pilot?",
+      "C": "Did I am Uche a driver?",
+      "D": "Did Lam wish Uche to be a pilot?"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2009"
+    ]
+  },
+  {
+    "id": "aloc-299",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2007,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The striking workers have vowed not to return to work until the decision is <i>reversed.</i>",
+    "options": {
+      "A": "rescinded",
+      "B": "dismissed",
+      "C": "implemented",
+      "D": "reverted."
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2007"
+    ]
+  },
+  {
+    "id": "aloc-855",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2002,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Practicing medicine is not as lucrative as many people <u>think</u>?",
+    "options": {
+      "A": "know",
+      "B": "understand",
+      "C": "consider",
+      "D": "assume"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2002"
+    ]
+  },
+  {
+    "id": "aloc-404",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2008,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Scientists have <i>invented</i> ways of preserving fruits much longer",
+    "options": {
+      "A": "coined",
+      "B": "devised",
+      "C": "arranged",
+      "D": "organized"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2008"
+    ]
+  },
+  {
+    "id": "aloc-1135",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2013,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "I can't wait to becoming a mother', the new bride declared",
+    "options": {
+      "A": "she is excited about motherhood",
+      "B": "She is not keen on becoming a mother",
+      "C": "She will be patient as a mother",
+      "D": "She sees motherhood as a burden."
+    },
+    "answer": "A",
+    "explanation": "The new bride is looking forward to motherhood.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2013"
+    ]
+  },
+  {
+    "id": "aloc-1064",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2012,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "His many years of success in legal practice,…... didn’t come without challenges.",
+    "options": {
+      "A": "indeed",
+      "B": "but",
+      "C": "in spite of it\nall",
+      "D": "however"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2012"
+    ]
+  },
+  {
+    "id": "aloc-267",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2006,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The government has announced its <i>preparedness for</i> the scheme",
+    "options": {
+      "A": "determination",
+      "B": "regret",
+      "C": "pleasure",
+      "D": "readiness"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2006"
+    ]
+  },
+  {
+    "id": "aloc-69",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2003,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The party supporters <i>vilified</i> the Chairman for the role he played in the crisis that rocked the party",
+    "options": {
+      "A": "impeached",
+      "B": "condemned",
+      "C": "challenged",
+      "D": "elected"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2003"
+    ]
+  },
+  {
+    "id": "aloc-1357",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2020,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "f he <u>declines</u> the offer, it will be better for him.",
+    "options": {
+      "A": "ignores",
+      "B": "denies",
+      "C": "snubs",
+      "D": "rejects"
+    },
+    "answer": "D",
+    "explanation": "Declines simply means to reject",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2020"
+    ]
+  },
+  {
+    "id": "aloc-1027",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2012,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "He could not speak out because he had a feet of clay.",
+    "options": {
+      "A": "His feet was muddy",
+      "B": "He was weak and cowardly",
+      "C": "He was clumsy and lazy",
+      "D": "He was shy and timid"
+    },
+    "answer": "B",
+    "explanation": "If you say that a person who is respected or admired has feet of clay, you mean that they have serious faults which you or other people did not know about before. A fundamental flaw or weakness in a person otherwise revered.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2012"
+    ]
+  },
+  {
+    "id": "aloc-1082",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2012,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "P<u>a</u>tch",
+    "options": {
+      "A": "starch",
+      "B": "fare",
+      "C": "mad",
+      "D": "came"
+    },
+    "answer": "C",
+    "explanation": "patch; /patʃ/\n\nmad; /mad/",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2012"
+    ]
+  },
+  {
+    "id": "aloc-1766",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2014,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Adeola doesn't have to go to the farm today.",
+    "options": {
+      "A": "Adeola may go to the farm today if he so wishes.",
+      "B": "Adeola ought not to have gone to the farm today.",
+      "C": "Adeola must not go to the farm today.",
+      "D": "Adeola should not go to the farm today."
+    },
+    "answer": "A",
+    "explanation": "If Adeola wishes to go to the farm, he is free to",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2014"
+    ]
+  },
+  {
+    "id": "aloc-771",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2000,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Inspite of her grim situation, the young widow smiled dutifully at the visitor's <u>pleasantries</u>?",
+    "options": {
+      "A": "unkind comments",
+      "B": "sad stories",
+      "C": "condolence messages",
+      "D": "jocular remarks"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2000"
+    ]
+  },
+  {
+    "id": "aloc-866",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2002,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "They are considered to be legal <u>luminaries</u>",
+    "options": {
+      "A": "directors",
+      "B": "power",
+      "C": "experts",
+      "D": "practioners"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2002"
+    ]
+  },
+  {
+    "id": "aloc-22",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2003,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Be careful not to…………….  this money",
+    "options": {
+      "A": "loose",
+      "B": "loss",
+      "C": "lost",
+      "D": "loss"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2003"
+    ]
+  },
+  {
+    "id": "aloc-1083",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2012,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Tan<u>g</u>erine",
+    "options": {
+      "A": "gear",
+      "B": "danger",
+      "C": "girl",
+      "D": "ignore"
+    },
+    "answer": "B",
+    "explanation": "Tangerine; /tan(d)ʒəˈriːn/\n\nDanger; /ˈdeɪn(d)ʒə/",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2012"
+    ]
+  },
+  {
+    "id": "aloc-1228",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2021,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "nsecurity has <u>escalated</u> since the present government came into power.",
+    "options": {
+      "A": "abated",
+      "B": "increased",
+      "C": "proliferated",
+      "D": "metamorphosed"
+    },
+    "answer": "A",
+    "explanation": "Escalate: increase rapidly.\n\nAbate: (of something unpleasant or severe) become less intense or widespread",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2021"
+    ]
+  },
+  {
+    "id": "aloc-594",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "EMEKA finished his home work yesterday",
+    "options": {
+      "A": "Was Emeka helped to do his home work?",
+      "B": "Did Emeka do his home work yesterday?",
+      "C": "When did Emeka finish his home work?",
+      "D": "Who finished his home work yesterday"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "aloc-652",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2001,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "A wide range of options ....... made available to the political parties during the recently concluded elections?",
+    "options": {
+      "A": "are",
+      "B": "were",
+      "C": "was",
+      "D": "is"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2001"
+    ]
+  },
+  {
+    "id": "aloc-948",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2011,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "His wife hates his <u>garrulous</u> attitude?",
+    "options": {
+      "A": "outspoken",
+      "B": "unfriendly",
+      "C": "reticent",
+      "D": "thoughtful"
+    },
+    "answer": "C",
+    "explanation": "Garrulous; excessively talkative, especially on trivial matters.\n\nReticent; not revealing one's thoughts or feelings readily. Reserved",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2011"
+    ]
+  },
+  {
+    "id": "aloc-166",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The views of the plateau are in stark contrast to the <i>workaday</i> cottages below",
+    "options": {
+      "A": "ordinary an uninteresting",
+      "B": "beautiful an interesting",
+      "C": "comfortable an fascinating",
+      "D": "ugly an unfascinating"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-1690",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2015,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Who were the two people Seyi lawal and Jimi met coming out of the principal office?",
+    "options": {
+      "A": "Efua and her Mother",
+      "B": "Mr and Mrs Solade",
+      "C": "Caro and Nene Ekpo",
+      "D": "Teacher okoro and mama Silifat"
+    },
+    "answer": "A",
+    "explanation": "While entering Mr Mallum’s office, Jimi and Seyi Lawal met two persons coming out of the principal’s office, they were Efua and her mother. The others in the options were not present at the time of the event\n\nSee page 9-10",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2015"
+    ]
+  },
+  {
+    "id": "aloc-1469",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2019,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The jollof rice served at the wedding reception was [malodorous]",
+    "options": {
+      "A": "small but palatable",
+      "B": "unpalatably big",
+      "C": "pleasant",
+      "D": "stale and smelly"
+    },
+    "answer": "C",
+    "explanation": "Malodorous is an adjective for an odorous or unpleasant smell.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2019"
+    ]
+  },
+  {
+    "id": "aloc-1429",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2019,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Choose the word that has a different stress pattern",
+    "options": {
+      "A": "incinerator",
+      "B": "indicate",
+      "C": "increase",
+      "D": "euphemism"
+    },
+    "answer": "A",
+    "explanation": "Its second syllable is stressed unlike the rest of the options where the first syllable is stressed.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2019"
+    ]
+  },
+  {
+    "id": "aloc-767",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2000,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Some actions of the Nigerian youth have <u>alienated</u> them from those who were <u>sympathetic</u> to their cause?",
+    "options": {
+      "A": "endeared / kindly",
+      "B": "confronted / ill disposed",
+      "C": "separated / opposed",
+      "D": "estranged / well disposed"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2000"
+    ]
+  },
+  {
+    "id": "aloc-1711",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2015,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "If the armed robbers ------------------------ caught, they would have been lynched",
+    "options": {
+      "A": "would be",
+      "B": "have been",
+      "C": "are",
+      "D": "had been"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is ‘D’ because it is a past perfect tense. Option ‘A’ is ‘would be’ which implies the future past tense, option ‘B’ ‘have been’ which means/is a present perfect tense, option ‘C’ are which indicates ‘plural’",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2015"
+    ]
+  },
+  {
+    "id": "aloc-827",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2002,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The future of the company is ...... though many seem .....about it?",
+    "options": {
+      "A": "okay / optimistic",
+      "B": "promising / nostalgic",
+      "C": "rosy / pessimistic",
+      "D": "dicy / unsatisfied"
+    },
+    "answer": "C",
+    "explanation": "The future of the company is promising though many seem  nostalgic about it?\n\nRosy; means promising or suggesting good fortune or happiness; hopeful.\n\npessimistic; means tending to see the worst aspect of things or believe that the worst will happen.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2002"
+    ]
+  },
+  {
+    "id": "aloc-1504",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2018,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The meeting was <u>cancelled</u> because of the convocation",
+    "options": {
+      "A": "brought up",
+      "B": "called off",
+      "C": "broke off",
+      "D": "phased out"
+    },
+    "answer": "B",
+    "explanation": "To cancel implies to decide/ announce that an event will not take place.\n\nCall off means to decide that something will not happen",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2018"
+    ]
+  },
+  {
+    "id": "aloc-949",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2011,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Agoshito is a <u>callow</u> youth', said the teacher?",
+    "options": {
+      "A": "an ignorant",
+      "B": "an experienced",
+      "C": "an idle",
+      "D": "an organized"
+    },
+    "answer": "B",
+    "explanation": "Callow; (of a young person) inexperienced and immature.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2011"
+    ]
+  },
+  {
+    "id": "aloc-274",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2006,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "77. The recommended novel has a <i>convoluted</i> theme",
+    "options": {
+      "A": "a simple",
+      "B": "an attractive",
+      "C": "a disgusting",
+      "D": "a complicated"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2006"
+    ]
+  },
+  {
+    "id": "aloc-159",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "if I visited England, I might go to Manchester City",
+    "options": {
+      "A": "When I go to England, I could go to Manchester City",
+      "B": "Whenever I visit England, I must go to Manchester City",
+      "C": "I did not go to England and could not go to Manchester City",
+      "D": "I could not visit Manchester City because I did not want to go to England."
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-1599",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2017,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Choose the best option that best completes the gap(s)\n\nThe_____event takes place every two years",
+    "options": {
+      "A": "bienial",
+      "B": "biannual",
+      "C": "biennial",
+      "D": "biannal"
+    },
+    "answer": "C",
+    "explanation": "Biannual occurring twice a year. this means an event that is celebrated two times in a year.  while \n\nBiennial means an event/occassion that takes place every two years. occuring once in every two years.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2017"
+    ]
+  },
+  {
+    "id": "aloc-1218",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2021,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The office assistant was dismissed for <u>pilfering</u>",
+    "options": {
+      "A": "fighting",
+      "B": "incompetence",
+      "C": "stealing",
+      "D": "mismanagement"
+    },
+    "answer": "C",
+    "explanation": "PIlfering: steal (things of little value).",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2021"
+    ]
+  },
+  {
+    "id": "aloc-1366",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2020,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Rather than make <u>derogatory<u/> remarks about the host, a guest should make ________ ones",
+    "options": {
+      "A": "polite",
+      "B": "complimentary",
+      "C": "interesting",
+      "D": "honest"
+    },
+    "answer": "B",
+    "explanation": "Derogatory implies 'to lessen one's value'. However, complimentary is an expression of praise.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2020"
+    ]
+  },
+  {
+    "id": "aloc-240",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2006,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Despite all preparations, the wedding did not …..",
+    "options": {
+      "A": "come along",
+      "B": "come by",
+      "C": "come on",
+      "D": "come off"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2006"
+    ]
+  },
+  {
+    "id": "aloc-271",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2006,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "His loss suddenly became <i>redeemable</i>",
+    "options": {
+      "A": "Incurable",
+      "B": "exclusive",
+      "C": "recoverable",
+      "D": "repulsive"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2006"
+    ]
+  },
+  {
+    "id": "aloc-925",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2011,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Mrs. Adamu does all her work with more haste, less speed.",
+    "options": {
+      "A": "She accept whatever she does with more haste and speed",
+      "B": "She approaches whatever she does hurriedly",
+      "C": "She addresses everything she does very quickly to avoid mistakes",
+      "D": "She does everything carefully to avoid mistakes"
+    },
+    "answer": "D",
+    "explanation": "This mean that if you try to do things too quickly, it will take you longer in the end.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2011"
+    ]
+  },
+  {
+    "id": "aloc-1545",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2018,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "choose the option that best completes the gap(s). We look forward to _______ from you very soon.",
+    "options": {
+      "A": "Have heard",
+      "B": "Hear",
+      "C": "Hearing",
+      "D": "Heard"
+    },
+    "answer": "C",
+    "explanation": "The expression ‘look forward to’ must be followed with a gerund.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2018"
+    ]
+  },
+  {
+    "id": "aloc-1374",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2019,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Okibe was rusticated for his [derogatory] remark about the principal",
+    "options": {
+      "A": "complimentary",
+      "B": "unwarranted",
+      "C": "lack luster",
+      "D": "unsavoury"
+    },
+    "answer": "D",
+    "explanation": "Derogatory; means showing a critical or disrespectful attitude.\n\nUnsavoury; means unpleasant or morally offensive, the most suitable synonym for derogatory in this regard.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2019"
+    ]
+  },
+  {
+    "id": "aloc-86",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2004,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "All God’s prophets were given the great……….to preach salvation to people.",
+    "options": {
+      "A": "commission",
+      "B": "commition",
+      "C": "commission",
+      "D": "commission"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2004"
+    ]
+  },
+  {
+    "id": "aloc-238",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2006,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Our neigbour was attracted by the ………. from my mother’s cooking",
+    "options": {
+      "A": "flavour",
+      "B": "stench",
+      "C": "scent",
+      "D": "aroma"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2006"
+    ]
+  },
+  {
+    "id": "aloc-1467",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2019,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "All the Nigerian footballers have itchy feet",
+    "options": {
+      "A": "the footballers have insured feet",
+      "B": "the footballers use their feet to steer",
+      "C": "the footballers like to travel",
+      "D": "the footballers like play skillfully"
+    },
+    "answer": "C",
+    "explanation": "The footballers like to travel is the best answer. 'Itchy' means not static, by implication.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2019"
+    ]
+  },
+  {
+    "id": "aloc-332",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2007,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Do not be <i>discouraged</i> by failure in life.",
+    "options": {
+      "A": "overjoyed",
+      "B": "dissuaded",
+      "C": "actuated",
+      "D": "disoriented."
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2007"
+    ]
+  },
+  {
+    "id": "aloc-1736",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2015,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "From the words lettered A to D, choose the word that has the same <b>consonant</b> sounds as the one represented by the letters underlined.\n\nGri<u>tt</u>y",
+    "options": {
+      "A": "asked",
+      "B": "sachet",
+      "C": "depot",
+      "D": "wrestle"
+    },
+    "answer": "A",
+    "explanation": "When you transcribe the word ‘gritty’ or pronounce it /grIti/ , the ‘t’ in the word is heard or visible, so it is not a silent letter.\nThe answer to this question is ‘A’ asked /a:skt/ or /aeskt/ because it is in a past form and some past forms changes in sound. The (‘-ed) there has the consonant sound ‘-t’ while other words have their ‘t’ in silent forms.\n\n‘Sachet’ /sæjeil/\n‘depot’ /depæs/ or /di:pot/ and\n‘wrestle’ /’resei/.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2015"
+    ]
+  },
+  {
+    "id": "aloc-1786",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2014,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "They accused him of <u>fomenting</u>  political unrest.",
+    "options": {
+      "A": "Guiding.",
+      "B": "Inciting.",
+      "C": "Discouraging.",
+      "D": "Preventing."
+    },
+    "answer": "B",
+    "explanation": "foment; instigate or stir up (an undesirable or violent sentiment or course of action).",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2014"
+    ]
+  },
+  {
+    "id": "aloc-1538",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2018,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Choose the option that has a different stress pattern from the others.",
+    "options": {
+      "A": "competent",
+      "B": "represent",
+      "C": "syllabus",
+      "D": "quality"
+    },
+    "answer": "B",
+    "explanation": "All the words are stressed on the first syllable except 'represent' which is stressed on the last syllable.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2018"
+    ]
+  },
+  {
+    "id": "aloc-1596",
+    "subject": "English Language",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2017,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Choose the best option that best completes the gap(s)\n\n_____a good boy, he was given a prize",
+    "options": {
+      "A": "To being",
+      "B": "Been",
+      "C": "Being",
+      "D": "To been"
+    },
+    "answer": "C",
+    "explanation": "\"Being\" can be used as a gerund, a verb that functions as a noun. It becomes part of the subject sentence.",
+    "difficulty": "medium",
+    "tags": [
+      "english language",
+      "jamb",
+      "2017"
+    ]
+  },
+  {
+    "id": "aloc-330",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2011,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of the following  instruments is used  to measure relative humidity?",
+    "options": {
+      "A": "Thermometer",
+      "B": "Hygrometer",
+      "C": "Anemometer",
+      "D": "Hydrometer"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2011"
+    ]
+  },
+  {
+    "id": "aloc-167",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2007,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Pineapple is an example of",
+    "options": {
+      "A": "a composite fruit",
+      "B": "a simple fruit",
+      "C": "an aggregate fruit",
+      "D": "a dehiscent fruit"
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2007"
+    ]
+  },
+  {
+    "id": "aloc-76",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2004,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Identical twins inherit their genes from",
+    "options": {
+      "A": "Different eggs and sperms",
+      "B": "The same egg and sperm",
+      "C": "two egg and a sperm",
+      "D": "one egg and two sperms"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2004"
+    ]
+  },
+  {
+    "id": "aloc-45",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2004,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "A plant like feature I Euglena is the",
+    "options": {
+      "A": "Pellicle",
+      "B": "pigment sport",
+      "C": "large vacuole",
+      "D": "gullet"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2004"
+    ]
+  },
+  {
+    "id": "aloc-67",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2004,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The association between termites and the cellulose digesting protozoans in heir guts is an example of",
+    "options": {
+      "A": "saprophytism",
+      "B": "mutualism",
+      "C": "parasitism",
+      "D": "commensalism"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2004"
+    ]
+  },
+  {
+    "id": "aloc-94",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "In the root vascular system, the stele is directly surrounding by the",
+    "options": {
+      "A": "pericycle",
+      "B": "cortex",
+      "C": "endodermis",
+      "D": "Parenchyma"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-244",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2009,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "In freshwater  marshes and swamps, the most important abiotic factor that organisms have to",
+    "options": {
+      "A": "nature  of substratum",
+      "B": "high salinity",
+      "C": "high temperature",
+      "D": "low pH"
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2009"
+    ]
+  },
+  {
+    "id": "aloc-301",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The flippers of a whale  and the fins of a fish are examples of",
+    "options": {
+      "A": "divergent evolution",
+      "B": "co evolution",
+      "C": "continuous variation",
+      "D": "convergent evolution"
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "aloc-163",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2007,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of the following uses diffusion as the principal method of gaseous exchange?",
+    "options": {
+      "A": "Rate",
+      "B": "lizard",
+      "C": "Earthworm",
+      "D": "Grasshopper"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2007"
+    ]
+  },
+  {
+    "id": "aloc-226",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2009,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Alternation of a sexual and sexual modes of reproduction is found in",
+    "options": {
+      "A": "blue-green algae",
+      "B": "Euglena",
+      "C": "fern",
+      "D": "maize"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2009"
+    ]
+  },
+  {
+    "id": "aloc-269",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The mode of nutrition of sundew and bladderwort can be described as",
+    "options": {
+      "A": "autotrophic",
+      "B": "saprophytic",
+      "C": "holozoic",
+      "D": "chemosynthetic"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "aloc-247",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2009,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Mass of a crucible = 10g\n Mass of a crucible and soil before heating = -29g.\nMass of a crucible and sol after heating = 18g. From the information above, determine the percentage of wter in the given soil sample?",
+    "options": {
+      "A": "20%",
+      "B": "25%",
+      "C": "40%",
+      "D": "50%"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2009"
+    ]
+  },
+  {
+    "id": "aloc-4",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2003,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The similarly  among organisms belonging to the same group will be least within each",
+    "options": {
+      "A": "family",
+      "B": "order",
+      "C": "kingdom",
+      "D": "species"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2003"
+    ]
+  },
+  {
+    "id": "aloc-237",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2009,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "In insects, the structure that performs  the same function as the kidney in man is the",
+    "options": {
+      "A": "nephridium",
+      "B": "flame cell",
+      "C": "malphigiann tubule",
+      "D": "trachea"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2009"
+    ]
+  },
+  {
+    "id": "aloc-224",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2009,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "A characteristic exhibited by all living organism is",
+    "options": {
+      "A": "sexual reproduction",
+      "B": "aerobic respiration",
+      "C": "the ability to move from one place to another",
+      "D": "the ability to remove unwanted substances."
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2009"
+    ]
+  },
+  {
+    "id": "aloc-377",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2012,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "A yellow maize is planted and all the fruits obtained are of yellow seeds. When they are cross bred, yellow seeds and white seeds are obtained in a ratio 3:1. The yellow seed is said to be",
+    "options": {
+      "A": "non heritable",
+      "B": "sex linked",
+      "C": "a recessive trait",
+      "D": "a dominant trait"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2012"
+    ]
+  },
+  {
+    "id": "aloc-119",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The only caste in the termite colony whose members can feed themselves are the",
+    "options": {
+      "A": "reproductive",
+      "B": "workers",
+      "C": "nymhs",
+      "D": "soldiers"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-336",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2011,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "In which of the following biomes is the south western part of Nigeria located?",
+    "options": {
+      "A": "Tropical rainforest",
+      "B": "Tropical woodland",
+      "C": "desert",
+      "D": "Temperature forest"
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2011"
+    ]
+  },
+  {
+    "id": "aloc-139",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2006,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of following produces both hormones and enzymes?",
+    "options": {
+      "A": "Gall blader",
+      "B": "Lieum",
+      "C": "Pancreas",
+      "D": "kidney"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2006"
+    ]
+  },
+  {
+    "id": "aloc-24",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2003,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "One example of fossil fuel is",
+    "options": {
+      "A": "limestone",
+      "B": "coral",
+      "C": "coal",
+      "D": "firewood"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2003"
+    ]
+  },
+  {
+    "id": "aloc-144",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2006,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The part of the mammalian skin involved in temperature regulation is the",
+    "options": {
+      "A": "sebaceous gland",
+      "B": "sweat gland",
+      "C": "hair follicle",
+      "D": "hair pailla"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2006"
+    ]
+  },
+  {
+    "id": "aloc-289",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Low annual rainfall, sparse vegetation, high dermal temperatures and cold nights are characteristics features of the",
+    "options": {
+      "A": "tropical  rainforest",
+      "B": "desert",
+      "C": "mundane forest",
+      "D": "guinea savanna"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "aloc-70",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2004,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "A state in Nigeria that is most susceptible to desert encroachment is",
+    "options": {
+      "A": "Kwara",
+      "B": "Taraba",
+      "C": "Kaduna",
+      "D": "Katsina"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2004"
+    ]
+  },
+  {
+    "id": "aloc-212",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2008,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "An ecological factor that will have the most  limiting effect on the abundance of phytoplankton in a turbid pond is",
+    "options": {
+      "A": "pH",
+      "B": "oxygen",
+      "C": "light",
+      "D": "temperature"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2008"
+    ]
+  },
+  {
+    "id": "aloc-97",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The mammalian lung is made air light by the",
+    "options": {
+      "A": "pleural cavity",
+      "B": "mucous membrane",
+      "C": "pleural membrane",
+      "D": "diaphragm"
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-160",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2007,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "In mammals , the  organ directly on top of the kidney is the",
+    "options": {
+      "A": "prostate gland",
+      "B": "pancrease",
+      "C": "thyroid gland",
+      "D": "adrenal gland"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2007"
+    ]
+  },
+  {
+    "id": "aloc-363",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2012,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "An example of a fruit  that develops from a single carpel is",
+    "options": {
+      "A": "(a)okro",
+      "B": "tomato",
+      "C": "bean",
+      "D": "orange"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2012"
+    ]
+  },
+  {
+    "id": "aloc-114",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of the following gis the best explanation for a child who is phenol-typically short and born of two tall parents?",
+    "options": {
+      "A": "The father possesses a gene for shortness",
+      "B": "The mother possesses a gene for shortness",
+      "C": "Nature makes the child short",
+      "D": "Both parents posses genes for shortness."
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-290",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The average number of individuals of a species  per unit area of the habitat is the",
+    "options": {
+      "A": "population density",
+      "B": "population frequency",
+      "C": "population size",
+      "D": "population distribution"
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "aloc-189",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2008,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The cell of an onion bulb can be differentiated from a cheek cell by the presence of",
+    "options": {
+      "A": "plasmalemma",
+      "B": "chloroplast",
+      "C": "cell wall",
+      "D": "nucleus"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2008"
+    ]
+  },
+  {
+    "id": "aloc-128",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2006,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Grasses recover quickly from bush fires in the savanna  because of their",
+    "options": {
+      "A": "succulent stems",
+      "B": "rapid growth",
+      "C": "fibrous roots",
+      "D": "perennating organs"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2006"
+    ]
+  },
+  {
+    "id": "aloc-84",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of the following is likely to have a higher concentration of mitochondria?",
+    "options": {
+      "A": "Sperm cell",
+      "B": "white blood cell",
+      "C": "Egg cell",
+      "D": "red blood cell"
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-120",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "An evidence of a common ancestry for fishes, amphibians, reptiles, birds and mammals is the",
+    "options": {
+      "A": "possession of wings by bird and bats",
+      "B": "cold-bloodedness of fishes, amphibians and reptiles",
+      "C": "presence of gill clefts in vertebrate embryos",
+      "D": ""
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-131",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2006,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The product of excretion common to the mammalian kidney lung and skin is",
+    "options": {
+      "A": "Urea",
+      "B": "carbon (IV)oxides",
+      "C": "mineral salt",
+      "D": "water"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2006"
+    ]
+  },
+  {
+    "id": "aloc-309",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2011,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of the following is true of leucocytes?",
+    "options": {
+      "A": "They are most numerous and ramify all cells",
+      "B": "They are large and nucleated",
+      "C": "They are involved in blood clotting",
+      "D": "They are respiratory pigments"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2011"
+    ]
+  },
+  {
+    "id": "aloc-57",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2004,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The opening of the stoma is controlled by the",
+    "options": {
+      "A": "presence of a pore",
+      "B": "increase in solute concentration  in the guard cells",
+      "C": "presence of guard cells",
+      "D": "decrease in solute concentration in the guard cells"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2004"
+    ]
+  },
+  {
+    "id": "aloc-221",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2008,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of the following is the most advanced evolutionary development in plants?  (a) possession of unicellular structures",
+    "options": {
+      "A": "possession of unicellular structures",
+      "B": "Development of flowers",
+      "C": "dispersal of spores",
+      "D": "Development of secondary thickening"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2008"
+    ]
+  },
+  {
+    "id": "aloc-19",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2003,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "An example of a caryopsis is",
+    "options": {
+      "A": "guava",
+      "B": "maize grain",
+      "C": "coconut",
+      "D": "tomato"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2003"
+    ]
+  },
+  {
+    "id": "aloc-263",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of the following is NOT a function of the nucleus of a cell?",
+    "options": {
+      "A": "it controls the life processes of the cell",
+      "B": "It translates genetic formation for   the manufacture of proteins",
+      "C": "it stores and carries hereditary information",
+      "D": "it sis a reservoir of energy for the cell"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "aloc-349",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2012,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The fungi are a distinct group of eukaryotes mainly  because they have",
+    "options": {
+      "A": "spores",
+      "B": "no chlorophyll",
+      "C": "many fruiting bodies",
+      "D": "sexual and asexual reproduction"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2012"
+    ]
+  },
+  {
+    "id": "aloc-25",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2003,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The most effective method of dealing with non-gradable pollutants by  \\",
+    "options": {
+      "A": "dumping",
+      "B": "recycling",
+      "C": "incineration",
+      "D": "Burying"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2003"
+    ]
+  },
+  {
+    "id": "aloc-110",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of the following is used to test for the presence of lime in a soil sample?",
+    "options": {
+      "A": "H2SO4(aq)",
+      "B": "NaOH(aq)",
+      "C": "Hcl(aq)",
+      "D": "HNO3(aq)"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-37",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2003,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "An insect with a mandibulate  mouth part will obtain its food by",
+    "options": {
+      "A": "biting and chewing",
+      "B": "chewing and sucking",
+      "C": "chewing",
+      "D": "Sucking"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2003"
+    ]
+  },
+  {
+    "id": "aloc-229",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2009,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "A blue-green alga is not a protophytes because",
+    "options": {
+      "A": "it is aquatic",
+      "B": "its cells are prokaryotic",
+      "C": "it cannot move",
+      "D": "it is not a green plant"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2009"
+    ]
+  },
+  {
+    "id": "aloc-241",
+    "subject": "Biology",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2009,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The most important ecological factor in a terrestrial environment is",
+    "options": {
+      "A": "rainfall",
+      "B": "humidity",
+      "C": "wind",
+      "D": "soil"
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "biology",
+      "jamb",
+      "2009"
+    ]
+  },
+  {
+    "id": "aloc-326",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2015,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "P₁V₁ = P₂V₂ supports?",
+    "options": {
+      "A": "Charles's law",
+      "B": "Boyle's law",
+      "C": "Graham's law",
+      "D": "Avogadro's law"
+    },
+    "answer": "B",
+    "explanation": "P₁V₁ = P₂V₂ is the mathematical expression of Boyle's Law, which states that at constant temperature, the pressure of a fixed mass of gas is inversely proportional to its volume.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2015"
+    ]
+  },
+  {
+    "id": "aloc-122",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2003,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "the principal constituent of natural gas is methane",
+    "options": {
+      "A": "ethane",
+      "B": "propane",
+      "C": "butane",
+      "D": "butane"
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2003"
+    ]
+  },
+  {
+    "id": "aloc-196",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "In the purification of impure samples of ethyl ethanoate synthesized by esterification, concentrated sodium trioxocarbonate(IV) solution is used to remove",
+    "options": {
+      "A": "Water",
+      "B": "Acidic impurities",
+      "C": "Basic impurities",
+      "D": "Ethoxyethane"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-699",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2023,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "When an acidic solution is diluted, what happens to its pH?",
+    "options": {
+      "A": "It depends on the specific acid",
+      "B": "It decreases",
+      "C": "It remains the same",
+      "D": "It increases"
+    },
+    "answer": "D",
+    "explanation": "Diluting an acidic solution adds more water, which decreases the concentration of H⁺ ions. Since pH = −log[H⁺], a decrease in H⁺ concentration causes the pH to increase (move closer to 7). The solution becomes less acidic but remains acidic — the pH rises toward 7 but does not exceed it on dilution alone.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2023"
+    ]
+  },
+  {
+    "id": "aloc-701",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2023,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which organic compound is responsible for the characteristic aroma of fruits?",
+    "options": {
+      "A": "Alkane",
+      "B": "Alkyne",
+      "C": "Ester",
+      "D": "Amine"
+    },
+    "answer": "C",
+    "explanation": "Esters are organic compounds formed by the reaction of a carboxylic acid with an alcohol. They are responsible for the pleasant, sweet aromas characteristic of fruits and flowers. For example, ethyl ethanoate gives a pear-like smell, pentyl ethanoate smells of banana, and octyl ethanoate has an orange scent. Amines have fishy smells, while alkanes and alkynes are largely odourless or have petroleum-like smells.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2023"
+    ]
+  },
+  {
+    "id": "aloc-80",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2003,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Neutral atoms of neon with atomic number 10 have the same number of electrons as",
+    "options": {
+      "A": "O2+",
+      "B": "Ca2+",
+      "C": "K+",
+      "D": "Mg2+"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2003"
+    ]
+  },
+  {
+    "id": "aloc-596",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2021,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The enzyme that converts glucose to ethyl alcohol is?",
+    "options": {
+      "A": "Maltase",
+      "B": "Zymase",
+      "C": "Diatase",
+      "D": "Invertase"
+    },
+    "answer": "B",
+    "explanation": "Zymase is the enzyme complex found in yeast that converts glucose directly into ethanol (ethyl alcohol) and carbon dioxide during fermentation: C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂. Maltase converts maltose to glucose, invertase converts sucrose to glucose and fructose, and diastase converts starch to maltose.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2021"
+    ]
+  },
+  {
+    "id": "aloc-461",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2018,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of the following is an example of a chemical change?",
+    "options": {
+      "A": "dissolution of salt in water",
+      "B": "rusting of iron",
+      "C": "melting of ice",
+      "D": "separating a mixture by distillation"
+    },
+    "answer": "B",
+    "explanation": "Rusting of iron is a chemical change because a new substance (iron III oxide, Fe₂O₃·XH₂O) with different properties is formed and the process is irreversible. Dissolution of salt, melting of ice, and distillation are all physical changes — no new substances are formed and the changes are reversible.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2018"
+    ]
+  },
+  {
+    "id": "aloc-149",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2004,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "N2O4(g)    ⇌  2NO2(g)",
+    "options": {
+      "A": "A constant volume",
+      "B": "An increase in pressure",
+      "C": "A decrease in pressure",
+      "D": "A decrease in volume"
+    },
+    "answer": "C",
+    "explanation": "The correct answer is option C.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2004"
+    ]
+  },
+  {
+    "id": "aloc-715",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2024,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "At a given temperature and pressure, a gas X diffuses twice as fast as gas Y. It follows that",
+    "options": {
+      "A": "Gas Y is two times as heavy as Gas X",
+      "B": "Gas Y is four times as heavy as Gas X",
+      "C": "Gas Y is monoatomic",
+      "D": "Gas X is diatomic"
+    },
+    "answer": "B",
+    "explanation": "By Graham's Law of diffusion: rate of diffusion is inversely proportional to the square root of molar mass. Rate_X/Rate_Y = √(M_Y/M_X). Given Rate_X = 2 × Rate_Y: 2 = √(M_Y/M_X). Squaring both sides: 4 = M_Y/M_X. Therefore M_Y = 4 × M_X. Gas Y is four times as heavy as Gas X.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2024"
+    ]
+  },
+  {
+    "id": "aloc-250",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2006,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Dynamic equilibrium describes a situation where",
+    "options": {
+      "A": "A reaction gives back the reactants",
+      "B": "Reactants are converted to products",
+      "C": "The concentration of reactants and products is equal",
+      "D": "Both forward and reverse reaction proceed at the same rate"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2006"
+    ]
+  },
+  {
+    "id": "aloc-345",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2015,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Detergents are manufactured with straight hydrocarbon chains, is to make them",
+    "options": {
+      "A": "soluble",
+      "B": "biodegradable",
+      "C": "cheaper",
+      "D": "foamy"
+    },
+    "answer": "B",
+    "explanation": "Detergents with straight (unbranched) hydrocarbon chains are biodegradable because soil bacteria can break down straight chains enzymatically. Branched-chain detergents resist bacterial degradation and cause persistent foam pollution in water bodies.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2015"
+    ]
+  },
+  {
+    "id": "aloc-27",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2001,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "As the concentration of an electrolyte reduces, the conductivity",
+    "options": {
+      "A": "Reduces to zero",
+      "B": "Decreases",
+      "C": "Increases",
+      "D": "Is unaffected"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2001"
+    ]
+  },
+  {
+    "id": "aloc-311",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2015,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The acid in electrolysis of water is dilute",
+    "options": {
+      "A": "HNO₃",
+      "B": "CH₃COOH",
+      "C": "H₂SO₄",
+      "D": "HCl"
+    },
+    "answer": "C",
+    "explanation": "Dilute sulfuric acid (H₂SO₄) is used in the electrolysis of water because it's non-volatile, chemically stable, and provides ions for conductivity without interfering with the water decomposition reaction (2H₂O → 2H₂ + O₂).",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2015"
+    ]
+  },
+  {
+    "id": "aloc-573",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2020,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of the following gases will rekindle a brightly glowing splint?",
+    "options": {
+      "A": "NO₂",
+      "B": "NO",
+      "C": "N₂O",
+      "D": "Cl₂"
+    },
+    "answer": "C",
+    "explanation": "A glowing splint rekindling (bursting back into flame) is the standard test for oxygen or a gas that supports combustion. N₂O (dinitrogen monoxide/laughing gas) decomposes on heating to release oxygen: 2N₂O → 2N₂ + O₂. This oxygen relights the glowing splint. NO₂, NO, and Cl₂ do not rekindle a glowing splint in this way.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2020"
+    ]
+  },
+  {
+    "id": "aloc-550",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2019,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The IUPAC nomenclature of the compound H₃C - CH(CH₃) - CH(CH₃) - CH₂ - CH₃",
+    "options": {
+      "A": "3,4-dimethylhexane",
+      "B": "2,3-dimethyl pentane",
+      "C": "2-ethyl hexane",
+      "D": "2,3-dimethylhexane"
+    },
+    "answer": "D",
+    "explanation": "The longest carbon chain: CH₃-CH(CH₃)-CH(CH₃)-CH₂-CH₃ contains 6 carbons (hexane). Methyl groups are on C2 and C3. IUPAC name: 2,3-dimethylhexane. Numbering from the end closest to the substituents gives positions 2 and 3, not 3 and 4.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2019"
+    ]
+  },
+  {
+    "id": "aloc-350",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2015,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "PCl₅(g) = PCl₃(g) + Cl₂(g). In the reaction above, a decrease in pressure will",
+    "options": {
+      "A": "Decelerate the reaction",
+      "B": "Increase yield of PCl₃",
+      "C": "Increase the yield of PCl₅",
+      "D": "Accurate the reaction"
+    },
+    "answer": "B",
+    "explanation": "By Le Chatelier's principle, decreasing pressure favours the side with more moles of gas. The left side has 1 mole of gas and the right side has 2 moles (PCl₃ + Cl₂). A decrease in pressure therefore shifts equilibrium to the right, increasing the yield of PCl₃ and Cl₂.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2015"
+    ]
+  },
+  {
+    "id": "aloc-429",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2017,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Calculate the amount in moles of silver deposited when 9650 C of electricity is passed through a solution of silver salt [F = 96500 C mol⁻¹]",
+    "options": {
+      "A": "0.05",
+      "B": "10.8",
+      "C": "10",
+      "D": "0.1"
+    },
+    "answer": "D",
+    "explanation": "Ag⁺ + e⁻ → Ag (one mole of electrons deposits one mole of Ag). Moles of electrons = charge/F = 9650/96500 = 0.10 mol. Therefore moles of Ag deposited = 0.10 mol.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2017"
+    ]
+  },
+  {
+    "id": "aloc-279",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of the following salts is slightly soluble in water",
+    "options": {
+      "A": "CaSO4",
+      "B": "Na2CO3",
+      "C": "PbCl2",
+      "D": "AgCl"
+    },
+    "answer": "A",
+    "explanation": "The correct answer is option A.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "aloc-707",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2023,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of the following is a primary constituent of crude oil?",
+    "options": {
+      "A": "Pentane",
+      "B": "Ethanol",
+      "C": "Heptane",
+      "D": "Methane"
+    },
+    "answer": "C",
+    "explanation": "Crude oil is a complex mixture of hydrocarbons. Heptane (C₇H₁₆) is a significant and representative primary constituent of crude oil, used as a reference compound in the octane rating scale (heptane = 0 octane rating). Pentane is also present in crude oil but heptane is more commonly cited as a primary constituent. Ethanol is not a constituent of crude oil, and methane is the main component of natural gas rather than crude oil.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2023"
+    ]
+  },
+  {
+    "id": "aloc-162",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2004,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "An isomer of C5H12 is",
+    "options": {
+      "A": "Butane",
+      "B": "2-methylbutane",
+      "C": "2-methylprpane",
+      "D": "2-ethylbutane"
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2004"
+    ]
+  },
+  {
+    "id": "aloc-687",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2023,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which trace gas in the atmosphere plays a significant role in the greenhouse effect?",
+    "options": {
+      "A": "Oxygen",
+      "B": "Argon",
+      "C": "Carbon dioxide",
+      "D": "Nitrogen"
+    },
+    "answer": "C",
+    "explanation": "Carbon dioxide (CO₂) is a trace gas (about 0.04% of the atmosphere) that plays a major role in the greenhouse effect. It absorbs infrared radiation emitted from the earth's surface and re-radiates it, trapping heat in the atmosphere. Nitrogen and oxygen make up most of the atmosphere but do not absorb infrared radiation significantly. Argon is chemically inert and does not contribute to the greenhouse effect.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2023"
+    ]
+  },
+  {
+    "id": "aloc-266",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "How many unpaired electron(s) are there in the nitrogen  sub - levels",
+    "options": {
+      "A": "2",
+      "B": "1",
+      "C": "0",
+      "D": "3"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "aloc-36",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2001,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "When chlorine is passed into water and the resulting solution exposed to sunlight, the product formed are",
+    "options": {
+      "A": "Chlorine gas and hydrogen",
+      "B": "Oxygen and oxochlorate(l) acid",
+      "C": "Hydrochloric acid and oxygen",
+      "D": ""
+    },
+    "answer": "B",
+    "explanation": "The correct answer is option B.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2001"
+    ]
+  },
+  {
+    "id": "aloc-50",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2002,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Steam changes the colour of anhydrous cobalt(II) chloride from",
+    "options": {
+      "A": "White to red",
+      "B": "Blue to white",
+      "C": "White to green",
+      "D": "Blue to pink"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2002"
+    ]
+  },
+  {
+    "id": "aloc-190",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2005,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Which of these properties gives a solid its definite shape",
+    "options": {
+      "A": "Weak intermolecular attraction",
+      "B": "High boiling point",
+      "C": "High melting point",
+      "D": "Strong intermolecular attraction"
+    },
+    "answer": "D",
+    "explanation": "The correct answer is option D.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2005"
+    ]
+  },
+  {
+    "id": "aloc-370",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2016,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "The radioisotope used in industrial radiography for the rapid checking of faults in welds and casting is",
+    "options": {
+      "A": "Phosphorus-32",
+      "B": "Cobalt-60",
+      "C": "Carbon-14",
+      "D": "Iodine-131"
+    },
+    "answer": "B",
+    "explanation": "Cobalt-60 emits high-energy gamma rays, making it ideal for industrial radiography to detect internal faults in welds and castings. Phosphorus-32 is used in medical/biological research; Carbon-14 is used in radiocarbon dating; Iodine-131 is used in thyroid treatment.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2016"
+    ]
+  },
+  {
+    "id": "aloc-669",
+    "subject": "Chemistry",
+    "topic": "General",
+    "subtopic": "",
+    "year": 2022,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "How many bonding pairs are present in carbon(iv)oxide?",
+    "options": {
+      "A": "4",
+      "B": "3",
+      "C": "2",
+      "D": "1"
+    },
+    "answer": "A",
+    "explanation": "Carbon(IV) oxide is CO₂, with the structure O=C=O. Each C=O double bond consists of 2 bonding pairs (one sigma bond and one pi bond). With two C=O double bonds, the total number of bonding pairs = 2 × 2 = 4. There are no lone pairs on carbon and 2 lone pairs on each oxygen, but these are not bonding pairs.",
+    "difficulty": "medium",
+    "tags": [
+      "chemistry",
+      "jamb",
+      "2022"
     ]
   }
 ];

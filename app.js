@@ -118,6 +118,9 @@ function navigate(viewName) {
     case "wellbeing":
       renderWellbeingView();
       break;
+    case "study-planner":
+      if (typeof renderStudyPlannerView === "function") renderStudyPlannerView();
+      break;
   }
 
   // Close WhatsApp if open on practice or mock exam to prevent overlapping
@@ -765,6 +768,9 @@ function renderPracticeInterface() {
         <p class="text-xs leading-relaxed opacity-90 mb-4 whitespace-pre-line">${q.explanation}</p>
         
         <div class="pt-4 border-t border-indigo-900/60 flex flex-wrap gap-3">
+          <button onclick="openAiTutor('${q.id}')" class="text-xs font-semibold px-3 py-1.5 bg-violet-600/20 text-violet-300 rounded-lg border border-violet-800/40 hover:bg-violet-600/40 transition-all">
+            🤖 Ask AI Tutor
+          </button>
           <button onclick="triggerWhatsAppDailyChallengeSim('${q.id}')" class="text-xs font-semibold px-3 py-1.5 bg-indigo-600/20 text-indigo-300 rounded-lg border border-indigo-800/40 hover:bg-indigo-600/40 transition-all">
             💬 Share to WhatsApp
           </button>
@@ -1311,6 +1317,24 @@ function renderSettingsView() {
           </div>
         `
       }
+
+      <!-- Offline subject bundles (Premium) -->
+      <div class="text-left mb-8 pb-8 border-b border-indigo-900/60">
+        <h3 class="text-sm font-bold text-indigo-400 mb-2">Offline Subject Downloads</h3>
+        <p class="text-xs text-gray-500 mb-3">Download a full subject for offline practice (Premium).</p>
+        <div class="flex flex-wrap gap-2">
+          ${(user.subjects || ["Mathematics", "Biology", "Chemistry"]).map(s => `
+            <button onclick="downloadSubjectOffline('${s}')" class="px-3 py-1.5 bg-indigo-950/40 border border-indigo-800/40 text-indigo-300 rounded-lg text-xs font-bold hover:bg-indigo-900/40">${s}</button>
+          `).join("")}
+        </div>
+      </div>
+
+      <!-- Portal links -->
+      <div class="text-left mb-8 pb-8 border-b border-indigo-900/60 grid gap-2">
+        <a href="teacher.html" class="text-xs text-indigo-400 hover:underline">👩‍🏫 Teacher Dashboard</a>
+        <a href="parent.html" class="text-xs text-indigo-400 hover:underline">👨‍👩‍👧 Parent Portal</a>
+        <a href="school-portal.html" class="text-xs text-indigo-400 hover:underline">🏫 School Institutional Portal</a>
+      </div>
 
       <!-- Admin Portal Link -->
       <div class="text-left mb-8 pb-8 border-b border-indigo-900/60">

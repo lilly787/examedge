@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamEdge — Parent Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body class="bg-[#0a0814] text-white min-h-screen p-6">
+  <div class="max-w-3xl mx-auto">
+    <a href="index.html" class="text-indigo-400 text-sm">← Back</a>
+    <h1 class="text-3xl font-black mt-4 mb-8">👨‍👩‍👧 Parent Portal</h1>
+
+    <div id="auth" class="glass-panel p-6 rounded-2xl border border-indigo-500/20 mb-6">
+      <input id="phone" placeholder="Phone" class="w-full mb-2 bg-indigo-950/40 border rounded-xl px-4 py-2">
+      <input id="otp" placeholder="OTP" class="w-full mb-2 bg-indigo-950/40 border rounded-xl px-4 py-2">
+      <button onclick="parentLogin()" class="w-full bg-indigo-600 py-2 rounded-xl font-bold">Login as Parent</button>
+      <p id="dev-otp" class="text-xs text-amber-400 mt-2"></p>
+    </div>
+
+    <div id="portal" class="hidden">
+      <div class="glass-panel p-6 rounded-2xl mb-4">
+        <h3 class="font-bold mb-2">Link your child</h3>
+        <input id="link-code" placeholder="Child's parent code (EE-XXXXXX)" class="w-full mb-2 bg-indigo-950/40 border rounded-xl px-4 py-2">
+        <button onclick="linkChild()" class="bg-emerald-600 px-4 py-2 rounded-xl text-sm font-bold">Link child</button>
+      </div>
+      <div id="children"></div>
+      <div id="report" class="mt-6 glass-panel p-6 rounded-2xl hidden"></div>
+    </div>
+  </div>
+  <script src="examedge-config.js"></script>
+  <script src="examedge-api.js"></script>
+  <script>
+    let phone = "";
+    async function parentLogin() {
+      phone = document.getElementById("phone").value;
+      const send = await ExamEdgeAPI.sendOtp(phone);
+      document.getElementById("dev-otp").textContent = send.devCode ? `Dev OTP: ${send.devCode}` : "";
+      const code = document.getElementById("otp").value;
+      const res = await ExamEdgeAPI.verifyOtp(phone, code, { name: "Parent", role: "parent" });
+      ExamEdgeAPI.setToken(res.token);
+      document.getElementById("auth").classList.add("hidden");
+      document.getElementById("portal").classList.remove("hidden");
+      loadChildren();
+    }
+    async function linkChild() {
+      await ExamEdgeAPI.linkChild(document.getElementById("link-code").value);
+      loadChildren();
+    }
+    async function loadChildren() {
+      const data = await ExamEdgeAPI.getChildren();
+      document.getElementById("children").innerHTML = (data.children || [])
+        .map(c => `<button onclick="loadReport('${c.id}')" class="block w-full text-left glass-panel p-4 rounded-xl mb-2 border border-indigo-500/10">
+          ${c.name} — ${c.ss_class} — Readiness ${c.readiness_score || 0}%
+        </button>`).join("") || "<p class='text-gray-500'>No children linked.</p>";
+    }
+    async function loadReport(id) {
+      const r = await ExamEdgeAPI.getChildReport(id);
+      document.getElementById("report").classList.remove("hidden");
+      document.getElementById("report").innerHTML = `
+        <h3 class="font-bold mb-4">Weekly report</h3>
+        <p>Questions this week: ${r.week.questions_answered}</p>
+        <p>Accuracy: ${r.week.accuracy}%</p>
+        <p>Readiness: ${r.readiness_score}%</p>
+        ${r.inactive_alert ? '<p class="text-rose-400 mt-2">⚠ Child has not studied in 3+ days</p>' : ""}`;
+    }
+  </script>
+</body>
+</html>
