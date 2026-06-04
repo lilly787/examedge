@@ -464,6 +464,7 @@ function renderDashboardView() {
 
     </div>
   `;
+  refreshIcons();
 
   // Initialize counting text
   updateCountdownTimerText();
@@ -967,6 +968,7 @@ function renderPracticeInterface() {
 
     </div>
   `;
+  refreshIcons();
 
   // Start active countdown timer for mock view if needed
   if (mode === "mock") {
@@ -1144,6 +1146,7 @@ function submitMockExamSession(forced = false) {
       </div>
     </div>
   `;
+  refreshIcons();
 
   if (percent >= 70) {
     triggerMicroConfetti();
@@ -1393,6 +1396,7 @@ function renderSettingsView() {
 
     </div>
   `;
+  refreshIcons();
 }
 
 function triggerResetStorageData() {
@@ -1492,6 +1496,7 @@ function openPaystackSim() {
 
     </div>
   `;
+  refreshIcons();
 
   overlay.classList.remove("hidden");
   overlay.classList.add("flex");
@@ -1717,6 +1722,7 @@ function showSMSBanner(text) {
   `;
 
   container.appendChild(banner);
+  refreshIcons();
 
   // Keep it persistent or auto remove after 12s
   setTimeout(() => {

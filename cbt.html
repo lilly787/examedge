@@ -1082,6 +1082,7 @@
         groupEl.appendChild(pillRow);
         container.appendChild(groupEl);
       });
+      lucide.createIcons();
     }
 
     function getFilteredQuestions() {
@@ -1535,6 +1536,9 @@
     // Init
     buildSubjectPicker();
     updateCount();
+    // Render static Lucide icons (modal, badge, submit buttons)
+    document.addEventListener('DOMContentLoaded', () => lucide.createIcons());
+    lucide.createIcons();
   </script>
 </body>
 </html>
