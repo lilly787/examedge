@@ -221,6 +221,18 @@ const ExamEdgeDB = {
     };
     storage.set("user", userProfile);
     ExamEdgeDB.init();
+
+    // Save to examedge_user
+    const userObj = {
+      id: userProfile.id || 'u-' + Date.now(),
+      name: userProfile.name,
+      email: userProfile.email || "",
+      phone: userProfile.phone,
+      role: userProfile.role || "student",
+      createdAt: userProfile.joinedAt || userProfile.createdAt || new Date().toISOString()
+    };
+    localStorage.setItem('examedge_user', JSON.stringify(userObj));
+
     return userProfile;
   },
 
@@ -229,6 +241,18 @@ const ExamEdgeDB = {
     storage.set("user", userProfile);
     localStorage.setItem("EXAMEDGE_LOGGED_IN", "true");
     ExamEdgeDB.init();
+
+    // Save to examedge_user
+    const userObj = {
+      id: userProfile.id || 'u-' + Date.now(),
+      name: userProfile.name,
+      email: userProfile.email || "",
+      phone: userProfile.phone,
+      role: userProfile.role || "student",
+      createdAt: userProfile.joinedAt || userProfile.createdAt || new Date().toISOString()
+    };
+    localStorage.setItem('examedge_user', JSON.stringify(userObj));
+
     return userProfile;
   },
 
@@ -260,6 +284,18 @@ const ExamEdgeDB = {
     };
     storage.set("user", userProfile);
     localStorage.setItem("EXAMEDGE_LOGGED_IN", "true");
+
+    // Save to examedge_user
+    const userObj = {
+      id: userProfile.id || 'u-' + Date.now(),
+      name: userProfile.name,
+      email: userProfile.email || apiUser.email || "",
+      phone: userProfile.phone,
+      role: userProfile.role || "student",
+      createdAt: userProfile.createdAt || apiUser.createdAt || new Date().toISOString()
+    };
+    localStorage.setItem('examedge_user', JSON.stringify(userObj));
+
     return userProfile;
   },
 
@@ -272,6 +308,11 @@ const ExamEdgeDB = {
     localStorage.removeItem("EXAMEDGE_LOGGED_IN");
     if (typeof ExamEdgeAPI !== "undefined") ExamEdgeAPI.setToken(null);
     else localStorage.removeItem("EXAMEDGE_token");
+
+    // Clear examedge_user and other session keys
+    localStorage.removeItem("examedge_user");
+    localStorage.removeItem("examedge_progress");
+    localStorage.removeItem("examedge_streak");
   },
 
   getUser: () => {
@@ -583,7 +624,19 @@ const ExamEdgeDB = {
 
 ExamEdgeDB.init();
 
+function getRole() {
+  const user = JSON.parse(localStorage.getItem('examedge_user') || 'null');
+  return user ? user.role : null;
+}
+
+function hasRole(role) { return getRole() === role; }
+
+if (typeof window !== 'undefined') {
+  window.getRole = getRole;
+  window.hasRole = hasRole;
+}
+
 // Exporting as global or ES Module based on loading mechanism
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = ExamEdgeDB;
+  module.exports = { ExamEdgeDB, getRole, hasRole };
 }

@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    const existingUser = JSON.parse(
+      localStorage.getItem('examedge_user') || 'null'
+    );
+    if (existingUser) {
+      const map = {
+        student: 'index.html', teacher: 'teacher.html',
+        parent: 'parent.html', admin: 'admin.html'
+      };
+      window.location.replace(map[existingUser.role] || 'index.html');
+    }
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Account — ExamEdge</title>
@@ -882,6 +894,18 @@
       try {
         const res = await ExamEdgeAPI.verifyOtp(state.phone, state.otpEntered, profile);
         ExamEdgeDB.loginFromApi(res.user, res.token);
+
+        // Save user to examedge_user
+        const userObj = {
+          id: res.user.id,
+          name: res.user.name,
+          email: res.user.email || "",
+          phone: res.user.phone,
+          role: res.user.role,
+          createdAt: res.user.createdAt || new Date().toISOString()
+        };
+        localStorage.setItem('examedge_user', JSON.stringify(userObj));
+
         showSuccessAndRedirect(res.user.name);
         return;
       } catch (e) {
@@ -913,6 +937,18 @@
 
     ExamEdgeDB.loginProfile(user);
     if (state.role === 'student') addStudentToGlobalList(user);
+
+    // Save user to examedge_user
+    const userObj = {
+      id: user.id,
+      name: user.name,
+      email: user.email || "",
+      phone: user.phone,
+      role: user.role,
+      createdAt: user.joinedAt
+    };
+    localStorage.setItem('examedge_user', JSON.stringify(userObj));
+
     showSuccessAndRedirect(user.name);
   }
 
@@ -922,8 +958,14 @@
     document.getElementById('form-title').textContent = 'You\'re In!';
     document.getElementById('form-subtitle').textContent = 'Your ExamEdge account is all set.';
     refreshIcons();
-    const dest = state.role === 'teacher' ? 'teacher.html' : state.role === 'parent' ? 'parent.html' : 'index.html';
-    setTimeout(() => { window.location.href = dest; }, 3000);
+    const map = {
+      student: 'index.html',
+      teacher: 'teacher.html',
+      parent: 'parent.html',
+      admin: 'admin.html'
+    };
+    const dest = map[state.role] || 'index.html';
+    setTimeout(() => { window.location.replace(dest); }, 3000);
   }
 
   // =================== HELPERS ===================

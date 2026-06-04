@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    const user = JSON.parse(localStorage.getItem('examedge_user') || 'null');
+    if (!user || user.role !== 'admin') {
+      const redirectMap = {
+        student: 'index.html', teacher: 'teacher.html',
+        parent: 'parent.html'
+      };
+      window.location.replace(redirectMap[user?.role] || 'index.html');
+    }
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ExamEdge Administration Panel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -459,7 +470,7 @@
   <!-- Modal -->
   <div class="modal-overlay" id="confirm-modal">
     <div class="modal-box">
-      <div style="font-size:2.5rem;margin-bottom:0.8rem" id="modal-icon">⚠️</div>
+      <div style="margin-bottom:0.8rem;color:#f59e0b" id="modal-icon"><i data-lucide="alert-triangle" style="width:40px;height:40px"></i></div>
       <h3 id="modal-title">Reset Database?</h3>
       <p id="modal-msg">This will wipe out all user progress, registered students, and settings. This cannot be undone.</p>
       <div class="modal-actions">
@@ -483,9 +494,9 @@
         </div>
       </div>
       <div class="header-actions">
-        <a href="index.html" class="btn btn-secondary">🏠 Back to App Dashboard</a>
-        <a href="cbt.html" class="btn btn-secondary">📝 Practice CBT Engine</a>
-        <button class="btn btn-danger" onclick="confirmWipeDatabase()">⚠️ Reset System DB</button>
+        <a href="index.html" class="btn btn-secondary"><i data-lucide="layout-dashboard" class="icon-sm"></i> Back to App Dashboard</a>
+        <a href="cbt.html" class="btn btn-secondary"><i data-lucide="file-text" class="icon-sm"></i> Practice CBT Engine</a>
+        <button class="btn btn-danger" onclick="confirmWipeDatabase()"><i data-lucide="alert-triangle" class="icon-sm"></i> Reset System DB</button>
       </div>
     </header>
 
@@ -583,7 +594,7 @@
       <!-- RIGHT SECTION: ADD NEW QUESTION -->
       <div>
         <div class="admin-card" style="position: sticky; top: 1.5rem;">
-          <h2 class="card-title" style="margin-bottom:1.2rem;">➕ Add Past Question</h2>
+          <h2 class="card-title" style="margin-bottom:1.2rem;"><i data-lucide="plus" class="icon-sm"></i> Add Past Question</h2>
           
           <form id="add-question-form" onsubmit="handleQuestionFormSubmit(event)">
             <div class="form-group">
@@ -1019,6 +1030,9 @@
         refreshData();
       }
     }
+
+    // Initialise Lucide icons on load
+    document.addEventListener('DOMContentLoaded', () => lucide.createIcons());
 
     // HELPERS
     function showToast(message, type = "success") {

@@ -240,3 +240,16 @@ main {
   padding-bottom: calc(6rem + env(safe-area-inset-bottom)) !important;
 }
 
+/* Lucide Icon Custom Styling */
+[data-lucide] {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.75;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.nav-icon [data-lucide] { width: 20px; height: 20px; }
+.card-icon [data-lucide] { width: 24px; height: 24px; }
+.icon-sm [data-lucide]   { width: 14px; height: 14px; }
+

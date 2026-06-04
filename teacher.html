@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+  <script>
+    const user = JSON.parse(localStorage.getItem('examedge_user') || 'null');
+    if (!user || user.role !== 'teacher') {
+      const redirectMap = {
+        student: 'index.html', admin: 'admin.html',
+        parent: 'parent.html'
+      };
+      window.location.replace(redirectMap[user?.role] || 'index.html');
+    }
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ExamEdge — Teacher Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="index.css">
 </head>
 <body class="bg-[#0a0814] text-white min-h-screen p-6">
@@ -76,10 +87,11 @@
       const data = await ExamEdgeAPI.getClassStudents(classId);
       document.getElementById("students-panel").classList.remove("hidden");
       document.getElementById("students-list").innerHTML = (data.students || [])
-        .map(s => `<div class="py-2 border-b border-indigo-900/30 text-sm">
+        .map(s => `<div class="py-2 border-b border-indigo-900/30 text-sm flex items-center gap-2">
           ${s.name} — Readiness: ${s.readiness_score || 0}%
-          ${s.at_risk ? '<span class="text-rose-400 ml-2">⚠ At risk</span>' : ""}
+          ${s.at_risk ? '<span class="text-rose-400 ml-2 flex items-center gap-1"><i data-lucide="alert-triangle" style="width:13px;height:13px"></i> At risk</span>' : ''}
         </div>`).join("") || "<p>No students in class.</p>";
+      lucide.createIcons();
     }
   </script>
 </body>

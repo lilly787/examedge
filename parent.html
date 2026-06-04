@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+  <script>
+    const user = JSON.parse(localStorage.getItem('examedge_user') || 'null');
+    if (!user || user.role !== 'parent') {
+      const redirectMap = {
+        student: 'index.html', admin: 'admin.html',
+        teacher: 'teacher.html'
+      };
+      window.location.replace(redirectMap[user?.role] || 'index.html');
+    }
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ExamEdge — Parent Portal</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="index.css">
 </head>
 <body class="bg-[#0a0814] text-white min-h-screen p-6">
@@ -63,7 +74,8 @@
         <p>Questions this week: ${r.week.questions_answered}</p>
         <p>Accuracy: ${r.week.accuracy}%</p>
         <p>Readiness: ${r.readiness_score}%</p>
-        ${r.inactive_alert ? '<p class="text-rose-400 mt-2">⚠ Child has not studied in 3+ days</p>' : ""}`;
+        ${r.inactive_alert ? '<p class="text-rose-400 mt-2 flex items-center gap-1"><i data-lucide="alert-triangle" style="width:14px;height:14px"></i> Child has not studied in 3+ days</p>' : ''}`;
+      lucide.createIcons();
     }
   </script>
 </body>

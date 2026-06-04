@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    const user = JSON.parse(localStorage.getItem('examedge_user') || 'null');
+    if (!user) { window.location.replace('register.html'); }
+    else if (user.role === 'admin') { window.location.replace('admin.html'); }
+    else if (user.role === 'teacher') { window.location.replace('teacher.html'); }
+    else if (user.role === 'parent') { window.location.replace('parent.html'); }
+    // student role falls through and loads normally
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CBT Practice Engine — ExamEdge</title>
@@ -8,6 +16,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -688,7 +697,7 @@
   <!-- ============ CONFIRM MODAL ============ -->
   <div class="modal-overlay" id="submit-modal">
     <div class="modal-box">
-      <div style="font-size:2.5rem;margin-bottom:0.8rem">⚠️</div>
+      <div style="margin-bottom:0.8rem;color:#f59e0b"><i data-lucide="alert-triangle" style="width:40px;height:40px"></i></div>
       <h3>Submit Exam?</h3>
       <p id="modal-msg">You have unanswered questions. Are you sure you want to submit your exam session?</p>
       <div class="modal-actions">
@@ -706,7 +715,7 @@
         <span class="logo-text">ExamEdge</span>
       </a>
 
-      <div class="setup-badge">⚡ CBT Practice Engine</div>
+      <div class="setup-badge"><i data-lucide="zap" class="icon-sm"></i> CBT Practice Engine</div>
       <h1 class="setup-title">Choose Your <span class="gradient-text">Practice Mode</span></h1>
       <p class="setup-sub">Real WAEC & JAMB past questions. Authentic CBT conditions. Built for Nigerian students.</p>
 
@@ -774,8 +783,8 @@
       </div>
       <div class="topbar-right">
         <div class="timer-display mono" id="timer-el" style="display:none">10:00</div>
-        <button onclick="confirmSubmit()" style="padding:6px 14px;background:rgba(244,63,94,0.15);border:1px solid rgba(244,63,94,0.35);border-radius:8px;color:#fca5a5;font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(244,63,94,0.25)'" onmouseout="this.style.background='rgba(244,63,94,0.15)'">
-          ✓ Submit
+        <button onclick="confirmSubmit()" style="padding:6px 14px;background:rgba(244,63,94,0.15);border:1px solid rgba(244,63,94,0.35);border-radius:8px;color:#fca5a5;font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:5px" onmouseover="this.style.background='rgba(244,63,94,0.25)'" onmouseout="this.style.background='rgba(244,63,94,0.15)'">
+          <i data-lucide="check" class="icon-sm"></i> Submit
         </button>
       </div>
     </div>
@@ -808,9 +817,9 @@
 
         <div class="explanation-box" id="explanation-box">
           <div class="exp-header">
-            <span id="exp-icon">✅</span>
+            <span id="exp-icon"><i data-lucide="check-circle" class="icon-sm"></i></span>
             <span id="exp-title">Correct!</span>
-            <span class="xp-badge" id="xp-badge">+25 XP 🎉</span>
+            <span class="xp-badge" id="xp-badge">+25 XP</span>
           </div>
           <div class="exp-body" id="exp-text"></div>
         </div>
@@ -865,8 +874,8 @@
         </div>
 
         <!-- Submit -->
-        <button class="submit-all-btn" onclick="confirmSubmit()">
-          ✓ Submit Exam Session
+        <button class="submit-all-btn" onclick="confirmSubmit()" style="display:flex;align-items:center;justify-content:center;gap:6px">
+          <i data-lucide="check" class="icon-sm"></i> Submit Exam Session
         </button>
       </div>
 
@@ -992,8 +1001,8 @@
         { key: 'English Language',  label: 'English',           icon: '📖' }
       ]},
       { group: '🔬 Sciences', subjects: [
-        { key: 'Physics',           label: 'Physics',           icon: '⚡' },
-        { key: 'Chemistry',         label: 'Chemistry',         icon: '⚗️' },
+        { key: 'Physics',           label: 'Physics',           icon: '<i data-lucide="zap" class="icon-sm"></i>' },
+        { key: 'Chemistry',         label: 'Chemistry',         icon: '<i data-lucide="flask-conical" class="icon-sm"></i>' },
         { key: 'Biology',           label: 'Biology',           icon: '🔬' },
         { key: 'Further Mathematics', label: 'Further Maths',  icon: '∑' },
         { key: 'Agricultural Science', label: 'Agric Sci',     icon: '🌿' },
@@ -1011,9 +1020,9 @@
         { key: 'Literature in English', label: 'Literature',   icon: '📚' },
         { key: 'Civic Education',   label: 'Civic Edu.',        icon: '🤝' }
       ]},
-      { group: '✝️ Religious Studies', subjects: [
-        { key: 'Christian Religious Studies', label: 'CRS',    icon: '✝️' },
-        { key: 'Islamic Religious Studies',   label: 'IRS',    icon: '☪️' }
+      { group: 'Religious Studies', subjects: [
+        { key: 'Christian Religious Studies', label: 'CRS',    icon: '<i data-lucide="cross" class="icon-sm"></i>' },
+        { key: 'Islamic Religious Studies',   label: 'IRS',    icon: '<i data-lucide="moon" class="icon-sm"></i>' }
       ]},
       { group: '🗣️ Languages', subjects: [
         { key: 'French',            label: 'French',            icon: '🇫🇷' },
@@ -1087,7 +1096,10 @@
       document.getElementById('q-count').textContent = qs.length;
       const btn = document.getElementById('start-btn');
       btn.disabled = qs.length === 0;
-      btn.textContent = qs.length === 0 ? '⚠️ No Questions Found' : '🚀 Start Practice Session →';
+      btn.innerHTML = qs.length === 0
+        ? '<i data-lucide="alert-triangle" class="icon-sm"></i> No Questions Found'
+        : '<i data-lucide="play-circle" class="icon-sm"></i> Start Practice Session →';
+      lucide.createIcons();
     }
 
     function startSession() {
@@ -1251,10 +1263,11 @@
       if (mode === 'study' && answered) {
         const isCorrect = answered === q.answer;
         expBox.className = `explanation-box show ${isCorrect ? 'correct' : 'wrong'}`;
-        document.getElementById('exp-icon').textContent = isCorrect ? '✅' : '❌';
+        document.getElementById('exp-icon').innerHTML = isCorrect ? '<i data-lucide="check-circle" class="icon-sm"></i>' : '<i data-lucide="x-circle" class="icon-sm"></i>';
         document.getElementById('exp-title').textContent = isCorrect ? 'Correct!' : `Incorrect — Correct answer is ${q.answer}`;
-        document.getElementById('xp-badge').textContent = isCorrect ? '+25 XP 🎉' : '+5 XP (Keep practicing)';
+        document.getElementById('xp-badge').textContent = isCorrect ? '+25 XP' : '+5 XP (Keep practicing)';
         document.getElementById('exp-text').textContent = q.explanation;
+        lucide.createIcons();
         document.getElementById('xp-badge').style.display = 'inline-flex';
       } else {
         expBox.className = 'explanation-box';
@@ -1262,7 +1275,10 @@
 
       // Nav buttons
       document.getElementById('prev-btn').disabled = idx === 0;
-      document.getElementById('next-btn').textContent = idx === total - 1 ? '✓ Finish' : 'Next →';
+      document.getElementById('next-btn').innerHTML = idx === total - 1
+        ? '<i data-lucide="check" class="icon-sm"></i> Finish'
+        : 'Next →';
+      lucide.createIcons();
       document.getElementById('next-btn').style.background = idx === total - 1 ? 'rgba(16,185,129,0.2)' : '';
       document.getElementById('next-btn').style.borderColor = idx === total - 1 ? 'rgba(16,185,129,0.5)' : '';
       document.getElementById('next-btn').style.color = idx === total - 1 ? '#6ee7b7' : '';

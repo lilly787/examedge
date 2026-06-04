@@ -244,10 +244,28 @@ function verifyOTPCode() {
 
   // Save session
   const user = ExamEdgeDB.login("+234" + phone, name);
+  
+  // Save user to examedge_user
+  const userObj = {
+    id: user.id || 'u-' + Date.now(),
+    name: user.name,
+    email: user.email || "",
+    phone: user.phone,
+    role: user.role || "student",
+    createdAt: user.joinedAt || user.createdAt || new Date().toISOString()
+  };
+  localStorage.setItem('examedge_user', JSON.stringify(userObj));
+
   showToast(`Welcome back, ${user.name}!`, "success");
   
-  // Routing view handles visibility automatically!
-  navigate("dashboard");
+  // Redirect based on role
+  const map = {
+    student: 'index.html',
+    teacher: 'teacher.html',
+    parent: 'parent.html',
+    admin: 'admin.html'
+  };
+  window.location.replace(map[userObj.role] || 'index.html');
 }
 
 function backToPhoneScreen() {
@@ -328,7 +346,7 @@ function renderDashboardView() {
         </div>
 
         <div class="flex items-center gap-2 px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-xl">
-          <span class="text-indigo-400 text-xl font-bold">✨</span>
+          <span class="text-indigo-400 text-xl font-bold"><i data-lucide="sparkles" class="icon-sm"></i></span>
           <div>
             <div class="text-xs text-indigo-400 font-bold uppercase tracking-wider leading-none">Total XP</div>
             <div class="text-sm font-black text-indigo-200 leading-none mt-1">${xp} PTS</div>
@@ -395,7 +413,7 @@ function renderDashboardView() {
         <div class="mt-4">
           ${user.subscription_tier === 'free' 
             ? `<button onclick="openPaystackSim()" class="w-full text-center text-xs font-bold text-amber-400 hover:text-amber-300 py-1 border border-dashed border-amber-500/30 hover:border-amber-500 rounded-lg transition-all">🔑 Go Premium for Unlimited Practice</button>`
-            : `<span class="text-xs text-emerald-400 font-semibold flex items-center gap-1">✅ Unlimited Practice Active</span>`
+            : `<span class="text-xs text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="check-circle" style="width:13px;height:13px"></i> Unlimited Practice Active</span>`
           }
         </div>
       </div>
@@ -767,7 +785,7 @@ function renderPracticeInterface() {
     studyFeedbackHtml = `
       <div class="mt-6 p-5 rounded-xl border ${isCorrect ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300' : 'bg-rose-950/40 border-rose-500/30 text-rose-300'}">
         <div class="flex items-center gap-2 mb-2">
-          <span class="text-xl">${isCorrect ? '✅' : '❌'}</span>
+          <span class="text-xl">${isCorrect ? '<i data-lucide="check-circle" class="icon-sm" style="color:#10b981"></i>' : '<i data-lucide="x-circle" class="icon-sm" style="color:#f43f5e"></i>'}</span>
           <h4 class="font-bold text-sm">${isCorrect ? 'Correct Answer!' : 'Incorrect. Try again!'}</h4>
         </div>
         <p class="text-xs leading-relaxed opacity-90 mb-4 whitespace-pre-line">${q.explanation}</p>
@@ -865,7 +883,7 @@ function renderPracticeInterface() {
     actionBarHtml = `
       <div class="flex justify-between items-center mt-8 pt-6 border-t border-indigo-900/40">
         <button onclick="prevQuestion()" ${isFirst ? 'disabled' : ''} class="px-5 py-2.5 bg-indigo-950/40 border border-indigo-900/60 rounded-xl text-xs font-semibold text-gray-400 hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-all">
-          ⬅️ Back
+          ← Back
         </button>
 
         <button onclick="toggleFlagQuestion()" class="px-5 py-2.5 rounded-xl border border-amber-500/20 text-xs font-semibold flex items-center gap-2 ${PRACTICE_SESSION.flaggedQuestions[idx] ? 'bg-amber-500/20 text-amber-400' : 'bg-transparent text-gray-400 hover:text-amber-400'} transition-all">
@@ -873,7 +891,7 @@ function renderPracticeInterface() {
         </button>
 
         <button onclick="nextQuestion()" ${isLast ? 'disabled' : ''} class="px-5 py-2.5 bg-indigo-950/40 border border-indigo-900/60 rounded-xl text-xs font-semibold text-gray-400 hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-all">
-          Next ➡️
+          Next →
         </button>
       </div>
     `;
@@ -882,12 +900,12 @@ function renderPracticeInterface() {
     actionBarHtml = `
       <div class="flex justify-between items-center mt-8 pt-6 border-t border-indigo-900/40">
         <button onclick="prevQuestion()" ${isFirst ? 'disabled' : ''} class="px-5 py-2.5 bg-indigo-950/40 border border-indigo-900/60 rounded-xl text-xs font-semibold text-gray-400 hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-all">
-          ⬅️ Back
+          ← Back
         </button>
 
         ${isLast 
           ? `<button onclick="finishStudySession()" class="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-slate-950 font-bold rounded-xl text-xs shadow-lg transition-all">Finish Session</button>`
-          : `<button onclick="nextQuestion()" ${!hasAnswered ? 'disabled' : ''} class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs disabled:opacity-40 disabled:pointer-events-none shadow-lg transition-all">Next Question ➡️</button>`
+          : `<button onclick="nextQuestion()" ${!hasAnswered ? 'disabled' : ''} class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs disabled:opacity-40 disabled:pointer-events-none shadow-lg transition-all">Next Question →</button>`
         }
       </div>
     `;
@@ -1109,8 +1127,9 @@ function submitMockExamSession(forced = false) {
       </div>
 
       ${limitBlocked 
-        ? `<div class="mb-6 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-xs text-amber-400 font-semibold text-left">
-             ⚠️ Some questions weren't logged because your free tier 20-question limit was reached! Upgrade to Premium to log all practice attempts.
+        ? `<div class="mb-6 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-xs text-amber-400 font-semibold text-left flex items-start gap-2">
+             <i data-lucide="alert-triangle" style="width:14px;height:14px;flex-shrink:0;margin-top:1px"></i>
+             <span>Some questions weren't logged because your free tier 20-question limit was reached! Upgrade to Premium to log all practice attempts.</span>
            </div>`
         : ""
       }
@@ -1323,7 +1342,7 @@ function renderSettingsView() {
         `
         : `
           <div class="p-6 bg-emerald-950/20 border border-emerald-500/30 rounded-2xl text-left mb-8">
-            <h3 class="text-base font-bold text-emerald-400">✨ Premium Subscription Active</h3>
+            <h3 class="text-base font-bold text-emerald-400 flex items-center gap-2"><i data-lucide="sparkles" class="icon-sm"></i> Premium Subscription Active</h3>
             <p class="text-xs text-gray-400 mt-1">Enjoy unlimited question bank access, PWA downloads, and readiness scoring. Thank you for studying with ExamEdge!</p>
           </div>
         `
@@ -1390,7 +1409,7 @@ function triggerAppLogout() {
     showToast("Logged out successfully!", "success");
     document.getElementById("sidebar-nav").classList.add("hidden");
     document.getElementById("bottom-nav").classList.add("hidden");
-    navigate("auth");
+    window.location.replace("register.html");
   }
 }
 
@@ -1409,7 +1428,7 @@ function openPaystackSim() {
 
       <!-- Paystack Logo Mock -->
       <div class="flex justify-center items-center gap-1.5 mb-4">
-        <span class="text-emerald-400 text-lg">⚡</span>
+        <span class="text-emerald-400"><i data-lucide="zap" class="icon-sm"></i></span>
         <span class="text-white font-black tracking-tight text-sm">paystack</span>
         <span class="text-xs text-gray-500">SANDBOX</span>
       </div>
@@ -1461,7 +1480,7 @@ function openPaystackSim() {
       <!-- Success Screen -->
       <div id="paystack-success-view" class="hidden">
         <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full flex items-center justify-center text-xl mx-auto mb-4">
-          ✓
+          <i data-lucide="check" style="width:20px;height:20px"></i>
         </div>
         <h3 class="text-lg font-bold text-white mb-2">Payment Successful!</h3>
         <p class="text-xs text-gray-400 mb-6">Your student account has been successfully upgraded to Premium. Restarting dashboard.</p>
@@ -1690,7 +1709,7 @@ function showSMSBanner(text) {
   banner.className = "bg-indigo-650/95 border-b border-indigo-500/30 text-white font-mono p-3 text-xs w-full shadow-lg flex items-center justify-between animate-slide-down relative z-[99999]";
   banner.innerHTML = `
     <div class="flex items-center gap-2">
-      <span>✉️</span>
+      <span><i data-lucide="mail" class="icon-sm"></i></span>
       <span class="font-bold">MOCK SMS:</span>
       <span class="opacity-95 select-all">${text}</span>
     </div>
