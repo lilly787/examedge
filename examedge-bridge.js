@@ -53,8 +53,8 @@ const ExamEdgeBridge = {
 
   patchLogAttempt() {
     const original = ExamEdgeDB.logAttempt.bind(ExamEdgeDB);
-    ExamEdgeDB.logAttempt = (questionId, isCorrect, timeTakenSeconds) => {
-      const result = original(questionId, isCorrect, timeTakenSeconds);
+    ExamEdgeDB.logAttempt = (questionId, isCorrect, timeTakenSeconds, questionObj) => {
+      const result = original(questionId, isCorrect, timeTakenSeconds, questionObj);
       if (result?.success === false) return result;
 
       if (this.apiOnline && ExamEdgeAPI.getToken()) {

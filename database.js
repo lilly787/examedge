@@ -60,6 +60,132 @@ const DEFAULT_LEADERBOARD = [
   { rank: 8, name: "Ibrahim Musa", school: "Barewa College, Zaria", state: "Kaduna", score: 650, xp: 3250, isUser: false }
 ];
 
+// ── Complete weakness map schema (all subjects + topics) ─────────────
+const INITIAL_WEAKNESS_MAP = {
+  "Mathematics": {
+    "Algebra":                    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Calculus":                   { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Geometry":                   { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Statistics & Probability":   { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Mensuration":                { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Number & Numeration":        { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Trigonometry":               { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "English Language": {
+    "Vocabulary":                 { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Grammar":                    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Oral English":               { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Comprehension & Summary":    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Literature in English":      { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Physics": {
+    "Mechanics":                  { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Electricity & Magnetism":    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Waves & Optics":             { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Heat & Thermodynamics":      { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Nuclear & Modern Physics":   { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Chemistry": {
+    "Atomic Structure & Periodic Table": { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Chemical Bonding":           { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Acids, Bases & Salts":       { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Organic Chemistry":          { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Stoichiometry & Calculations":{ attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Physical Chemistry":         { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Electrochemistry & Redox":   { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Metals, Alloys & Industry":  { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Biology": {
+    "Cell Biology":               { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Genetics & Evolution":       { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Ecology & Environment":      { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Human Biology & Health":     { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Plant Biology":              { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Classification & Diversity": { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Economics": {
+    "Microeconomics":             { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Macroeconomics":             { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Nigerian Economy":           { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Government": {
+    "Political Concepts":         { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Nigerian Government":        { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Comparative Government":     { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Geography": {
+    "Physical Geography":         { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Human Geography":            { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Map Reading":                { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Financial Accounting": {
+    "Bookkeeping & Accounts":     { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Company Accounts":           { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Accounting Concepts":        { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Commerce": {
+    "Trade & Distribution":       { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Business Organizations":     { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Banking & Finance":          { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Literature in English": {
+    "Poetry":                     { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Prose":                      { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Drama":                      { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "History": {
+    "Nigerian History":           { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "African History":            { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "World History":              { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Agricultural Science": {
+    "Crop Production":            { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Animal Husbandry":           { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Agricultural Economics":     { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Soils & Land Use":           { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Computer Science": {
+    "Hardware & Software":        { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Programming & Logic":        { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Data & Networks":            { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Further Mathematics": {
+    "Pure Mathematics":           { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Statistics":                 { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Mechanics (Further)":        { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Christian Religious Studies": {
+    "Old Testament":              { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "New Testament":              { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Christian Living":           { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Islamic Religious Studies": {
+    "Quran & Hadith":             { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Pillars & Beliefs":          { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Islamic History & Law":      { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Civic Education": {
+    "Citizenship":                { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Governance & Society":       { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "French": {
+    "Grammar & Language":         { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Vocabulary & Communication": { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Yoruba": {
+    "Grammar":                    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Literature & Culture":       { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Igbo": {
+    "Grammar":                    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Literature & Culture":       { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  },
+  "Hausa": {
+    "Grammar":                    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Literature & Culture":       { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+  }
+};
+
 const ExamEdgeDB = {
   // 1. Authentication & Session Manager
   init: () => {
@@ -79,6 +205,10 @@ const ExamEdgeDB = {
     }
     if (!storage.get("xp")) {
       storage.set("xp", 150); // Seed XP
+    }
+    // Seed weakness map with full subject/topic schema if not already present
+    if (!storage.get("weaknessMap")) {
+      storage.set("weaknessMap", JSON.parse(JSON.stringify(INITIAL_WEAKNESS_MAP)));
     }
   },
 
@@ -243,7 +373,7 @@ const ExamEdgeDB = {
   },
 
   // 3. Question Attempts Logger & Evaluator
-  logAttempt: (questionId, isCorrect, timeTakenSeconds) => {
+  logAttempt: (questionId, isCorrect, timeTakenSeconds, questionObj) => {
     const user = ExamEdgeDB.getUser();
     if (!user) return;
 
@@ -268,6 +398,38 @@ const ExamEdgeDB = {
 
     progress.push(newAttempt);
     storage.set("progress", progress);
+
+    // ── Update per-topic weakness map ──────────────────────────────────
+    if (questionObj && questionObj.subject && questionObj.topic) {
+      const wm = storage.get("weaknessMap") || JSON.parse(JSON.stringify(INITIAL_WEAKNESS_MAP));
+      const sub = questionObj.subject;
+      const top = questionObj.topic;
+
+      // Ensure subject and topic exist (handles newly tagged topics)
+      if (!wm[sub]) wm[sub] = {};
+      if (!wm[sub][top]) {
+        wm[sub][top] = { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" };
+      }
+
+      wm[sub][top].attempts += 1;
+      if (isCorrect) wm[sub][top].correct += 1;
+
+      const acc = (wm[sub][top].correct / wm[sub][top].attempts) * 100;
+      wm[sub][top].accuracy = parseFloat(acc.toFixed(1));
+
+      // Status thresholds
+      if (wm[sub][top].attempts === 0) {
+        wm[sub][top].status = "Unattempted";
+      } else if (acc < 60) {
+        wm[sub][top].status = "Needs Work";
+      } else if (acc <= 85) {
+        wm[sub][top].status = "Progressing";
+      } else {
+        wm[sub][top].status = "Strong";
+      }
+
+      storage.set("weaknessMap", wm);
+    }
 
     // Increment daily practice limit count
     ExamEdgeDB.incrementDailyCount();
@@ -306,62 +468,33 @@ const ExamEdgeDB = {
 
   // 4. Custom Performance Engines (WeaknessMap & Readiness Score)
 
-  // Compute live WeaknessMap based on actual attempts stored
+  // Return the stored weakness map (updated live after each answer)
   getWeaknessMap: (questionsList) => {
+    const stored = storage.get("weaknessMap");
+    if (stored) return stored;
+
+    // Fallback: build from scratch if not yet persisted
+    const wm = JSON.parse(JSON.stringify(INITIAL_WEAKNESS_MAP));
     const progress = storage.get("progress") || [];
-    const subjects = {};
+    const questions = questionsList || [];
 
-    // Group questions by Subject -> Topic
-    questionsList.forEach(q => {
-      if (!subjects[q.subject]) {
-        subjects[q.subject] = {};
-      }
-      if (!subjects[q.subject][q.topic]) {
-        subjects[q.subject][q.topic] = {
-          topic: q.topic,
-          attempts: 0,
-          correct: 0,
-          accuracy: 0,
-          status: "Unattempted" // "Needs Work" | "Progressing" | "Strong" | "Unattempted"
-        };
-      }
-    });
-
-    // Collate progress attempts
     progress.forEach(attempt => {
-      const q = questionsList.find(item => item.id === attempt.question_id);
-      if (q && subjects[q.subject] && subjects[q.subject][q.topic]) {
-        const topicData = subjects[q.subject][q.topic];
-        topicData.attempts += 1;
-        if (attempt.is_correct) {
-          topicData.correct += 1;
+      const q = questions.find(item => item.id === attempt.question_id);
+      if (q && q.subject && q.topic) {
+        if (!wm[q.subject]) wm[q.subject] = {};
+        if (!wm[q.subject][q.topic]) {
+          wm[q.subject][q.topic] = { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" };
         }
+        wm[q.subject][q.topic].attempts += 1;
+        if (attempt.is_correct) wm[q.subject][q.topic].correct += 1;
+        const acc = (wm[q.subject][q.topic].correct / wm[q.subject][q.topic].attempts) * 100;
+        wm[q.subject][q.topic].accuracy = parseFloat(acc.toFixed(1));
+        wm[q.subject][q.topic].status = acc < 60 ? "Needs Work" : acc <= 85 ? "Progressing" : "Strong";
       }
     });
 
-    // Recalculate percentages and statuses
-    Object.keys(subjects).forEach(sub => {
-      Object.keys(subjects[sub]).forEach(top => {
-        const data = subjects[sub][top];
-        if (data.attempts > 0) {
-          data.accuracy = Math.round((data.correct / data.attempts) * 100);
-
-          // Evaluation Logic (Simplified MVP version):
-          // Red if accuracy < 60%
-          // Yellow if accuracy 60% - 85%
-          // Green if accuracy > 85%
-          if (data.accuracy < 60) {
-            data.status = "Needs Work";
-          } else if (data.accuracy >= 60 && data.accuracy <= 85) {
-            data.status = "Progressing";
-          } else {
-            data.status = "Strong";
-          }
-        }
-      });
-    });
-
-    return subjects;
+    storage.set("weaknessMap", wm);
+    return wm;
   },
 
   // Live 0–100% Exam Readiness Score calculation
@@ -406,6 +539,7 @@ const ExamEdgeDB = {
     storage.set("xp", 150);
     storage.set("daily_limit", { date: new Date().toISOString().split("T")[0], count: 0 });
     storage.set("leaderboard", DEFAULT_LEADERBOARD);
+    storage.set("weaknessMap", JSON.parse(JSON.stringify(INITIAL_WEAKNESS_MAP)));
     const user = ExamEdgeDB.getUser();
     if (user) {
       user.study_streak = 0;

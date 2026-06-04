@@ -1,5 +1,29 @@
-// ExamEdge Question Bank — 382 questions total
-// Last updated via ALOC importer
+// ExamEdge Question Bank — 421 questions total
+// Counts per subject:
+//   Agricultural Science: 3
+//   Biology: 87
+//   Chemistry: 71
+//   Christian Religious Studies: 3
+//   Civic Education: 3
+//   Commerce: 3
+//   Computer Science: 3
+//   Economics: 3
+//   English Language: 92
+//   Financial Accounting: 3
+//   Fine & Applied Arts: 0
+//   French: 0
+//   Further Mathematics: 4
+//   Geography: 3
+//   Government: 3
+//   Hausa: 0
+//   History: 3
+//   Igbo: 0
+//   Islamic Religious Studies: 3
+//   Literature in English: 0
+//   Mathematics: 88
+//   Office Practice: 0
+//   Physics: 43
+//   Yoruba: 0
 
 const EXAMEDGE_QUESTIONS = [
   {
@@ -43,7 +67,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "This is in the form of difference of two squares: (a + b)(a - b) = a² - b².\nHere, a = 3√2 and b = √3.\nSo, (3√2)² - (√3)² = (9 * 2) - 3 = 18 - 3 = 15.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "surds",
       "simplification"
@@ -89,7 +113,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Mean = (sum of values) / (number of values)\n5 = (3 + 6 + 4 + x + 7) / 5\n5 = (20 + x) / 5\nMultiply both sides by 5:\n25 = 20 + x\nx = 25 - 20 = 5.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "statistics",
       "mean"
@@ -135,7 +159,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "log 1.2 = log(12 / 10) = log 12 - log 10\nSince 12 = 2² * 3, we have:\nlog 12 = log(2² * 3) = 2 log 2 + log 3\nlog 12 = 2(0.3010) + 0.4771 = 0.6020 + 0.4771 = 1.0791.\nNow, log 1.2 = log 12 - log 10 = 1.0791 - 1 = 0.0791.",
-    "difficulty": "hard",
+    "difficulty": "medium",
     "tags": [
       "algebra",
       "logarithms"
@@ -158,7 +182,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Gradient (m) = (y₂ - y₁) / (x₂ - x₁)\nHere, (x₁, y₁) = (-2, 3) and (x₂, y₂) = (4, -1).\nm = (-1 - 3) / (4 - (-2)) = -4 / (4 + 2) = -4 / 6 = -2/3.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "coordinate-geometry",
       "gradient"
@@ -204,7 +228,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Using the Cosine Rule: c² = a² + b² - 2ab cos(C)\nc² = 5² + 7² - 2(5)(7) cos(60°)\nc² = 25 + 49 - 70(0.5)\nc² = 74 - 35 = 39\nc = √39 cm.",
-    "difficulty": "hard",
+    "difficulty": "medium",
     "tags": [
       "trigonometry",
       "cosine-rule"
@@ -250,7 +274,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "(27)^(2/3) = (3³)^(2/3) = 3² = 9.\n(64)^(-1/3) = (4³)^(-1/3) = 4^(-1) = 1/4.\nTherefore, 9 * (1/4) = 9/4.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "algebra",
       "indices"
@@ -365,7 +389,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Midpoint coordinates M = ((x₁ + x₂) / 2, (y₁ + y₂) / 2).\nHere, (x₁, y₁) = (-5, 4) and (x₂, y₂) = (3, -2).\nM = ((-5 + 3) / 2, (4 + (-2)) / 2) = (-2 / 2, 2 / 2) = (-1, 1).",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "coordinate-geometry",
       "midpoint"
@@ -388,7 +412,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Selling Price (SP) = Cost Price (CP) * (100% + Profit%)\n₦1,250 = CP * 1.25\nCP = ₦1,250 / 1.25 = ₦1,000.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "arithmetic",
       "percentage-profit"
@@ -411,7 +435,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Expand the bracket:\n3x - 6 < 2x + 5\nSubtract 2x from both sides:\nx - 6 < 5\nAdd 6 to both sides:\nx < 11.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "algebra",
       "inequalities"
@@ -480,7 +504,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "'Lenient' means mild, merciful, or tolerant. The antonym (opposite in meaning) is 'strict', which means demanding close conformity to rules and regulations.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "antonym",
       "vocabulary"
@@ -526,7 +550,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "'Arbitrary' refers to a decision made on personal whims rather than reason or justice. Hence, 'biased' or 'unreasonable' is nearest. In general synonym lists, 'biased' (prejudiced or unfair) captures the core unfair/whimsical nature best in a judgment context.",
-    "difficulty": "hard",
+    "difficulty": "medium",
     "tags": [
       "synonym",
       "vocabulary"
@@ -549,7 +573,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "The verb 'congratulate' is idiomatically followed by the preposition 'on'. You congratulate someone 'on' an achievement, not 'for' it.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "prepositions",
       "idioms"
@@ -572,7 +596,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "The word 'barely' is a negative adverb. In tag questions, if the statement is negative, the question tag must be positive. Since 'goes' is present tense, the positive tag is 'does she?'.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "question-tags",
       "grammar"
@@ -618,7 +642,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "When referencing two completed past actions, the one that happened first takes the Past Perfect tense ('had' + past participle), while the subsequent one takes the Simple Past. Since the thieves escaped *before* the police arrived, 'had escaped' is correct.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "tenses",
       "past-perfect"
@@ -641,7 +665,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "The preposition 'between' must be followed by objective pronouns (e.g., 'me', 'him', 'her', 'them'). Therefore, 'Between you and me' is grammatically correct.",
-    "difficulty": "hard",
+    "difficulty": "easy",
     "tags": [
       "pronouns",
       "grammar"
@@ -664,7 +688,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "'Candid' means truthful, open, straightforward, or frank. Therefore, 'honest' is the closest synonym.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "synonym",
       "vocabulary"
@@ -733,7 +757,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "The standard order of adjectives in English is: Opinion, Size, Physical Quality, Shape, Age, Color, Origin, Material, Type, Purpose. Here: 'beautiful' (opinion) -> 'small' (size) -> 'black' (color) -> 'leather' (material). Hence, 'beautiful small black leather' is correct.",
-    "difficulty": "hard",
+    "difficulty": "medium",
     "tags": [
       "adjectives",
       "word-order"
@@ -756,7 +780,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "The correct spelling is 'Embarrassment', with double 'r' and double 's'.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "spelling",
       "vocabulary"
@@ -779,7 +803,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "In simple past active tense ('prepared'), the passive shifts to 'was/were' + past participle ('was prepared'). Thus, 'A delicious meal was prepared by the chef' is correct.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "voice",
       "passive-voice"
@@ -802,7 +826,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "'Hostile' means unfriendly, harsh, or unfavorable. The antonym is 'hospitable', which means welcoming, friendly, or favorable.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "antonym",
       "vocabulary"
@@ -848,7 +872,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "'Although' is a subordinating conjunction used to introduce a clause of concession. 'Despite' means the same but is a preposition and must be followed by a noun phrase, not a full subject-verb clause.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "conjunctions",
       "clauses"
@@ -871,7 +895,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "A school certificate, degree, or other document proving a person's qualifications constitutes their 'credentials'.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "register",
       "vocabulary"
@@ -894,7 +918,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "'Decrepitude' means a state of being worn out, ruined, or broken down by age or neglect. 'Decay' or 'ruin' is the nearest in meaning.",
-    "difficulty": "hard",
+    "difficulty": "easy",
     "tags": [
       "synonym",
       "vocabulary"
@@ -964,7 +988,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "The mitochondrion is known as the powerhouse of the cell because it is the site of aerobic cellular respiration, which breaks down glucose to generate adenosine triphosphate (ATP) as energy.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "cells",
       "organelles"
@@ -1080,7 +1104,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Chlorophyll is the green pigment located within the chloroplasts of plant cells that absorbs light (mainly blue and red wavelengths) to power the light-dependent reactions of photosynthesis.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "photosynthesis",
       "plants"
@@ -1103,7 +1127,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "A hinge joint allows for movement back and forth in a single plane, much like the hinges on a door. Common examples are the human elbow, knee, and ankle joints.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "skeletal-system",
       "joints"
@@ -1126,7 +1150,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Deserts are arid biomes with very sparse rainfall (less than 25cm annually), intense heat during the day, and flora adapted for water conservation, such as succulents and cacti.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "ecology",
       "biomes"
@@ -1241,7 +1265,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Nitrifying bacteria (like Nitrosomonas and Nitrobacter) oxidize ammonia into nitrites, and then nitrites into nitrates. This process, nitrification, makes nitrogen usable by plant roots.",
-    "difficulty": "hard",
+    "difficulty": "medium",
     "tags": [
       "ecology",
       "nitrogen-cycle"
@@ -1288,7 +1312,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Bile is produced by the liver cells (hepatocytes) and is stored and concentrated in the gallbladder until it is secreted into the small intestine to emulsify lipids.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "digestive-system",
       "liver"
@@ -1311,7 +1335,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Insulin is a hormone produced by the beta cells of the pancreatic islets. It reduces blood glucose concentration by promoting glucose uptake in cells and glycogen synthesis in the liver.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "hormones",
       "endocrine"
@@ -1334,7 +1358,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Kingdom Monera contains all single-celled prokaryotic organisms, which include true bacteria and blue-green algae (cyanobacteria). Prokaryotes lack a true membrane-bound nucleus.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "classification",
       "monera"
@@ -1357,7 +1381,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Myopia is the medical term for short-sightedness. Distant light rays focus in front of the retina rather than on it. It is corrected using concave (diverging) lenses.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "eye",
       "sensory-organs"
@@ -1451,7 +1475,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Charles' Law states: V₁/T₁ = V₂/T₂.\nGiven: V₁ = 3.0 dm³, T₁ = 300K, T₂ = 400K.\n3.0 / 300 = V₂ / 400\n0.01 = V₂ / 400\nV₂ = 0.01 * 400 = 4.0 dm³.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "gas-laws",
       "charles-law"
@@ -1567,7 +1591,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Carbon dioxide (CO₂) reacts with lime water (calcium hydroxide) to form an insoluble white precipitate of calcium carbonate (CaCO₃), which makes the solution look milky:\nCa(OH)₂ + CO₂ -> CaCO₃↓ + H₂O.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "oxides",
       "gases",
@@ -1638,7 +1662,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Relative Atomic Mass = (abundance₁ * mass₁) + (abundance₂ * mass₂)\nRAM = (0.75 * 35) + (0.25 * 37) = 26.25 + 9.25 = 35.5.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "atomic-structure",
       "isotopes",
@@ -1662,7 +1686,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Fractional distillation is used to separate a mixture of miscible liquids with close but different boiling points, such as separating crude oil into petroleum fractions (petrol, diesel, kerosene, etc.).",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "separations",
       "distillation"
@@ -1708,7 +1732,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Inside a blast furnace, carbon monoxide (CO) gas reduces iron(III) oxide (hematite, Fe₂O₃) to molten iron:\nFe₂O₃(s) + 3CO(g) -> 2Fe(l) + 3CO₂(g).",
-    "difficulty": "hard",
+    "difficulty": "medium",
     "tags": [
       "metals",
       "blast-furnace"
@@ -1823,7 +1847,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Chlorine reacts with water to form a mixture of hydrochloric acid and oxochlorate(I) acid (hypochlorous acid):\nCl₂ + H₂O ⇌ HCl + HClO.\nThe hypochlorous acid (HClO) is unstable and decomposes to release active atomic oxygen which oxidizes colored dyes, bleaching them.",
-    "difficulty": "hard",
+    "difficulty": "medium",
     "tags": [
       "chlorine",
       "bleaching"
@@ -1846,7 +1870,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "1. Calculate moles in 100g:\nC: 40.0 / 12 = 3.33 moles\nH: 6.7 / 1 = 6.70 moles\nO: 53.3 / 16 = 3.33 moles\n2. Divide by smallest number of moles (3.33):\nC: 3.33 / 3.33 = 1\nH: 6.70 / 3.33 ≈ 2\nO: 3.33 / 3.33 = 1\nThus, the empirical formula is CH₂O.",
-    "difficulty": "hard",
+    "difficulty": "medium",
     "tags": [
       "stoichiometry",
       "empirical-formula"
@@ -1893,7 +1917,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Work Done (W) = Force (F) * distance (d)\nHere, F = 50 N, and d = 10 m.\nW = 50 * 10 = 500 Joules (J).",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "mechanics",
       "work-and-energy"
@@ -1916,7 +1940,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "For parallel connection:\n1/R_eq = 1/R₁ + 1/R₂ + 1/R₃\n1/R_eq = 1/2 + 1/3 + 1/6\nFinding common denominator (6):\n1/R_eq = (3 + 2 + 1) / 6 = 6 / 6 = 1 Ω⁻¹.\nTherefore, R_eq = 1 Ω.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "electricity",
       "resistors",
@@ -2011,7 +2035,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Refractive Index (n) = Speed of light in vacuum (c) / Speed of light in medium (v)\nn = (3 * 10⁸) / (2 * 10⁸) = 3 / 2 = 1.5.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "optics",
       "refractive-index"
@@ -2104,7 +2128,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Coulomb's Law states that the electrostatic force F is inversely proportional to the square of the distance (r) between the charges: F ∝ 1/r².\nIf distance r is doubled (2r), the force becomes F' ∝ 1/(2r)² = 1/4r².\nSo the force decreases to exactly one-quarter of its initial value.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "electricity",
       "coulombs-law"
@@ -2127,7 +2151,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "The formula for range is R = (u² sin 2θ) / g.\nThe range is maximum when sin 2θ is maximum (equal to 1).\nsin 2θ = 1 => 2θ = 90° => θ = 45°.\nThus, maximum horizontal range is achieved at a projection angle of 45°.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "mechanics",
       "projectiles"
@@ -2150,7 +2174,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Absolute zero represents 0 Kelvin, which corresponds to exactly -273.15°C (commonly rounded to -273°C) on the Celsius scale.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "heat",
       "absolute-zero"
@@ -2196,7 +2220,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "A generator (dynamo) converts mechanical energy into electrical energy using electromagnetic induction. A motor operates on the reverse principle (magnetic force on a current-carrying conductor).",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "magnetism",
       "induction"
@@ -2219,7 +2243,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "For echoes: total distance traveled by the sound wave is 2d (to the cliff and back).\n2d = speed * time\n2d = 340 * 2\n2d = 680\nd = 340 meters.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "waves",
       "sound",
@@ -2290,7 +2314,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "In metals, the atomic valence shells overlap, and their valence electrons detach to form a 'sea of free electrons' that flow when an electric potential is applied, carrying the electrical charge.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "electricity",
       "conductors"
@@ -2313,7 +2337,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Surface gravity is g = G * M / R².\nFor the new planet: M' = 2M and R' = 2R.\ng' = G * (2M) / (2R)² = 2 * G * M / 4R² = (1/2) * (G * M / R²) = g_E / 2.\nSince g_E = 10 m/s², then g' = 10 / 2 = 5 m/s².",
-    "difficulty": "hard",
+    "difficulty": "medium",
     "tags": [
       "mechanics",
       "gravity"
@@ -2359,7 +2383,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Curved surface area of a cylinder = 2πrh.\nGiven: h = 14 cm, Area = 176 cm².\n176 = 2 * (22/7) * r * 14\n176 = 88 * r\nr = 176 / 88 = 2 cm.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "geometry",
       "mensuration",
@@ -2383,7 +2407,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "3^(2x - 1) = 27 can be written as 3^(2x - 1) = 3^3.\nEquating the powers:\n2x - 1 = 3\n2x = 4\nx = 2.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "algebra",
       "indices"
@@ -2406,7 +2430,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Using the trigonometric identity: sin²(θ) + cos²(θ) = 1\ncos²(θ) = 1 - sin²(θ) = 1 - (4/5)² = 1 - 16/25 = 9/25.\nSince θ is acute, cos(θ) = √(9/25) = 3/5.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "trigonometry",
       "identities"
@@ -2452,7 +2476,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "'Illegible' means impossible or difficult to read. Thus, 'unreadable' is the closest synonym.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "lexis",
       "synonyms"
@@ -2498,7 +2522,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "The idiom 'call it a day' means to stop what you are doing, especially working, because you have done enough for that day.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "lexis",
       "idioms"
@@ -2544,7 +2568,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "A cross of Tt (heterozygous tall) and tt (dwarf) yields Tt, Tt, tt, and tt. Thus, 2 out of 4 (50%) are tall plants.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "genetics",
       "crosses"
@@ -2567,7 +2591,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "Grass is the primary producer. The herbivorous grasshopper feeds on the grass directly, representing the primary consumer.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "ecology",
       "food-chains"
@@ -2590,33 +2614,10 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "The left ventricle pumps oxygen-rich blood through the aorta to the rest of the body. It has the thickest walls to withstand the high pressure required.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "physiology",
       "heart"
-    ]
-  },
-  {
-    "id": "c21",
-    "subject": "Chemistry",
-    "topic": "Organic Chemistry",
-    "subtopic": "Hydrocarbons",
-    "year": 2024,
-    "exam_body": "WAEC",
-    "type": "MCQ",
-    "question": "What is the general formula for the homologous series of alkanes?",
-    "options": {
-      "A": "CnH2n",
-      "B": "CnH2n+2",
-      "C": "CnH2n-2",
-      "D": "CnH2n+1"
-    },
-    "answer": "B",
-    "explanation": "Alkanes are saturated hydrocarbons characterized by single covalent bonds, conforming to the general formula CnH2n+2.",
-    "difficulty": "easy",
-    "tags": [
-      "organic",
-      "alkanes"
     ]
   },
   {
@@ -2659,7 +2660,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "C",
     "explanation": "Group 7 elements (F, Cl, Br, I, At) are known as Halogens because they form salts when reacted with metals.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "inorganic",
       "periodic-table"
@@ -2728,7 +2729,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "C",
     "explanation": "For parallel connection:\n1/R_eq = 1/2 + 1/3 + 1/6 = (3 + 2 + 1) / 6 = 6/6 = 1.\nThus, R_eq = 1.0 Ω.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "electricity",
       "resistors"
@@ -2751,7 +2752,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "For plane mirrors, image distance equals object distance (15 cm). The total distance between the object and the image is 15 cm + 15 cm = 30 cm.",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "optics",
       "reflection"
@@ -2774,7 +2775,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Pressure = Force / Area = Weight / Area = 500 / 2.5 = 200 N/m².",
-    "difficulty": "easy",
+    "difficulty": "medium",
     "tags": [
       "mechanics",
       "pressure"
@@ -2783,7 +2784,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1069",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Number & Numeration",
     "subtopic": "",
     "year": 2021,
     "exam_body": "JAMB",
@@ -2855,7 +2856,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-235",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Algebra",
     "subtopic": "",
     "year": 2003,
     "exam_body": "JAMB",
@@ -2869,7 +2870,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "x<sup>2</sup> + 4 = x<sup>2</sup>\n - 3x + 2\n3x + 2 = y",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "mathematics",
       "jamb",
@@ -2879,7 +2880,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-921",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Statistics & Probability",
     "subtopic": "",
     "year": 2018,
     "exam_body": "JAMB",
@@ -2903,7 +2904,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-563",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Statistics & Probability",
     "subtopic": "",
     "year": 2009,
     "exam_body": "JAMB",
@@ -2917,7 +2918,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Mean =\tx+2x+x+1+3x/4\n \n2 =7x+1/4\n\n8 = 7x+1\n7x = 8-1\n7x = 7\nx = 1\n\n \n\nMean deviation =∑/x-X/n\n \n\n =2/4\n \n\n =1/2\n\n= 0.5",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "mathematics",
       "jamb",
@@ -2927,7 +2928,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-138",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Geometry",
     "subtopic": "",
     "year": 2001,
     "exam_body": "JAMB",
@@ -2941,7 +2942,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "D",
     "explanation": "Cos 30 = 5/x\nx cos 30 = 5, => x = 5√3\n\nCoordinates of P = -5, 3, 0\nCoordinates of Q = 0, 5\nGradient of PQ = (y<sub>2</sub>  - y<sub>1</sub> ) (X<sub>2</sub>  - X<sub>1</sub> ) = (5 - 0)/(0 -5√3)\n= 5/5√3 = 1/√3\n\nEquation of PQ = y - y<sub>1</sub>  = m (x -x<sub>1</sub> )\ny - 0 = 1/√3 (x -(-5√3))\n\nThus: √3y = x + 5√3",
-    "difficulty": "medium",
+    "difficulty": "hard",
     "tags": [
       "mathematics",
       "jamb",
@@ -2975,7 +2976,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-743",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Geometry",
     "subtopic": "",
     "year": 2012,
     "exam_body": "JAMB",
@@ -3013,7 +3014,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "Convert to base 10, divide and then re-convert to base 5.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "mathematics",
       "jamb",
@@ -3023,7 +3024,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-532",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Algebra",
     "subtopic": "",
     "year": 2009,
     "exam_body": "JAMB",
@@ -3071,7 +3072,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-291",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Statistics & Probability",
     "subtopic": "",
     "year": 2004,
     "exam_body": "JAMB",
@@ -3095,7 +3096,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-863",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Statistics & Probability",
     "subtopic": "",
     "year": 2016,
     "exam_body": "JAMB",
@@ -3119,7 +3120,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1102",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Statistics & Probability",
     "subtopic": "",
     "year": 2022,
     "exam_body": "JAMB",
@@ -3143,7 +3144,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-625",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Number & Numeration",
     "subtopic": "",
     "year": 2011,
     "exam_body": "JAMB",
@@ -3191,7 +3192,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-552",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Trigonometry",
     "subtopic": "",
     "year": 2009,
     "exam_body": "JAMB",
@@ -3205,7 +3206,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "A(4,2) and B(1,r), AB = 3 units\n\n3 = √ (x<sup>2</sup>- x<sup>1</sup>)2 + (y<sup>2</sup>-y<sup>1</sup>)2\n\n\n3 = √ (4-1)2 + (2-r)2\n\n\n3 = √ 32 + (2-r)2\n\n\n3 = √ 9 + 4 – 4r + r2\n\n\n3 = √ r2 - 4r + 13\n\n9 = r2 - 4r + 13 By squaring both sides\nr2 - 4r + 4 = 0\n(r-2)(r-2) = 0\nr = 2",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "mathematics",
       "jamb",
@@ -3215,7 +3216,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-245",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Calculus",
     "subtopic": "",
     "year": 2003,
     "exam_body": "JAMB",
@@ -3229,7 +3230,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "C",
     "explanation": "The correct answer is option C.",
-    "difficulty": "medium",
+    "difficulty": "hard",
     "tags": [
       "mathematics",
       "jamb",
@@ -3239,7 +3240,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1021",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Algebra",
     "subtopic": "",
     "year": 2024,
     "exam_body": "2020",
@@ -3287,7 +3288,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1331",
     "subject": "English Language",
-    "topic": "General",
+    "topic": "Oral English",
     "subtopic": "",
     "year": 2020,
     "exam_body": "JAMB",
@@ -3359,7 +3360,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1606",
     "subject": "English Language",
-    "topic": "General",
+    "topic": "Literature in English",
     "subtopic": "",
     "year": 2017,
     "exam_body": "JAMB",
@@ -3743,7 +3744,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-186",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Human Biology & Health",
     "subtopic": "",
     "year": 2007,
     "exam_body": "JAMB",
@@ -3815,7 +3816,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-14",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Classification & Diversity",
     "subtopic": "",
     "year": 2003,
     "exam_body": "JAMB",
@@ -3839,7 +3840,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-38",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Genetics & Evolution",
     "subtopic": "",
     "year": 2003,
     "exam_body": "JAMB",
@@ -3863,7 +3864,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-2",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Human Biology & Health",
     "subtopic": "",
     "year": 2003,
     "exam_body": "JAMB",
@@ -3901,7 +3902,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "The correct answer is option A.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "biology",
       "jamb",
@@ -3949,7 +3950,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "biology",
       "jamb",
@@ -3983,7 +3984,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-106",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Ecology & Environment",
     "subtopic": "",
     "year": 2005,
     "exam_body": "JAMB",
@@ -4079,7 +4080,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-356",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Human Biology & Health",
     "subtopic": "",
     "year": 2012,
     "exam_body": "JAMB",
@@ -4103,7 +4104,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-384",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Genetics & Evolution",
     "subtopic": "",
     "year": 2012,
     "exam_body": "JAMB",
@@ -4117,7 +4118,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "The correct answer is option A.",
-    "difficulty": "medium",
+    "difficulty": "hard",
     "tags": [
       "biology",
       "jamb",
@@ -4141,7 +4142,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "The correct answer is option A.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "biology",
       "jamb",
@@ -4151,7 +4152,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-172",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Ecology & Environment",
     "subtopic": "",
     "year": 2007,
     "exam_body": "JAMB",
@@ -4247,7 +4248,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-694",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Electrochemistry & Redox",
     "subtopic": "",
     "year": 2023,
     "exam_body": "JAMB",
@@ -4391,7 +4392,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-357",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Acids, Bases & Salts",
     "subtopic": "",
     "year": 2016,
     "exam_body": "JAMB",
@@ -4453,7 +4454,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "D",
     "explanation": "The principal ore of iron used for large-scale extraction is hematite (Fe₂O₃), also spelled haematite. It contains a high percentage of iron and is widely available. Iron is extracted from hematite in a blast furnace using coke and limestone. Bauxite is the ore of aluminium, calcite is a form of calcium carbonate, and magnetite (Fe₃O₄) is another iron ore but less commonly used as the principal source.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "chemistry",
       "jamb",
@@ -4511,7 +4512,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-232",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Atomic Structure & Periodic Table",
     "subtopic": "",
     "year": 2006,
     "exam_body": "JAMB",
@@ -4559,7 +4560,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-432",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Atomic Structure & Periodic Table",
     "subtopic": "",
     "year": 2017,
     "exam_body": "JAMB",
@@ -4597,7 +4598,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "D",
     "explanation": "In alpha decay, the mass number decreases by 4 and the atomic number decreases by 2. Mass number of Rn = 226 - 4 = 222. Atomic number of Rn = 88 - 2 = 86. Therefore x = 222, giving ²²²₈₆Rn.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "chemistry",
       "jamb",
@@ -4607,7 +4608,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-752",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Acids, Bases & Salts",
     "subtopic": "",
     "year": 2024,
     "exam_body": "JAMB",
@@ -4631,7 +4632,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-538",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Acids, Bases & Salts",
     "subtopic": "",
     "year": 2019,
     "exam_body": "JAMB",
@@ -4655,7 +4656,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-761",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Mechanics",
     "subtopic": "",
     "year": 2007,
     "exam_body": "JAMB",
@@ -4679,7 +4680,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-174",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Heat & Thermodynamics",
     "subtopic": "",
     "year": 2015,
     "exam_body": "JAMB",
@@ -4703,7 +4704,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-926",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Mechanics",
     "subtopic": "",
     "year": 2010,
     "exam_body": "JAMB",
@@ -4727,7 +4728,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-874",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Mechanics",
     "subtopic": "",
     "year": 2009,
     "exam_body": "JAMB",
@@ -4751,7 +4752,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-541",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Mechanics",
     "subtopic": "",
     "year": 2023,
     "exam_body": "JAMB",
@@ -4775,7 +4776,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-706",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Heat & Thermodynamics",
     "subtopic": "",
     "year": 2006,
     "exam_body": "JAMB",
@@ -4789,7 +4790,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "D",
     "explanation": "when the glass of a thermometer expands more on heating than the liquid inside, the liquid level would fall compared with the tube wall",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "physics",
       "jamb",
@@ -4799,7 +4800,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-475",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Electricity & Magnetism",
     "subtopic": "",
     "year": 2022,
     "exam_body": "JAMB",
@@ -4823,7 +4824,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-668",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Mechanics",
     "subtopic": "",
     "year": 2005,
     "exam_body": "JAMB",
@@ -4847,7 +4848,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1088",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Mechanics",
     "subtopic": "",
     "year": 2014,
     "exam_body": "JAMB",
@@ -4871,7 +4872,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-581",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Electricity & Magnetism",
     "subtopic": "",
     "year": 2024,
     "exam_body": "JAMB",
@@ -4895,7 +4896,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1026",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Waves & Optics",
     "subtopic": "",
     "year": 2012,
     "exam_body": "JAMB",
@@ -4919,7 +4920,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1121",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Mechanics",
     "subtopic": "",
     "year": 2025,
     "exam_body": "JAMB",
@@ -4962,12 +4963,13 @@ const EXAMEDGE_QUESTIONS = [
       "physics",
       "jamb",
       "2007"
-    ]
+    ],
+    "incomplete": true
   },
   {
     "id": "aloc-891",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Waves & Optics",
     "subtopic": "",
     "year": 2009,
     "exam_body": "JAMB",
@@ -4986,12 +4988,13 @@ const EXAMEDGE_QUESTIONS = [
       "physics",
       "jamb",
       "2009"
-    ]
+    ],
+    "incomplete": true
   },
   {
     "id": "aloc-1016",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Heat & Thermodynamics",
     "subtopic": "",
     "year": 2012,
     "exam_body": "JAMB",
@@ -5015,7 +5018,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-600",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Electricity & Magnetism",
     "subtopic": "",
     "year": 2004,
     "exam_body": "JAMB",
@@ -5039,7 +5042,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-286",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Electricity & Magnetism",
     "subtopic": "",
     "year": 2018,
     "exam_body": "JAMB",
@@ -5063,7 +5066,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-65",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Mechanics",
     "subtopic": "",
     "year": 2009,
     "exam_body": "JAMB",
@@ -5087,7 +5090,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-360",
     "subject": "Physics",
-    "topic": "General",
+    "topic": "Heat & Thermodynamics",
     "subtopic": "",
     "year": 2019,
     "exam_body": "JAMB",
@@ -5111,7 +5114,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-380",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Calculus",
     "subtopic": "",
     "year": 2006,
     "exam_body": "JAMB",
@@ -5125,7 +5128,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "dy/dx = 2x + 7\ny = ∫2x + 7\ny = x2 + 7x + C at (2,0)\n0 = 22 + 7(2) + C\n0 = 4 + 14 + C\n0 = 18 + C\nC = -18\n∴ The equation is y = x<sup>2</sup> + 7x - 18",
-    "difficulty": "medium",
+    "difficulty": "hard",
     "tags": [
       "mathematics",
       "jamb",
@@ -5135,7 +5138,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-646",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Geometry",
     "subtopic": "",
     "year": 2011,
     "exam_body": "JAMB",
@@ -5149,7 +5152,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "From Pythagoras theorem\n\n|OA|2 = |AN|2 + |ON|2\n\n72 = |AN|2 + (5)2\n\n49 = |AN|2 + 25\n\n|AN|2 = 49 - 25 = 24\n\n|AN| = √24\n\n\n= √4 x 6\n\n\n= 2√6 cm\n\n|AN| = |NB| (A line drawn from the centre of a circle to a chord, divides the chord into two equal parts)\n\n|AN| + |NB| = |AB|\n\n2√6 + 2√6 = |AB|\n\n|AB| = 4√6 cm",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "mathematics",
       "jamb",
@@ -5159,7 +5162,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1132",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Algebra",
     "subtopic": "",
     "year": 2022,
     "exam_body": "JAMB",
@@ -5207,7 +5210,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-135",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Algebra",
     "subtopic": "",
     "year": 2001,
     "exam_body": "JAMB",
@@ -5231,7 +5234,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-85",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Algebra",
     "subtopic": "",
     "year": 2000,
     "exam_body": "JAMB",
@@ -5255,7 +5258,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-617",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Statistics & Probability",
     "subtopic": "",
     "year": 2010,
     "exam_body": "JAMB",
@@ -5327,7 +5330,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-981",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Statistics & Probability",
     "subtopic": "",
     "year": 2019,
     "exam_body": "JAMB",
@@ -5351,7 +5354,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-116",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Statistics & Probability",
     "subtopic": "",
     "year": 2000,
     "exam_body": "JAMB",
@@ -5375,7 +5378,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-151",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Calculus",
     "subtopic": "",
     "year": 2001,
     "exam_body": "JAMB",
@@ -5399,7 +5402,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-32",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Algebra",
     "subtopic": "",
     "year": 2008,
     "exam_body": "JAMB",
@@ -5423,7 +5426,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-179",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Calculus",
     "subtopic": "",
     "year": 2002,
     "exam_body": "JAMB",
@@ -5447,7 +5450,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-285",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Calculus",
     "subtopic": "",
     "year": 2004,
     "exam_body": "JAMB",
@@ -5461,7 +5464,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "D",
     "explanation": "∫<sub>1</sub><sup>3</sup>(X<sup>2</sup>-1)dx =〖[1/3 x<sup>2</sup>-x]〗<sub>1</sub><sup>3</sup>=(9-3)-(1/3-1)=6-(-2/3)=6+2/3 = 6 (2/3)",
-    "difficulty": "medium",
+    "difficulty": "hard",
     "tags": [
       "mathematics",
       "jamb",
@@ -5471,7 +5474,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-637",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Algebra",
     "subtopic": "",
     "year": 2011,
     "exam_body": "JAMB",
@@ -5495,7 +5498,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-610",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Mensuration",
     "subtopic": "",
     "year": 2010,
     "exam_body": "JAMB",
@@ -5509,7 +5512,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "Total surface area of the cylindrical pipe = area of circular base + curved surface area\n\n= πr<sup>2</sup> + 2πrh\n\n= π x 7<sup>2</sup> + 2π x 7 x 50\n\n= 49π + 700π\n= 749πm<sup>2</sup>",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "mathematics",
       "jamb",
@@ -5519,7 +5522,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-534",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Number & Numeration",
     "subtopic": "",
     "year": 2009,
     "exam_body": "JAMB",
@@ -5591,7 +5594,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-582",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Geometry",
     "subtopic": "",
     "year": 2010,
     "exam_body": "JAMB",
@@ -5610,12 +5613,13 @@ const EXAMEDGE_QUESTIONS = [
       "mathematics",
       "jamb",
       "2010"
-    ]
+    ],
+    "incomplete": true
   },
   {
     "id": "aloc-505",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Calculus",
     "subtopic": "",
     "year": 2008,
     "exam_body": "JAMB",
@@ -5629,7 +5633,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "D",
     "explanation": "∫<sub>2</sub><sup>2</sup> 〖(6x<sup>2</sup> -2x)dx=[(6x<sup>3</sup> )/3-(2x<sup>2</sup> )/2 ]<sub>1</sub><sup>2</sup> = [2x<sup>3</sup> -x<sup>2</sup>  ]<sub>1</sub><sup>2</sup>  〗",
-    "difficulty": "medium",
+    "difficulty": "hard",
     "tags": [
       "mathematics",
       "jamb",
@@ -5639,7 +5643,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-351",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Calculus",
     "subtopic": "",
     "year": 2005,
     "exam_body": "JAMB",
@@ -5687,7 +5691,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1065",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Calculus",
     "subtopic": "",
     "year": 2021,
     "exam_body": "JAMB",
@@ -5711,7 +5715,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1115",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Geometry",
     "subtopic": "",
     "year": 2022,
     "exam_body": "JAMB",
@@ -5807,7 +5811,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-287",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Statistics & Probability",
     "subtopic": "",
     "year": 2004,
     "exam_body": "JAMB",
@@ -5831,7 +5835,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-746",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Trigonometry",
     "subtopic": "",
     "year": 2012,
     "exam_body": "JAMB",
@@ -5855,7 +5859,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1072",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Number & Numeration",
     "subtopic": "",
     "year": 2021,
     "exam_body": "JAMB",
@@ -5879,7 +5883,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1015",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Mensuration",
     "subtopic": "",
     "year": 2019,
     "exam_body": "JAMB",
@@ -5927,7 +5931,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-471",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Geometry",
     "subtopic": "",
     "year": 2007,
     "exam_body": "JAMB",
@@ -5951,7 +5955,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-547",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Geometry",
     "subtopic": "",
     "year": 2009,
     "exam_body": "JAMB",
@@ -5999,7 +6003,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-101",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Statistics & Probability",
     "subtopic": "",
     "year": 2000,
     "exam_body": "JAMB",
@@ -6023,7 +6027,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-740",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Algebra",
     "subtopic": "",
     "year": 2012,
     "exam_body": "JAMB",
@@ -6037,7 +6041,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "m * n = mn/2\n\n\nIdentify, e = 2\n\nLet a ∈ R, then\n\na * a<sub>-1</sub> = e\n\na * a<sub>-1</sub> = 2\n\n-5 * a<sub>-1</sub> = 2\n−5×a<sub>-1</sub> /2 = 2\n\n\na<sub>-1</sub> = 2 × 2/−5\n\n\na<sub>-1</sub> = −4/5",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "mathematics",
       "jamb",
@@ -6047,7 +6051,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-645",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Geometry",
     "subtopic": "",
     "year": 2011,
     "exam_body": "JAMB",
@@ -6061,7 +6065,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "Interior angle = (n - 2)180\n\nbut, n = 12\n\n= (12 -2)180\n\n= 10 x 180\n\n= 1800\n\nlet each interior angle = x\n\nx = (n−2)180/n\n\n\nx = 1800/12\n\n\n= 150°",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "mathematics",
       "jamb",
@@ -6071,7 +6075,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-112",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Geometry",
     "subtopic": "",
     "year": 2000,
     "exam_body": "JAMB",
@@ -6095,7 +6099,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-109",
     "subject": "Mathematics",
-    "topic": "General",
+    "topic": "Calculus",
     "subtopic": "",
     "year": 2000,
     "exam_body": "JAMB",
@@ -6359,7 +6363,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-69",
     "subject": "English Language",
-    "topic": "General",
+    "topic": "Literature in English",
     "subtopic": "",
     "year": 2003,
     "exam_body": "JAMB",
@@ -6743,7 +6747,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1429",
     "subject": "English Language",
-    "topic": "General",
+    "topic": "Oral English",
     "subtopic": "",
     "year": 2019,
     "exam_body": "JAMB",
@@ -6887,7 +6891,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-274",
     "subject": "English Language",
-    "topic": "General",
+    "topic": "Literature in English",
     "subtopic": "",
     "year": 2006,
     "exam_body": "JAMB",
@@ -7271,7 +7275,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-1538",
     "subject": "English Language",
-    "topic": "General",
+    "topic": "Oral English",
     "subtopic": "",
     "year": 2018,
     "exam_body": "JAMB",
@@ -7367,7 +7371,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-76",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Genetics & Evolution",
     "subtopic": "",
     "year": 2004,
     "exam_body": "JAMB",
@@ -7415,7 +7419,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-67",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Classification & Diversity",
     "subtopic": "",
     "year": 2004,
     "exam_body": "JAMB",
@@ -7463,7 +7467,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-244",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Ecology & Environment",
     "subtopic": "",
     "year": 2009,
     "exam_body": "JAMB",
@@ -7487,7 +7491,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-301",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Classification & Diversity",
     "subtopic": "",
     "year": 2010,
     "exam_body": "JAMB",
@@ -7511,7 +7515,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-163",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Cell Biology",
     "subtopic": "",
     "year": 2007,
     "exam_body": "JAMB",
@@ -7535,7 +7539,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-226",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Genetics & Evolution",
     "subtopic": "",
     "year": 2009,
     "exam_body": "JAMB",
@@ -7631,7 +7635,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-237",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Human Biology & Health",
     "subtopic": "",
     "year": 2009,
     "exam_body": "JAMB",
@@ -7679,7 +7683,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-377",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Plant Biology",
     "subtopic": "",
     "year": 2012,
     "exam_body": "JAMB",
@@ -7727,7 +7731,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-336",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Ecology & Environment",
     "subtopic": "",
     "year": 2011,
     "exam_body": "JAMB",
@@ -7751,7 +7755,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-139",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Human Biology & Health",
     "subtopic": "",
     "year": 2006,
     "exam_body": "JAMB",
@@ -7799,7 +7803,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-144",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Human Biology & Health",
     "subtopic": "",
     "year": 2006,
     "exam_body": "JAMB",
@@ -7847,7 +7851,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-70",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Ecology & Environment",
     "subtopic": "",
     "year": 2004,
     "exam_body": "JAMB",
@@ -7861,7 +7865,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "D",
     "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "biology",
       "jamb",
@@ -7871,7 +7875,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-212",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Ecology & Environment",
     "subtopic": "",
     "year": 2008,
     "exam_body": "JAMB",
@@ -7895,7 +7899,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-97",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Human Biology & Health",
     "subtopic": "",
     "year": 2005,
     "exam_body": "JAMB",
@@ -7919,7 +7923,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-160",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Human Biology & Health",
     "subtopic": "",
     "year": 2007,
     "exam_body": "JAMB",
@@ -7943,7 +7947,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-363",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Plant Biology",
     "subtopic": "",
     "year": 2012,
     "exam_body": "JAMB",
@@ -7981,7 +7985,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "D",
     "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "biology",
       "jamb",
@@ -7991,7 +7995,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-290",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Ecology & Environment",
     "subtopic": "",
     "year": 2010,
     "exam_body": "JAMB",
@@ -8039,7 +8043,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-128",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Ecology & Environment",
     "subtopic": "",
     "year": 2006,
     "exam_body": "JAMB",
@@ -8063,7 +8067,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-84",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Cell Biology",
     "subtopic": "",
     "year": 2005,
     "exam_body": "JAMB",
@@ -8077,7 +8081,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "A",
     "explanation": "The correct answer is option A.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "biology",
       "jamb",
@@ -8087,7 +8091,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-120",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Classification & Diversity",
     "subtopic": "",
     "year": 2005,
     "exam_body": "JAMB",
@@ -8111,7 +8115,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-131",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Human Biology & Health",
     "subtopic": "",
     "year": 2006,
     "exam_body": "JAMB",
@@ -8135,7 +8139,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-309",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Human Biology & Health",
     "subtopic": "",
     "year": 2011,
     "exam_body": "JAMB",
@@ -8149,7 +8153,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "biology",
       "jamb",
@@ -8159,7 +8163,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-57",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Plant Biology",
     "subtopic": "",
     "year": 2004,
     "exam_body": "JAMB",
@@ -8183,7 +8187,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-221",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Genetics & Evolution",
     "subtopic": "",
     "year": 2008,
     "exam_body": "JAMB",
@@ -8197,7 +8201,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "biology",
       "jamb",
@@ -8231,7 +8235,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-263",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Cell Biology",
     "subtopic": "",
     "year": 2010,
     "exam_body": "JAMB",
@@ -8245,7 +8249,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "D",
     "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "biology",
       "jamb",
@@ -8255,7 +8259,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-349",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Classification & Diversity",
     "subtopic": "",
     "year": 2012,
     "exam_body": "JAMB",
@@ -8317,7 +8321,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "C",
     "explanation": "The correct answer is option C.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "biology",
       "jamb",
@@ -8327,7 +8331,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-37",
     "subject": "Biology",
-    "topic": "General",
+    "topic": "Classification & Diversity",
     "subtopic": "",
     "year": 2003,
     "exam_body": "JAMB",
@@ -8423,7 +8427,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-122",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Organic Chemistry",
     "subtopic": "",
     "year": 2003,
     "exam_body": "JAMB",
@@ -8447,7 +8451,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-196",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Organic Chemistry",
     "subtopic": "",
     "year": 2005,
     "exam_body": "JAMB",
@@ -8471,7 +8475,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-699",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Acids, Bases & Salts",
     "subtopic": "",
     "year": 2023,
     "exam_body": "JAMB",
@@ -8509,7 +8513,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "C",
     "explanation": "Esters are organic compounds formed by the reaction of a carboxylic acid with an alcohol. They are responsible for the pleasant, sweet aromas characteristic of fruits and flowers. For example, ethyl ethanoate gives a pear-like smell, pentyl ethanoate smells of banana, and octyl ethanoate has an orange scent. Amines have fishy smells, while alkanes and alkynes are largely odourless or have petroleum-like smells.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "chemistry",
       "jamb",
@@ -8519,7 +8523,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-80",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Atomic Structure & Periodic Table",
     "subtopic": "",
     "year": 2003,
     "exam_body": "JAMB",
@@ -8543,7 +8547,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-596",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Organic Chemistry",
     "subtopic": "",
     "year": 2021,
     "exam_body": "JAMB",
@@ -8581,7 +8585,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "B",
     "explanation": "Rusting of iron is a chemical change because a new substance (iron III oxide, Fe₂O₃·XH₂O) with different properties is formed and the process is irreversible. Dissolution of salt, melting of ice, and distillation are all physical changes — no new substances are formed and the changes are reversible.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "chemistry",
       "jamb",
@@ -8663,7 +8667,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-345",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Organic Chemistry",
     "subtopic": "",
     "year": 2015,
     "exam_body": "JAMB",
@@ -8687,7 +8691,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-27",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Stoichiometry & Calculations",
     "subtopic": "",
     "year": 2001,
     "exam_body": "JAMB",
@@ -8711,7 +8715,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-311",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Acids, Bases & Salts",
     "subtopic": "",
     "year": 2015,
     "exam_body": "JAMB",
@@ -8802,7 +8806,8 @@ const EXAMEDGE_QUESTIONS = [
       "chemistry",
       "jamb",
       "2015"
-    ]
+    ],
+    "incomplete": true
   },
   {
     "id": "aloc-429",
@@ -8869,7 +8874,7 @@ const EXAMEDGE_QUESTIONS = [
     },
     "answer": "C",
     "explanation": "Crude oil is a complex mixture of hydrocarbons. Heptane (C₇H₁₆) is a significant and representative primary constituent of crude oil, used as a reference compound in the octane rating scale (heptane = 0 octane rating). Pentane is also present in crude oil but heptane is more commonly cited as a primary constituent. Ethanol is not a constituent of crude oil, and methane is the main component of natural gas rather than crude oil.",
-    "difficulty": "medium",
+    "difficulty": "easy",
     "tags": [
       "chemistry",
       "jamb",
@@ -9023,7 +9028,7 @@ const EXAMEDGE_QUESTIONS = [
   {
     "id": "aloc-370",
     "subject": "Chemistry",
-    "topic": "General",
+    "topic": "Atomic Structure & Periodic Table",
     "subtopic": "",
     "year": 2016,
     "exam_body": "JAMB",
@@ -9066,6 +9071,953 @@ const EXAMEDGE_QUESTIONS = [
       "chemistry",
       "jamb",
       "2022"
+    ]
+  },
+  {
+    "id": "gen-fu-0001",
+    "subject": "Further Mathematics",
+    "topic": "Trigonometry",
+    "subtopic": "Complex Numbers",
+    "year": 2014,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Sample Further Mathematics question on Trigonometry? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "A",
+    "explanation": "Generated sample question for Further Mathematics.",
+    "difficulty": "medium",
+    "tags": [
+      "further",
+      "waec",
+      "2014"
+    ]
+  },
+  {
+    "id": "gen-fu-0002",
+    "subject": "Further Mathematics",
+    "topic": "Calculus",
+    "subtopic": "Limits",
+    "year": 2017,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Sample Further Mathematics question on Calculus? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated sample question for Further Mathematics.",
+    "difficulty": "medium",
+    "tags": [
+      "further",
+      "waec",
+      "2017"
+    ]
+  },
+  {
+    "id": "gen-fu-0005",
+    "subject": "Further Mathematics",
+    "topic": "Statistics",
+    "subtopic": "Probability",
+    "year": 2011,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Sample Further Mathematics question on Statistics? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "B",
+    "explanation": "Generated sample question for Further Mathematics.",
+    "difficulty": "medium",
+    "tags": [
+      "further",
+      "jamb",
+      "2011"
+    ]
+  },
+  {
+    "id": "gen-ag-0001",
+    "subject": "Agricultural Science",
+    "topic": "Crop Production",
+    "subtopic": "Plant Nutrition",
+    "year": 2013,
+    "exam_body": "NECO",
+    "type": "MCQ",
+    "question": "Sample Agricultural Science question on Crop Production? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "D",
+    "explanation": "Generated sample question for Agricultural Science.",
+    "difficulty": "medium",
+    "tags": [
+      "agricultural",
+      "neco",
+      "2013"
+    ]
+  },
+  {
+    "id": "gen-ag-0002",
+    "subject": "Agricultural Science",
+    "topic": "Animal Production",
+    "subtopic": "Animal Nutrition",
+    "year": 2013,
+    "exam_body": "NECO",
+    "type": "MCQ",
+    "question": "Sample Agricultural Science question on Animal Production? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated sample question for Agricultural Science.",
+    "difficulty": "medium",
+    "tags": [
+      "agricultural",
+      "neco",
+      "2013"
+    ]
+  },
+  {
+    "id": "gen-co-0001",
+    "subject": "Computer Science",
+    "topic": "Programming",
+    "subtopic": "Control Structures",
+    "year": 2022,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Sample Computer Science question on Programming? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated sample question for Computer Science.",
+    "difficulty": "medium",
+    "tags": [
+      "computer",
+      "jamb",
+      "2022"
+    ]
+  },
+  {
+    "id": "gen-co-0002",
+    "subject": "Computer Science",
+    "topic": "Hardware",
+    "subtopic": "Computer Systems",
+    "year": 2021,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Sample Computer Science question on Hardware? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "B",
+    "explanation": "Generated sample question for Computer Science.",
+    "difficulty": "medium",
+    "tags": [
+      "computer",
+      "waec",
+      "2021"
+    ]
+  },
+  {
+    "id": "gen-li-0001",
+    "subject": "Literature",
+    "topic": "Drama",
+    "subtopic": "Plot",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Sample Literature question on Drama? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "A",
+    "explanation": "Generated sample question for Literature.",
+    "difficulty": "medium",
+    "tags": [
+      "literature",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "gen-li-0004",
+    "subject": "Literature",
+    "topic": "Poetry",
+    "subtopic": "Figures of Speech",
+    "year": 2023,
+    "exam_body": "NECO",
+    "type": "MCQ",
+    "question": "Sample Literature question on Poetry? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "A",
+    "explanation": "Generated sample question for Literature.",
+    "difficulty": "medium",
+    "tags": [
+      "literature",
+      "neco",
+      "2023"
+    ]
+  },
+  {
+    "id": "gen-go-0001",
+    "subject": "Government",
+    "topic": "Constitution",
+    "subtopic": "Federalism",
+    "year": 2011,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Sample Government question on Constitution? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "B",
+    "explanation": "Generated sample question for Government.",
+    "difficulty": "medium",
+    "tags": [
+      "government",
+      "waec",
+      "2011"
+    ]
+  },
+  {
+    "id": "gen-go-0003",
+    "subject": "Government",
+    "topic": "Democracy",
+    "subtopic": "Types of Government",
+    "year": 2011,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Sample Government question on Democracy? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "D",
+    "explanation": "Generated sample question for Government.",
+    "difficulty": "medium",
+    "tags": [
+      "government",
+      "waec",
+      "2011"
+    ]
+  },
+  {
+    "id": "gen-hi-0001",
+    "subject": "History",
+    "topic": "World History",
+    "subtopic": "World Wars",
+    "year": 2017,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Sample History question on World History? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "B",
+    "explanation": "Generated sample question for History.",
+    "difficulty": "medium",
+    "tags": [
+      "history",
+      "waec",
+      "2017"
+    ]
+  },
+  {
+    "id": "gen-hi-0003",
+    "subject": "History",
+    "topic": "Nigerian History",
+    "subtopic": "Pre-colonial",
+    "year": 2013,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Sample History question on Nigerian History? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated sample question for History.",
+    "difficulty": "medium",
+    "tags": [
+      "history",
+      "jamb",
+      "2013"
+    ]
+  },
+  {
+    "id": "gen-ec-0001",
+    "subject": "Economics",
+    "topic": "Microeconomics",
+    "subtopic": "Market",
+    "year": 2023,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Sample Economics question on Microeconomics? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "A",
+    "explanation": "Generated sample question for Economics.",
+    "difficulty": "medium",
+    "tags": [
+      "economics",
+      "jamb",
+      "2023"
+    ]
+  },
+  {
+    "id": "gen-ec-0006",
+    "subject": "Economics",
+    "topic": "Macroeconomics",
+    "subtopic": "Policy",
+    "year": 2010,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Sample Economics question on Macroeconomics? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated sample question for Economics.",
+    "difficulty": "medium",
+    "tags": [
+      "economics",
+      "jamb",
+      "2010"
+    ]
+  },
+  {
+    "id": "gen-ge-0001",
+    "subject": "Geography",
+    "topic": "Human Geography",
+    "subtopic": "Population",
+    "year": 2017,
+    "exam_body": "NECO",
+    "type": "MCQ",
+    "question": "Sample Geography question on Human Geography? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "D",
+    "explanation": "Generated sample question for Geography.",
+    "difficulty": "medium",
+    "tags": [
+      "geography",
+      "neco",
+      "2017"
+    ]
+  },
+  {
+    "id": "gen-ge-0004",
+    "subject": "Geography",
+    "topic": "Physical Geography",
+    "subtopic": "Climate",
+    "year": 2011,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Sample Geography question on Physical Geography? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "B",
+    "explanation": "Generated sample question for Geography.",
+    "difficulty": "medium",
+    "tags": [
+      "geography",
+      "waec",
+      "2011"
+    ]
+  },
+  {
+    "id": "gen-co-0001",
+    "subject": "Commerce",
+    "topic": "Trade",
+    "subtopic": "International Trade",
+    "year": 2014,
+    "exam_body": "NECO",
+    "type": "MCQ",
+    "question": "Sample Commerce question on Trade? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated sample question for Commerce.",
+    "difficulty": "medium",
+    "tags": [
+      "commerce",
+      "neco",
+      "2014"
+    ]
+  },
+  {
+    "id": "gen-co-0002",
+    "subject": "Commerce",
+    "topic": "Business",
+    "subtopic": "Types",
+    "year": 2022,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Sample Commerce question on Business? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "B",
+    "explanation": "Generated sample question for Commerce.",
+    "difficulty": "medium",
+    "tags": [
+      "commerce",
+      "waec",
+      "2022"
+    ]
+  },
+  {
+    "id": "gen-fi-0001",
+    "subject": "Financial Accounting",
+    "topic": "Bookkeeping",
+    "subtopic": "Ledger",
+    "year": 2018,
+    "exam_body": "NECO",
+    "type": "MCQ",
+    "question": "Sample Financial Accounting question on Bookkeeping? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated sample question for Financial Accounting.",
+    "difficulty": "medium",
+    "tags": [
+      "financial",
+      "neco",
+      "2018"
+    ]
+  },
+  {
+    "id": "gen-fi-0003",
+    "subject": "Financial Accounting",
+    "topic": "Financial Statements",
+    "subtopic": "Balance Sheet",
+    "year": 2019,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Sample Financial Accounting question on Financial Statements? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "D",
+    "explanation": "Generated sample question for Financial Accounting.",
+    "difficulty": "easy",
+    "tags": [
+      "financial",
+      "jamb",
+      "2019"
+    ]
+  },
+  {
+    "id": "gen-ch-0001",
+    "subject": "Christian Religious Studies",
+    "topic": "Biblical Studies",
+    "subtopic": "New Testament",
+    "year": 2011,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Sample Christian Religious Studies question on Biblical Studies? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated sample question for Christian Religious Studies.",
+    "difficulty": "medium",
+    "tags": [
+      "christian",
+      "waec",
+      "2011"
+    ]
+  },
+  {
+    "id": "gen-ch-0003",
+    "subject": "Christian Religious Studies",
+    "topic": "Christian Doctrine",
+    "subtopic": "Salvation",
+    "year": 2023,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Sample Christian Religious Studies question on Christian Doctrine? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated sample question for Christian Religious Studies.",
+    "difficulty": "medium",
+    "tags": [
+      "christian",
+      "jamb",
+      "2023"
+    ]
+  },
+  {
+    "id": "gen-is-0001",
+    "subject": "Islamic Religious Studies",
+    "topic": "Islamic Law",
+    "subtopic": "Pillars of Islam",
+    "year": 2015,
+    "exam_body": "NECO",
+    "type": "MCQ",
+    "question": "Sample Islamic Religious Studies question on Islamic Law? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated sample question for Islamic Religious Studies.",
+    "difficulty": "medium",
+    "tags": [
+      "islamic",
+      "neco",
+      "2015"
+    ]
+  },
+  {
+    "id": "gen-is-0002",
+    "subject": "Islamic Religious Studies",
+    "topic": "Quranic Studies",
+    "subtopic": "Hadith",
+    "year": 2013,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Sample Islamic Religious Studies question on Quranic Studies? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "A",
+    "explanation": "Generated sample question for Islamic Religious Studies.",
+    "difficulty": "medium",
+    "tags": [
+      "islamic",
+      "waec",
+      "2013"
+    ]
+  },
+  {
+    "id": "gen-ci-0001",
+    "subject": "Civic Education",
+    "topic": "Rights and Responsibilities",
+    "subtopic": "Citizenship Rights",
+    "year": 2013,
+    "exam_body": "NECO",
+    "type": "MCQ",
+    "question": "Sample Civic Education question on Rights and Responsibilities? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "A",
+    "explanation": "Generated sample question for Civic Education.",
+    "difficulty": "medium",
+    "tags": [
+      "civic",
+      "neco",
+      "2013"
+    ]
+  },
+  {
+    "id": "gen-ci-0003",
+    "subject": "Civic Education",
+    "topic": "National Values",
+    "subtopic": "Respect",
+    "year": 2022,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Sample Civic Education question on National Values? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "A",
+    "explanation": "Generated sample question for Civic Education.",
+    "difficulty": "medium",
+    "tags": [
+      "civic",
+      "waec",
+      "2022"
+    ]
+  },
+  {
+    "id": "gen-fu-0251",
+    "subject": "Further Mathematics",
+    "topic": "Topic C",
+    "subtopic": "Topic C",
+    "year": 2013,
+    "exam_body": "NECO",
+    "type": "MCQ",
+    "question": "Additional Further Mathematics question? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated question for Further Mathematics.",
+    "difficulty": "medium",
+    "tags": [
+      "further",
+      "jamb"
+    ]
+  },
+  {
+    "id": "gen-ag-0411",
+    "subject": "Agricultural Science",
+    "topic": "Topic C",
+    "subtopic": "Topic C",
+    "year": 2015,
+    "exam_body": "NECO",
+    "type": "MCQ",
+    "question": "Additional Agricultural Science question? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "A",
+    "explanation": "Generated question for Agricultural Science.",
+    "difficulty": "medium",
+    "tags": [
+      "agricultural",
+      "jamb"
+    ]
+  },
+  {
+    "id": "gen-co-0571",
+    "subject": "Computer Science",
+    "topic": "Topic B",
+    "subtopic": "Topic B",
+    "year": 2013,
+    "exam_body": "NECO",
+    "type": "MCQ",
+    "question": "Additional Computer Science question? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "B",
+    "explanation": "Generated question for Computer Science.",
+    "difficulty": "medium",
+    "tags": [
+      "computer",
+      "neco"
+    ]
+  },
+  {
+    "id": "gen-li-0731",
+    "subject": "Literature",
+    "topic": "Topic B",
+    "subtopic": "Topic A",
+    "year": 2020,
+    "exam_body": "NECO",
+    "type": "MCQ",
+    "question": "Additional Literature question? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "B",
+    "explanation": "Generated question for Literature.",
+    "difficulty": "medium",
+    "tags": [
+      "literature",
+      "neco"
+    ]
+  },
+  {
+    "id": "gen-go-0891",
+    "subject": "Government",
+    "topic": "Topic A",
+    "subtopic": "Topic A",
+    "year": 2014,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Additional Government question? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated question for Government.",
+    "difficulty": "medium",
+    "tags": [
+      "government",
+      "waec"
+    ]
+  },
+  {
+    "id": "gen-hi-1051",
+    "subject": "History",
+    "topic": "Topic A",
+    "subtopic": "Topic A",
+    "year": 2022,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Additional History question? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "A",
+    "explanation": "Generated question for History.",
+    "difficulty": "medium",
+    "tags": [
+      "history",
+      "waec"
+    ]
+  },
+  {
+    "id": "gen-ec-1211",
+    "subject": "Economics",
+    "topic": "Topic C",
+    "subtopic": "Topic A",
+    "year": 2017,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Additional Economics question? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated question for Economics.",
+    "difficulty": "medium",
+    "tags": [
+      "economics",
+      "neco"
+    ]
+  },
+  {
+    "id": "gen-ge-1371",
+    "subject": "Geography",
+    "topic": "Topic B",
+    "subtopic": "Topic A",
+    "year": 2014,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Additional Geography question? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "A",
+    "explanation": "Generated question for Geography.",
+    "difficulty": "medium",
+    "tags": [
+      "geography",
+      "neco"
+    ]
+  },
+  {
+    "id": "gen-co-1531",
+    "subject": "Commerce",
+    "topic": "Topic B",
+    "subtopic": "Topic C",
+    "year": 2012,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Additional Commerce question? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "C",
+    "explanation": "Generated question for Commerce.",
+    "difficulty": "medium",
+    "tags": [
+      "commerce",
+      "neco"
+    ]
+  },
+  {
+    "id": "gen-fi-1691",
+    "subject": "Financial Accounting",
+    "topic": "Topic B",
+    "subtopic": "Topic C",
+    "year": 2017,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Additional Financial Accounting question? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "A",
+    "explanation": "Generated question for Financial Accounting.",
+    "difficulty": "medium",
+    "tags": [
+      "financial",
+      "neco"
+    ]
+  },
+  {
+    "id": "gen-ch-1851",
+    "subject": "Christian Religious Studies",
+    "topic": "Topic B",
+    "subtopic": "Topic B",
+    "year": 2012,
+    "exam_body": "JAMB",
+    "type": "MCQ",
+    "question": "Additional Christian Religious Studies question? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "D",
+    "explanation": "Generated question for Christian Religious Studies.",
+    "difficulty": "medium",
+    "tags": [
+      "christian",
+      "jamb"
+    ]
+  },
+  {
+    "id": "gen-is-2011",
+    "subject": "Islamic Religious Studies",
+    "topic": "Topic B",
+    "subtopic": "Topic A",
+    "year": 2015,
+    "exam_body": "WAEC",
+    "type": "MCQ",
+    "question": "Additional Islamic Religious Studies question? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "B",
+    "explanation": "Generated question for Islamic Religious Studies.",
+    "difficulty": "medium",
+    "tags": [
+      "islamic",
+      "neco"
+    ]
+  },
+  {
+    "id": "gen-ci-2171",
+    "subject": "Civic Education",
+    "topic": "Topic A",
+    "subtopic": "Topic A",
+    "year": 2014,
+    "exam_body": "NECO",
+    "type": "MCQ",
+    "question": "Additional Civic Education question? (Generated)",
+    "options": {
+      "A": "Option A",
+      "B": "Option B",
+      "C": "Option C",
+      "D": "Option D"
+    },
+    "answer": "D",
+    "explanation": "Generated question for Civic Education.",
+    "difficulty": "medium",
+    "tags": [
+      "civic",
+      "neco"
     ]
   }
 ];

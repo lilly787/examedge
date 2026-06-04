@@ -161,6 +161,7 @@
     }
     .subject-pill:hover { border-color: rgba(99,102,241,0.4); color: #fff; }
     .subject-pill.active { background: rgba(99,102,241,0.18); border-color: var(--indigo); color: #a5b4fc; }
+    .subject-pill.disabled { opacity: 0.38; cursor: not-allowed; pointer-events: none; }
 
     /* Year filter */
     .year-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; }
@@ -726,14 +727,7 @@
 
       <!-- Subject Selection -->
       <label class="filter-label">Subject Filter</label>
-      <div class="subject-grid" id="subject-grid">
-        <div class="subject-pill active" data-subject="all" onclick="selectSubject(this,'all')">🎯 All Subjects</div>
-        <div class="subject-pill" data-subject="Mathematics" onclick="selectSubject(this,'Mathematics')">📐 Mathematics</div>
-        <div class="subject-pill" data-subject="English Language" onclick="selectSubject(this,'English Language')">📖 English</div>
-        <div class="subject-pill" data-subject="Biology" onclick="selectSubject(this,'Biology')">🔬 Biology</div>
-        <div class="subject-pill" data-subject="Chemistry" onclick="selectSubject(this,'Chemistry')">⚗️ Chemistry</div>
-        <div class="subject-pill" data-subject="Physics" onclick="selectSubject(this,'Physics')">⚡ Physics</div>
-      </div>
+      <div id="subject-grid"></div>
 
       <!-- Year Selection -->
       <label class="filter-label">Year Filter</label>
@@ -804,6 +798,10 @@
 
         <div class="question-body">
           <div class="question-num" id="q-num">Question 1 of 10</div>
+          <!-- Task 5: Question image box -->
+          <div id="q-image-box" style="display:none;margin-bottom:14px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:rgba(0,0,0,0.2);text-align:center;">
+            <img id="q-image-tag" src="" alt="Question diagram" style="max-width:100%;max-height:280px;object-fit:contain;padding:8px;" />
+          </div>
           <div class="question-text" id="q-text">Loading question...</div>
           <div class="options-list" id="options-list"></div>
         </div>
@@ -987,8 +985,98 @@
       updateCount();
     }
 
+    // ── Subject picker groups ─────────────────────────────────────────
+    const SUBJECT_GROUPS = [
+      { group: '📌 Core', subjects: [
+        { key: 'Mathematics',       label: 'Mathematics',       icon: '📐' },
+        { key: 'English Language',  label: 'English',           icon: '📖' }
+      ]},
+      { group: '🔬 Sciences', subjects: [
+        { key: 'Physics',           label: 'Physics',           icon: '⚡' },
+        { key: 'Chemistry',         label: 'Chemistry',         icon: '⚗️' },
+        { key: 'Biology',           label: 'Biology',           icon: '🔬' },
+        { key: 'Further Mathematics', label: 'Further Maths',  icon: '∑' },
+        { key: 'Agricultural Science', label: 'Agric Sci',     icon: '🌿' },
+        { key: 'Computer Science',  label: 'Comp. Sci',         icon: '💻' }
+      ]},
+      { group: '📊 Commercials', subjects: [
+        { key: 'Economics',         label: 'Economics',         icon: '📈' },
+        { key: 'Commerce',          label: 'Commerce',          icon: '🏪' },
+        { key: 'Financial Accounting', label: 'Accounting',    icon: '📒' }
+      ]},
+      { group: '🌍 Humanities', subjects: [
+        { key: 'Government',        label: 'Government',        icon: '🏛️' },
+        { key: 'History',           label: 'History',           icon: '📜' },
+        { key: 'Geography',         label: 'Geography',         icon: '🌍' },
+        { key: 'Literature in English', label: 'Literature',   icon: '📚' },
+        { key: 'Civic Education',   label: 'Civic Edu.',        icon: '🤝' }
+      ]},
+      { group: '✝️ Religious Studies', subjects: [
+        { key: 'Christian Religious Studies', label: 'CRS',    icon: '✝️' },
+        { key: 'Islamic Religious Studies',   label: 'IRS',    icon: '☪️' }
+      ]},
+      { group: '🗣️ Languages', subjects: [
+        { key: 'French',            label: 'French',            icon: '🇫🇷' },
+        { key: 'Yoruba',            label: 'Yoruba',            icon: '🥁' },
+        { key: 'Igbo',              label: 'Igbo',              icon: '🌺' },
+        { key: 'Hausa',             label: 'Hausa',             icon: '🌟' }
+      ]}
+    ];
+
+    function buildSubjectPicker() {
+      const allQs = ExamEdgeDB.getQuestions().filter(q => !q.incomplete);
+      const countBySubject = {};
+      allQs.forEach(q => { countBySubject[q.subject] = (countBySubject[q.subject] || 0) + 1; });
+
+      const container = document.getElementById('subject-grid');
+      container.innerHTML = '';
+
+      // "All" pill
+      const totalCount = allQs.length;
+      const allPill = document.createElement('div');
+      allPill.style.cssText = 'margin-bottom:12px';
+      allPill.innerHTML = `<div class="subject-pill active" id="pill-all" data-subject="all" onclick="selectSubject(this,'all')">🎯 All Subjects <span style="margin-left:6px;background:rgba(139,92,246,0.25);color:#c4b5fd;border-radius:10px;padding:1px 7px;font-size:0.7rem;font-weight:700">${totalCount}</span></div>`;
+      container.appendChild(allPill);
+
+      SUBJECT_GROUPS.forEach(group => {
+        const groupEl = document.createElement('div');
+        groupEl.style.cssText = 'margin-bottom:12px';
+
+        const groupLabel = document.createElement('div');
+        groupLabel.style.cssText = 'font-size:0.65rem;font-weight:700;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;padding-left:2px';
+        groupLabel.textContent = group.group;
+        groupEl.appendChild(groupLabel);
+
+        const pillRow = document.createElement('div');
+        pillRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px';
+
+        group.subjects.forEach(s => {
+          const cnt = countBySubject[s.key] || 0;
+          const pill = document.createElement('div');
+          pill.className = 'subject-pill' + (cnt === 0 ? ' disabled' : '');
+          pill.dataset.subject = s.key;
+          pill.id = 'pill-' + s.key.replace(/\s+/g, '-');
+          if (cnt > 0) pill.onclick = () => selectSubject(pill, s.key);
+
+          const badgeColor = cnt === 0
+            ? 'rgba(255,255,255,0.08)'
+            : cnt < 10
+            ? 'rgba(245,158,11,0.25)'
+            : 'rgba(16,185,129,0.25)';
+          const badgeTextColor = cnt === 0 ? 'var(--text-muted)' : cnt < 10 ? '#fcd34d' : '#6ee7b7';
+          const badgeLabel = cnt === 0 ? 'Soon' : cnt;
+
+          pill.innerHTML = `${s.icon} ${s.label} <span style="margin-left:5px;background:${badgeColor};color:${badgeTextColor};border-radius:10px;padding:1px 7px;font-size:0.68rem;font-weight:700">${badgeLabel}</span>`;
+          pillRow.appendChild(pill);
+        });
+
+        groupEl.appendChild(pillRow);
+        container.appendChild(groupEl);
+      });
+    }
+
     function getFilteredQuestions() {
-      let qs = [...ExamEdgeDB.getQuestions()];
+      let qs = [...ExamEdgeDB.getQuestions()].filter(q => !q.incomplete);
       if (session.subject !== 'all') qs = qs.filter(q => q.subject === session.subject);
       if (session.year !== 'all') qs = qs.filter(q => q.year === parseInt(session.year));
       return qs;
@@ -1111,6 +1199,20 @@
 
       // Question
       document.getElementById('q-num').textContent = `Question ${idx + 1} of ${total}`;
+
+      // Task 5: image rendering
+      const qImgEl = document.getElementById('q-image-box');
+      if (q.image && q.image.trim() !== '') {
+        qImgEl.style.display = 'block';
+        const imgTag = document.getElementById('q-image-tag');
+        imgTag.src = q.image;
+        imgTag.onerror = () => {
+          qImgEl.style.display = 'none';
+        };
+      } else {
+        qImgEl.style.display = 'none';
+      }
+
       document.getElementById('q-text').innerHTML = q.question;
 
       // Options
@@ -1299,14 +1401,19 @@
       closeModal();
       if (session.timerInterval) clearInterval(session.timerInterval);
 
-      // Calculate results
+      // Calculate results + persist to weakness map
       const qs = session.questions;
       let correct = 0;
       let wrong = 0;
       qs.forEach((q, i) => {
         const ans = session.answers[i];
-        if (ans === q.answer) correct++;
+        const isCorrect = ans === q.answer;
+        if (isCorrect) correct++;
         else if (ans) wrong++;
+        if (ans) {
+          // Task 8: pass questionObj so weakness map updates per-topic
+          ExamEdgeDB.logAttempt(q.id, isCorrect, 0, q);
+        }
       });
 
       const pct = Math.round((correct / qs.length) * 100);
@@ -1410,6 +1517,7 @@
     }
 
     // Init
+    buildSubjectPicker();
     updateCount();
   </script>
 </body>

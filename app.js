@@ -622,7 +622,8 @@ function shuffleArray(array) {
 }
 
 function launchPracticeSession() {
-  let questions = [...ExamEdgeDB.getQuestions()];
+  // Task 6: exclude flagged-incomplete questions from practice pool
+  let questions = [...ExamEdgeDB.getQuestions()].filter(q => !q.incomplete);
 
   // Apply filters
   if (PRACTICE_SESSION.subject !== "All") {
@@ -902,6 +903,12 @@ function renderPracticeInterface() {
           ${headerHtml}
           
           <div class="p-6">
+            <!-- Task 5: Question image (shown only when image URL is present) -->
+            ${q.image && q.image.trim() !== '' ? `
+            <div style="margin-bottom:16px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);background:rgba(0,0,0,0.25);text-align:center;">
+              <img src="${q.image}" alt="Question diagram" style="max-width:100%;max-height:260px;object-fit:contain;padding:8px;"
+                   onerror="this.parentElement.style.display='none'" />
+            </div>` : ''}
             <!-- Question Content -->
             <div class="text-base text-white leading-relaxed mb-6 font-light">
               ${q.question}
@@ -964,8 +971,8 @@ function selectOption(optionKey) {
     const correctKey = q._correctDisplayKey || q.answer;
     const isCorrect = optionKey === correctKey;
     
-    // Log active progress in DB
-    const res = ExamEdgeDB.logAttempt(q.id, isCorrect, 10);
+    // Log active progress in DB — pass questionObj for weakness-map update
+    const res = ExamEdgeDB.logAttempt(q.id, isCorrect, 10, q);
     
     if (res && res.success === false && res.reason === "limit_reached") {
       PRACTICE_SESSION.dailyLimitTriggered = true;
@@ -1056,8 +1063,8 @@ function submitMockExamSession(forced = false) {
       const isCorrect = chosen === correctKey;
       if (isCorrect) correctCount += 1;
 
-      // Log attempts in database
-      const res = ExamEdgeDB.logAttempt(q.id, isCorrect, 15);
+      // Log attempts in database — pass questionObj for weakness-map update
+      const res = ExamEdgeDB.logAttempt(q.id, isCorrect, 15, q);
       if (res && res.success === false) {
         limitBlocked = true;
       } else {
