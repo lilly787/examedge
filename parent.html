@@ -1,82 +1,864 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <script>
     const user = JSON.parse(localStorage.getItem('examedge_user') || 'null');
     if (!user || user.role !== 'parent') {
-      const redirectMap = {
-        student: 'index.html', admin: 'admin.html',
-        teacher: 'teacher.html'
-      };
+      const redirectMap = { student: 'index.html', admin: 'admin.html', teacher: 'teacher.html' };
       window.location.replace(redirectMap[user?.role] || 'index.html');
     }
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ExamEdge — Parent Portal</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="ExamEdge Parent Portal — Monitor your child's exam readiness, weekly progress, and study activity.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="index.css">
-</head>
-<body class="bg-[#0a0814] text-white min-h-screen p-6">
-  <div class="max-w-3xl mx-auto">
-    <a href="index.html" class="text-indigo-400 text-sm">← Back</a>
-    <h1 class="text-3xl font-black mt-4 mb-8">👨‍👩‍👧 Parent Portal</h1>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <div id="auth" class="glass-panel p-6 rounded-2xl border border-indigo-500/20 mb-6">
-      <input id="phone" placeholder="Phone" class="w-full mb-2 bg-indigo-950/40 border rounded-xl px-4 py-2">
-      <input id="otp" placeholder="OTP" class="w-full mb-2 bg-indigo-950/40 border rounded-xl px-4 py-2">
-      <button onclick="parentLogin()" class="w-full bg-indigo-600 py-2 rounded-xl font-bold">Login as Parent</button>
-      <p id="dev-otp" class="text-xs text-amber-400 mt-2"></p>
+    :root {
+      --bg: #07060f;
+      --surface: rgba(18, 15, 38, 0.85);
+      --surface2: rgba(22, 18, 50, 0.75);
+      --border: rgba(99, 102, 241, 0.18);
+      --border-active: rgba(99, 102, 241, 0.55);
+      --indigo: #6366f1;
+      --violet: #8b5cf6;
+      --emerald: #10b981;
+      --rose: #f43f5e;
+      --amber: #f59e0b;
+      --text: #f1f0f7;
+      --text-muted: #8b88a8;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 40% at 15% 15%, rgba(99,102,241,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 85% 75%, rgba(16,185,129,0.06) 0%, transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .layout { display: flex; min-height: 100vh; position: relative; z-index: 1; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px; flex-shrink: 0;
+      background: rgba(12, 10, 28, 0.92);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      padding: 1.5rem 1rem;
+      position: sticky; top: 0; height: 100vh; overflow-y: auto;
+    }
+
+    .sidebar-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 2rem; padding: 0 0.5rem; }
+
+    .brand-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(99,102,241,0.2));
+      border: 1px solid rgba(16,185,129,0.35);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    }
+
+    .brand-text { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.25rem; background: linear-gradient(135deg, #a5b4fc, #6ee7b7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .brand-role { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+
+    .nav-section-title { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); padding: 0 0.75rem; margin-bottom: 0.5rem; }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0.7rem 0.75rem; border-radius: 10px; cursor: pointer;
+      font-size: 0.875rem; font-weight: 500; color: var(--text-muted);
+      transition: all 0.2s; margin-bottom: 2px;
+      border: 1px solid transparent; text-decoration: none;
+    }
+    .nav-item:hover { background: rgba(16,185,129,0.08); color: #fff; border-color: rgba(16,185,129,0.15); }
+    .nav-item.active { background: rgba(16,185,129,0.12); color: #6ee7b7; border-color: rgba(16,185,129,0.3); font-weight: 600; }
+    .nav-item i { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .sidebar-footer { margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border); }
+
+    .user-card { display: flex; align-items: center; gap: 10px; padding: 0.75rem; border-radius: 10px; background: rgba(16,185,129,0.06); border: 1px solid var(--border); }
+
+    .user-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #6366f1); display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 0.9rem; color: #fff; flex-shrink: 0; }
+    .user-name { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+    .user-role { font-size: 0.68rem; color: var(--text-muted); }
+
+    /* MAIN */
+    .main-content { flex: 1; padding: 2rem; overflow-y: auto; min-width: 0; }
+
+    .page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .page-title { font-size: 1.75rem; font-weight: 900; color: #fff; }
+    .page-subtitle { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    /* STATS */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+
+    .stat-card {
+      background: var(--surface); backdrop-filter: blur(16px);
+      border: 1px solid var(--border); border-radius: 18px; padding: 1.4rem;
+      transition: all 0.25s;
+    }
+    .stat-card:hover { border-color: rgba(16,185,129,0.35); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(16,185,129,0.08); }
+
+    .stat-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem; }
+    .stat-icon i { width: 18px; height: 18px; }
+    .stat-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; }
+    .stat-value { font-size: 2rem; font-weight: 800; color: #fff; margin: 0.3rem 0; font-family: 'Outfit', sans-serif; }
+    .stat-delta { font-size: 0.75rem; font-weight: 600; }
+
+    /* CARDS */
+    .card { background: var(--surface); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 20px; padding: 1.75rem; margin-bottom: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.25); }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem; }
+    .card-title { font-size: 1.05rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }
+    .card-title i { width: 18px; height: 18px; color: #6ee7b7; }
+
+    /* SECTIONS */
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* BUTTONS */
+    .btn { padding: 0.65rem 1.1rem; border-radius: 10px; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; border: none; font-family: 'Inter', sans-serif; }
+    .btn i { width: 14px; height: 14px; }
+    .btn-primary { background: linear-gradient(135deg, #10b981, #6366f1); color: #fff; box-shadow: 0 6px 18px rgba(16,185,129,0.25); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(16,185,129,0.35); }
+    .btn-secondary { background: rgba(255,255,255,0.05); border: 1.5px solid var(--border); color: #a5b4fc; }
+    .btn-secondary:hover { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.4); color: #fff; }
+    .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
+
+    /* FORM */
+    .form-group { margin-bottom: 1rem; }
+    .form-label { display: block; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.4rem; }
+    .form-input { width: 100%; background: rgba(10,8,20,0.5); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.7rem 0.9rem; color: var(--text); font-size: 0.875rem; outline: none; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+    .form-input:focus { border-color: var(--emerald); box-shadow: 0 0 0 3px rgba(16,185,129,0.12); }
+
+    /* PILLS */
+    .pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; }
+    .pill i { width: 10px; height: 10px; }
+    .pill-rose { background: rgba(244,63,94,0.12); color: #fca5a5; border: 1px solid rgba(244,63,94,0.25); }
+    .pill-emerald { background: rgba(16,185,129,0.12); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.25); }
+    .pill-amber { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+    .pill-indigo { background: rgba(99,102,241,0.12); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.25); }
+    .pill-violet { background: rgba(139,92,246,0.12); color: #c4b5fd; border: 1px solid rgba(139,92,246,0.25); }
+
+    /* PROGRESS BAR */
+    .progress-track { height: 8px; background: rgba(99,102,241,0.1); border-radius: 99px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 99px; transition: width 0.8s ease; }
+
+    /* CHILD CARDS */
+    .child-card {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem;
+      cursor: pointer; transition: all 0.2s; margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .child-card:hover { border-color: rgba(16,185,129,0.4); transform: translateX(4px); background: rgba(16,185,129,0.05); }
+    .child-card.active-child { border-color: rgba(16,185,129,0.6); background: rgba(16,185,129,0.08); }
+
+    .child-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.1rem; color: #fff; flex-shrink: 0; }
+
+    /* REPORT GRID */
+    .report-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .report-metric { background: rgba(10,8,20,0.4); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem; text-align: center; }
+    .report-metric-value { font-size: 1.75rem; font-weight: 800; color: #fff; font-family: 'Outfit', sans-serif; }
+    .report-metric-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.07em; margin-top: 0.25rem; }
+
+    /* WEAKNESS BARS */
+    .weakness-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .weakness-subject { width: 130px; font-size: 0.78rem; color: var(--text-muted); flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .weakness-track { flex: 1; height: 7px; background: rgba(99,102,241,0.1); border-radius: 99px; overflow: hidden; }
+    .weakness-fill { height: 100%; border-radius: 99px; }
+    .weakness-pct { width: 36px; font-size: 0.75rem; font-weight: 700; text-align: right; }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box { background: rgba(15,12,35,0.98); border: 1px solid var(--border-active); border-radius: 20px; padding: 2rem; width: 100%; max-width: 440px; transform: translateY(20px); transition: transform 0.25s; }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-title { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
+    .modal-title i { width: 18px; height: 18px; color: #6ee7b7; }
+
+    /* ALERT BOX */
+    .alert { border-radius: 12px; padding: 1rem; font-size: 0.82rem; display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; }
+    .alert i { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+    .alert-rose { background: rgba(244,63,94,0.08); border: 1px solid rgba(244,63,94,0.25); color: #fca5a5; }
+    .alert-emerald { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); color: #6ee7b7; }
+    .alert-amber { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); color: #fbbf24; }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
+
+    /* SPINNER */
+    .spinner { width: 22px; height: 22px; border: 3px solid rgba(16,185,129,0.15); border-top-color: var(--emerald); border-radius: 50%; animation: spin 0.8s linear infinite; display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: rgba(18,15,38,0.97); border: 1px solid var(--border-active); border-radius: 12px; padding: 0.85rem 1.25rem; font-size: 0.85rem; color: #fff; z-index: 999; transform: translateY(100px); transition: transform 0.3s ease; max-width: 320px; display: flex; align-items: center; gap: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+    .toast.show { transform: translateY(0); }
+    .toast i { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+    .empty-state i { width: 40px; height: 40px; margin: 0 auto 1rem; opacity: 0.3; display: block; }
+    .empty-state p { font-size: 0.85rem; }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main-content { padding: 1.25rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .report-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <i data-lucide="heart" style="width:20px;height:20px;color:#6ee7b7"></i>
+      </div>
+      <div>
+        <div class="brand-text">ExamEdge</div>
+        <div class="brand-role">Parent Portal</div>
+      </div>
     </div>
 
-    <div id="portal" class="hidden">
-      <div class="glass-panel p-6 rounded-2xl mb-4">
-        <h3 class="font-bold mb-2">Link your child</h3>
-        <input id="link-code" placeholder="Child's parent code (EE-XXXXXX)" class="w-full mb-2 bg-indigo-950/40 border rounded-xl px-4 py-2">
-        <button onclick="linkChild()" class="bg-emerald-600 px-4 py-2 rounded-xl text-sm font-bold">Link child</button>
+    <div class="nav-section-title">Menu</div>
+    <a class="nav-item active" onclick="showSection('children',event)" href="#">
+      <i data-lucide="users"></i> My Children
+    </a>
+    <a class="nav-item" onclick="showSection('report',event)" href="#" id="report-nav" style="pointer-events:none;opacity:0.4;">
+      <i data-lucide="bar-chart-2"></i> Weekly Report
+    </a>
+    <a class="nav-item" onclick="showSection('link',event)" href="#">
+      <i data-lucide="link-2"></i> Link a Child
+    </a>
+
+    <hr class="divider">
+    <div class="nav-section-title">Quick Links</div>
+    <a class="nav-item" href="index.html">
+      <i data-lucide="arrow-left"></i> Student App
+    </a>
+
+    <div class="sidebar-footer">
+      <div class="user-card">
+        <div class="user-avatar" id="sidebar-avatar">P</div>
+        <div>
+          <div class="user-name" id="sidebar-name">Parent</div>
+          <div class="user-role">Parent Account</div>
+        </div>
       </div>
-      <div id="children"></div>
-      <div id="report" class="mt-6 glass-panel p-6 rounded-2xl hidden"></div>
+      <button onclick="logout()" class="btn btn-secondary" style="width:100%;margin-top:0.75rem;justify-content:center;">
+        <i data-lucide="log-out"></i> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- AUTH WALL -->
+    <div id="auth-wall">
+      <div style="max-width:440px;margin:4rem auto;">
+        <div class="card" style="text-align:center;">
+          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(99,102,241,0.2));border:1px solid rgba(16,185,129,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
+            <i data-lucide="heart" style="width:26px;height:26px;color:#6ee7b7"></i>
+          </div>
+          <h2 style="font-size:1.5rem;font-weight:900;margin-bottom:0.35rem;">Parent Login</h2>
+          <p style="color:var(--text-muted);font-size:0.82rem;margin-bottom:1.75rem;">Monitor your child's exam readiness and progress</p>
+
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input id="auth-phone" class="form-input" placeholder="08031234567" type="tel">
+          </div>
+          <div class="form-group" id="otp-group" style="display:none;">
+            <label class="form-label">OTP Code</label>
+            <input id="auth-otp" class="form-input" placeholder="Enter 4–6 digit code" type="text" maxlength="6">
+            <p id="dev-hint" style="font-size:0.72rem;color:var(--amber);margin-top:0.4rem;"></p>
+          </div>
+
+          <button id="auth-btn" onclick="handleAuth()" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.85rem;">
+            <i data-lucide="send"></i> Send OTP
+          </button>
+          <button id="back-btn" onclick="backToPhone()" style="display:none;width:100%;margin-top:0.5rem;" class="btn btn-secondary">
+            Change number
+          </button>
+
+          <p style="margin-top:1.5rem;font-size:0.78rem;color:var(--text-muted);">
+            New parent account? You'll be registered automatically.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" style="display:none;">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title" id="welcome-title">Parent Dashboard</h1>
+          <p class="page-subtitle">Track your child's exam preparation and study activity</p>
+        </div>
+        <button class="btn btn-primary" onclick="openLinkModal()">
+          <i data-lucide="user-plus"></i> Link a Child
+        </button>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);">
+            <i data-lucide="users" style="color:#6ee7b7;"></i>
+          </div>
+          <div class="stat-label">Children Linked</div>
+          <div class="stat-value" id="stat-children">—</div>
+          <div class="stat-delta" style="color:var(--text-muted)">Monitored accounts</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);">
+            <i data-lucide="trending-up" style="color:#a5b4fc;"></i>
+          </div>
+          <div class="stat-label">Avg Readiness</div>
+          <div class="stat-value" id="stat-readiness">—</div>
+          <div class="stat-delta" style="color:var(--text-muted)">Across all children</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);">
+            <i data-lucide="flame" style="color:#fbbf24;"></i>
+          </div>
+          <div class="stat-label">Best Streak</div>
+          <div class="stat-value" id="stat-streak">—</div>
+          <div class="stat-delta" style="color:var(--text-muted)">Study days in a row</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.25);">
+            <i data-lucide="alert-circle" style="color:#fca5a5;"></i>
+          </div>
+          <div class="stat-label">Inactive Alerts</div>
+          <div class="stat-value" id="stat-alerts">—</div>
+          <div class="stat-delta" style="color:var(--rose)">Need attention</div>
+        </div>
+      </div>
+
+      <!-- ══ SECTION: CHILDREN ══ -->
+      <div class="section active" id="section-children">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i data-lucide="users"></i> My Children</div>
+            <button class="btn btn-primary btn-sm" onclick="openLinkModal()">
+              <i data-lucide="user-plus"></i> Link Child
+            </button>
+          </div>
+          <div id="children-list">
+            <div class="empty-state"><div class="spinner"></div><p style="margin-top:1rem;">Loading…</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SECTION: REPORT ══ -->
+      <div class="section" id="section-report">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title" id="report-child-title">
+              <i data-lucide="bar-chart-2"></i> Weekly Report
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="refreshReport()">
+              <i data-lucide="refresh-cw"></i> Refresh
+            </button>
+          </div>
+          <div id="report-content">
+            <div class="empty-state"><i data-lucide="bar-chart-2"></i><p>Select a child to view their report</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SECTION: LINK ══ -->
+      <div class="section" id="section-link">
+        <div class="card" style="max-width:480px;">
+          <div class="card-header">
+            <div class="card-title"><i data-lucide="link-2"></i> Link a Child Account</div>
+          </div>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1.25rem;">
+            Ask your child to share their parent link code from their ExamEdge profile. It looks like <strong style="color:#fbbf24;">EE-XXXXXX</strong>.
+          </p>
+          <div class="form-group">
+            <label class="form-label">Parent Link Code</label>
+            <input id="link-code-input" class="form-input" placeholder="EE-XXXXXX" style="text-transform:uppercase;letter-spacing:0.1em;">
+          </div>
+          <button class="btn btn-primary" onclick="linkChild()">
+            <i data-lucide="link-2"></i> Link Child
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /dashboard -->
+  </main>
+</div>
+
+<!-- LINK MODAL -->
+<div class="modal-overlay" id="modal-link">
+  <div class="modal-box">
+    <div class="modal-title"><i data-lucide="user-plus"></i> Link a Child</div>
+    <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1.25rem;">
+      Enter your child's parent link code from their ExamEdge app profile page.
+    </p>
+    <div class="form-group">
+      <label class="form-label">Link Code</label>
+      <input id="modal-link-code" class="form-input" placeholder="EE-XXXXXX" style="text-transform:uppercase;letter-spacing:0.1em;">
+    </div>
+    <div style="display:flex;gap:0.75rem;margin-top:0.5rem;">
+      <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="linkChildModal()">
+        <i data-lucide="check"></i> Link
+      </button>
+      <button class="btn btn-secondary" style="flex:1;justify-content:center;" onclick="closeModal('modal-link')">Cancel</button>
     </div>
   </div>
-  <script src="examedge-config.js"></script>
-  <script src="examedge-api.js"></script>
-  <script>
-    let phone = "";
-    async function parentLogin() {
-      phone = document.getElementById("phone").value;
-      const send = await ExamEdgeAPI.sendOtp(phone);
-      document.getElementById("dev-otp").textContent = send.devCode ? `Dev OTP: ${send.devCode}` : "";
-      const code = document.getElementById("otp").value;
-      const res = await ExamEdgeAPI.verifyOtp(phone, code, { name: "Parent", role: "parent" });
-      ExamEdgeAPI.setToken(res.token);
-      document.getElementById("auth").classList.add("hidden");
-      document.getElementById("portal").classList.remove("hidden");
-      loadChildren();
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <i data-lucide="info" id="toast-icon"></i>
+  <span id="toast-msg"></span>
+</div>
+
+<script src="examedge-config.js"></script>
+<script src="examedge-api.js"></script>
+<script>
+  /* ═══════════════════════════════════════
+     STATE
+  ═══════════════════════════════════════ */
+  let TOKEN = null;
+  let CHILDREN = [];
+  let ACTIVE_CHILD_ID = null;
+  let AUTH_STEP = 'phone';
+  let PENDING_PHONE = '';
+
+  /* ═══════════════════════════════════════
+     INIT
+  ═══════════════════════════════════════ */
+  document.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+    const stored = JSON.parse(localStorage.getItem('examedge_user') || 'null');
+    const storedToken = localStorage.getItem('examedge_token');
+    if (stored && stored.role === 'parent' && storedToken) {
+      TOKEN = storedToken;
+      ExamEdgeAPI.setToken(TOKEN);
+      showDashboard(stored);
     }
-    async function linkChild() {
-      await ExamEdgeAPI.linkChild(document.getElementById("link-code").value);
-      loadChildren();
+  });
+
+  /* ═══════════════════════════════════════
+     AUTH
+  ═══════════════════════════════════════ */
+  async function handleAuth() {
+    const btn = document.getElementById('auth-btn');
+    if (AUTH_STEP === 'phone') {
+      PENDING_PHONE = document.getElementById('auth-phone').value.trim();
+      if (!PENDING_PHONE) { toast('Enter your phone number', 'error'); return; }
+      btn.innerHTML = '<span class="spinner"></span>';
+      btn.disabled = true;
+      try {
+        const res = await ExamEdgeAPI.sendOtp(PENDING_PHONE);
+        const devCode = res.devCode || '';
+        if (devCode) {
+          document.getElementById('dev-hint').textContent = `Dev OTP: ${devCode}`;
+          document.getElementById('auth-otp').value = devCode;
+        }
+        document.getElementById('otp-group').style.display = 'block';
+        document.getElementById('back-btn').style.display = 'block';
+        AUTH_STEP = 'otp';
+        btn.innerHTML = '<i data-lucide="check-circle"></i> Verify & Enter';
+        lucide.createIcons();
+      } catch(e) { toast('Error: ' + e.message, 'error'); }
+      btn.disabled = false;
+    } else {
+      const code = document.getElementById('auth-otp').value.trim();
+      if (!code) { toast('Enter the OTP code', 'error'); return; }
+      btn.innerHTML = '<span class="spinner"></span>';
+      btn.disabled = true;
+      try {
+        const res = await ExamEdgeAPI.verifyOtp(PENDING_PHONE, code, { name: 'Parent', role: 'parent' });
+        TOKEN = res.token;
+        ExamEdgeAPI.setToken(TOKEN);
+        localStorage.setItem('examedge_token', TOKEN);
+        const u = res.user;
+        localStorage.setItem('examedge_user', JSON.stringify({ id: u.id, name: u.name, phone: u.phone, role: u.role }));
+        showDashboard(u);
+      } catch(e) {
+        toast('Login failed: ' + e.message, 'error');
+        btn.disabled = false;
+        btn.innerHTML = '<i data-lucide="check-circle"></i> Verify & Enter';
+        lucide.createIcons();
+      }
     }
-    async function loadChildren() {
+  }
+
+  function backToPhone() {
+    AUTH_STEP = 'phone';
+    document.getElementById('otp-group').style.display = 'none';
+    document.getElementById('back-btn').style.display = 'none';
+    document.getElementById('auth-btn').innerHTML = '<i data-lucide="send"></i> Send OTP';
+    lucide.createIcons();
+  }
+
+  function logout() {
+    localStorage.removeItem('examedge_token');
+    localStorage.removeItem('examedge_user');
+    window.location.reload();
+  }
+
+  /* ═══════════════════════════════════════
+     DASHBOARD
+  ═══════════════════════════════════════ */
+  function showDashboard(user) {
+    document.getElementById('auth-wall').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    const name = user.name || 'Parent';
+    document.getElementById('welcome-title').textContent = `Welcome, ${name.split(' ')[0]}`;
+    document.getElementById('sidebar-name').textContent = name;
+    document.getElementById('sidebar-avatar').textContent = name[0].toUpperCase();
+    loadChildren();
+  }
+
+  /* ═══════════════════════════════════════
+     NAVIGATION
+  ═══════════════════════════════════════ */
+  function showSection(name, e) {
+    if (e) e.preventDefault();
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('section-' + name).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    if (e && e.currentTarget) e.currentTarget.classList.add('active');
+    lucide.createIcons();
+  }
+
+  /* ═══════════════════════════════════════
+     CHILDREN
+  ═══════════════════════════════════════ */
+  async function loadChildren() {
+    const list = document.getElementById('children-list');
+    list.innerHTML = `<div class="empty-state"><div class="spinner"></div><p style="margin-top:1rem;">Loading your children…</p></div>`;
+
+    try {
       const data = await ExamEdgeAPI.getChildren();
-      document.getElementById("children").innerHTML = (data.children || [])
-        .map(c => `<button onclick="loadReport('${c.id}')" class="block w-full text-left glass-panel p-4 rounded-xl mb-2 border border-indigo-500/10">
-          ${c.name} — ${c.ss_class} — Readiness ${c.readiness_score || 0}%
-        </button>`).join("") || "<p class='text-gray-500'>No children linked.</p>";
-    }
-    async function loadReport(id) {
-      const r = await ExamEdgeAPI.getChildReport(id);
-      document.getElementById("report").classList.remove("hidden");
-      document.getElementById("report").innerHTML = `
-        <h3 class="font-bold mb-4">Weekly report</h3>
-        <p>Questions this week: ${r.week.questions_answered}</p>
-        <p>Accuracy: ${r.week.accuracy}%</p>
-        <p>Readiness: ${r.readiness_score}%</p>
-        ${r.inactive_alert ? '<p class="text-rose-400 mt-2 flex items-center gap-1"><i data-lucide="alert-triangle" style="width:14px;height:14px"></i> Child has not studied in 3+ days</p>' : ''}`;
+      CHILDREN = data.children || [];
+      renderChildren();
+      updateStats();
+    } catch(e) {
+      list.innerHTML = `<div class="empty-state"><i data-lucide="alert-circle"></i><p>Error: ${escHtml(e.message)}</p></div>`;
       lucide.createIcons();
     }
-  </script>
+  }
+
+  const AVATARS_COLORS = [
+    'linear-gradient(135deg,#6366f1,#8b5cf6)',
+    'linear-gradient(135deg,#10b981,#6366f1)',
+    'linear-gradient(135deg,#f59e0b,#f43f5e)',
+    'linear-gradient(135deg,#8b5cf6,#ec4899)',
+  ];
+
+  function renderChildren() {
+    const list = document.getElementById('children-list');
+    if (!CHILDREN.length) {
+      list.innerHTML = `
+        <div class="empty-state">
+          <i data-lucide="users"></i>
+          <p>No children linked yet.</p>
+          <p style="margin-top:0.5rem;">Click <strong>Link a Child</strong> to get started.</p>
+        </div>`;
+      lucide.createIcons();
+      return;
+    }
+
+    list.innerHTML = CHILDREN.map((c, i) => {
+      const r = c.readiness_score || 0;
+      const barColor = r >= 70 ? '#10b981' : r >= 40 ? '#f59e0b' : '#f43f5e';
+      const isActive = ACTIVE_CHILD_ID === c.id;
+      return `
+        <div class="child-card ${isActive ? 'active-child' : ''}" onclick="selectChild('${c.id}')">
+          <div class="child-avatar" style="background:${AVATARS_COLORS[i % AVATARS_COLORS.length]};">
+            ${(c.name || 'S')[0].toUpperCase()}
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:700;color:#fff;font-size:0.95rem;">${escHtml(c.name || 'Student')}</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.6rem;">
+              ${escHtml(c.ss_class || '')} · ${escHtml(c.exam_target || 'WAEC')}
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="progress-track" style="width:120px;">
+                <div class="progress-fill" style="width:${r}%;background:${barColor};"></div>
+              </div>
+              <span style="font-size:0.75rem;font-weight:700;color:${barColor};">${r}% readiness</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem;">
+            ${c.study_streak ? `<span class="pill pill-amber"><i data-lucide="flame"></i>${c.study_streak}d</span>` : ''}
+            <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();viewReport('${c.id}','${escHtml(c.name)}')">
+              <i data-lucide="bar-chart-2"></i> Report
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+    lucide.createIcons();
+  }
+
+  function selectChild(id) {
+    ACTIVE_CHILD_ID = id;
+    renderChildren();
+    const child = CHILDREN.find(c => c.id === id);
+    if (child) viewReport(id, child.name);
+  }
+
+  async function viewReport(studentId, name) {
+    ACTIVE_CHILD_ID = studentId;
+    // Enable report nav
+    const reportNav = document.getElementById('report-nav');
+    reportNav.style.pointerEvents = 'auto';
+    reportNav.style.opacity = '1';
+
+    showSection('report');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    reportNav.classList.add('active');
+
+    document.getElementById('report-child-title').innerHTML =
+      `<i data-lucide="bar-chart-2"></i> ${escHtml(name)}'s Weekly Report`;
+
+    const content = document.getElementById('report-content');
+    content.innerHTML = `<div class="empty-state"><div class="spinner"></div><p style="margin-top:1rem;">Loading report…</p></div>`;
+    lucide.createIcons();
+
+    try {
+      const r = await ExamEdgeAPI.getChildReport(studentId);
+      renderReport(r, name);
+    } catch(e) {
+      content.innerHTML = `<div class="empty-state"><i data-lucide="alert-circle"></i><p>Error: ${escHtml(e.message)}</p></div>`;
+      lucide.createIcons();
+    }
+  }
+
+  function refreshReport() {
+    if (!ACTIVE_CHILD_ID) { toast('Select a child first', 'error'); return; }
+    const child = CHILDREN.find(c => c.id === ACTIVE_CHILD_ID);
+    if (child) viewReport(ACTIVE_CHILD_ID, child.name);
+  }
+
+  function renderReport(r, name) {
+    const content = document.getElementById('report-content');
+    const week = r.week || {};
+    const readiness = r.readiness_score || 0;
+    const streak = r.study_streak || 0;
+    const inactive = r.inactive_alert;
+    const daysSince = r.days_since_study;
+    const weakness = r.weakness_summary || {};
+
+    // Build weakness bars
+    const weakTopics = [];
+    Object.entries(weakness).forEach(([sub, topics]) => {
+      Object.entries(topics || {}).forEach(([topic, data]) => {
+        if (data.attempts > 0) {
+          weakTopics.push({ label: `${sub} — ${topic}`, accuracy: data.accuracy || 0 });
+        }
+      });
+    });
+    weakTopics.sort((a, b) => a.accuracy - b.accuracy);
+    const topWeak = weakTopics.slice(0, 5);
+
+    const readinessColor = readiness >= 70 ? '#10b981' : readiness >= 40 ? '#f59e0b' : '#f43f5e';
+    const accuracyColor = week.accuracy >= 70 ? '#10b981' : week.accuracy >= 40 ? '#f59e0b' : '#f43f5e';
+
+    content.innerHTML = `
+      <!-- Alerts -->
+      ${inactive ? `
+        <div class="alert alert-rose" style="margin-bottom:1.25rem;">
+          <i data-lucide="alert-triangle"></i>
+          <div>
+            <strong>${escHtml(name)}</strong> has not studied in
+            ${daysSince !== null ? `<strong>${daysSince} day${daysSince !== 1 ? 's' : ''}</strong>` : 'several days'}.
+            Please encourage them to open ExamEdge today.
+          </div>
+        </div>
+      ` : `
+        <div class="alert alert-emerald" style="margin-bottom:1.25rem;">
+          <i data-lucide="check-circle"></i>
+          <div><strong>${escHtml(name)}</strong> is actively studying. Keep it up!</div>
+        </div>
+      `}
+
+      <!-- Key metrics -->
+      <div class="report-grid">
+        <div class="report-metric">
+          <div class="report-metric-value" style="color:${readinessColor};">${readiness}%</div>
+          <div class="report-metric-label">Exam Readiness</div>
+        </div>
+        <div class="report-metric">
+          <div class="report-metric-value">${week.questions_answered || 0}</div>
+          <div class="report-metric-label">Questions This Week</div>
+        </div>
+        <div class="report-metric">
+          <div class="report-metric-value" style="color:${accuracyColor};">${week.accuracy || 0}%</div>
+          <div class="report-metric-label">Weekly Accuracy</div>
+        </div>
+        <div class="report-metric">
+          <div class="report-metric-value" style="color:#fbbf24;">${streak}</div>
+          <div class="report-metric-label">Study Streak (days)</div>
+        </div>
+      </div>
+
+      <!-- Readiness gauge -->
+      <div style="background:rgba(10,8,20,0.4);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+          <span style="font-size:0.82rem;font-weight:700;color:var(--text);">Overall Exam Readiness</span>
+          <span style="font-size:0.9rem;font-weight:800;color:${readinessColor};">${readiness}%</span>
+        </div>
+        <div class="progress-track" style="height:12px;">
+          <div class="progress-fill" style="width:${readiness}%;background:${readinessColor};"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:0.4rem;">
+          <span style="font-size:0.68rem;color:var(--text-muted);">0% — Not Ready</span>
+          <span style="font-size:0.68rem;color:var(--emerald);">100% — Exam Ready</span>
+        </div>
+      </div>
+
+      <!-- Weak Areas -->
+      ${topWeak.length ? `
+        <div style="background:rgba(10,8,20,0.4);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
+          <div style="font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:1rem;display:flex;align-items:center;gap:6px;">
+            <i data-lucide="target" style="width:16px;height:16px;color:#f43f5e;"></i>
+            Areas Needing Revision
+          </div>
+          ${topWeak.map(t => {
+            const c = t.accuracy < 40 ? '#f43f5e' : t.accuracy < 60 ? '#f59e0b' : '#10b981';
+            return `<div class="weakness-bar">
+              <div class="weakness-subject" title="${escHtml(t.label)}">${escHtml(t.label)}</div>
+              <div class="weakness-track"><div class="weakness-fill" style="width:${t.accuracy}%;background:${c};"></div></div>
+              <div class="weakness-pct" style="color:${c};">${t.accuracy}%</div>
+            </div>`;
+          }).join('')}
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.75rem;">
+            Encourage ${escHtml(name)} to practice these topics in Study Mode.
+          </p>
+        </div>
+      ` : ''}
+
+      <!-- Recommendation box -->
+      <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:1rem;">
+        <div style="font-size:0.82rem;color:#6ee7b7;font-weight:600;display:flex;align-items:flex-start;gap:8px;">
+          <i data-lucide="lightbulb" style="width:16px;height:16px;flex-shrink:0;margin-top:1px;"></i>
+          <span>${getRecommendation(readiness, week.questions_answered || 0, inactive, name)}</span>
+        </div>
+      </div>
+    `;
+    lucide.createIcons();
+  }
+
+  function getRecommendation(readiness, questions, inactive, name) {
+    if (inactive) return `${escHtml(name)} has been inactive. Remind them to study at least 20 questions daily — consistency beats cramming every time.`;
+    if (readiness < 40) return `Readiness is low. ${escHtml(name)} should focus on weak topics in Study Mode and aim for 30+ questions per day.`;
+    if (readiness < 70) return `${escHtml(name)} is making progress! Encourage mock exam practice to boost confidence before the real exam.`;
+    return `Excellent progress! ${escHtml(name)} is exam-ready. Keep the momentum with daily practice and mock exams.`;
+  }
+
+  /* ═══════════════════════════════════════
+     STATS UPDATE
+  ═══════════════════════════════════════ */
+  function updateStats() {
+    document.getElementById('stat-children').textContent = CHILDREN.length;
+    if (!CHILDREN.length) return;
+    const avgR = Math.round(CHILDREN.reduce((s, c) => s + (c.readiness_score || 0), 0) / CHILDREN.length);
+    document.getElementById('stat-readiness').textContent = avgR + '%';
+    const maxStreak = Math.max(...CHILDREN.map(c => c.study_streak || 0));
+    document.getElementById('stat-streak').textContent = maxStreak + 'd';
+    // inactive = no last_active or > 3 days ago
+    const alerts = CHILDREN.filter(c => {
+      if (!c.last_active_date) return true;
+      const days = (Date.now() - new Date(c.last_active_date)) / 86400000;
+      return days >= 3;
+    }).length;
+    document.getElementById('stat-alerts').textContent = alerts;
+  }
+
+  /* ═══════════════════════════════════════
+     LINK CHILD
+  ═══════════════════════════════════════ */
+  function openLinkModal() { openModal('modal-link'); document.getElementById('modal-link-code').value = ''; }
+
+  async function linkChildModal() {
+    const code = document.getElementById('modal-link-code').value.trim().toUpperCase();
+    if (!code) { toast('Enter a link code', 'error'); return; }
+    try {
+      await ExamEdgeAPI.linkChild(code);
+      closeModal('modal-link');
+      toast('Child linked successfully!', 'success');
+      await loadChildren();
+    } catch(e) {
+      toast('Error: ' + (e.message || 'Invalid code'), 'error');
+    }
+  }
+
+  async function linkChild() {
+    const code = document.getElementById('link-code-input').value.trim().toUpperCase();
+    if (!code) { toast('Enter a link code', 'error'); return; }
+    try {
+      await ExamEdgeAPI.linkChild(code);
+      toast('Child linked!', 'success');
+      document.getElementById('link-code-input').value = '';
+      await loadChildren();
+      showSection('children');
+    } catch(e) {
+      toast('Error: ' + (e.message || 'Invalid code'), 'error');
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     MODAL HELPERS
+  ═══════════════════════════════════════ */
+  function openModal(id) { document.getElementById(id).classList.add('open'); lucide.createIcons(); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
+  });
+
+  /* ═══════════════════════════════════════
+     TOAST
+  ═══════════════════════════════════════ */
+  let toastTimer = null;
+  function toast(msg, type = 'info') {
+    const el = document.getElementById('toast');
+    const icon = document.getElementById('toast-icon');
+    const icons = { success: 'check-circle', error: 'x-circle', info: 'info', warning: 'alert-triangle' };
+    const colors = { success: '#10b981', error: '#f43f5e', info: '#6366f1', warning: '#f59e0b' };
+    icon.setAttribute('data-lucide', icons[type] || 'info');
+    icon.style.color = colors[type] || '#6366f1';
+    document.getElementById('toast-msg').textContent = msg;
+    el.classList.add('show');
+    lucide.createIcons();
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
+  }
+
+  /* ═══════════════════════════════════════
+     UTILS
+  ═══════════════════════════════════════ */
+  function escHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+</script>
 </body>
 </html>

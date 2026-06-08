@@ -1,98 +1,1387 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <script>
     const user = JSON.parse(localStorage.getItem('examedge_user') || 'null');
     if (!user || user.role !== 'teacher') {
-      const redirectMap = {
-        student: 'index.html', admin: 'admin.html',
-        parent: 'parent.html'
-      };
+      const redirectMap = { student: 'index.html', admin: 'admin.html', parent: 'parent.html' };
       window.location.replace(redirectMap[user?.role] || 'index.html');
     }
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ExamEdge — Teacher Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="ExamEdge Teacher Dashboard — Manage classes, assignments, analytics, and at-risk students.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="index.css">
-</head>
-<body class="bg-[#0a0814] text-white min-h-screen p-6">
-  <div class="max-w-4xl mx-auto">
-    <a href="index.html" class="text-indigo-400 text-sm">← Back to student app</a>
-    <h1 class="text-3xl font-black mt-4 mb-2">👩‍🏫 Teacher Dashboard</h1>
-    <p class="text-gray-400 text-sm mb-8">Class management, assignments, and at-risk student alerts (Phase 3)</p>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <div id="auth-block" class="glass-panel p-6 rounded-2xl border border-indigo-500/20 mb-6">
-      <h2 class="font-bold mb-4">Teacher login (phone OTP)</h2>
-      <input id="phone" placeholder="8031234567" class="w-full mb-2 bg-indigo-950/40 border border-indigo-900/60 rounded-xl px-4 py-2">
-      <input id="otp" placeholder="OTP code" class="w-full mb-2 bg-indigo-950/40 border border-indigo-900/60 rounded-xl px-4 py-2">
-      <button onclick="teacherSendOtp()" class="w-full bg-indigo-600 py-2 rounded-xl font-bold mb-2">Send OTP</button>
-      <button onclick="teacherLogin()" class="w-full bg-violet-600 py-2 rounded-xl font-bold">Login as Teacher</button>
-      <p id="dev-otp" class="text-xs text-amber-400 mt-2"></p>
+    :root {
+      --bg: #07060f;
+      --surface: rgba(18, 15, 38, 0.85);
+      --surface2: rgba(22, 18, 50, 0.75);
+      --border: rgba(99, 102, 241, 0.18);
+      --border-active: rgba(99, 102, 241, 0.55);
+      --indigo: #6366f1;
+      --violet: #8b5cf6;
+      --emerald: #10b981;
+      --rose: #f43f5e;
+      --amber: #f59e0b;
+      --text: #f1f0f7;
+      --text-muted: #8b88a8;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 10%, rgba(99,102,241,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(139,92,246,0.07) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* LAYOUT */
+    .layout { display: flex; min-height: 100vh; position: relative; z-index: 1; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      background: rgba(12, 10, 28, 0.92);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 2rem;
+      padding: 0 0.5rem;
+    }
+
+    .brand-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(139,92,246,0.25));
+      border: 1px solid rgba(99,102,241,0.4);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .brand-text {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 1.25rem;
+      background: linear-gradient(135deg, #a5b4fc, #c4b5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-role {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    .nav-section-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      padding: 0 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.7rem 0.75rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: all 0.2s;
+      margin-bottom: 2px;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: rgba(99,102,241,0.08);
+      color: #fff;
+      border-color: rgba(99,102,241,0.15);
+    }
+
+    .nav-item.active {
+      background: rgba(99,102,241,0.15);
+      color: #a5b4fc;
+      border-color: rgba(99,102,241,0.3);
+      font-weight: 600;
+    }
+
+    .nav-item i { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .user-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.75rem;
+      border-radius: 10px;
+      background: rgba(99,102,241,0.06);
+      border: 1px solid var(--border);
+    }
+
+    .user-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .user-name { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+    .user-role { font-size: 0.68rem; color: var(--text-muted); text-transform: capitalize; }
+
+    /* MAIN CONTENT */
+    .main-content {
+      flex: 1;
+      padding: 2rem 2rem;
+      overflow-y: auto;
+      min-width: 0;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .page-title { font-size: 1.75rem; font-weight: 900; color: #fff; }
+    .page-subtitle { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    /* STATS GRID */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.4rem;
+      transition: all 0.25s;
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-active);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(99,102,241,0.12);
+    }
+
+    .stat-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .stat-icon i { width: 18px; height: 18px; }
+    .stat-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; }
+    .stat-value { font-size: 2rem; font-weight: 800; color: #fff; margin: 0.3rem 0; font-family: 'Outfit', sans-serif; }
+    .stat-delta { font-size: 0.75rem; font-weight: 600; }
+    .delta-up { color: var(--emerald); }
+    .delta-down { color: var(--rose); }
+    .delta-neutral { color: var(--text-muted); }
+
+    /* SECTION PANELS */
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* CARD */
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title i { width: 18px; height: 18px; color: #a5b4fc; }
+
+    /* BUTTONS */
+    .btn {
+      padding: 0.65rem 1.1rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn i { width: 14px; height: 14px; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(99,102,241,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(99,102,241,0.4); }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid var(--border);
+      color: #a5b4fc;
+    }
+    .btn-secondary:hover { background: rgba(99,102,241,0.1); border-color: var(--indigo); color: #fff; }
+
+    .btn-danger {
+      background: rgba(244,63,94,0.1);
+      border: 1.5px solid rgba(244,63,94,0.25);
+      color: #fca5a5;
+    }
+    .btn-danger:hover { background: rgba(244,63,94,0.2); }
+
+    .btn-emerald {
+      background: rgba(16,185,129,0.12);
+      border: 1.5px solid rgba(16,185,129,0.3);
+      color: #6ee7b7;
+    }
+    .btn-emerald:hover { background: rgba(16,185,129,0.22); }
+
+    .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
+
+    /* FORM */
+    .form-group { margin-bottom: 1rem; }
+    .form-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.4rem;
+    }
+    .form-input {
+      width: 100%;
+      background: rgba(10,8,20,0.5);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 0.7rem 0.9rem;
+      color: var(--text);
+      font-size: 0.875rem;
+      outline: none;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .form-input:focus { border-color: var(--indigo); box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); background: rgba(10,8,20,0.3); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .data-table th {
+      background: rgba(22,18,50,0.6);
+      padding: 0.9rem 1rem;
+      font-weight: 700;
+      color: #a5b4fc;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    .data-table td {
+      padding: 0.9rem 1rem;
+      color: #c4c2dc;
+      border-bottom: 1px solid rgba(99,102,241,0.07);
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(99,102,241,0.04); color: #fff; }
+
+    /* BADGES */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .pill-rose { background: rgba(244,63,94,0.12); color: #fca5a5; border: 1px solid rgba(244,63,94,0.25); }
+    .pill-emerald { background: rgba(16,185,129,0.12); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.25); }
+    .pill-amber { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+    .pill-indigo { background: rgba(99,102,241,0.12); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.25); }
+    .pill i { width: 10px; height: 10px; }
+
+    /* PROGRESS BAR */
+    .progress-bar-track {
+      height: 6px;
+      background: rgba(99,102,241,0.12);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.6s ease;
+    }
+
+    /* CLASS CARDS */
+    .class-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+
+    .class-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .class-card:hover {
+      border-color: var(--border-active);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(99,102,241,0.12);
+    }
+    .class-card.selected { border-color: var(--indigo); background: rgba(99,102,241,0.08); }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      background: rgba(15,12,35,0.98);
+      border: 1px solid var(--border-active);
+      border-radius: 20px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 480px;
+      transform: translateY(20px);
+      transition: transform 0.25s;
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-title { font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
+    .modal-title i { width: 18px; height: 18px; color: #a5b4fc; }
+
+    /* AT RISK CARDS */
+    .risk-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 14px;
+      background: rgba(244,63,94,0.06);
+      border: 1px solid rgba(244,63,94,0.2);
+      margin-bottom: 0.75rem;
+      transition: all 0.2s;
+    }
+    .risk-card:hover { background: rgba(244,63,94,0.1); }
+
+    /* ANALYTICS CHART */
+    .bar-chart { display: flex; flex-direction: column; gap: 12px; }
+    .bar-row { display: flex; align-items: center; gap: 12px; }
+    .bar-label { width: 200px; font-size: 0.78rem; color: var(--text-muted); flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .bar-track { flex: 1; height: 8px; background: rgba(99,102,241,0.1); border-radius: 99px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 99px; transition: width 0.8s ease; }
+    .bar-pct { width: 40px; font-size: 0.78rem; font-weight: 700; text-align: right; }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: rgba(18,15,38,0.97);
+      border: 1px solid var(--border-active);
+      border-radius: 12px;
+      padding: 0.85rem 1.25rem;
+      font-size: 0.85rem;
+      color: #fff;
+      z-index: 999;
+      transform: translateY(100px);
+      transition: transform 0.3s ease;
+      max-width: 320px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .toast.show { transform: translateY(0); }
+    .toast i { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+    }
+    .empty-state i { width: 40px; height: 40px; margin: 0 auto 1rem; opacity: 0.35; display: block; }
+    .empty-state p { font-size: 0.85rem; }
+
+    /* LOADING SPINNER */
+    .spinner {
+      width: 24px; height: 24px;
+      border: 3px solid rgba(99,102,241,0.15);
+      border-top-color: var(--indigo);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* SEPARATOR */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main-content { padding: 1.25rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-row { grid-template-columns: 1fr; }
+      .bar-label { width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <i data-lucide="graduation-cap" style="width:20px;height:20px;color:#a5b4fc"></i>
+      </div>
+      <div>
+        <div class="brand-text">ExamEdge</div>
+        <div class="brand-role">Teacher Portal</div>
+      </div>
     </div>
 
-    <div id="dashboard" class="hidden space-y-6">
-      <div class="flex gap-3">
-        <button onclick="loadClasses()" class="bg-indigo-600 px-4 py-2 rounded-xl text-sm font-bold">Refresh Classes</button>
-        <button onclick="createDemoClass()" class="bg-emerald-600 px-4 py-2 rounded-xl text-sm font-bold">+ Demo Class</button>
+    <div class="nav-section-title">Menu</div>
+    <a class="nav-item active" onclick="showSection('classes')" href="#">
+      <i data-lucide="layout-grid"></i> My Classes
+    </a>
+    <a class="nav-item" onclick="showSection('assignments')" href="#">
+      <i data-lucide="clipboard-list"></i> Assignments
+    </a>
+    <a class="nav-item" onclick="showSection('analytics')" href="#">
+      <i data-lucide="bar-chart-2"></i> Analytics
+    </a>
+    <a class="nav-item" onclick="showSection('atrisk')" href="#">
+      <i data-lucide="alert-triangle"></i> At-Risk Students
+    </a>
+
+    <hr class="divider">
+    <div class="nav-section-title">Quick Links</div>
+    <a class="nav-item" href="index.html">
+      <i data-lucide="arrow-left"></i> Student App
+    </a>
+    <a class="nav-item" href="admin.html">
+      <i data-lucide="shield"></i> Admin Panel
+    </a>
+
+    <div class="sidebar-footer">
+      <div class="user-card">
+        <div class="user-avatar" id="sidebar-avatar">T</div>
+        <div>
+          <div class="user-name" id="sidebar-name">Teacher</div>
+          <div class="user-role">Teacher</div>
+        </div>
       </div>
-      <div id="classes-list"></div>
-      <div id="students-panel" class="glass-panel p-6 rounded-2xl border border-indigo-500/10 hidden">
-        <h3 class="font-bold mb-4">Class students</h3>
-        <div id="students-list"></div>
+      <button onclick="logout()" class="btn btn-secondary" style="width:100%;margin-top:0.75rem;justify-content:center;">
+        <i data-lucide="log-out"></i> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- AUTH WALL -->
+    <div id="auth-wall">
+      <div style="max-width:440px;margin:4rem auto;">
+        <div class="card" style="text-align:center;">
+          <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,rgba(99,102,241,0.25),rgba(139,92,246,0.25));border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
+            <i data-lucide="lock" style="width:24px;height:24px;color:#a5b4fc"></i>
+          </div>
+          <h2 style="font-size:1.4rem;font-weight:900;margin-bottom:0.4rem;">Teacher Login</h2>
+          <p style="color:var(--text-muted);font-size:0.82rem;margin-bottom:1.75rem;">Enter your registered phone number to receive an OTP</p>
+
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input id="auth-phone" class="form-input" placeholder="08031234567" type="tel">
+          </div>
+          <div class="form-group" id="otp-group" style="display:none;">
+            <label class="form-label">OTP Code</label>
+            <input id="auth-otp" class="form-input" placeholder="Enter code" type="text" maxlength="6">
+            <p id="dev-code-hint" style="font-size:0.72rem;color:var(--amber);margin-top:0.4rem;"></p>
+          </div>
+
+          <button id="auth-btn" onclick="handleAuth()" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.85rem;">
+            <i data-lucide="send"></i> Send OTP
+          </button>
+          <button id="back-btn" onclick="backToPhone()" style="display:none;" class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:0.5rem;">
+            Change number
+          </button>
+        </div>
       </div>
+    </div>
+
+    <!-- DASHBOARD (hidden until logged in) -->
+    <div id="dashboard" style="display:none;">
+
+      <!-- Page header -->
+      <div class="page-header">
+        <div>
+          <h1 class="page-title" id="welcome-title">Teacher Dashboard</h1>
+          <p class="page-subtitle" id="welcome-sub">Manage your classes, assignments, and student performance</p>
+        </div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="openCreateClassModal()">
+            <i data-lucide="plus"></i> New Class
+          </button>
+          <button class="btn btn-secondary" onclick="refreshAll()">
+            <i data-lucide="refresh-cw"></i> Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.25);">
+            <i data-lucide="layers" style="color:#a5b4fc;"></i>
+          </div>
+          <div class="stat-label">Total Classes</div>
+          <div class="stat-value" id="stat-classes">—</div>
+          <div class="stat-delta delta-neutral">Active this term</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);">
+            <i data-lucide="users" style="color:#6ee7b7;"></i>
+          </div>
+          <div class="stat-label">Total Students</div>
+          <div class="stat-value" id="stat-students">—</div>
+          <div class="stat-delta delta-up" id="stat-students-sub">Across all classes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);">
+            <i data-lucide="clipboard-check" style="color:#fbbf24;"></i>
+          </div>
+          <div class="stat-label">Assignments</div>
+          <div class="stat-value" id="stat-assignments">—</div>
+          <div class="stat-delta delta-neutral">Created total</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.25);">
+            <i data-lucide="alert-circle" style="color:#fca5a5;"></i>
+          </div>
+          <div class="stat-label">At-Risk Students</div>
+          <div class="stat-value" id="stat-atrisk">—</div>
+          <div class="stat-delta delta-down">Need attention</div>
+        </div>
+      </div>
+
+      <!-- ═══════ SECTION: CLASSES ═══════ -->
+      <div class="section active" id="section-classes">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="layout-grid"></i> My Classes
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="openCreateClassModal()">
+              <i data-lucide="plus"></i> New Class
+            </button>
+          </div>
+          <div class="class-grid" id="classes-grid">
+            <div class="empty-state">
+              <div class="spinner"></div>
+              <p style="margin-top:1rem;">Loading classes…</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Students panel (shown on class click) -->
+        <div class="card" id="students-panel" style="display:none;">
+          <div class="card-header">
+            <div class="card-title" id="students-panel-title">
+              <i data-lucide="users"></i> Students
+            </div>
+            <div style="display:flex;gap:0.5rem;">
+              <button class="btn btn-secondary btn-sm" onclick="openAssignmentModal()">
+                <i data-lucide="clipboard-list"></i> New Assignment
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="viewClassAnalytics()">
+                <i data-lucide="bar-chart-2"></i> Analytics
+              </button>
+              <button class="btn btn-sm" onclick="closeStudentsPanel()" style="background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text-muted);">
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Class</th>
+                  <th>Readiness</th>
+                  <th>Streak</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="students-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ SECTION: ASSIGNMENTS ═══════ -->
+      <div class="section" id="section-assignments">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="clipboard-list"></i> Assignments
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="openAssignmentModal()">
+              <i data-lucide="plus"></i> New Assignment
+            </button>
+          </div>
+          <div id="assignments-list">
+            <div class="empty-state">
+              <i data-lucide="clipboard-list"></i>
+              <p>No assignments created yet. Create one above.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ SECTION: ANALYTICS ═══════ -->
+      <div class="section" id="section-analytics">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="bar-chart-2"></i> Class Analytics
+            </div>
+            <select class="form-input" id="analytics-class-select" style="width:auto;" onchange="loadAnalyticsForClass()">
+              <option value="">Select a class…</option>
+            </select>
+          </div>
+          <div id="analytics-content">
+            <div class="empty-state">
+              <i data-lucide="bar-chart-2"></i>
+              <p>Select a class above to view topic performance data</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ SECTION: AT-RISK ═══════ -->
+      <div class="section" id="section-atrisk">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <i data-lucide="alert-triangle"></i> At-Risk Students
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="loadAtRiskStudents()">
+              <i data-lucide="refresh-cw"></i> Refresh
+            </button>
+          </div>
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.25rem;">
+            Students with readiness score below 40% and inactive for 5+ days.
+          </p>
+          <div id="atrisk-list">
+            <div class="empty-state">
+              <div class="spinner"></div>
+              <p style="margin-top:1rem;">Scanning all classes…</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /dashboard -->
+  </main>
+</div>
+
+<!-- ═══════════ MODALS ═══════════ -->
+
+<!-- Create Class Modal -->
+<div class="modal-overlay" id="modal-create-class">
+  <div class="modal-box">
+    <div class="modal-title">
+      <i data-lucide="plus-circle"></i> Create New Class
+    </div>
+    <div class="form-group">
+      <label class="form-label">Class Name</label>
+      <input class="form-input" id="cls-name" placeholder="e.g. SS3 Science A">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Level</label>
+        <select class="form-input" id="cls-level">
+          <option>SS1</option><option>SS2</option><option selected>SS3</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Subject</label>
+        <select class="form-input" id="cls-subject">
+          <option>Mathematics</option>
+          <option>English Language</option>
+          <option>Biology</option>
+          <option>Chemistry</option>
+          <option>Physics</option>
+          <option>Economics</option>
+          <option>Government</option>
+          <option>Literature</option>
+          <option>Geography</option>
+          <option>All Subjects</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex;gap:0.75rem;margin-top:0.5rem;">
+      <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="createClass()">
+        <i data-lucide="check"></i> Create Class
+      </button>
+      <button class="btn btn-secondary" style="flex:1;justify-content:center;" onclick="closeModal('modal-create-class')">
+        Cancel
+      </button>
     </div>
   </div>
-  <script src="examedge-config.js"></script>
-  <script src="examedge-api.js"></script>
-  <script>
-    let pendingPhone = "";
-    async function teacherSendOtp() {
-      pendingPhone = document.getElementById("phone").value;
-      const res = await ExamEdgeAPI.sendOtp(pendingPhone);
-      document.getElementById("dev-otp").textContent = res.devCode ? `Dev OTP: ${res.devCode}` : "OTP sent";
+</div>
+
+<!-- Create Assignment Modal -->
+<div class="modal-overlay" id="modal-create-assignment">
+  <div class="modal-box">
+    <div class="modal-title">
+      <i data-lucide="clipboard-list"></i> New Assignment
+    </div>
+    <div class="form-group">
+      <label class="form-label">Title</label>
+      <input class="form-input" id="asgn-title" placeholder="e.g. Genetics Mock Quiz">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Class</label>
+      <select class="form-input" id="asgn-class-select"></select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Due Date</label>
+      <input class="form-input" id="asgn-due" type="date">
+    </div>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:1rem;">
+      Note: Question IDs will be auto-selected from the question bank for this class's subject.
+    </p>
+    <div style="display:flex;gap:0.75rem;">
+      <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="createAssignment()">
+        <i data-lucide="check"></i> Create
+      </button>
+      <button class="btn btn-secondary" style="flex:1;justify-content:center;" onclick="closeModal('modal-create-assignment')">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <i data-lucide="info" id="toast-icon"></i>
+  <span id="toast-msg"></span>
+</div>
+
+<script src="examedge-config.js"></script>
+<script src="examedge-api.js"></script>
+<script>
+  /* ══════════════════════════════════════════════
+     STATE
+  ══════════════════════════════════════════════ */
+  let TOKEN = null;
+  let CLASSES = [];
+  let SELECTED_CLASS_ID = null;
+  let AUTH_STEP = 'phone'; // 'phone' | 'otp'
+  let PENDING_PHONE = '';
+  let DEV_CODE = '';
+
+  /* ══════════════════════════════════════════════
+     INIT
+  ══════════════════════════════════════════════ */
+  document.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+
+    const stored = JSON.parse(localStorage.getItem('examedge_user') || 'null');
+    const storedToken = localStorage.getItem('examedge_token');
+
+    if (stored && stored.role === 'teacher' && storedToken) {
+      TOKEN = storedToken;
+      ExamEdgeAPI.setToken(TOKEN);
+      showDashboard(stored);
     }
-    async function teacherLogin() {
-      const code = document.getElementById("otp").value;
-      const res = await ExamEdgeAPI.verifyOtp(pendingPhone, code, {
-        name: "Demo Teacher",
-        role: "teacher",
-        subjects: ["Mathematics", "Biology"],
-      });
-      ExamEdgeAPI.setToken(res.token);
-      document.getElementById("auth-block").classList.add("hidden");
-      document.getElementById("dashboard").classList.remove("hidden");
-      loadClasses();
+    // else auth wall already shown
+  });
+
+  /* ══════════════════════════════════════════════
+     AUTH
+  ══════════════════════════════════════════════ */
+  async function handleAuth() {
+    const btn = document.getElementById('auth-btn');
+    if (AUTH_STEP === 'phone') {
+      PENDING_PHONE = document.getElementById('auth-phone').value.trim();
+      if (!PENDING_PHONE) { toast('Enter your phone number', 'error'); return; }
+      btn.innerHTML = '<span class="spinner"></span>';
+      btn.disabled = true;
+      try {
+        const res = await ExamEdgeAPI.sendOtp(PENDING_PHONE);
+        DEV_CODE = res.devCode || '';
+        if (DEV_CODE) {
+          document.getElementById('dev-code-hint').textContent = `Dev OTP: ${DEV_CODE}`;
+          document.getElementById('auth-otp').value = DEV_CODE; // auto-fill in dev
+        }
+        document.getElementById('otp-group').style.display = 'block';
+        document.getElementById('back-btn').style.display = 'block';
+        AUTH_STEP = 'otp';
+        btn.innerHTML = '<i data-lucide="check-circle"></i> Verify OTP';
+        lucide.createIcons();
+      } catch(e) {
+        toast('Failed to send OTP: ' + e.message, 'error');
+      }
+      btn.disabled = false;
+    } else {
+      const code = document.getElementById('auth-otp').value.trim();
+      if (!code) { toast('Enter the OTP code', 'error'); return; }
+      btn.innerHTML = '<span class="spinner"></span>';
+      btn.disabled = true;
+      try {
+        const res = await ExamEdgeAPI.verifyOtp(PENDING_PHONE, code, {
+          name: 'Teacher', role: 'teacher', subjects: []
+        });
+        TOKEN = res.token;
+        ExamEdgeAPI.setToken(TOKEN);
+        localStorage.setItem('examedge_token', TOKEN);
+        const u = res.user;
+        const userObj = { id: u.id, name: u.name, phone: u.phone, role: u.role };
+        localStorage.setItem('examedge_user', JSON.stringify(userObj));
+        showDashboard(u);
+      } catch(e) {
+        toast('Login failed: ' + e.message, 'error');
+        btn.disabled = false;
+        btn.innerHTML = '<i data-lucide="check-circle"></i> Verify OTP';
+        lucide.createIcons();
+      }
     }
-    async function loadClasses() {
+  }
+
+  function backToPhone() {
+    AUTH_STEP = 'phone';
+    document.getElementById('otp-group').style.display = 'none';
+    document.getElementById('back-btn').style.display = 'none';
+    document.getElementById('auth-btn').innerHTML = '<i data-lucide="send"></i> Send OTP';
+    lucide.createIcons();
+  }
+
+  function logout() {
+    localStorage.removeItem('examedge_token');
+    localStorage.removeItem('examedge_user');
+    window.location.reload();
+  }
+
+  /* ══════════════════════════════════════════════
+     DASHBOARD INIT
+  ══════════════════════════════════════════════ */
+  function showDashboard(user) {
+    document.getElementById('auth-wall').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+
+    const name = user.name || 'Teacher';
+    document.getElementById('welcome-title').textContent = `Welcome back, ${name.split(' ')[0]}`;
+    document.getElementById('sidebar-name').textContent = name;
+    document.getElementById('sidebar-avatar').textContent = name[0].toUpperCase();
+
+    refreshAll();
+  }
+
+  async function refreshAll() {
+    await loadClasses();
+    loadAtRiskStudents();
+    updateStats();
+  }
+
+  /* ══════════════════════════════════════════════
+     NAVIGATION
+  ══════════════════════════════════════════════ */
+  function showSection(name) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('section-' + name).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    lucide.createIcons();
+
+    if (name === 'analytics') populateAnalyticsSelect();
+    if (name === 'atrisk') loadAtRiskStudents();
+  }
+
+  /* ══════════════════════════════════════════════
+     CLASSES
+  ══════════════════════════════════════════════ */
+  async function loadClasses() {
+    try {
       const data = await ExamEdgeAPI.getClasses();
-      document.getElementById("classes-list").innerHTML = (data.classes || [])
-        .map(c => `<div class="glass-panel p-4 rounded-xl mb-2 border border-indigo-500/10">
-          <b>${c.name}</b> — ${c.subject || "All"}
-          <button onclick="viewStudents('${c.id}')" class="ml-3 text-indigo-400 text-xs">View students →</button>
-        </div>`).join("") || "<p class='text-gray-500'>No classes yet.</p>";
-    }
-    async function createDemoClass() {
-      await ExamEdgeAPI.createClass({
-        name: "SS3 Science A",
-        ss_level: "SS3",
-        subject: "Biology",
-        student_ids: [],
-      });
-      loadClasses();
-    }
-    async function viewStudents(classId) {
-      const data = await ExamEdgeAPI.getClassStudents(classId);
-      document.getElementById("students-panel").classList.remove("hidden");
-      document.getElementById("students-list").innerHTML = (data.students || [])
-        .map(s => `<div class="py-2 border-b border-indigo-900/30 text-sm flex items-center gap-2">
-          ${s.name} — Readiness: ${s.readiness_score || 0}%
-          ${s.at_risk ? '<span class="text-rose-400 ml-2 flex items-center gap-1"><i data-lucide="alert-triangle" style="width:13px;height:13px"></i> At risk</span>' : ''}
-        </div>`).join("") || "<p>No students in class.</p>";
+      CLASSES = data.classes || [];
+      renderClasses();
+      populateAnalyticsSelect();
+      // populate assignment class select
+      const sel = document.getElementById('asgn-class-select');
+      sel.innerHTML = CLASSES.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+    } catch(e) {
+      document.getElementById('classes-grid').innerHTML = `<div class="empty-state"><i data-lucide="alert-circle"></i><p>Failed to load classes: ${e.message}</p></div>`;
       lucide.createIcons();
     }
-  </script>
+  }
+
+  function renderClasses() {
+    const grid = document.getElementById('classes-grid');
+    if (!CLASSES.length) {
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">
+        <i data-lucide="layers"></i>
+        <p>No classes yet. Click <b>+ New Class</b> to get started.</p>
+      </div>`;
+      lucide.createIcons();
+      return;
+    }
+    grid.innerHTML = CLASSES.map(c => `
+      <div class="class-card ${SELECTED_CLASS_ID === c.id ? 'selected' : ''}" onclick="selectClass('${c.id}','${escHtml(c.name)}')">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;">
+          <div class="pill pill-indigo">${escHtml(c.ss_level || 'SS')}</div>
+          <div class="pill pill-emerald">${escHtml(c.subject || 'All')}</div>
+        </div>
+        <div style="font-size:1rem;font-weight:800;color:#fff;margin-bottom:0.3rem;">${escHtml(c.name)}</div>
+        <div style="font-size:0.75rem;color:var(--text-muted);">
+          ${(c.student_ids || []).length} student${(c.student_ids || []).length !== 1 ? 's' : ''} enrolled
+        </div>
+        <div style="margin-top:1rem;display:flex;gap:0.5rem;">
+          <button class="btn btn-sm btn-secondary" onclick="event.stopPropagation();viewStudents('${c.id}','${escHtml(c.name)}')">
+            <i data-lucide="users"></i> Students
+          </button>
+        </div>
+      </div>
+    `).join('');
+    lucide.createIcons();
+  }
+
+  async function selectClass(classId, name) {
+    SELECTED_CLASS_ID = classId;
+    renderClasses();
+    await viewStudents(classId, name);
+  }
+
+  async function viewStudents(classId, name) {
+    SELECTED_CLASS_ID = classId;
+    const panel = document.getElementById('students-panel');
+    const tbody = document.getElementById('students-tbody');
+    document.getElementById('students-panel-title').innerHTML = `<i data-lucide="users"></i> ${escHtml(name)} — Students`;
+    panel.style.display = 'block';
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:2rem;"><span class="spinner"></span></td></tr>`;
+    lucide.createIcons();
+
+    try {
+      const data = await ExamEdgeAPI.getClassStudents(classId);
+      const students = data.students || [];
+      if (!students.length) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:2rem;">No students in this class yet</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = students.map(s => {
+        const r = s.readiness_score || 0;
+        const barColor = r >= 70 ? '#10b981' : r >= 40 ? '#f59e0b' : '#f43f5e';
+        return `<tr>
+          <td><div style="font-weight:600;color:#fff;">${escHtml(s.name || '—')}</div>
+              <div style="font-size:0.72rem;color:var(--text-muted);">${s.phone || ''}</div></td>
+          <td><span class="pill pill-indigo">${escHtml(s.ss_class || '—')}</span></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="progress-bar-track" style="width:80px;">
+                <div class="progress-bar-fill" style="width:${r}%;background:${barColor};"></div>
+              </div>
+              <span style="font-size:0.8rem;font-weight:700;color:${barColor};">${r}%</span>
+            </div>
+          </td>
+          <td><span style="font-size:0.8rem;color:var(--text-muted);">${s.study_streak || 0} days</span></td>
+          <td>${s.at_risk
+            ? `<span class="pill pill-rose"><i data-lucide="alert-triangle"></i> At Risk</span>`
+            : `<span class="pill pill-emerald"><i data-lucide="check"></i> On Track</span>`
+          }</td>
+        </tr>`;
+      }).join('');
+      lucide.createIcons();
+
+      // Update stats
+      const atRiskCount = students.filter(s => s.at_risk).length;
+      document.getElementById('stat-atrisk').textContent = atRiskCount;
+    } catch(e) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--rose);padding:1.5rem;">${e.message}</td></tr>`;
+    }
+  }
+
+  function closeStudentsPanel() {
+    document.getElementById('students-panel').style.display = 'none';
+    SELECTED_CLASS_ID = null;
+    renderClasses();
+  }
+
+  /* ══════════════════════════════════════════════
+     CREATE CLASS MODAL
+  ══════════════════════════════════════════════ */
+  function openCreateClassModal() {
+    openModal('modal-create-class');
+    document.getElementById('cls-name').value = '';
+  }
+
+  async function createClass() {
+    const name = document.getElementById('cls-name').value.trim();
+    const level = document.getElementById('cls-level').value;
+    const subject = document.getElementById('cls-subject').value;
+    if (!name) { toast('Enter a class name', 'error'); return; }
+
+    try {
+      await ExamEdgeAPI.createClass({ name, ss_level: level, subject, student_ids: [] });
+      closeModal('modal-create-class');
+      toast(`Class "${name}" created!`, 'success');
+      await loadClasses();
+      updateStats();
+    } catch(e) {
+      toast('Error: ' + e.message, 'error');
+    }
+  }
+
+  /* ══════════════════════════════════════════════
+     ASSIGNMENTS
+  ══════════════════════════════════════════════ */
+  function openAssignmentModal() {
+    // Set default due date to 7 days from now
+    const d = new Date();
+    d.setDate(d.getDate() + 7);
+    document.getElementById('asgn-due').value = d.toISOString().split('T')[0];
+    document.getElementById('asgn-title').value = '';
+    if (SELECTED_CLASS_ID) {
+      const sel = document.getElementById('asgn-class-select');
+      sel.value = SELECTED_CLASS_ID;
+    }
+    openModal('modal-create-assignment');
+  }
+
+  async function createAssignment() {
+    const title = document.getElementById('asgn-title').value.trim();
+    const classId = document.getElementById('asgn-class-select').value;
+    const due = document.getElementById('asgn-due').value;
+    if (!title || !classId) { toast('Enter title and select a class', 'error'); return; }
+
+    try {
+      await ExamEdgeAPI.createAssignment({
+        title,
+        class_id: classId,
+        question_ids: [],
+        due_date: due || null
+      });
+      closeModal('modal-create-assignment');
+      toast(`Assignment "${title}" created!`, 'success');
+      document.getElementById('stat-assignments').textContent =
+        (parseInt(document.getElementById('stat-assignments').textContent) || 0) + 1;
+      renderAssignmentCreated(title, classId, due);
+    } catch(e) {
+      toast('Error: ' + e.message, 'error');
+    }
+  }
+
+  function renderAssignmentCreated(title, classId, due) {
+    const cls = CLASSES.find(c => c.id === classId);
+    const list = document.getElementById('assignments-list');
+    const existing = list.querySelector('.empty-state');
+    if (existing) existing.remove();
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.marginBottom = '0.75rem';
+    card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+        <div>
+          <div style="font-weight:700;color:#fff;">${escHtml(title)}</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);">Class: ${cls ? escHtml(cls.name) : classId}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          ${due ? `<span style="font-size:0.75rem;color:var(--amber);">Due: ${due}</span>` : ''}
+          <span class="pill pill-indigo">Active</span>
+        </div>
+      </div>
+    `;
+    list.insertBefore(card, list.firstChild);
+    lucide.createIcons();
+  }
+
+  /* ══════════════════════════════════════════════
+     ANALYTICS
+  ══════════════════════════════════════════════ */
+  function populateAnalyticsSelect() {
+    const sel = document.getElementById('analytics-class-select');
+    const val = sel.value;
+    sel.innerHTML = '<option value="">Select a class…</option>' +
+      CLASSES.map(c => `<option value="${c.id}">${escHtml(c.name)}</option>`).join('');
+    if (val) sel.value = val;
+  }
+
+  async function loadAnalyticsForClass() {
+    const classId = document.getElementById('analytics-class-select').value;
+    const content = document.getElementById('analytics-content');
+    if (!classId) {
+      content.innerHTML = `<div class="empty-state"><i data-lucide="bar-chart-2"></i><p>Select a class above to view topic performance data</p></div>`;
+      lucide.createIcons();
+      return;
+    }
+
+    content.innerHTML = `<div class="empty-state"><div class="spinner"></div><p style="margin-top:1rem;">Analysing topic performance…</p></div>`;
+
+    try {
+      const data = await ExamEdgeAPI.getClassAnalytics(classId);
+      const struggles = data.struggles || [];
+
+      if (!struggles.length) {
+        content.innerHTML = `<div class="empty-state"><i data-lucide="check-circle"></i><p>No struggle data yet — students need to complete practice sessions first.</p></div>`;
+        lucide.createIcons();
+        return;
+      }
+
+      const maxAcc = Math.max(...struggles.map(s => s.avg_accuracy), 1);
+      content.innerHTML = `
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.5rem;">
+          Showing top 5 struggling topics (lowest average accuracy first). Encourage targeted revision.
+        </p>
+        <div class="bar-chart">
+          ${struggles.map(s => {
+            const pct = s.avg_accuracy;
+            const color = pct < 30 ? '#f43f5e' : pct < 50 ? '#f59e0b' : '#10b981';
+            return `<div class="bar-row">
+              <div class="bar-label" title="${escHtml(s.topic)}">${escHtml(s.topic)}</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:${pct}%;background:${color};"></div>
+              </div>
+              <div class="bar-pct" style="color:${color};">${pct}%</div>
+            </div>`;
+          }).join('')}
+        </div>
+        <div style="margin-top:1.5rem;padding:1rem;background:rgba(244,63,94,0.06);border:1px solid rgba(244,63,94,0.2);border-radius:12px;">
+          <p style="font-size:0.78rem;color:#fca5a5;font-weight:600;">
+            Recommendation: Schedule targeted revision sessions on topics with accuracy below 40%.
+          </p>
+        </div>
+      `;
+    } catch(e) {
+      content.innerHTML = `<div class="empty-state"><i data-lucide="alert-circle"></i><p>Error: ${escHtml(e.message)}</p></div>`;
+      lucide.createIcons();
+    }
+  }
+
+  async function viewClassAnalytics() {
+    if (!SELECTED_CLASS_ID) { toast('Select a class first', 'error'); return; }
+    showSection('analytics');
+    document.getElementById('analytics-class-select').value = SELECTED_CLASS_ID;
+    loadAnalyticsForClass();
+  }
+
+  /* ══════════════════════════════════════════════
+     AT-RISK STUDENTS
+  ══════════════════════════════════════════════ */
+  async function loadAtRiskStudents() {
+    const list = document.getElementById('atrisk-list');
+    list.innerHTML = `<div class="empty-state"><div class="spinner"></div><p style="margin-top:1rem;">Scanning all classes…</p></div>`;
+
+    try {
+      let allAtRisk = [];
+      for (const cls of CLASSES) {
+        try {
+          const data = await ExamEdgeAPI.getClassStudents(cls.id);
+          const atRisk = (data.students || []).filter(s => s.at_risk);
+          atRisk.forEach(s => { s._className = cls.name; });
+          allAtRisk = allAtRisk.concat(atRisk);
+        } catch { /* skip class on error */ }
+      }
+
+      document.getElementById('stat-atrisk').textContent = allAtRisk.length;
+
+      if (!allAtRisk.length) {
+        list.innerHTML = `
+          <div class="empty-state">
+            <i data-lucide="check-circle"></i>
+            <p style="color:var(--emerald);font-weight:600;">All students are on track!</p>
+            <p style="margin-top:0.5rem;">No at-risk students detected across your classes.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      list.innerHTML = allAtRisk.map(s => {
+        const r = s.readiness_score || 0;
+        return `
+          <div class="risk-card">
+            <div style="width:44px;height:44px;border-radius:50%;background:rgba(244,63,94,0.15);border:1px solid rgba(244,63,94,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <i data-lucide="user-x" style="width:20px;height:20px;color:#fca5a5;"></i>
+            </div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:700;color:#fff;">${escHtml(s.name || 'Unknown')}</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">${escHtml(s._className)} · ${escHtml(s.ss_class || '')}</div>
+              <div style="margin-top:0.5rem;display:flex;align-items:center;gap:8px;">
+                <div class="progress-bar-track" style="width:100px;">
+                  <div class="progress-bar-fill" style="width:${r}%;background:#f43f5e;"></div>
+                </div>
+                <span style="font-size:0.75rem;font-weight:700;color:#f43f5e;">${r}% readiness</span>
+              </div>
+            </div>
+            <div>
+              <span class="pill pill-rose"><i data-lucide="alert-triangle"></i> At Risk</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+      lucide.createIcons();
+    } catch(e) {
+      list.innerHTML = `<div class="empty-state"><i data-lucide="alert-circle"></i><p>${escHtml(e.message)}</p></div>`;
+      lucide.createIcons();
+    }
+  }
+
+  /* ══════════════════════════════════════════════
+     STATS
+  ══════════════════════════════════════════════ */
+  function updateStats() {
+    document.getElementById('stat-classes').textContent = CLASSES.length;
+    const totalStudents = CLASSES.reduce((sum, c) => sum + (c.student_ids || []).length, 0);
+    document.getElementById('stat-students').textContent = totalStudents;
+    // stat-assignments stays as is (tracked locally per session)
+    if (!document.getElementById('stat-assignments').textContent || document.getElementById('stat-assignments').textContent === '—') {
+      document.getElementById('stat-assignments').textContent = '0';
+    }
+    if (!document.getElementById('stat-atrisk').textContent || document.getElementById('stat-atrisk').textContent === '—') {
+      document.getElementById('stat-atrisk').textContent = '…';
+    }
+  }
+
+  /* ══════════════════════════════════════════════
+     MODAL HELPERS
+  ══════════════════════════════════════════════ */
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+    lucide.createIcons();
+  }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  // Close on overlay click
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
+  });
+
+  /* ══════════════════════════════════════════════
+     TOAST
+  ══════════════════════════════════════════════ */
+  let toastTimer = null;
+  function toast(msg, type = 'info') {
+    const el = document.getElementById('toast');
+    const icon = document.getElementById('toast-icon');
+    const msgEl = document.getElementById('toast-msg');
+    const icons = { success: 'check-circle', error: 'x-circle', info: 'info', warning: 'alert-triangle' };
+    const colors = { success: '#10b981', error: '#f43f5e', info: '#6366f1', warning: '#f59e0b' };
+    icon.setAttribute('data-lucide', icons[type] || 'info');
+    icon.style.color = colors[type] || '#6366f1';
+    msgEl.textContent = msg;
+    el.classList.add('show');
+    lucide.createIcons();
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
+  }
+
+  /* ══════════════════════════════════════════════
+     UTILS
+  ══════════════════════════════════════════════ */
+  function escHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+</script>
 </body>
 </html>

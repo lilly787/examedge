@@ -66,11 +66,67 @@ async function seedDemoSchool() {
   return school.rows[0].id;
 }
 
+async function seedJsonFile(filePath) {
+  if (!fs.existsSync(filePath)) return 0;
+  try {
+    const raw = fs.readFileSync(filePath, "utf8");
+    const questions = JSON.parse(raw);
+    const valid = questions.filter(
+      (q) =>
+        q &&
+        typeof q.question === "string" &&
+        q.question.trim() &&
+        q.options &&
+        typeof q.options === "object" &&
+        Object.keys(q.options).length >= 2 &&
+        q.answer
+    );
+    let count = 0;
+    for (const q of valid) {
+      await query(
+        `INSERT INTO questions (id, subject, topic, subtopic, year, exam_body, type,
+          question_text, options, correct_answer, explanation_text, difficulty, tags)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+         ON CONFLICT (id) DO NOTHING`,
+        [
+          q.id,
+          q.subject,
+          q.topic || "General",
+          q.subtopic || "",
+          q.year || 2020,
+          q.exam_body || "WAEC",
+          q.type || "MCQ",
+          q.question,
+          JSON.stringify(q.options || {}),
+          q.answer,
+          q.explanation || "",
+          q.difficulty || "medium",
+          JSON.stringify(q.tags || []),
+        ]
+      );
+      count++;
+    }
+    return count;
+  } catch (e) {
+    console.warn(`[Seed] Could not load ${path.basename(filePath)}:`, e.message);
+    return 0;
+  }
+}
+
 async function seedDatabase() {
   const questions = parseQuestionsJs();
   console.log(`[Seed] Loading ${questions.length} questions from questions.js...`);
   const count = await seedQuestions(questions);
   console.log(`[Seed] Upserted ${count} questions.`);
+
+  // Also load extra JSON question banks
+  const rootDir = path.join(__dirname, "../../../");
+  const jsonFiles = ["extra_questions.json", "generated_questions.json"];
+  for (const fname of jsonFiles) {
+    const fp = path.join(rootDir, fname);
+    const n = await seedJsonFile(fp);
+    if (n > 0) console.log(`[Seed] Imported ${n} questions from ${fname}`);
+  }
 
   for (const b of BADGES) {
     await query(
@@ -91,7 +147,6 @@ async function seedDatabase() {
       `[Seed] Note: Blueprint targets 5,000+ questions. Run import_aloc_questions.py or bulk-upload via admin to grow the bank.`
     );
   }
-
 }
 
 if (require.main === module) {

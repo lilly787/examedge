@@ -218,4 +218,8 @@ const ExamEdgeAPI = {
       body: JSON.stringify(data),
     });
   },
+
+  async getClassAnalytics(classId) {
+    return ExamEdgeAPI.request(`/teachers/analytics/class/${classId}`);
+  },
 };
