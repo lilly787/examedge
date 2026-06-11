@@ -6,7 +6,7 @@
 function checkAccess(allowedRoles) {
   let user = null;
   try {
-    user = JSON.parse(localStorage.getItem('examedge_user') || 'null');
+    user = JSON.parse(localStorage.getItem('prepfast_user') || 'null');
   } catch (e) {
     window.location.replace('index.html');
     return;

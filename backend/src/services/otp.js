@@ -19,27 +19,43 @@ async function sendOtp(phone) {
     [normalized, code, expiresAt]
   );
 
-  if (config.termii.apiKey) {
-    const res = await fetch("https://api.ng.termii.com/api/sms/send", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        api_key: config.termii.apiKey,
-        to: normalized,
-        from: config.termii.senderId,
-        sms: `Your ExamEdge verification code is ${code}. Valid for 10 minutes.`,
-        type: "plain",
-        channel: "generic",
-      }),
-    });
-    if (!res.ok) {
-      const err = await res.text();
-      throw new Error(`SMS failed: ${err}`);
+  const isTermiiConfigured =
+    config.termii.apiKey &&
+    config.termii.apiKey !== "your-termii-api-key-here";
+
+  if (isTermiiConfigured) {
+    try {
+      const res = await fetch("https://api.ng.termii.com/api/sms/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          api_key: config.termii.apiKey,
+          to: normalized,
+          from: config.termii.senderId,
+          sms: `Your PrepFast verification code is ${code}. Valid for 10 minutes.`,
+          type: "plain",
+          channel: "generic",
+        }),
+      });
+
+      if (res.ok) {
+        console.log(`[SMS] OTP sent to ${normalized} via Termii`);
+        return { phone: normalized, devCode: null };
+      }
+
+      const errText = await res.text();
+      // Graceful fallback: log Termii error but don't crash the app.
+      // This allows dev/test to proceed while the sender ID is registered.
+      console.warn(
+        `[SMS] Termii rejected (${res.status}): ${errText}. Falling back to dev-mode OTP.`
+      );
+    } catch (fetchErr) {
+      console.warn(`[SMS] Termii unreachable: ${fetchErr.message}. Falling back to dev-mode OTP.`);
     }
-    return { phone: normalized, devCode: null };
   }
 
-  console.log(`[OTP] Dev mode — ${normalized}: ${code}`);
+  // Dev-mode / fallback: print OTP to server console
+  console.log(`[OTP] ${normalized}: ${code}  ← use this code to log in`);
   return {
     phone: normalized,
     devCode: config.nodeEnv === "development" ? code : null,

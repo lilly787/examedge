@@ -55,7 +55,7 @@ router.post("/otp/verify", async (req, res) => {
       );
 
       if (role === "student") {
-        const linkCode = `EE-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+        const linkCode = `PF-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
         await query(
           `INSERT INTO students (user_id, ss_class, subjects, exam_target, exam_date, parent_link_code)
            VALUES ($1, $2, $3, $4, $5, $6)`,
@@ -140,7 +140,7 @@ router.post("/session/resume", async (req, res) => {
         [id, name || "Student", normalized, userRole, school_name || null]
       );
       if (userRole === "student") {
-        const linkCode = `EE-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+        const linkCode = `PF-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
         await query(
           `INSERT INTO students (user_id, ss_class, subjects, exam_target, parent_link_code)
            VALUES ($1, 'SS3', $2, 'WAEC', $3)`,
@@ -201,6 +201,33 @@ router.post("/session/resume", async (req, res) => {
         }),
       },
     });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+router.post("/admin/login", async (req, res) => {
+  try {
+    const { password } = req.body;
+    if (!password) {
+      return res.status(400).json({ error: "Password required" });
+    }
+
+    if (password !== config.adminPassword) {
+      return res.status(401).json({ error: "Invalid admin passcode" });
+    }
+
+    // Return a virtual/mock admin or find one if we already have one
+    const adminUser = {
+      id: "00000000-0000-0000-0000-000000000001",
+      name: "Administrator",
+      phone: "+2348000000000",
+      role: "admin",
+      subscription_tier: "premium"
+    };
+
+    const token = signToken(adminUser);
+    res.json({ token, user: adminUser });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }

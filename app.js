@@ -245,7 +245,7 @@ function verifyOTPCode() {
   // Save session
   const user = ExamEdgeDB.login("+234" + phone, name);
   
-  // Save user to examedge_user
+  // Save user to prepfast_user
   const userObj = {
     id: user.id || 'u-' + Date.now(),
     name: user.name,
@@ -254,7 +254,7 @@ function verifyOTPCode() {
     role: user.role || "student",
     createdAt: user.joinedAt || user.createdAt || new Date().toISOString()
   };
-  localStorage.setItem('examedge_user', JSON.stringify(userObj));
+  localStorage.setItem('prepfast_user', JSON.stringify(userObj));
 
   showToast(`Welcome back, ${user.name}!`, "success");
   
@@ -683,12 +683,25 @@ function launchPracticeSession() {
 }
 
 // Initiates the practicing screen
-function startActivePracticeFlow() {
+async function startActivePracticeFlow() {
   PRACTICE_SESSION.currentIndex = 0;
   PRACTICE_SESSION.selectedAnswers = {};
   PRACTICE_SESSION.flaggedQuestions = {};
   PRACTICE_SESSION.dailyLimitTriggered = false;
   PRACTICE_SESSION.startTime = Date.now();
+  PRACTICE_SESSION.initialReadiness = 0;
+
+  if (window.PREPFAST_CONFIG?.useApi && PrepFastAPI.getToken()) {
+    try {
+      const res = await PrepFastAPI.getReadiness();
+      PRACTICE_SESSION.initialReadiness = res.readiness_score !== undefined ? res.readiness_score : 0;
+    } catch (e) {
+      console.warn("Failed to fetch initial readiness, using local DB:", e);
+      PRACTICE_SESSION.initialReadiness = ExamEdgeDB.getExamReadinessScore(ExamEdgeDB.getQuestions());
+    }
+  } else {
+    PRACTICE_SESSION.initialReadiness = ExamEdgeDB.getExamReadinessScore(ExamEdgeDB.getQuestions());
+  }
 
   navigate("practice-active");
   renderPracticeInterface();
@@ -1044,12 +1057,21 @@ function jumpToQuestion(index) {
 }
 
 // ----------------------------------------------------
-// FINISHING & SUBMITTING SESSIONS
-// ----------------------------------------------------
+// FINISHING & SUBMITTING SESSION...
+async function finishStudySession() {
+  const qList = PRACTICE_SESSION.questions;
+  const answers = PRACTICE_SESSION.selectedAnswers;
+  
+  let correctCount = 0;
+  qList.forEach((q, index) => {
+    const chosen = answers[index];
+    if (chosen !== undefined) {
+      const correctKey = q._correctDisplayKey || q.answer;
+      if (chosen === correctKey) correctCount += 1;
+    }
+  });
 
-function finishStudySession() {
-  showToast("Practice session completed! Progress saved.", "success");
-  navigate("dashboard");
+  await renderScorecardScreen(correctCount, qList.length, qList, answers);
 }
 
 function confirmSubmitMockExam() {
@@ -1066,7 +1088,7 @@ function confirmSubmitMockExam() {
   }
 }
 
-function submitMockExamSession(forced = false) {
+async function submitMockExamSession(forced = false) {
   if (PRACTICE_SESSION.timerInterval) clearInterval(PRACTICE_SESSION.timerInterval);
 
   const qList = PRACTICE_SESSION.questions;
@@ -1075,6 +1097,7 @@ function submitMockExamSession(forced = false) {
   let correctCount = 0;
   let loggedAttempts = 0;
   let limitBlocked = false;
+  const attemptsToSync = [];
 
   qList.forEach((q, index) => {
     const chosen = answers[index];
@@ -1083,65 +1106,248 @@ function submitMockExamSession(forced = false) {
       const isCorrect = chosen === correctKey;
       if (isCorrect) correctCount += 1;
 
-      // Log attempts in database — pass questionObj for weakness-map update
+      // Log attempts in local database
       const res = ExamEdgeDB.logAttempt(q.id, isCorrect, 15, q);
       if (res && res.success === false) {
         limitBlocked = true;
       } else {
         loggedAttempts += 1;
+        attemptsToSync.push({
+          question_id: q.id,
+          is_correct: isCorrect,
+          time_taken_seconds: 15
+        });
       }
     }
   });
 
-  const total = qList.length;
-  const percent = Math.round((correctCount / total) * 100);
+  // Sync with API backend if logged in and useApi is true
+  if (window.PREPFAST_CONFIG?.useApi && PrepFastAPI.getToken() && attemptsToSync.length > 0) {
+    try {
+      await PrepFastAPI.syncProgress(attemptsToSync);
+    } catch (e) {
+      console.warn("Failed to sync mock exam attempts to backend:", e);
+    }
+  }
 
-  // Render CBT report scorecard screen
+  await renderScorecardScreen(correctCount, qList.length, qList, answers);
+}
+
+async function renderScorecardScreen(correctCount, total, qList, answers) {
+  const percent = Math.round((correctCount / total) * 100);
+  
+  // Calculate time taken
+  let timeTakenText = "N/A";
+  if (PRACTICE_SESSION.startTime) {
+    const elapsedSeconds = Math.round((Date.now() - PRACTICE_SESSION.startTime) / 1000);
+    const min = Math.floor(elapsedSeconds / 60);
+    const sec = elapsedSeconds % 60;
+    timeTakenText = `${min}m ${sec}s`;
+  }
+
+  // Get initial readiness
+  const initialReadiness = PRACTICE_SESSION.initialReadiness || 0;
+
+  // Recalculate and fetch fresh readiness and weaknesses
+  let finalReadiness = 0;
+  let finalWeaknesses = {};
+  if (window.PREPFAST_CONFIG?.useApi && PrepFastAPI.getToken()) {
+    try {
+      const rRes = await PrepFastAPI.getReadiness();
+      finalReadiness = rRes.readiness_score !== undefined ? rRes.readiness_score : 0;
+      const wRes = await PrepFastAPI.getWeakness();
+      finalWeaknesses = wRes.weakness || {};
+    } catch (e) {
+      console.warn("Failed to fetch fresh metrics from API, falling back to local DB:", e);
+      finalReadiness = ExamEdgeDB.getExamReadinessScore(ExamEdgeDB.getQuestions());
+      finalWeaknesses = ExamEdgeDB.getWeaknessMap(ExamEdgeDB.getQuestions());
+    }
+  } else {
+    finalReadiness = ExamEdgeDB.getExamReadinessScore(ExamEdgeDB.getQuestions());
+    finalWeaknesses = ExamEdgeDB.getWeaknessMap(ExamEdgeDB.getQuestions());
+  }
+
+  // Calculate subject/topic accuracy breakdown of this session
+  const topicStats = {};
+  qList.forEach((q, idx) => {
+    const key = `${q.subject} - ${q.topic}`;
+    if (!topicStats[key]) {
+      topicStats[key] = { subject: q.subject, topic: q.topic, correct: 0, total: 0 };
+    }
+    topicStats[key].total += 1;
+    const chosen = answers[idx];
+    const correctKey = q._correctDisplayKey || q.answer;
+    if (chosen === correctKey) {
+      topicStats[key].correct += 1;
+    }
+  });
+
+  let topicBreakdownHtml = "";
+  let sessionWeakTopics = [];
+  Object.values(topicStats).forEach(stat => {
+    const statPercent = Math.round((stat.correct / stat.total) * 100);
+    const isWeak = statPercent < 70;
+    if (isWeak) {
+      sessionWeakTopics.push(stat);
+    }
+    topicBreakdownHtml += `
+      <div class="space-y-1">
+        <div class="flex justify-between text-xs font-semibold">
+          <span class="text-gray-300">${stat.topic} (${stat.subject})</span>
+          <span class="${statPercent >= 70 ? 'text-emerald-400' : statPercent >= 40 ? 'text-amber-400' : 'text-rose-400'}">${stat.correct}/${stat.total} (${statPercent}%)</span>
+        </div>
+        <div class="w-full bg-indigo-950/40 rounded-full h-1.5 overflow-hidden border border-indigo-900/40">
+          <div class="h-full rounded-full ${statPercent >= 70 ? 'bg-emerald-500' : statPercent >= 40 ? 'bg-amber-500' : 'bg-rose-500'}" style="width: ${statPercent}%"></div>
+        </div>
+      </div>
+    `;
+  });
+
+  // Weak areas HTML
+  let weakAreasHtml = "";
+  if (sessionWeakTopics.length > 0) {
+    let weakListHtml = "";
+    sessionWeakTopics.forEach(item => {
+      weakListHtml += `
+        <span class="inline-block px-2.5 py-1 bg-rose-500/10 border border-rose-500/20 rounded-lg text-rose-400 text-xs font-semibold mr-2 mb-2">
+          ${item.topic} (${item.subject})
+        </span>
+      `;
+    });
+    weakAreasHtml = `
+      <div class="mb-6">
+        <h3 class="text-sm font-bold text-rose-400 mb-2 flex items-center gap-2">
+          <i data-lucide="alert-triangle" class="w-4 h-4"></i> Weak Areas Identified In This Session
+        </h3>
+        <div class="flex flex-wrap">
+          ${weakListHtml}
+        </div>
+      </div>
+    `;
+  } else {
+    weakAreasHtml = `
+      <div class="mb-6 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-xs font-semibold flex items-center gap-2">
+        <i data-lucide="check-circle" class="w-4 h-4"></i> Outstanding! No weak areas identified in this session.
+      </div>
+    `;
+  }
+
+  // Question-by-question breakdown rows
+  let questionsRowsHtml = "";
+  qList.forEach((q, idx) => {
+    const chosen = answers[idx] || "Unanswered";
+    const correctKey = q._correctDisplayKey || q.answer;
+    const isCorrect = chosen === correctKey;
+    const resultBadge = chosen === "Unanswered"
+      ? `<span class="px-2 py-0.5 bg-gray-500/10 text-gray-400 border border-gray-500/20 rounded text-[10px] font-bold">SKIP</span>`
+      : isCorrect
+        ? `<span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded text-[10px] font-bold">CORRECT</span>`
+        : `<span class="px-2 py-0.5 bg-rose-500/10 text-rose-400 border border-rose-500/20 rounded text-[10px] font-bold">WRONG</span>`;
+    
+    questionsRowsHtml += `
+      <tr class="border-b border-indigo-900/20 hover:bg-indigo-950/10 transition-colors">
+        <td class="p-3 font-semibold text-gray-400">${idx + 1}</td>
+        <td class="p-3 text-gray-200 font-light truncate max-w-xs md:max-w-md" title="${q.question.replace(/"/g, '&quot;')}">${q.question}</td>
+        <td class="p-3 font-semibold ${isCorrect ? 'text-emerald-400' : 'text-rose-400'}">${chosen}</td>
+        <td class="p-3 font-semibold text-indigo-300">${correctKey}</td>
+        <td class="p-3 text-right">${resultBadge}</td>
+      </tr>
+    `;
+  });
+
+  // Feedback messages
+  let feedbackText = "";
+  if (percent >= 70) {
+    feedbackText = "<b>Excellent job!</b> You are performing well in these subject topics. Keep maintaining this pace to easily secure an A in WAEC.";
+  } else if (percent >= 40) {
+    feedbackText = "<b>Fair score!</b> However, you have some prominent weak topics. Go to your Dashboard and review your <b>Focus Today</b> areas.";
+  } else {
+    feedbackText = "<b>Needs deep revision.</b> Your accuracy is below the 40% readiness threshold. Review explanations in <b>Study Mode</b> for immediate coaching.";
+  }
+
+  // Display scorecard screen
   const container = document.getElementById("view-practice-active");
   container.innerHTML = `
-    <div class="max-w-xl mx-auto glass-panel p-8 rounded-2xl border border-indigo-500/10 text-center">
-      <span class="text-4xl mb-4 block">${percent >= 70 ? '🏆' : percent >= 40 ? '👍' : '📚'}</span>
-      
-      <h2 class="text-2xl font-black text-white">Mock Exam Scorecard</h2>
-      <p class="text-gray-400 text-xs mt-1">CBT Simulation completed successfully.</p>
+    <div class="max-w-3xl mx-auto glass-panel p-8 rounded-2xl border border-indigo-500/10">
+      <div class="text-center mb-6">
+        <span class="text-5xl mb-4 block">${percent >= 70 ? '🏆' : percent >= 40 ? '👍' : '📚'}</span>
+        <h2 class="text-3xl font-black text-white">${PRACTICE_SESSION.mode === 'mock' ? 'Mock Exam Scorecard' : 'Practice Session Scorecard'}</h2>
+        <p class="text-gray-400 text-xs mt-1">${PRACTICE_SESSION.mode === 'mock' ? 'CBT Mock Simulation completed.' : 'Practice session completed.'}</p>
+      </div>
 
-      <div class="my-8 flex justify-center items-center gap-8">
-        <div>
-          <div class="text-3xl font-black text-indigo-400">${correctCount}/${total}</div>
+      <!-- Score, Accuracy, Time Taken, Readiness Change Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-8 text-center">
+        <div class="p-4 bg-indigo-950/20 border border-indigo-900/30 rounded-xl">
+          <div class="text-2xl font-black text-indigo-400">${correctCount}/${total}</div>
           <div class="text-xs text-gray-500 uppercase tracking-wider font-bold mt-1">Score</div>
         </div>
-
-        <div class="w-px h-10 bg-indigo-900/60"></div>
-
-        <div>
-          <div class="text-3xl font-black text-indigo-400">${percent}%</div>
+        <div class="p-4 bg-indigo-950/20 border border-indigo-900/30 rounded-xl">
+          <div class="text-2xl font-black text-indigo-400">${percent}%</div>
           <div class="text-xs text-gray-500 uppercase tracking-wider font-bold mt-1">Accuracy</div>
+        </div>
+        <div class="p-4 bg-indigo-950/20 border border-indigo-900/30 rounded-xl">
+          <div class="text-2xl font-black text-indigo-400">${timeTakenText}</div>
+          <div class="text-xs text-gray-500 uppercase tracking-wider font-bold mt-1">Time Taken</div>
+        </div>
+        <div class="p-4 bg-indigo-950/20 border border-indigo-900/30 rounded-xl">
+          <div class="text-2xl font-black text-indigo-400">${initialReadiness}% → ${finalReadiness}%</div>
+          <div class="text-xs text-gray-500 uppercase tracking-wider font-bold mt-1">Readiness</div>
         </div>
       </div>
 
+      <!-- Feedback Text Box -->
       <div class="p-4 bg-indigo-950/20 border border-indigo-900/40 rounded-xl mb-6 text-left text-xs text-gray-300 leading-relaxed">
-        ${percent >= 70 
-          ? "<b>Excellent job!</b> You are performing well in these subject topics. Keep maintaining this pace to easily secure an A in WAEC." 
-          : percent >= 40 
-            ? "<b>Fair score!</b> However, you have some prominent weak topics. Go to your Dashboard and review your <b>Focus Today</b> areas."
-            : "<b>Needs deep revision.</b> Your accuracy is below the 40% readiness threshold. Review explanations in <b>Study Mode</b> for immediate coaching."
-        }
+        ${feedbackText}
       </div>
 
-      ${limitBlocked 
-        ? `<div class="mb-6 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-xs text-amber-400 font-semibold text-left flex items-start gap-2">
-             <i data-lucide="alert-triangle" style="width:14px;height:14px;flex-shrink:0;margin-top:1px"></i>
-             <span>Some questions weren't logged because your free tier 20-question limit was reached! Upgrade to Premium to log all practice attempts.</span>
-           </div>`
-        : ""
-      }
+      <!-- Subject/Topic Accuracy Breakdown -->
+      <div class="mb-6 text-left">
+        <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+          <i data-lucide="bar-chart-2" class="text-indigo-400"></i> Subject / Topic Performance
+        </h3>
+        <div class="space-y-3">
+          ${topicBreakdownHtml}
+        </div>
+      </div>
 
-      <div class="flex gap-4">
-        <button onclick="navigate('dashboard')" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition-all text-xs">
-          Back to Dashboard
+      <!-- Weak Areas Identified -->
+      <div class="text-left">
+        ${weakAreasHtml}
+      </div>
+
+      <!-- Per-Question Detailed Breakdown -->
+      <div class="mb-8 text-left">
+        <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+          <i data-lucide="list" class="text-indigo-400"></i> Question-by-Question Review
+        </h3>
+        <div class="overflow-x-auto rounded-xl border border-indigo-900/40 bg-indigo-950/10">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-indigo-950/40 text-indigo-400 font-bold border-b border-indigo-900/60">
+                <th class="p-3">#</th>
+                <th class="p-3">Question</th>
+                <th class="p-3">Your Ans</th>
+                <th class="p-3">Correct Ans</th>
+                <th class="p-3 text-right">Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${questionsRowsHtml}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4">
+        <button onclick="navigate('dashboard')" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition-all text-xs text-center flex items-center justify-center gap-2">
+          <i data-lucide="layout-dashboard"></i> Back to Dashboard
         </button>
-        <button onclick="startCBTMode()" class="flex-1 bg-indigo-950/60 hover:bg-indigo-950 border border-indigo-900/60 text-indigo-300 font-bold py-3 rounded-xl transition-all text-xs">
-          Try Another Mock
+        <button onclick="navigate('practice')" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-xl transition-all text-xs text-center flex items-center justify-center gap-2">
+          <i data-lucide="book-open"></i> Study Weak Areas
+        </button>
+        <button onclick="${PRACTICE_SESSION.mode === 'mock' ? 'startCBTMode()' : 'startStandardPractice()'}" class="flex-1 bg-indigo-950/60 hover:bg-indigo-950 border border-indigo-900/60 text-indigo-300 font-bold py-3 rounded-xl transition-all text-xs text-center flex items-center justify-center gap-2">
+          <i data-lucide="refresh-cw"></i> Practice Again
         </button>
       </div>
     </div>
@@ -1152,7 +1358,7 @@ function submitMockExamSession(forced = false) {
     triggerMicroConfetti();
   }
 
-  showToast("Timed mock submitted!", "success");
+  showToast("Session results compiled!", "success");
 }
 
 // ----------------------------------------------------

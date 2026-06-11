@@ -1,7 +1,7 @@
-// ExamEdge Client-Side Database Engine & Performance Analyzer
+// PrepFast Client-Side Database Engine & Performance Analyzer
 // Powered by LocalStorage to run fully client-side and 100% offline.
 
-const DB_PREFIX = "EXAMEDGE_";
+const DB_PREFIX = "PREPFAST_";
 
 // Helper to interact with LocalStorage safely
 const storage = {
@@ -186,7 +186,7 @@ const INITIAL_WEAKNESS_MAP = {
   }
 };
 
-const ExamEdgeDB = {
+const PrepFastDB = {
   // 1. Authentication & Session Manager
   init: () => {
     // If no user exists, store a flag indicating we need to authenticate first,
@@ -220,9 +220,9 @@ const ExamEdgeDB = {
       name: name
     };
     storage.set("user", userProfile);
-    ExamEdgeDB.init();
+    PrepFastDB.init();
 
-    // Save to examedge_user
+    // Save to prepfast_user
     const userObj = {
       id: userProfile.id || 'u-' + Date.now(),
       name: userProfile.name,
@@ -231,7 +231,7 @@ const ExamEdgeDB = {
       role: userProfile.role || "student",
       createdAt: userProfile.joinedAt || userProfile.createdAt || new Date().toISOString()
     };
-    localStorage.setItem('examedge_user', JSON.stringify(userObj));
+    localStorage.setItem('prepfast_user', JSON.stringify(userObj));
 
     return userProfile;
   },
@@ -239,10 +239,10 @@ const ExamEdgeDB = {
   loginProfile: (profile) => {
     const userProfile = { ...DEFAULT_USER, ...profile };
     storage.set("user", userProfile);
-    localStorage.setItem("EXAMEDGE_LOGGED_IN", "true");
-    ExamEdgeDB.init();
+    localStorage.setItem("PREPFAST_LOGGED_IN", "true");
+    PrepFastDB.init();
 
-    // Save to examedge_user
+    // Save to prepfast_user
     const userObj = {
       id: userProfile.id || 'u-' + Date.now(),
       name: userProfile.name,
@@ -251,17 +251,17 @@ const ExamEdgeDB = {
       role: userProfile.role || "student",
       createdAt: userProfile.joinedAt || userProfile.createdAt || new Date().toISOString()
     };
-    localStorage.setItem('examedge_user', JSON.stringify(userObj));
+    localStorage.setItem('prepfast_user', JSON.stringify(userObj));
 
     return userProfile;
   },
 
   // Log in from API response (Phases 1–2 backend)
   loginFromApi: (apiUser, token) => {
-    if (token && typeof ExamEdgeAPI !== "undefined") {
-      ExamEdgeAPI.setToken(token);
+    if (token && typeof PrepFastAPI !== "undefined") {
+      PrepFastAPI.setToken(token);
     } else if (token) {
-      localStorage.setItem("EXAMEDGE_token", token);
+      localStorage.setItem("prepfast_token", token);
     }
     const userProfile = {
       ...DEFAULT_USER,
@@ -283,9 +283,9 @@ const ExamEdgeDB = {
       parent_link_code: apiUser.parent_link_code,
     };
     storage.set("user", userProfile);
-    localStorage.setItem("EXAMEDGE_LOGGED_IN", "true");
+    localStorage.setItem("PREPFAST_LOGGED_IN", "true");
 
-    // Save to examedge_user
+    // Save to prepfast_user
     const userObj = {
       id: userProfile.id || 'u-' + Date.now(),
       name: userProfile.name,
@@ -294,7 +294,7 @@ const ExamEdgeDB = {
       role: userProfile.role || "student",
       createdAt: userProfile.createdAt || apiUser.createdAt || new Date().toISOString()
     };
-    localStorage.setItem('examedge_user', JSON.stringify(userObj));
+    localStorage.setItem('prepfast_user', JSON.stringify(userObj));
 
     return userProfile;
   },
@@ -305,14 +305,14 @@ const ExamEdgeDB = {
     storage.remove("daily_limit");
     storage.remove("xp");
     storage.remove("leaderboard");
-    localStorage.removeItem("EXAMEDGE_LOGGED_IN");
-    if (typeof ExamEdgeAPI !== "undefined") ExamEdgeAPI.setToken(null);
-    else localStorage.removeItem("EXAMEDGE_token");
+    localStorage.removeItem("PREPFAST_LOGGED_IN");
+    if (typeof PrepFastAPI !== "undefined") PrepFastAPI.setToken(null);
+    else localStorage.removeItem("prepfast_token");
 
-    // Clear examedge_user and other session keys
-    localStorage.removeItem("examedge_user");
-    localStorage.removeItem("examedge_progress");
-    localStorage.removeItem("examedge_streak");
+    // Clear prepfast_user and other session keys
+    localStorage.removeItem("prepfast_user");
+    localStorage.removeItem("prepfast_progress");
+    localStorage.removeItem("prepfast_streak");
   },
 
   getUser: () => {
@@ -320,7 +320,7 @@ const ExamEdgeDB = {
   },
 
   updateUser: (fields) => {
-    const user = ExamEdgeDB.getUser();
+    const user = PrepFastDB.getUser();
     if (user) {
       const updated = { ...user, ...fields };
       storage.set("user", updated);
@@ -331,7 +331,7 @@ const ExamEdgeDB = {
 
   // Unlock Premium Mode
   upgradeToPremium: () => {
-    const user = ExamEdgeDB.getUser();
+    const user = PrepFastDB.getUser();
     if (user) {
       user.subscription_tier = "premium";
       storage.set("user", user);
@@ -346,12 +346,12 @@ const ExamEdgeDB = {
   },
 
   addXP: (amount) => {
-    const xp = ExamEdgeDB.getXP() + amount;
+    const xp = PrepFastDB.getXP() + amount;
     storage.set("xp", xp);
 
     // Update user rank on Leaderboard dynamically
     const leaderboard = storage.get("leaderboard", DEFAULT_LEADERBOARD);
-    const user = ExamEdgeDB.getUser();
+    const user = PrepFastDB.getUser();
     const userEntryIndex = leaderboard.findIndex(e => e.isUser);
     if (userEntryIndex !== -1 && user) {
       leaderboard[userEntryIndex].xp = xp;
@@ -377,7 +377,7 @@ const ExamEdgeDB = {
 
   // 2. Daily Limits Tracker (20 questions / day limit for Free Tier)
   getDailyLimitInfo: () => {
-    const user = ExamEdgeDB.getUser();
+    const user = PrepFastDB.getUser();
     const limitInfo = storage.get("daily_limit") || { date: new Date().toISOString().split("T")[0], count: 0 };
     const today = new Date().toISOString().split("T")[0];
 
@@ -415,11 +415,11 @@ const ExamEdgeDB = {
 
   // 3. Question Attempts Logger & Evaluator
   logAttempt: (questionId, isCorrect, timeTakenSeconds, questionObj) => {
-    const user = ExamEdgeDB.getUser();
+    const user = PrepFastDB.getUser();
     if (!user) return;
 
     // Check limit first
-    const limitInfo = ExamEdgeDB.getDailyLimitInfo();
+    const limitInfo = PrepFastDB.getDailyLimitInfo();
     if (user.subscription_tier === "free" && limitInfo.count >= limitInfo.limit) {
       return { success: false, reason: "limit_reached" };
     }
@@ -473,21 +473,21 @@ const ExamEdgeDB = {
     }
 
     // Increment daily practice limit count
-    ExamEdgeDB.incrementDailyCount();
+    PrepFastDB.incrementDailyCount();
 
     // Reward XP: 10 XP for attempting, +15 XP if correct (total 25 XP)
     const xpRewarded = 10 + (isCorrect ? 15 : 0);
-    ExamEdgeDB.addXP(xpRewarded);
+    PrepFastDB.addXP(xpRewarded);
 
     // Update streak counter
-    ExamEdgeDB.updateStreak();
+    PrepFastDB.updateStreak();
 
     return { success: true, xpRewarded };
   },
 
   // Handle Streak updates
   updateStreak: () => {
-    const user = ExamEdgeDB.getUser();
+    const user = PrepFastDB.getUser();
     if (!user) return;
 
     const today = new Date().toISOString().split("T")[0];
@@ -561,7 +561,7 @@ const ExamEdgeDB = {
     const depthScore = (correctAttempts / totalAttempts) * 100;
 
     // 3. Consistency score
-    const user = ExamEdgeDB.getUser();
+    const user = PrepFastDB.getUser();
     const streak = user ? user.study_streak : 0;
     const consistencyScore = Math.min((streak / 7) * 100, 100); // 7 day streak is 100% consistency
 
@@ -581,7 +581,7 @@ const ExamEdgeDB = {
     storage.set("daily_limit", { date: new Date().toISOString().split("T")[0], count: 0 });
     storage.set("leaderboard", DEFAULT_LEADERBOARD);
     storage.set("weaknessMap", JSON.parse(JSON.stringify(INITIAL_WEAKNESS_MAP)));
-    const user = ExamEdgeDB.getUser();
+    const user = PrepFastDB.getUser();
     if (user) {
       user.study_streak = 0;
       user.subscription_tier = "free";
@@ -611,21 +611,21 @@ const ExamEdgeDB = {
   // Clear all registered students to make the user the first
   clearAllStudents: () => {
     storage.remove("user");
-    localStorage.removeItem("EXAMEDGE_all_students");
-    localStorage.removeItem("EXAMEDGE_LOGGED_IN");
+    localStorage.removeItem("PREPFAST_all_students");
+    localStorage.removeItem("PREPFAST_LOGGED_IN");
   },
 
   // Completely reset the system (wipe everything)
   resetSystem: () => {
     localStorage.clear();
-    ExamEdgeDB.init();
+    PrepFastDB.init();
   }
 };
 
-ExamEdgeDB.init();
+PrepFastDB.init();
 
 function getRole() {
-  const user = JSON.parse(localStorage.getItem('examedge_user') || 'null');
+  const user = JSON.parse(localStorage.getItem('prepfast_user') || 'null');
   return user ? user.role : null;
 }
 
@@ -636,7 +636,9 @@ if (typeof window !== 'undefined') {
   window.hasRole = hasRole;
 }
 
+const ExamEdgeDB = PrepFastDB;
+
 // Exporting as global or ES Module based on loading mechanism
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { ExamEdgeDB, getRole, hasRole };
+  module.exports = { PrepFastDB, ExamEdgeDB, getRole, hasRole };
 }

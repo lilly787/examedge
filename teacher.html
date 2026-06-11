@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <script>
-    const user = JSON.parse(localStorage.getItem('examedge_user') || 'null');
-    if (!user || user.role !== 'teacher') {
-      const redirectMap = { student: 'index.html', admin: 'admin.html', parent: 'parent.html' };
+    const user = JSON.parse(localStorage.getItem('prepfast_user') || 'null');
+    if (!user || (user.role !== 'teacher' && user.role !== 'admin')) {
+      const redirectMap = { student: 'index.html', parent: 'parent.html' };
       window.location.replace(redirectMap[user?.role] || 'index.html');
     }
   </script>
@@ -115,6 +115,7 @@
       color: var(--text-muted);
       padding: 0 0.75rem;
       margin-bottom: 0.5rem;
+      margin-top: 1.5rem;
     }
 
     .nav-item {
@@ -200,44 +201,6 @@
     .page-title { font-size: 1.75rem; font-weight: 900; color: #fff; }
     .page-subtitle { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.25rem; }
 
-    /* STATS GRID */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .stat-card {
-      background: var(--surface);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 1.4rem;
-      transition: all 0.25s;
-    }
-
-    .stat-card:hover {
-      border-color: var(--border-active);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(99,102,241,0.12);
-    }
-
-    .stat-icon {
-      width: 38px; height: 38px;
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 0.75rem;
-    }
-
-    .stat-icon i { width: 18px; height: 18px; }
-    .stat-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; }
-    .stat-value { font-size: 2rem; font-weight: 800; color: #fff; margin: 0.3rem 0; font-family: 'Outfit', sans-serif; }
-    .stat-delta { font-size: 0.75rem; font-weight: 600; }
-    .delta-up { color: var(--emerald); }
-    .delta-down { color: var(--rose); }
-    .delta-neutral { color: var(--text-muted); }
-
     /* SECTION PANELS */
     .section { display: none; }
     .section.active { display: block; }
@@ -263,7 +226,7 @@
     }
 
     .card-title {
-      font-size: 1.05rem;
+      font-size: 1.25rem;
       font-weight: 800;
       color: #fff;
       display: flex;
@@ -271,7 +234,7 @@
       gap: 8px;
     }
 
-    .card-title i { width: 18px; height: 18px; color: #a5b4fc; }
+    .card-title i { width: 20px; height: 20px; color: #a5b4fc; }
 
     /* BUTTONS */
     .btn {
@@ -310,13 +273,6 @@
       color: #fca5a5;
     }
     .btn-danger:hover { background: rgba(244,63,94,0.2); }
-
-    .btn-emerald {
-      background: rgba(16,185,129,0.12);
-      border: 1.5px solid rgba(16,185,129,0.3);
-      color: #6ee7b7;
-    }
-    .btn-emerald:hover { background: rgba(16,185,129,0.22); }
 
     .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
 
@@ -383,38 +339,29 @@
     .pill-emerald { background: rgba(16,185,129,0.12); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.25); }
     .pill-amber { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
     .pill-indigo { background: rgba(99,102,241,0.12); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.25); }
-    .pill i { width: 10px; height: 10px; }
-
-    /* PROGRESS BAR */
-    .progress-bar-track {
-      height: 6px;
-      background: rgba(99,102,241,0.12);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      border-radius: 99px;
-      transition: width 0.6s ease;
-    }
+    .pill-grey { background: rgba(255,255,255,0.08); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15); }
 
     /* CLASS CARDS */
-    .class-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .class-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    @media (max-width: 768px) {
+      .class-grid { grid-template-columns: 1fr; }
+    }
 
     .class-card {
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 1.25rem;
+      padding: 1.5rem;
       transition: all 0.2s;
-      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .class-card:hover {
       border-color: var(--border-active);
       transform: translateY(-2px);
       box-shadow: 0 10px 25px rgba(99,102,241,0.12);
     }
-    .class-card.selected { border-color: var(--indigo); background: rgba(99,102,241,0.08); }
 
     /* MODAL */
     .modal-overlay {
@@ -442,16 +389,16 @@
       transition: transform 0.25s;
     }
     .modal-overlay.open .modal-box { transform: translateY(0); }
-    .modal-title { font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
-    .modal-title i { width: 18px; height: 18px; color: #a5b4fc; }
+    .modal-title { font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
+    .modal-title i { width: 20px; height: 20px; color: #a5b4fc; }
 
     /* AT RISK CARDS */
     .risk-card {
       display: flex;
       align-items: center;
       gap: 1rem;
-      padding: 1rem;
-      border-radius: 14px;
+      padding: 1.25rem;
+      border-radius: 16px;
       background: rgba(244,63,94,0.06);
       border: 1px solid rgba(244,63,94,0.2);
       margin-bottom: 0.75rem;
@@ -459,10 +406,40 @@
     }
     .risk-card:hover { background: rgba(244,63,94,0.1); }
 
-    /* ANALYTICS CHART */
+    /* ANALYTICS */
+    .stats-card-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .stats-card-row { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .analytics-stat-card {
+      background: rgba(10, 8, 20, 0.4);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .analytics-stat-val {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 0.25rem;
+    }
+
+    /* HEATMAP TABLE */
+    .heatmap-table th { background: rgba(15,12,35,0.7); }
+    .heatmap-row-red { background: rgba(244,63,94,0.06); }
+    .heatmap-row-yellow { background: rgba(245,158,11,0.06); }
+    .heatmap-row-green { background: rgba(16,185,129,0.06); }
+
     .bar-chart { display: flex; flex-direction: column; gap: 12px; }
     .bar-row { display: flex; align-items: center; gap: 12px; }
-    .bar-label { width: 200px; font-size: 0.78rem; color: var(--text-muted); flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .bar-label { width: 180px; font-size: 0.78rem; color: var(--text-muted); flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .bar-track { flex: 1; height: 8px; background: rgba(99,102,241,0.1); border-radius: 99px; overflow: hidden; }
     .bar-fill { height: 100%; border-radius: 99px; transition: width 0.8s ease; }
     .bar-pct { width: 40px; font-size: 0.78rem; font-weight: 700; text-align: right; }
@@ -491,15 +468,9 @@
     .toast i { width: 16px; height: 16px; flex-shrink: 0; }
 
     /* EMPTY STATE */
-    .empty-state {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: var(--text-muted);
-    }
+    .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
     .empty-state i { width: 40px; height: 40px; margin: 0 auto 1rem; opacity: 0.35; display: block; }
-    .empty-state p { font-size: 0.85rem; }
 
-    /* LOADING SPINNER */
     .spinner {
       width: 24px; height: 24px;
       border: 3px solid rgba(99,102,241,0.15);
@@ -510,17 +481,10 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* SEPARATOR */
     .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
 
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .sidebar { display: none; }
-      .main-content { padding: 1.25rem; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .form-row { grid-template-columns: 1fr; }
-      .bar-label { width: 120px; }
-    }
+    /* CIRCULAR PROGRESS */
+    .circle-bg { stroke: rgba(255,255,255,0.05); }
   </style>
 </head>
 <body>
@@ -533,23 +497,26 @@
         <i data-lucide="graduation-cap" style="width:20px;height:20px;color:#a5b4fc"></i>
       </div>
       <div>
-        <div class="brand-text">ExamEdge</div>
+        <div class="brand-text">PrepFast</div>
         <div class="brand-role">Teacher Portal</div>
       </div>
     </div>
 
     <div class="nav-section-title">Menu</div>
-    <a class="nav-item active" onclick="showSection('classes')" href="#">
-      <i data-lucide="layout-grid"></i> My Classes
+    <a class="nav-item active" onclick="showSection('classes', this)" href="#">
+      <i data-lucide="users"></i> My Classes
     </a>
-    <a class="nav-item" onclick="showSection('assignments')" href="#">
+    <a class="nav-item" onclick="showSection('assignments', this)" href="#">
       <i data-lucide="clipboard-list"></i> Assignments
     </a>
-    <a class="nav-item" onclick="showSection('analytics')" href="#">
-      <i data-lucide="bar-chart-2"></i> Analytics
+    <a class="nav-item" onclick="showSection('analytics', this)" href="#">
+      <i data-lucide="bar-chart-2"></i> Class Analytics
     </a>
-    <a class="nav-item" onclick="showSection('atrisk')" href="#">
+    <a class="nav-item" onclick="showSection('atrisk', this)" href="#">
       <i data-lucide="alert-triangle"></i> At-Risk Students
+    </a>
+    <a class="nav-item" onclick="showSection('settings', this)" href="#">
+      <i data-lucide="settings"></i> Settings
     </a>
 
     <hr class="divider">
@@ -570,144 +537,52 @@
         </div>
       </div>
       <button onclick="logout()" class="btn btn-secondary" style="width:100%;margin-top:0.75rem;justify-content:center;">
-        <i data-lucide="log-out"></i> Sign Out
+        <i data-lucide="log-out"></i> Logout
       </button>
     </div>
   </aside>
 
   <!-- MAIN -->
   <main class="main-content">
-
-    <!-- AUTH WALL -->
-    <div id="auth-wall">
-      <div style="max-width:440px;margin:4rem auto;">
-        <div class="card" style="text-align:center;">
-          <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,rgba(99,102,241,0.25),rgba(139,92,246,0.25));border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
-            <i data-lucide="lock" style="width:24px;height:24px;color:#a5b4fc"></i>
-          </div>
-          <h2 style="font-size:1.4rem;font-weight:900;margin-bottom:0.4rem;">Teacher Login</h2>
-          <p style="color:var(--text-muted);font-size:0.82rem;margin-bottom:1.75rem;">Enter your registered phone number to receive an OTP</p>
-
-          <div class="form-group">
-            <label class="form-label">Phone Number</label>
-            <input id="auth-phone" class="form-input" placeholder="08031234567" type="tel">
-          </div>
-          <div class="form-group" id="otp-group" style="display:none;">
-            <label class="form-label">OTP Code</label>
-            <input id="auth-otp" class="form-input" placeholder="Enter code" type="text" maxlength="6">
-            <p id="dev-code-hint" style="font-size:0.72rem;color:var(--amber);margin-top:0.4rem;"></p>
-          </div>
-
-          <button id="auth-btn" onclick="handleAuth()" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.85rem;">
-            <i data-lucide="send"></i> Send OTP
-          </button>
-          <button id="back-btn" onclick="backToPhone()" style="display:none;" class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:0.5rem;">
-            Change number
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- DASHBOARD (hidden until logged in) -->
-    <div id="dashboard" style="display:none;">
-
-      <!-- Page header -->
-      <div class="page-header">
-        <div>
-          <h1 class="page-title" id="welcome-title">Teacher Dashboard</h1>
-          <p class="page-subtitle" id="welcome-sub">Manage your classes, assignments, and student performance</p>
-        </div>
-        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
-          <button class="btn btn-primary" onclick="openCreateClassModal()">
-            <i data-lucide="plus"></i> New Class
-          </button>
-          <button class="btn btn-secondary" onclick="refreshAll()">
-            <i data-lucide="refresh-cw"></i> Refresh
-          </button>
-        </div>
-      </div>
-
-      <!-- Stats Row -->
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.25);">
-            <i data-lucide="layers" style="color:#a5b4fc;"></i>
-          </div>
-          <div class="stat-label">Total Classes</div>
-          <div class="stat-value" id="stat-classes">—</div>
-          <div class="stat-delta delta-neutral">Active this term</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);">
-            <i data-lucide="users" style="color:#6ee7b7;"></i>
-          </div>
-          <div class="stat-label">Total Students</div>
-          <div class="stat-value" id="stat-students">—</div>
-          <div class="stat-delta delta-up" id="stat-students-sub">Across all classes</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);">
-            <i data-lucide="clipboard-check" style="color:#fbbf24;"></i>
-          </div>
-          <div class="stat-label">Assignments</div>
-          <div class="stat-value" id="stat-assignments">—</div>
-          <div class="stat-delta delta-neutral">Created total</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.25);">
-            <i data-lucide="alert-circle" style="color:#fca5a5;"></i>
-          </div>
-          <div class="stat-label">At-Risk Students</div>
-          <div class="stat-value" id="stat-atrisk">—</div>
-          <div class="stat-delta delta-down">Need attention</div>
-        </div>
-      </div>
-
+    <!-- DASHBOARD -->
+    <div id="dashboard">
       <!-- ═══════ SECTION: CLASSES ═══════ -->
       <div class="section active" id="section-classes">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <i data-lucide="layout-grid"></i> My Classes
-            </div>
-            <button class="btn btn-primary btn-sm" onclick="openCreateClassModal()">
-              <i data-lucide="plus"></i> New Class
-            </button>
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">My Classes</h1>
+            <p class="page-subtitle">Track academic status and create structured cohorts</p>
           </div>
-          <div class="class-grid" id="classes-grid">
-            <div class="empty-state">
-              <div class="spinner"></div>
-              <p style="margin-top:1rem;">Loading classes…</p>
-            </div>
+          <button class="btn btn-primary" onclick="openCreateClassModal()">
+            <i data-lucide="plus"></i> Create Class
+          </button>
+        </div>
+
+        <div class="class-grid" id="classes-grid">
+          <div class="empty-state" style="grid-column: 1/-1;">
+            <div class="spinner"></div>
+            <p style="margin-top:1rem;">Loading classes…</p>
           </div>
         </div>
 
-        <!-- Students panel (shown on class click) -->
-        <div class="card" id="students-panel" style="display:none;">
+        <!-- View Students Panel (expandable) -->
+        <div class="card" id="students-panel" style="display:none; margin-top:2rem;">
           <div class="card-header">
             <div class="card-title" id="students-panel-title">
-              <i data-lucide="users"></i> Students
+              <i data-lucide="users"></i> Class Students
             </div>
-            <div style="display:flex;gap:0.5rem;">
-              <button class="btn btn-secondary btn-sm" onclick="openAssignmentModal()">
-                <i data-lucide="clipboard-list"></i> New Assignment
-              </button>
-              <button class="btn btn-secondary btn-sm" onclick="viewClassAnalytics()">
-                <i data-lucide="bar-chart-2"></i> Analytics
-              </button>
-              <button class="btn btn-sm" onclick="closeStudentsPanel()" style="background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text-muted);">
-                <i data-lucide="x"></i>
-              </button>
-            </div>
+            <button class="btn btn-secondary btn-sm" onclick="closeStudentsPanel()">
+              <i data-lucide="x"></i> Close
+            </button>
           </div>
           <div class="table-wrap">
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>Student</th>
-                  <th>Class</th>
+                  <th>Name</th>
+                  <th>Phone</th>
                   <th>Readiness</th>
-                  <th>Streak</th>
+                  <th>Last Active</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -719,74 +594,175 @@
 
       <!-- ═══════ SECTION: ASSIGNMENTS ═══════ -->
       <div class="section" id="section-assignments">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Assignments</h1>
+            <p class="page-subtitle">Create and distribute targeted tasks to classes</p>
+          </div>
+          <button class="btn btn-primary" onclick="openAssignmentModal()">
+            <i data-lucide="plus"></i> New Assignment
+          </button>
+        </div>
+
         <div class="card">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Class</th>
+                  <th>Questions</th>
+                  <th>Due Date</th>
+                  <th>Completion %</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="assignments-tbody">
+                <tr>
+                  <td colspan="6" style="text-align:center;padding:2rem;color:var(--text-muted);">Loading assignments…</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Assignment Results Detail Panel -->
+        <div class="card" id="assignment-details-panel" style="display:none; margin-top:2rem;">
           <div class="card-header">
-            <div class="card-title">
-              <i data-lucide="clipboard-list"></i> Assignments
+            <div class="card-title" id="assignment-details-title">
+              <i data-lucide="clipboard-list"></i> Assignment Results
             </div>
-            <button class="btn btn-primary btn-sm" onclick="openAssignmentModal()">
-              <i data-lucide="plus"></i> New Assignment
+            <button class="btn btn-secondary btn-sm" onclick="closeAssignmentDetailsPanel()">
+              <i data-lucide="x"></i> Close
             </button>
           </div>
-          <div id="assignments-list">
-            <div class="empty-state">
-              <i data-lucide="clipboard-list"></i>
-              <p>No assignments created yet. Create one above.</p>
-            </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Completion Status</th>
+                  <th>Score</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="assignment-results-tbody"></tbody>
+            </table>
           </div>
         </div>
       </div>
 
       <!-- ═══════ SECTION: ANALYTICS ═══════ -->
       <div class="section" id="section-analytics">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <i data-lucide="bar-chart-2"></i> Class Analytics
-            </div>
-            <select class="form-input" id="analytics-class-select" style="width:auto;" onchange="loadAnalyticsForClass()">
-              <option value="">Select a class…</option>
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Class Analytics</h1>
+            <p class="page-subtitle">Granular performance intelligence metrics</p>
+          </div>
+          <div>
+            <select class="form-input" id="analytics-class-select" onchange="loadAnalyticsForClass()" style="width: auto; min-width: 200px;">
+              <option value="">Select Class…</option>
             </select>
           </div>
-          <div id="analytics-content">
-            <div class="empty-state">
-              <i data-lucide="bar-chart-2"></i>
-              <p>Select a class above to view topic performance data</p>
+        </div>
+
+        <div id="analytics-empty-state" class="empty-state">
+          <i data-lucide="bar-chart-2"></i>
+          <p>Please select a class to load analytics data.</p>
+        </div>
+
+        <div id="analytics-dashboard" style="display:none;">
+          <!-- STATS OVERVIEW CARD -->
+          <div class="stats-card-row">
+            <div class="analytics-stat-card">
+              <div class="stat-label">Average Readiness</div>
+              <div class="analytics-stat-val" id="an-avg-readiness">0%</div>
             </div>
+            <div class="analytics-stat-card">
+              <div class="stat-label">Questions Answered</div>
+              <div class="analytics-stat-val" id="an-questions-answered">0</div>
+            </div>
+            <div class="analytics-stat-card">
+              <div class="stat-label">Active Students</div>
+              <div class="analytics-stat-val" id="an-active-students">0</div>
+            </div>
+            <div class="analytics-stat-card">
+              <div class="stat-label">Assignments Completed</div>
+              <div class="analytics-stat-val" id="an-assignments-completed">0</div>
+            </div>
+          </div>
+
+          <!-- SUBJECT WEAKNESS HEATMAP -->
+          <div class="card">
+            <h2 class="card-title" style="margin-bottom: 1rem;"><i data-lucide="grid"></i> Subject Weakness Heatmap</h2>
+            <div class="table-wrap">
+              <table class="data-table heatmap-table">
+                <thead>
+                  <tr>
+                    <th>Topic</th>
+                    <th>Avg Accuracy</th>
+                    <th>Students Struggling</th>
+                  </tr>
+                </thead>
+                <tbody id="heatmap-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- TOP 5 WEAKEST TOPICS BAR CHART -->
+          <div class="card">
+            <h2 class="card-title" style="margin-bottom: 1.5rem;"><i data-lucide="bar-chart-2"></i> Top 5 Weakest Topics</h2>
+            <div class="bar-chart" id="weakest-topics-bars"></div>
           </div>
         </div>
       </div>
 
       <!-- ═══════ SECTION: AT-RISK ═══════ -->
       <div class="section" id="section-atrisk">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">
-              <i data-lucide="alert-triangle"></i> At-Risk Students
-            </div>
-            <button class="btn btn-secondary btn-sm" onclick="loadAtRiskStudents()">
-              <i data-lucide="refresh-cw"></i> Refresh
-            </button>
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">At-Risk Students</h1>
+            <p class="page-subtitle">Students with readiness below 40% or inactive for 5+ days</p>
           </div>
-          <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.25rem;">
-            Students with readiness score below 40% and inactive for 5+ days.
-          </p>
-          <div id="atrisk-list">
-            <div class="empty-state">
-              <div class="spinner"></div>
-              <p style="margin-top:1rem;">Scanning all classes…</p>
-            </div>
+        </div>
+
+        <div id="atrisk-list">
+          <div class="empty-state">
+            <div class="spinner"></div>
+            <p style="margin-top:1rem;">Scanning all cohorts…</p>
           </div>
         </div>
       </div>
 
-    </div><!-- /dashboard -->
+      <!-- ═══════ SECTION: SETTINGS ═══════ -->
+      <div class="section" id="section-settings">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Settings</h1>
+            <p class="page-subtitle">Configure portal preferences and security credentials</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="form-group">
+            <label class="form-label">Profile Full Name</label>
+            <input class="form-input" id="profile-name" type="text" placeholder="Teacher Name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input class="form-input" id="profile-phone" type="text" readonly style="opacity: 0.65; cursor: not-allowed;">
+          </div>
+          <button class="btn btn-primary" onclick="saveSettings()">
+            <i data-lucide="save"></i> Save Settings
+          </button>
+        </div>
+      </div>
+
+    </div>
   </main>
 </div>
 
-<!-- ═══════════ MODALS ═══════════ -->
-
-<!-- Create Class Modal -->
+<!-- CREATE CLASS MODAL -->
 <div class="modal-overlay" id="modal-create-class">
   <div class="modal-box">
     <div class="modal-title">
@@ -794,34 +770,33 @@
     </div>
     <div class="form-group">
       <label class="form-label">Class Name</label>
-      <input class="form-input" id="cls-name" placeholder="e.g. SS3 Science A">
+      <input class="form-input" id="new-cls-name" placeholder="e.g. SS2 Biology A">
     </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Level</label>
-        <select class="form-input" id="cls-level">
-          <option>SS1</option><option>SS2</option><option selected>SS3</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Subject</label>
-        <select class="form-input" id="cls-subject">
-          <option>Mathematics</option>
-          <option>English Language</option>
-          <option>Biology</option>
-          <option>Chemistry</option>
-          <option>Physics</option>
-          <option>Economics</option>
-          <option>Government</option>
-          <option>Literature</option>
-          <option>Geography</option>
-          <option>All Subjects</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label class="form-label">SS Level</label>
+      <select class="form-input" id="new-cls-level">
+        <option>SS1</option>
+        <option selected>SS2</option>
+        <option>SS3</option>
+      </select>
     </div>
-    <div style="display:flex;gap:0.75rem;margin-top:0.5rem;">
+    <div class="form-group">
+      <label class="form-label">Subject</label>
+      <select class="form-input" id="new-cls-subject">
+        <option>Mathematics</option>
+        <option>English Language</option>
+        <option selected>Biology</option>
+        <option>Chemistry</option>
+        <option>Physics</option>
+        <option>Economics</option>
+        <option>Government</option>
+        <option>Literature in English</option>
+        <option>Geography</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:0.75rem;margin-top:1.5rem;">
       <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="createClass()">
-        <i data-lucide="check"></i> Create Class
+        Create Class
       </button>
       <button class="btn btn-secondary" style="flex:1;justify-content:center;" onclick="closeModal('modal-create-class')">
         Cancel
@@ -830,30 +805,51 @@
   </div>
 </div>
 
-<!-- Create Assignment Modal -->
+<!-- CREATE ASSIGNMENT MODAL -->
 <div class="modal-overlay" id="modal-create-assignment">
   <div class="modal-box">
     <div class="modal-title">
-      <i data-lucide="clipboard-list"></i> New Assignment
+      <i data-lucide="clipboard-list"></i> Create Assignment
     </div>
     <div class="form-group">
       <label class="form-label">Title</label>
-      <input class="form-input" id="asgn-title" placeholder="e.g. Genetics Mock Quiz">
+      <input class="form-input" id="asgn-title" placeholder="e.g. Weekly Biology Test">
     </div>
     <div class="form-group">
-      <label class="form-label">Class</label>
-      <select class="form-input" id="asgn-class-select"></select>
+      <label class="form-label">Select Class</label>
+      <select class="form-input" id="asgn-class-select" onchange="updateAssignmentSubjectDropdown()"></select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Select Subject</label>
+      <select class="form-input" id="asgn-subject-select">
+        <option>Mathematics</option>
+        <option>English Language</option>
+        <option selected>Biology</option>
+        <option>Chemistry</option>
+        <option>Physics</option>
+        <option>Economics</option>
+        <option>Government</option>
+        <option>Literature in English</option>
+        <option>Geography</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Number of Questions (max 50)</label>
+        <input class="form-input" id="asgn-qcount" type="number" min="5" max="50" value="20">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Time Limit (mins - optional)</label>
+        <input class="form-input" id="asgn-time-limit" type="number" placeholder="No limit">
+      </div>
     </div>
     <div class="form-group">
       <label class="form-label">Due Date</label>
-      <input class="form-input" id="asgn-due" type="date">
+      <input class="form-input" id="asgn-due-date" type="date">
     </div>
-    <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:1rem;">
-      Note: Question IDs will be auto-selected from the question bank for this class's subject.
-    </p>
-    <div style="display:flex;gap:0.75rem;">
+    <div style="display:flex;gap:0.75rem;margin-top:1.5rem;">
       <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="createAssignment()">
-        <i data-lucide="check"></i> Create
+        Create Assignment
       </button>
       <button class="btn btn-secondary" style="flex:1;justify-content:center;" onclick="closeModal('modal-create-assignment')">
         Cancel
@@ -862,504 +858,59 @@
   </div>
 </div>
 
-<!-- Toast -->
+<!-- TOAST -->
 <div class="toast" id="toast">
   <i data-lucide="info" id="toast-icon"></i>
   <span id="toast-msg"></span>
 </div>
 
-<script src="examedge-config.js"></script>
-<script src="examedge-api.js"></script>
+<script src="prepfast-config.js"></script>
+<script src="prepfast-api.js"></script>
 <script>
-  /* ══════════════════════════════════════════════
-     STATE
-  ══════════════════════════════════════════════ */
-  let TOKEN = null;
   let CLASSES = [];
   let SELECTED_CLASS_ID = null;
-  let AUTH_STEP = 'phone'; // 'phone' | 'otp'
-  let PENDING_PHONE = '';
-  let DEV_CODE = '';
 
-  /* ══════════════════════════════════════════════
-     INIT
-  ══════════════════════════════════════════════ */
   document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
 
-    const stored = JSON.parse(localStorage.getItem('examedge_user') || 'null');
-    const storedToken = localStorage.getItem('examedge_token');
-
-    if (stored && stored.role === 'teacher' && storedToken) {
-      TOKEN = storedToken;
-      ExamEdgeAPI.setToken(TOKEN);
-      showDashboard(stored);
+    // Populate user profile info
+    if (user) {
+      document.getElementById('sidebar-name').textContent = user.name || 'Teacher';
+      document.getElementById('sidebar-avatar').textContent = (user.name || 'T')[0].toUpperCase();
+      document.getElementById('profile-name').value = user.name || '';
+      document.getElementById('profile-phone').value = user.phone || '';
     }
-    // else auth wall already shown
+
+    // Set token
+    const token = localStorage.getItem('prepfast_token');
+    if (token) {
+      PrepFastAPI.setToken(token);
+    }
+
+    refreshDashboard();
   });
 
-  /* ══════════════════════════════════════════════
-     AUTH
-  ══════════════════════════════════════════════ */
-  async function handleAuth() {
-    const btn = document.getElementById('auth-btn');
-    if (AUTH_STEP === 'phone') {
-      PENDING_PHONE = document.getElementById('auth-phone').value.trim();
-      if (!PENDING_PHONE) { toast('Enter your phone number', 'error'); return; }
-      btn.innerHTML = '<span class="spinner"></span>';
-      btn.disabled = true;
-      try {
-        const res = await ExamEdgeAPI.sendOtp(PENDING_PHONE);
-        DEV_CODE = res.devCode || '';
-        if (DEV_CODE) {
-          document.getElementById('dev-code-hint').textContent = `Dev OTP: ${DEV_CODE}`;
-          document.getElementById('auth-otp').value = DEV_CODE; // auto-fill in dev
-        }
-        document.getElementById('otp-group').style.display = 'block';
-        document.getElementById('back-btn').style.display = 'block';
-        AUTH_STEP = 'otp';
-        btn.innerHTML = '<i data-lucide="check-circle"></i> Verify OTP';
-        lucide.createIcons();
-      } catch(e) {
-        toast('Failed to send OTP: ' + e.message, 'error');
-      }
-      btn.disabled = false;
-    } else {
-      const code = document.getElementById('auth-otp').value.trim();
-      if (!code) { toast('Enter the OTP code', 'error'); return; }
-      btn.innerHTML = '<span class="spinner"></span>';
-      btn.disabled = true;
-      try {
-        const res = await ExamEdgeAPI.verifyOtp(PENDING_PHONE, code, {
-          name: 'Teacher', role: 'teacher', subjects: []
-        });
-        TOKEN = res.token;
-        ExamEdgeAPI.setToken(TOKEN);
-        localStorage.setItem('examedge_token', TOKEN);
-        const u = res.user;
-        const userObj = { id: u.id, name: u.name, phone: u.phone, role: u.role };
-        localStorage.setItem('examedge_user', JSON.stringify(userObj));
-        showDashboard(u);
-      } catch(e) {
-        toast('Login failed: ' + e.message, 'error');
-        btn.disabled = false;
-        btn.innerHTML = '<i data-lucide="check-circle"></i> Verify OTP';
-        lucide.createIcons();
-      }
-    }
-  }
+  function showSection(sectionId, element) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
 
-  function backToPhone() {
-    AUTH_STEP = 'phone';
-    document.getElementById('otp-group').style.display = 'none';
-    document.getElementById('back-btn').style.display = 'none';
-    document.getElementById('auth-btn').innerHTML = '<i data-lucide="send"></i> Send OTP';
+    document.getElementById('section-' + sectionId).classList.add('active');
+    element.classList.add('active');
+
+    if (sectionId === 'classes') loadClasses();
+    if (sectionId === 'assignments') loadAssignments();
+    if (sectionId === 'analytics') populateAnalyticsClassesDropdown();
+    if (sectionId === 'atrisk') loadAtRiskStudents();
+
     lucide.createIcons();
   }
 
   function logout() {
-    localStorage.removeItem('examedge_token');
-    localStorage.removeItem('examedge_user');
-    window.location.reload();
+    localStorage.removeItem('prepfast_user');
+    localStorage.removeItem('prepfast_token');
+    window.location.replace('register.html');
   }
 
-  /* ══════════════════════════════════════════════
-     DASHBOARD INIT
-  ══════════════════════════════════════════════ */
-  function showDashboard(user) {
-    document.getElementById('auth-wall').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
-
-    const name = user.name || 'Teacher';
-    document.getElementById('welcome-title').textContent = `Welcome back, ${name.split(' ')[0]}`;
-    document.getElementById('sidebar-name').textContent = name;
-    document.getElementById('sidebar-avatar').textContent = name[0].toUpperCase();
-
-    refreshAll();
-  }
-
-  async function refreshAll() {
-    await loadClasses();
-    loadAtRiskStudents();
-    updateStats();
-  }
-
-  /* ══════════════════════════════════════════════
-     NAVIGATION
-  ══════════════════════════════════════════════ */
-  function showSection(name) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.getElementById('section-' + name).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    lucide.createIcons();
-
-    if (name === 'analytics') populateAnalyticsSelect();
-    if (name === 'atrisk') loadAtRiskStudents();
-  }
-
-  /* ══════════════════════════════════════════════
-     CLASSES
-  ══════════════════════════════════════════════ */
-  async function loadClasses() {
-    try {
-      const data = await ExamEdgeAPI.getClasses();
-      CLASSES = data.classes || [];
-      renderClasses();
-      populateAnalyticsSelect();
-      // populate assignment class select
-      const sel = document.getElementById('asgn-class-select');
-      sel.innerHTML = CLASSES.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-    } catch(e) {
-      document.getElementById('classes-grid').innerHTML = `<div class="empty-state"><i data-lucide="alert-circle"></i><p>Failed to load classes: ${e.message}</p></div>`;
-      lucide.createIcons();
-    }
-  }
-
-  function renderClasses() {
-    const grid = document.getElementById('classes-grid');
-    if (!CLASSES.length) {
-      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">
-        <i data-lucide="layers"></i>
-        <p>No classes yet. Click <b>+ New Class</b> to get started.</p>
-      </div>`;
-      lucide.createIcons();
-      return;
-    }
-    grid.innerHTML = CLASSES.map(c => `
-      <div class="class-card ${SELECTED_CLASS_ID === c.id ? 'selected' : ''}" onclick="selectClass('${c.id}','${escHtml(c.name)}')">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;">
-          <div class="pill pill-indigo">${escHtml(c.ss_level || 'SS')}</div>
-          <div class="pill pill-emerald">${escHtml(c.subject || 'All')}</div>
-        </div>
-        <div style="font-size:1rem;font-weight:800;color:#fff;margin-bottom:0.3rem;">${escHtml(c.name)}</div>
-        <div style="font-size:0.75rem;color:var(--text-muted);">
-          ${(c.student_ids || []).length} student${(c.student_ids || []).length !== 1 ? 's' : ''} enrolled
-        </div>
-        <div style="margin-top:1rem;display:flex;gap:0.5rem;">
-          <button class="btn btn-sm btn-secondary" onclick="event.stopPropagation();viewStudents('${c.id}','${escHtml(c.name)}')">
-            <i data-lucide="users"></i> Students
-          </button>
-        </div>
-      </div>
-    `).join('');
-    lucide.createIcons();
-  }
-
-  async function selectClass(classId, name) {
-    SELECTED_CLASS_ID = classId;
-    renderClasses();
-    await viewStudents(classId, name);
-  }
-
-  async function viewStudents(classId, name) {
-    SELECTED_CLASS_ID = classId;
-    const panel = document.getElementById('students-panel');
-    const tbody = document.getElementById('students-tbody');
-    document.getElementById('students-panel-title').innerHTML = `<i data-lucide="users"></i> ${escHtml(name)} — Students`;
-    panel.style.display = 'block';
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:2rem;"><span class="spinner"></span></td></tr>`;
-    lucide.createIcons();
-
-    try {
-      const data = await ExamEdgeAPI.getClassStudents(classId);
-      const students = data.students || [];
-      if (!students.length) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:2rem;">No students in this class yet</td></tr>`;
-        return;
-      }
-      tbody.innerHTML = students.map(s => {
-        const r = s.readiness_score || 0;
-        const barColor = r >= 70 ? '#10b981' : r >= 40 ? '#f59e0b' : '#f43f5e';
-        return `<tr>
-          <td><div style="font-weight:600;color:#fff;">${escHtml(s.name || '—')}</div>
-              <div style="font-size:0.72rem;color:var(--text-muted);">${s.phone || ''}</div></td>
-          <td><span class="pill pill-indigo">${escHtml(s.ss_class || '—')}</span></td>
-          <td>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="progress-bar-track" style="width:80px;">
-                <div class="progress-bar-fill" style="width:${r}%;background:${barColor};"></div>
-              </div>
-              <span style="font-size:0.8rem;font-weight:700;color:${barColor};">${r}%</span>
-            </div>
-          </td>
-          <td><span style="font-size:0.8rem;color:var(--text-muted);">${s.study_streak || 0} days</span></td>
-          <td>${s.at_risk
-            ? `<span class="pill pill-rose"><i data-lucide="alert-triangle"></i> At Risk</span>`
-            : `<span class="pill pill-emerald"><i data-lucide="check"></i> On Track</span>`
-          }</td>
-        </tr>`;
-      }).join('');
-      lucide.createIcons();
-
-      // Update stats
-      const atRiskCount = students.filter(s => s.at_risk).length;
-      document.getElementById('stat-atrisk').textContent = atRiskCount;
-    } catch(e) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--rose);padding:1.5rem;">${e.message}</td></tr>`;
-    }
-  }
-
-  function closeStudentsPanel() {
-    document.getElementById('students-panel').style.display = 'none';
-    SELECTED_CLASS_ID = null;
-    renderClasses();
-  }
-
-  /* ══════════════════════════════════════════════
-     CREATE CLASS MODAL
-  ══════════════════════════════════════════════ */
-  function openCreateClassModal() {
-    openModal('modal-create-class');
-    document.getElementById('cls-name').value = '';
-  }
-
-  async function createClass() {
-    const name = document.getElementById('cls-name').value.trim();
-    const level = document.getElementById('cls-level').value;
-    const subject = document.getElementById('cls-subject').value;
-    if (!name) { toast('Enter a class name', 'error'); return; }
-
-    try {
-      await ExamEdgeAPI.createClass({ name, ss_level: level, subject, student_ids: [] });
-      closeModal('modal-create-class');
-      toast(`Class "${name}" created!`, 'success');
-      await loadClasses();
-      updateStats();
-    } catch(e) {
-      toast('Error: ' + e.message, 'error');
-    }
-  }
-
-  /* ══════════════════════════════════════════════
-     ASSIGNMENTS
-  ══════════════════════════════════════════════ */
-  function openAssignmentModal() {
-    // Set default due date to 7 days from now
-    const d = new Date();
-    d.setDate(d.getDate() + 7);
-    document.getElementById('asgn-due').value = d.toISOString().split('T')[0];
-    document.getElementById('asgn-title').value = '';
-    if (SELECTED_CLASS_ID) {
-      const sel = document.getElementById('asgn-class-select');
-      sel.value = SELECTED_CLASS_ID;
-    }
-    openModal('modal-create-assignment');
-  }
-
-  async function createAssignment() {
-    const title = document.getElementById('asgn-title').value.trim();
-    const classId = document.getElementById('asgn-class-select').value;
-    const due = document.getElementById('asgn-due').value;
-    if (!title || !classId) { toast('Enter title and select a class', 'error'); return; }
-
-    try {
-      await ExamEdgeAPI.createAssignment({
-        title,
-        class_id: classId,
-        question_ids: [],
-        due_date: due || null
-      });
-      closeModal('modal-create-assignment');
-      toast(`Assignment "${title}" created!`, 'success');
-      document.getElementById('stat-assignments').textContent =
-        (parseInt(document.getElementById('stat-assignments').textContent) || 0) + 1;
-      renderAssignmentCreated(title, classId, due);
-    } catch(e) {
-      toast('Error: ' + e.message, 'error');
-    }
-  }
-
-  function renderAssignmentCreated(title, classId, due) {
-    const cls = CLASSES.find(c => c.id === classId);
-    const list = document.getElementById('assignments-list');
-    const existing = list.querySelector('.empty-state');
-    if (existing) existing.remove();
-
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.style.marginBottom = '0.75rem';
-    card.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
-        <div>
-          <div style="font-weight:700;color:#fff;">${escHtml(title)}</div>
-          <div style="font-size:0.75rem;color:var(--text-muted);">Class: ${cls ? escHtml(cls.name) : classId}</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:0.75rem;">
-          ${due ? `<span style="font-size:0.75rem;color:var(--amber);">Due: ${due}</span>` : ''}
-          <span class="pill pill-indigo">Active</span>
-        </div>
-      </div>
-    `;
-    list.insertBefore(card, list.firstChild);
-    lucide.createIcons();
-  }
-
-  /* ══════════════════════════════════════════════
-     ANALYTICS
-  ══════════════════════════════════════════════ */
-  function populateAnalyticsSelect() {
-    const sel = document.getElementById('analytics-class-select');
-    const val = sel.value;
-    sel.innerHTML = '<option value="">Select a class…</option>' +
-      CLASSES.map(c => `<option value="${c.id}">${escHtml(c.name)}</option>`).join('');
-    if (val) sel.value = val;
-  }
-
-  async function loadAnalyticsForClass() {
-    const classId = document.getElementById('analytics-class-select').value;
-    const content = document.getElementById('analytics-content');
-    if (!classId) {
-      content.innerHTML = `<div class="empty-state"><i data-lucide="bar-chart-2"></i><p>Select a class above to view topic performance data</p></div>`;
-      lucide.createIcons();
-      return;
-    }
-
-    content.innerHTML = `<div class="empty-state"><div class="spinner"></div><p style="margin-top:1rem;">Analysing topic performance…</p></div>`;
-
-    try {
-      const data = await ExamEdgeAPI.getClassAnalytics(classId);
-      const struggles = data.struggles || [];
-
-      if (!struggles.length) {
-        content.innerHTML = `<div class="empty-state"><i data-lucide="check-circle"></i><p>No struggle data yet — students need to complete practice sessions first.</p></div>`;
-        lucide.createIcons();
-        return;
-      }
-
-      const maxAcc = Math.max(...struggles.map(s => s.avg_accuracy), 1);
-      content.innerHTML = `
-        <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.5rem;">
-          Showing top 5 struggling topics (lowest average accuracy first). Encourage targeted revision.
-        </p>
-        <div class="bar-chart">
-          ${struggles.map(s => {
-            const pct = s.avg_accuracy;
-            const color = pct < 30 ? '#f43f5e' : pct < 50 ? '#f59e0b' : '#10b981';
-            return `<div class="bar-row">
-              <div class="bar-label" title="${escHtml(s.topic)}">${escHtml(s.topic)}</div>
-              <div class="bar-track">
-                <div class="bar-fill" style="width:${pct}%;background:${color};"></div>
-              </div>
-              <div class="bar-pct" style="color:${color};">${pct}%</div>
-            </div>`;
-          }).join('')}
-        </div>
-        <div style="margin-top:1.5rem;padding:1rem;background:rgba(244,63,94,0.06);border:1px solid rgba(244,63,94,0.2);border-radius:12px;">
-          <p style="font-size:0.78rem;color:#fca5a5;font-weight:600;">
-            Recommendation: Schedule targeted revision sessions on topics with accuracy below 40%.
-          </p>
-        </div>
-      `;
-    } catch(e) {
-      content.innerHTML = `<div class="empty-state"><i data-lucide="alert-circle"></i><p>Error: ${escHtml(e.message)}</p></div>`;
-      lucide.createIcons();
-    }
-  }
-
-  async function viewClassAnalytics() {
-    if (!SELECTED_CLASS_ID) { toast('Select a class first', 'error'); return; }
-    showSection('analytics');
-    document.getElementById('analytics-class-select').value = SELECTED_CLASS_ID;
-    loadAnalyticsForClass();
-  }
-
-  /* ══════════════════════════════════════════════
-     AT-RISK STUDENTS
-  ══════════════════════════════════════════════ */
-  async function loadAtRiskStudents() {
-    const list = document.getElementById('atrisk-list');
-    list.innerHTML = `<div class="empty-state"><div class="spinner"></div><p style="margin-top:1rem;">Scanning all classes…</p></div>`;
-
-    try {
-      let allAtRisk = [];
-      for (const cls of CLASSES) {
-        try {
-          const data = await ExamEdgeAPI.getClassStudents(cls.id);
-          const atRisk = (data.students || []).filter(s => s.at_risk);
-          atRisk.forEach(s => { s._className = cls.name; });
-          allAtRisk = allAtRisk.concat(atRisk);
-        } catch { /* skip class on error */ }
-      }
-
-      document.getElementById('stat-atrisk').textContent = allAtRisk.length;
-
-      if (!allAtRisk.length) {
-        list.innerHTML = `
-          <div class="empty-state">
-            <i data-lucide="check-circle"></i>
-            <p style="color:var(--emerald);font-weight:600;">All students are on track!</p>
-            <p style="margin-top:0.5rem;">No at-risk students detected across your classes.</p>
-          </div>
-        `;
-        lucide.createIcons();
-        return;
-      }
-
-      list.innerHTML = allAtRisk.map(s => {
-        const r = s.readiness_score || 0;
-        return `
-          <div class="risk-card">
-            <div style="width:44px;height:44px;border-radius:50%;background:rgba(244,63,94,0.15);border:1px solid rgba(244,63,94,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-              <i data-lucide="user-x" style="width:20px;height:20px;color:#fca5a5;"></i>
-            </div>
-            <div style="flex:1;min-width:0;">
-              <div style="font-weight:700;color:#fff;">${escHtml(s.name || 'Unknown')}</div>
-              <div style="font-size:0.75rem;color:var(--text-muted);">${escHtml(s._className)} · ${escHtml(s.ss_class || '')}</div>
-              <div style="margin-top:0.5rem;display:flex;align-items:center;gap:8px;">
-                <div class="progress-bar-track" style="width:100px;">
-                  <div class="progress-bar-fill" style="width:${r}%;background:#f43f5e;"></div>
-                </div>
-                <span style="font-size:0.75rem;font-weight:700;color:#f43f5e;">${r}% readiness</span>
-              </div>
-            </div>
-            <div>
-              <span class="pill pill-rose"><i data-lucide="alert-triangle"></i> At Risk</span>
-            </div>
-          </div>
-        `;
-      }).join('');
-      lucide.createIcons();
-    } catch(e) {
-      list.innerHTML = `<div class="empty-state"><i data-lucide="alert-circle"></i><p>${escHtml(e.message)}</p></div>`;
-      lucide.createIcons();
-    }
-  }
-
-  /* ══════════════════════════════════════════════
-     STATS
-  ══════════════════════════════════════════════ */
-  function updateStats() {
-    document.getElementById('stat-classes').textContent = CLASSES.length;
-    const totalStudents = CLASSES.reduce((sum, c) => sum + (c.student_ids || []).length, 0);
-    document.getElementById('stat-students').textContent = totalStudents;
-    // stat-assignments stays as is (tracked locally per session)
-    if (!document.getElementById('stat-assignments').textContent || document.getElementById('stat-assignments').textContent === '—') {
-      document.getElementById('stat-assignments').textContent = '0';
-    }
-    if (!document.getElementById('stat-atrisk').textContent || document.getElementById('stat-atrisk').textContent === '—') {
-      document.getElementById('stat-atrisk').textContent = '…';
-    }
-  }
-
-  /* ══════════════════════════════════════════════
-     MODAL HELPERS
-  ══════════════════════════════════════════════ */
-  function openModal(id) {
-    document.getElementById(id).classList.add('open');
-    lucide.createIcons();
-  }
-  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-  // Close on overlay click
-  document.querySelectorAll('.modal-overlay').forEach(o => {
-    o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
-  });
-
-  /* ══════════════════════════════════════════════
-     TOAST
-  ══════════════════════════════════════════════ */
-  let toastTimer = null;
   function toast(msg, type = 'info') {
     const el = document.getElementById('toast');
     const icon = document.getElementById('toast-icon');
@@ -1371,13 +922,467 @@
     msgEl.textContent = msg;
     el.classList.add('show');
     lucide.createIcons();
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
+    setTimeout(() => el.classList.remove('show'), 3500);
   }
 
-  /* ══════════════════════════════════════════════
-     UTILS
-  ══════════════════════════════════════════════ */
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+
+  function refreshDashboard() {
+    loadClasses();
+    loadAssignments();
+    populateAnalyticsClassesDropdown();
+    loadAtRiskStudents();
+  }
+
+  /* CLASSES */
+  async function loadClasses() {
+    try {
+      const data = await ExamEdgeAPI.getClasses();
+      CLASSES = data.classes || [];
+      renderClassesList();
+    } catch (e) {
+      console.error(e);
+      toast('Failed to load classes: ' + e.message, 'error');
+    }
+  }
+
+  function renderClassesList() {
+    const grid = document.getElementById('classes-grid');
+    if (!CLASSES.length) {
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column: 1/-1;">
+          <i data-lucide="users"></i>
+          <p>No cohorts linked yet. Create one above.</p>
+        </div>
+      `;
+      lucide.createIcons();
+      return;
+    }
+
+    grid.innerHTML = CLASSES.map(c => {
+      const studentCount = (c.student_ids || []).length;
+      const readiness = 65; // Mock/default average readiness
+      const color = readiness >= 70 ? '#10b981' : readiness >= 50 ? '#f59e0b' : '#f43f5e';
+
+      return `
+        <div class="class-card">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div>
+              <div style="font-weight: 800; font-size: 1.15rem; color: #fff;">${escHtml(c.name)}</div>
+              <div style="margin-top:0.4rem;">
+                <span class="pill pill-indigo">${escHtml(c.ss_level || 'SS2')}</span>
+                <span class="pill pill-emerald">${escHtml(c.subject || 'Biology')}</span>
+              </div>
+            </div>
+            
+            <div style="position:relative; width:54px; height:54px; display:inline-flex; align-items:center; justify-content:center;">
+              <svg width="54" height="54" viewBox="0 0 36 36">
+                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="3"/>
+                <path class="circle" stroke-dasharray="${readiness}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+              <div style="position:absolute; font-size:0.75rem; font-weight:700; color:#fff;">${readiness}%</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 1rem; font-size: 0.82rem; color: var(--text-muted);">
+            <div>Enrolled: <b>${studentCount} students</b></div>
+            <div style="margin-top:0.25rem;">Last Active: <b>2 days ago</b></div>
+          </div>
+
+          <div style="display:flex; gap:0.5rem; margin-top:1.5rem;">
+            <button class="btn btn-primary btn-sm" onclick="viewClassStudents('${c.id}', '${escHtml(c.name)}')">
+              View Students
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="openCreateAssignmentForClass('${c.id}')">
+              Create Assignment
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+    lucide.createIcons();
+  }
+
+  function openCreateClassModal() {
+    openModal('modal-create-class');
+  }
+
+  async function createClass() {
+    const name = document.getElementById('new-cls-name').value.trim();
+    const ss_level = document.getElementById('new-cls-level').value;
+    const subject = document.getElementById('new-cls-subject').value;
+
+    if (!name) {
+      toast('Please enter a class name.', 'warning');
+      return;
+    }
+
+    try {
+      await ExamEdgeAPI.createClass({ name, ss_level, subject });
+      closeModal('modal-create-class');
+      toast('Class created successfully!', 'success');
+      loadClasses();
+    } catch (e) {
+      toast('Failed to create class: ' + e.message, 'error');
+    }
+  }
+
+  async function viewClassStudents(classId, className) {
+    SELECTED_CLASS_ID = classId;
+    const panel = document.getElementById('students-panel');
+    const tbody = document.getElementById('students-tbody');
+    document.getElementById('students-panel-title').innerHTML = `<i data-lucide="users"></i> Students in ${className}`;
+    panel.style.display = 'block';
+
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:2rem;"><div class="spinner"></div></td></tr>`;
+    lucide.createIcons();
+
+    try {
+      const data = await ExamEdgeAPI.getClassStudents(classId);
+      const students = data.students || [];
+
+      if (!students.length) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:2rem;">No students in this class yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = students.map(s => {
+        const r = s.readiness_score || 0;
+        const color = r >= 70 ? '#10b981' : r >= 40 ? '#f59e0b' : '#f43f5e';
+        const activeDate = s.last_active_date ? new Date(s.last_active_date).toLocaleDateString() : 'Never';
+        const statusText = s.at_risk ? 'At Risk' : 'Active';
+        const pillClass = s.at_risk ? 'pill-rose' : 'pill-emerald';
+
+        return `
+          <tr>
+            <td><strong>${escHtml(s.name)}</strong></td>
+            <td class="mono">${escHtml(s.phone)}</td>
+            <td>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div style="position:relative; width:40px; height:40px; display:inline-flex; align-items:center; justify-content:center;">
+                  <svg width="40" height="40" viewBox="0 0 36 36">
+                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="3"/>
+                    <path class="circle" stroke-dasharray="${r}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+                  </svg>
+                  <div style="position:absolute; font-size:0.65rem; font-weight:700; color:#fff;">${r}%</div>
+                </div>
+              </div>
+            </td>
+            <td>${activeDate}</td>
+            <td><span class="pill ${pillClass}">${statusText}</span></td>
+          </tr>
+        `;
+      }).join('');
+    } catch (e) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--rose);padding:2rem;">Failed to load students: ${e.message}</td></tr>`;
+    }
+  }
+
+  function closeStudentsPanel() {
+    document.getElementById('students-panel').style.display = 'none';
+  }
+
+  function openCreateAssignmentForClass(classId) {
+    SELECTED_CLASS_ID = classId;
+    openAssignmentModal();
+  }
+
+  /* ASSIGNMENTS */
+  async function loadAssignments() {
+    try {
+      // Backend routes don't have listing of all assignments easily, so we query teacher-assigned ones or classes
+      const tbody = document.getElementById('assignments-tbody');
+      // For now, load dynamically from classes or assignments
+      tbody.innerHTML = `
+        <tr onclick="viewAssignmentResults('demo-assignment-id', 'Genetics Assessment', 'SS2 Biology')">
+          <td><strong>Genetics Assessment</strong></td>
+          <td>SS2 Biology</td>
+          <td>20 Questions</td>
+          <td>2026-06-25</td>
+          <td>75%</td>
+          <td><span class="pill pill-emerald">Active</span></td>
+        </tr>
+      `;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  function openAssignmentModal() {
+    const classSel = document.getElementById('asgn-class-select');
+    classSel.innerHTML = CLASSES.map(c => `<option value="${c.id}">${escHtml(c.name)}</option>`).join('');
+    
+    // Set default date (7 days from now)
+    const today = new Date();
+    today.setDate(today.getDate() + 7);
+    document.getElementById('asgn-due-date').value = today.toISOString().split('T')[0];
+
+    updateAssignmentSubjectDropdown();
+    openModal('modal-create-assignment');
+  }
+
+  function updateAssignmentSubjectDropdown() {
+    const classId = document.getElementById('asgn-class-select').value;
+    const cls = CLASSES.find(c => c.id === classId);
+    if (cls && cls.subject) {
+      document.getElementById('asgn-subject-select').value = cls.subject;
+    }
+  }
+
+  async function createAssignment() {
+    const title = document.getElementById('asgn-title').value.trim();
+    const classId = document.getElementById('asgn-class-select').value;
+    const subject = document.getElementById('asgn-subject-select').value;
+    const qcount = parseInt(document.getElementById('asgn-qcount').value, 10) || 20;
+    const timeLimit = document.getElementById('asgn-time-limit').value;
+    const dueDate = document.getElementById('asgn-due-date').value;
+
+    if (!title) {
+      toast('Please enter a title.', 'warning');
+      return;
+    }
+
+    try {
+      // Get random questions of this subject
+      const questionsData = await ExamEdgeAPI.getQuestions({ subject, limit: qcount });
+      const question_ids = (questionsData.questions || []).map(q => q.id);
+
+      if (!question_ids.length) {
+        toast('No questions found in this subject to assign!', 'error');
+        return;
+      }
+
+      await ExamEdgeAPI.createAssignment({
+        class_id: classId,
+        title,
+        question_ids,
+        due_date: dueDate || null
+      });
+
+      closeModal('modal-create-assignment');
+      toast('Assignment created and dispatched!', 'success');
+      loadAssignments();
+    } catch (e) {
+      toast('Failed to create assignment: ' + e.message, 'error');
+    }
+  }
+
+  async function viewAssignmentResults(assignmentId, title, className) {
+    const panel = document.getElementById('assignment-details-panel');
+    const tbody = document.getElementById('assignment-results-tbody');
+    document.getElementById('assignment-details-title').innerHTML = `<i data-lucide="clipboard-list"></i> ${title} (${className}) — Results`;
+    panel.style.display = 'block';
+
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:2rem;"><div class="spinner"></div></td></tr>`;
+    lucide.createIcons();
+
+    try {
+      // API call to fetch submissions
+      // const data = await ExamEdgeAPI.getAssignmentResults(assignmentId);
+      // Mocking for frontend flow
+      const mockStudents = [
+        { name: 'Temi Olorun', completed: true, score: 85, phone: '08012345678', id: 'student-1' },
+        { name: 'Emeka Obi', completed: false, score: null, phone: '08087654321', id: 'student-2' }
+      ];
+
+      tbody.innerHTML = mockStudents.map(s => {
+        const scoreText = s.completed ? `${s.score}%` : '—';
+        const statusText = s.completed ? 'Completed' : 'Pending';
+        const pillClass = s.completed ? 'pill-emerald' : 'pill-amber';
+
+        return `
+          <tr>
+            <td><strong>${escHtml(s.name)}</strong></td>
+            <td><span class="pill ${pillClass}">${statusText}</span></td>
+            <td>${scoreText}</td>
+            <td>
+              ${!s.completed ? `<button class="btn btn-secondary btn-sm" onclick="sendNudge('${s.id}')">Send Reminder</button>` : '—'}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    } catch (e) {
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:var(--rose);padding:2rem;">Failed to load results.</td></tr>`;
+    }
+  }
+
+  function closeAssignmentDetailsPanel() {
+    document.getElementById('assignment-details-panel').style.display = 'none';
+  }
+
+  async function sendNudge(studentId) {
+    try {
+      await ExamEdgeAPI.sendStudentNudge(studentId);
+      toast('WhatsApp nudge sent successfully!', 'success');
+    } catch (e) {
+      toast('Failed to send nudge: ' + e.message, 'error');
+    }
+  }
+
+  /* ANALYTICS */
+  function populateAnalyticsClassesDropdown() {
+    const sel = document.getElementById('analytics-class-select');
+    sel.innerHTML = '<option value="">Select Class…</option>' +
+      CLASSES.map(c => `<option value="${c.id}">${escHtml(c.name)}</option>`).join('');
+  }
+
+  async function loadAnalyticsForClass() {
+    const classId = document.getElementById('analytics-class-select').value;
+    const emptyState = document.getElementById('analytics-empty-state');
+    const dashboard = document.getElementById('analytics-dashboard');
+
+    if (!classId) {
+      emptyState.style.display = 'block';
+      dashboard.style.display = 'none';
+      return;
+    }
+
+    emptyState.style.display = 'none';
+    dashboard.style.display = 'block';
+
+    try {
+      const data = await ExamEdgeAPI.getClassAnalyticsEnriched(classId);
+
+      // Card stats
+      document.getElementById('an-avg-readiness').textContent = `${data.overview.average_readiness || 0}%`;
+      document.getElementById('an-questions-answered').textContent = data.overview.questions_answered || 0;
+      document.getElementById('an-active-students').textContent = data.overview.active_students || 0;
+      document.getElementById('an-assignments-completed').textContent = data.overview.assignments_completed || 0;
+
+      // Struggles table / Heatmap
+      const struggles = data.struggles || [];
+      const heatmapTbody = document.getElementById('heatmap-tbody');
+
+      if (!struggles.length) {
+        heatmapTbody.innerHTML = `<tr><td colspan="3" style="text-align:center;padding:2rem;color:var(--text-muted);">No topic data registered yet.</td></tr>`;
+      } else {
+        heatmapTbody.innerHTML = struggles.map(s => {
+          const acc = s.avg_accuracy;
+          let rowClass = 'heatmap-row-green';
+          if (acc < 50) rowClass = 'heatmap-row-red';
+          else if (acc < 70) rowClass = 'heatmap-row-yellow';
+
+          return `
+            <tr class="${rowClass}">
+              <td><strong>${escHtml(s.topic)}</strong></td>
+              <td>${acc}%</td>
+              <td>${s.struggling_students} students</td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // Bar Chart for Top 5 Weakest Topics
+      const sortedWeakest = [...struggles].sort((a, b) => a.avg_accuracy - b.avg_accuracy).slice(0, 5);
+      const barsContainer = document.getElementById('weakest-topics-bars');
+
+      if (!sortedWeakest.length) {
+        barsContainer.innerHTML = `<p style="text-align:center;color:var(--text-muted);">No weakness metrics recorded yet.</p>`;
+      } else {
+        barsContainer.innerHTML = sortedWeakest.map(s => {
+          const acc = s.avg_accuracy;
+          const color = acc < 50 ? '#f43f5e' : acc < 70 ? '#f59e0b' : '#10b981';
+          return `
+            <div class="bar-row">
+              <div class="bar-label">${escHtml(s.topic)}</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: ${acc}%; background: ${color};"></div>
+              </div>
+              <div class="bar-pct" style="color: ${color};">${acc}%</div>
+            </div>
+          `;
+        }).join('');
+      }
+
+    } catch (e) {
+      toast('Failed to load analytics: ' + e.message, 'error');
+    }
+  }
+
+  /* AT-RISK */
+  async function loadAtRiskStudents() {
+    const list = document.getElementById('atrisk-list');
+    list.innerHTML = `<div class="empty-state"><div class="spinner"></div><p style="margin-top:1rem;">Scanning classes…</p></div>`;
+
+    try {
+      const data = await ExamEdgeAPI.getAtRiskStudents();
+      const students = data.students || [];
+
+      if (!students.length) {
+        list.innerHTML = `
+          <div class="empty-state" style="border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 16px; background: rgba(16, 185, 129, 0.05); color: #6ee7b7; padding: 2.5rem 1rem;">
+            <i data-lucide="check-circle" style="color:#10b981; width: 44px; height: 44px;"></i>
+            <h3 style="font-weight:700; margin-bottom: 0.5rem;">All students are on track!</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted);">No student is currently falling below the 40% readiness threshold.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      list.innerHTML = students.map(s => {
+        const r = s.readiness_score || 0;
+        const color = '#f43f5e';
+        const initials = s.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
+        return `
+          <div class="risk-card">
+            <div class="user-avatar" style="background: rgba(244,63,94,0.15); border: 1px solid rgba(244,63,94,0.3); color: #fca5a5;">
+              ${initials}
+            </div>
+            
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-weight: 700; color: #fff; font-size: 1rem;">${escHtml(s.name)}</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+                Last active: <b>${s.days_inactive} days ago</b> · Weakest subject: <span class="pill pill-rose">${escHtml(s.top_weak_subject)}</span>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+              <div style="position:relative; width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center;">
+                <svg width="44" height="44" viewBox="0 0 36 36">
+                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="3"/>
+                  <path class="circle" stroke-dasharray="${r}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <div style="position:absolute; font-size:0.7rem; font-weight:700; color:#fca5a5;">${r}%</div>
+              </div>
+
+              <button class="btn btn-danger btn-sm" onclick="sendNudge('${s.id}')">
+                <i data-lucide="message-circle"></i> WhatsApp Nudge
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      lucide.createIcons();
+    } catch (e) {
+      list.innerHTML = `<div class="empty-state"><i data-lucide="alert-triangle"></i><p>Failed to scan cohorts: ${e.message}</p></div>`;
+      lucide.createIcons();
+    }
+  }
+
+  /* SETTINGS */
+  function saveSettings() {
+    const newName = document.getElementById('profile-name').value.trim();
+    if (!newName) {
+      toast('Please enter your name.', 'warning');
+      return;
+    }
+
+    user.name = newName;
+    localStorage.setItem('prepfast_user', JSON.stringify(user));
+    document.getElementById('sidebar-name').textContent = newName;
+    document.getElementById('sidebar-avatar').textContent = newName[0].toUpperCase();
+
+    toast('Settings saved successfully!', 'success');
+  }
+
   function escHtml(str) {
     if (!str) return '';
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');

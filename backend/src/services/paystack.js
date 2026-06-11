@@ -9,7 +9,7 @@ async function initializePayment(userId, plan) {
     parent_addon: config.premium.parentAddonKobo,
   };
   const amount = amounts[plan] || amounts.monthly;
-  const reference = `EE-${uuidv4().replace(/-/g, "").slice(0, 16)}`;
+  const reference = `PF-${uuidv4().replace(/-/g, "").slice(0, 16)}`;
 
   await query(
     `INSERT INTO payments (user_id, reference, amount_kobo, status, plan)
@@ -38,7 +38,7 @@ async function initializePayment(userId, plan) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: u.email || `${u.phone}@examedge.app`,
+      email: u.email || `${u.phone}@prepfast.app`,
       amount,
       reference,
       callback_url: `${config.appUrl}/index.html?payment=success`,
@@ -104,4 +104,4 @@ async function handleWebhook(body) {
   }
 }
 
-module.exports = { initializePayment, verifyPayment, handleWebhook };
+module.exports = { initializePayment, verifyPayment, handleWebhook, activateSubscription };

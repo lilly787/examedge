@@ -15,6 +15,7 @@ const parentRoutes = require("./routes/parents");
 const schoolRoutes = require("./routes/schools");
 const gamificationRoutes = require("./routes/gamification");
 const offlineRoutes = require("./routes/offline");
+const userRoutes = require("./routes/users");
 
 const app = express();
 const rootDir = path.join(__dirname, "../..");
@@ -62,6 +63,7 @@ app.use("/api/parents", parentRoutes);
 app.use("/api/schools", schoolRoutes);
 app.use("/api/gamification", gamificationRoutes);
 app.use("/api/offline", offlineRoutes);
+app.use("/api/users", userRoutes);
 
 const MIME = {
   ".html": "text/html",
@@ -94,7 +96,7 @@ async function startServer() {
 
   app.listen(config.port, "127.0.0.1", () => {
     const { isPgMem } = require("./db/pool");
-    console.log(`\n✅ ExamEdge running at ${config.appUrl}`);
+    console.log(`\n✅ PrepFast running at ${config.appUrl}`);
     console.log(`   Database: ${isPgMem() ? "in-memory (pg-mem) — no Docker needed" : "PostgreSQL"}`);
     console.log(`   API: ${config.appUrl}/api/health`);
     console.log(`   Student app: ${config.appUrl}/index.html`);

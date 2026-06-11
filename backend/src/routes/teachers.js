@@ -119,4 +119,129 @@ router.get("/analytics/class/:classId", async (req, res) => {
   res.json({ struggles });
 });
 
+router.get("/classes/:classId/analytics", async (req, res) => {
+  try {
+    const cls = await query(
+      "SELECT student_ids FROM classes WHERE id = $1 AND teacher_id = $2",
+      [req.params.classId, req.user.id]
+    );
+    if (!cls.rows.length) return res.status(404).json({ error: "Class not found" });
+    const studentIds = cls.rows[0].student_ids || [];
+
+    if (!studentIds.length) {
+      return res.json({
+        overview: { average_readiness: 0, questions_answered: 0, active_students: 0, assignments_completed: 0 },
+        struggles: []
+      });
+    }
+
+    const readinessRes = await query(
+      `SELECT AVG(readiness_score)::int AS avg_readiness FROM students WHERE user_id = ANY($1::uuid[])`,
+      [studentIds]
+    );
+    const progressRes = await query(
+      `SELECT COUNT(*)::int AS total_answered FROM student_progress WHERE student_id = ANY($1::uuid[])`,
+      [studentIds]
+    );
+    const activeRes = await query(
+      `SELECT COUNT(*)::int AS active_count FROM students WHERE user_id = ANY($1::uuid[]) AND last_active_date >= NOW() - INTERVAL '7 days'`,
+      [studentIds]
+    );
+    const completedRes = await query(
+      `SELECT COUNT(*)::int AS completed_count FROM assignment_submissions 
+       WHERE student_id = ANY($1::uuid[]) AND completed = TRUE AND assignment_id IN (
+         SELECT id FROM assignments WHERE class_id = $2
+       )`,
+      [studentIds, req.params.classId]
+    );
+
+    const wmRes = await query(
+      `SELECT topic, AVG(accuracy_rate)::int AS avg_accuracy, SUM(CASE WHEN accuracy_rate < 50 THEN 1 ELSE 0 END)::int AS struggling_count
+       FROM weakness_map 
+       WHERE student_id = ANY($1::uuid[])
+       GROUP BY topic`,
+      [studentIds]
+    );
+
+    res.json({
+      overview: {
+        average_readiness: readinessRes.rows[0].avg_readiness || 0,
+        questions_answered: progressRes.rows[0].total_answered || 0,
+        active_students: activeRes.rows[0].active_count || 0,
+        assignments_completed: completedRes.rows[0].completed_count || 0,
+      },
+      struggles: wmRes.rows.map(row => ({
+        topic: row.topic,
+        avg_accuracy: row.avg_accuracy || 0,
+        struggling_students: row.struggling_count || 0
+      }))
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+router.get("/at-risk-students", async (req, res) => {
+  try {
+    const classesRes = await query("SELECT student_ids FROM classes WHERE teacher_id = $1", [req.user.id]);
+    const studentIds = [];
+    for (const row of classesRes.rows) {
+      if (row.student_ids) {
+        studentIds.push(...row.student_ids);
+      }
+    }
+
+    if (!studentIds.length) {
+      return res.json({ students: [] });
+    }
+
+    const uniqueIds = [...new Set(studentIds)];
+    const students = await query(
+      `SELECT u.id, u.name, u.phone, s.ss_class, s.readiness_score, s.study_streak, s.last_active_date
+       FROM users u JOIN students s ON s.user_id = u.id 
+       WHERE u.id = ANY($1::uuid[])`,
+      [uniqueIds]
+    );
+
+    const enriched = [];
+    for (const st of students.rows) {
+      const readiness = st.readiness_score || 0;
+      const daysInactive = st.last_active_date
+        ? Math.floor((Date.now() - new Date(st.last_active_date)) / 86400000)
+        : 99;
+      if (readiness < 40 || daysInactive >= 5) {
+        // Find top weak subject from weakness_map
+        const wmRes = await query(
+          "SELECT subject FROM weakness_map WHERE student_id = $1 ORDER BY accuracy_rate ASC LIMIT 1",
+          [st.id]
+        );
+        const weakSubject = wmRes.rows.length ? wmRes.rows[0].subject : "General";
+
+        enriched.push({
+          ...st,
+          readiness_score: readiness,
+          days_inactive: daysInactive,
+          top_weak_subject: weakSubject
+        });
+      }
+    }
+    res.json({ students: enriched });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+router.post("/students/:studentId/nudge", async (req, res) => {
+  try {
+    const student = await query("SELECT u.name, u.phone FROM users u WHERE u.id = $1", [req.params.studentId]);
+    if (!student.rows.length) return res.status(404).json({ error: "Student not found" });
+
+    console.log(`[DEV MODE] WhatsApp Nudge sent to ${student.rows[0].name} (${student.rows[0].phone}): Hey ${student.rows[0].name.split(' ')[0]}, you have an outstanding assignment or need to practice on ExamEdge!`);
+
+    res.json({ success: true, message: `WhatsApp Nudge sent to ${student.rows[0].name}` });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 module.exports = router;

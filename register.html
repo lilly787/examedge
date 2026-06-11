@@ -3,7 +3,7 @@
 <head>
   <script>
     const existingUser = JSON.parse(
-      localStorage.getItem('examedge_user') || 'null'
+      localStorage.getItem('prepfast_user') || 'null'
     );
     if (existingUser) {
       const map = {
@@ -625,10 +625,10 @@
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="icons.js"></script>
-<script src="examedge-config.js"></script>
-<script src="examedge-api.js"></script>
+<script src="prepfast-config.js"></script>
+<script src="prepfast-api.js"></script>
 <script src="database.js"></script>
-<script src="examedge-bridge.js"></script>
+<script src="prepfast-bridge.js"></script>
 <script>
   const SUBJECT_NAMES = {
     math: 'Mathematics', english: 'English Language', biology: 'Biology',
@@ -789,19 +789,26 @@
     btn.textContent = 'Sending code…';
     btn.disabled = true;
 
-    if (window.EXAMEDGE_CONFIG?.useApi !== false) {
-      await ExamEdgeBridge.whenReady();
-      state.useApi = !!ExamEdgeBridge.apiOnline;
+    if (window.PREPFAST_CONFIG?.useApi !== false) {
+      await PrepFastBridge.whenReady();
+      state.useApi = !!PrepFastBridge.apiOnline;
     }
 
     if (state.useApi) {
       try {
-        const res = await ExamEdgeAPI.sendOtp(phone);
-        document.getElementById('otp-code-preview').textContent = res.devCode || '••••';
+        const res = await PrepFastAPI.sendOtp(phone);
+        const devCodeStr = String(res.devCode || '1234');
+        document.getElementById('otp-code-preview').textContent = devCodeStr;
+        if (res.devCode) {
+          document.getElementById('otp-0').value = devCodeStr[0];
+          document.getElementById('otp-1').value = devCodeStr[1];
+          document.getElementById('otp-2').value = devCodeStr[2];
+          document.getElementById('otp-3').value = devCodeStr[3];
+        }
         btn.disabled = false;
         btn.textContent = 'Send Verification Code →';
         goStep(2);
-        setTimeout(() => document.getElementById('otp-0').focus(), 80);
+        setTimeout(() => document.getElementById('otp-3').focus(), 80);
         return;
       } catch (e) {
         showErr('step1', e.message || 'Could not send code. Try again.');
@@ -813,11 +820,15 @@
 
     state.otp = String(Math.floor(1000 + Math.random() * 9000));
     document.getElementById('otp-code-preview').textContent = state.otp;
+    document.getElementById('otp-0').value = state.otp[0];
+    document.getElementById('otp-1').value = state.otp[1];
+    document.getElementById('otp-2').value = state.otp[2];
+    document.getElementById('otp-3').value = state.otp[3];
     await sleep(600);
     btn.disabled = false;
     btn.textContent = 'Send Verification Code →';
     goStep(2);
-    setTimeout(() => document.getElementById('otp-0').focus(), 80);
+    setTimeout(() => document.getElementById('otp-3').focus(), 80);
   }
 
   async function verifyOTP() {
@@ -854,7 +865,7 @@
   async function resendCode() {
     if (state.useApi) {
       try {
-        const res = await ExamEdgeAPI.sendOtp(state.phone);
+        const res = await PrepFastAPI.sendOtp(state.phone);
         document.getElementById('otp-code-preview').textContent = res.devCode || '••••';
       } catch (_) {}
     } else {
@@ -892,10 +903,10 @@
 
     if (state.useApi && state.otpEntered) {
       try {
-        const res = await ExamEdgeAPI.verifyOtp(state.phone, state.otpEntered, profile);
-        ExamEdgeDB.loginFromApi(res.user, res.token);
+        const res = await PrepFastAPI.verifyOtp(state.phone, state.otpEntered, profile);
+        PrepFastDB.loginFromApi(res.user, res.token);
 
-        // Save user to examedge_user
+        // Save user to prepfast_user
         const userObj = {
           id: res.user.id,
           name: res.user.name,
@@ -904,7 +915,7 @@
           role: res.user.role,
           createdAt: res.user.createdAt || new Date().toISOString()
         };
-        localStorage.setItem('examedge_user', JSON.stringify(userObj));
+        localStorage.setItem('prepfast_user', JSON.stringify(userObj));
 
         showSuccessAndRedirect(res.user.name);
         return;
@@ -935,10 +946,10 @@
       questionsAnswered: 0,
     };
 
-    ExamEdgeDB.loginProfile(user);
+    PrepFastDB.loginProfile(user);
     if (state.role === 'student') addStudentToGlobalList(user);
 
-    // Save user to examedge_user
+    // Save user to prepfast_user
     const userObj = {
       id: user.id,
       name: user.name,
@@ -947,7 +958,7 @@
       role: user.role,
       createdAt: user.joinedAt
     };
-    localStorage.setItem('examedge_user', JSON.stringify(userObj));
+    localStorage.setItem('prepfast_user', JSON.stringify(userObj));
 
     showSuccessAndRedirect(user.name);
   }
@@ -956,7 +967,7 @@
     document.getElementById('success-first-name').textContent = name.split(' ')[0];
     goStep(4);
     document.getElementById('form-title').textContent = 'You\'re In!';
-    document.getElementById('form-subtitle').textContent = 'Your ExamEdge account is all set.';
+    document.getElementById('form-subtitle').textContent = 'Your PrepFast account is all set.';
     refreshIcons();
     const map = {
       student: 'index.html',
@@ -970,7 +981,7 @@
 
   // =================== HELPERS ===================
   function addStudentToGlobalList(user) {
-    const list = JSON.parse(localStorage.getItem('EXAMEDGE_all_students') || '[]');
+    const list = JSON.parse(localStorage.getItem('PREPFAST_all_students') || '[]');
     const exists = list.find(s => s.phone === user.phone);
     if (!exists) {
       list.push({
@@ -985,7 +996,7 @@
         questionsAnswered: user.questionsAnswered || 0,
         xp: user.xp || 0
       });
-      localStorage.setItem('EXAMEDGE_all_students', JSON.stringify(list));
+      localStorage.setItem('PREPFAST_all_students', JSON.stringify(list));
     }
   }
 

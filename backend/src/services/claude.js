@@ -1,6 +1,6 @@
 const config = require("../config");
 
-const TUTOR_SYSTEM = `You are ExamEdge Tutor — a friendly, expert Nigerian secondary school exam coach helping students prepare for WAEC, NECO, and JAMB.
+const TUTOR_SYSTEM = `You are PrepFast Tutor — a friendly, expert Nigerian secondary school exam coach helping students prepare for WAEC, NECO, and JAMB.
 
 Your role:
 - If the student got it wrong, gently explain why and walk through the concept

@@ -18,6 +18,7 @@ function mapQuestion(row) {
     answer: row.correct_answer,
     explanation: row.explanation_text,
     video_url: row.explanation_video_url,
+    common_mistakes: row.common_mistakes,
     difficulty: row.difficulty,
     tags: typeof row.tags === "string" ? JSON.parse(row.tags) : row.tags,
   };
@@ -109,8 +110,8 @@ router.post("/bulk", authRequired, async (req, res) => {
   let count = 0;
   for (const q of questions) {
     await query(
-      `INSERT INTO questions (id, subject, topic, subtopic, year, exam_body, type, question_text, options, correct_answer, explanation_text, difficulty, tags)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+      `INSERT INTO questions (id, subject, topic, subtopic, year, exam_body, type, question_text, options, correct_answer, explanation_text, common_mistakes, difficulty, tags)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
        ON CONFLICT (id) DO NOTHING`,
       [
         q.id,
@@ -124,6 +125,7 @@ router.post("/bulk", authRequired, async (req, res) => {
         JSON.stringify(q.options),
         q.answer,
         q.explanation,
+        q.common_mistakes || "",
         q.difficulty || "medium",
         JSON.stringify(q.tags || []),
       ]
@@ -131,6 +133,68 @@ router.post("/bulk", authRequired, async (req, res) => {
     count++;
   }
   res.json({ imported: count });
+});
+
+const { requireRole } = require("../middleware/auth");
+
+router.post("/", authRequired, requireRole("admin"), async (req, res) => {
+  try {
+    const q = req.body;
+    if (!q.question || !q.subject || !q.answer || !q.options) {
+      return res.status(400).json({ error: "Missing required fields (question, subject, answer, options)" });
+    }
+
+    const id = q.id || "cust-" + Date.now();
+    await query(
+      `INSERT INTO questions (id, subject, topic, subtopic, year, exam_body, type, question_text, options, correct_answer, explanation_text, common_mistakes, difficulty, tags)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
+       ON CONFLICT (id) DO UPDATE SET
+         subject = EXCLUDED.subject,
+         topic = EXCLUDED.topic,
+         subtopic = EXCLUDED.subtopic,
+         year = EXCLUDED.year,
+         exam_body = EXCLUDED.exam_body,
+         question_text = EXCLUDED.question_text,
+         options = EXCLUDED.options,
+         correct_answer = EXCLUDED.correct_answer,
+         explanation_text = EXCLUDED.explanation_text,
+         common_mistakes = EXCLUDED.common_mistakes,
+         difficulty = EXCLUDED.difficulty,
+         tags = EXCLUDED.tags`,
+      [
+        id,
+        q.subject,
+        q.topic || "General",
+        q.subtopic || "",
+        q.year || 2025,
+        q.exam_body || "WAEC",
+        q.type || "MCQ",
+        q.question,
+        JSON.stringify(q.options),
+        q.answer,
+        q.explanation || "",
+        q.common_mistakes || "",
+        q.difficulty || "medium",
+        JSON.stringify(q.tags || []),
+      ]
+    );
+
+    res.json({ success: true, id });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+router.delete("/:id", authRequired, requireRole("admin"), async (req, res) => {
+  try {
+    const result = await query("DELETE FROM questions WHERE id = $1", [req.params.id]);
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: "Question not found" });
+    }
+    res.json({ success: true });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 });
 
 module.exports = router;

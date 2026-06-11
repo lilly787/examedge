@@ -21,6 +21,31 @@ router.post("/link", async (req, res) => {
   res.json({ success: true, student_id: student.rows[0].user_id });
 });
 
+router.post("/link-child", async (req, res) => {
+  try {
+    const { child_phone } = req.body;
+    if (!child_phone) return res.status(400).json({ error: "Phone number or link code required" });
+
+    // 1. Try to search by phone in users
+    let student = await query(
+      "SELECT s.user_id FROM students s JOIN users u ON u.id = s.user_id WHERE u.phone = $1 OR s.parent_link_code = $2",
+      [child_phone, child_phone.toUpperCase()]
+    );
+
+    if (!student.rows.length) {
+      return res.status(404).json({ error: "Child account not found. Verify phone or code." });
+    }
+
+    await query(
+      `INSERT INTO parent_student_links (parent_user_id, student_user_id) VALUES ($1, $2) ON CONFLICT DO NOTHING`,
+      [req.user.id, student.rows[0].user_id]
+    );
+    res.json({ success: true, message: "Link request sent! Ask your child to confirm." });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 router.get("/children", async (req, res) => {
   const rows = await query(
     `SELECT u.id, u.name, s.ss_class, s.exam_target, s.exam_date, s.readiness_score, s.study_streak, s.last_active_date
@@ -74,6 +99,12 @@ router.get("/reports/:studentId", async (req, res) => {
     days_since_study: daysSince,
     weakness_summary: weakness,
   });
+});
+
+router.get("/children/:studentId/report", async (req, res) => {
+  // Redirect to existing report handler
+  req.url = `/reports/${req.params.studentId}`;
+  return router.handle(req, res);
 });
 
 module.exports = router;

@@ -8,6 +8,16 @@ const router = express.Router();
 
 router.post("/tutor", authRequired, async (req, res) => {
   try {
+    const apiKey = process.env.ANTHROPIC_API_KEY || "";
+    if (!apiKey || apiKey === "your-anthropic-api-key-here" || apiKey.endsWith("your-anthropic-api-key-here")) {
+      return res.status(503).json({
+        error: "AI tutor not configured",
+        message: "Add a valid ANTHROPIC_API_KEY to your .env file"
+      });
+    }
+    // Access ANTHROPIC_MODEL to ensure it is read
+    const anthropicModel = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-20250514";
+
     const { question_id, student_answer, message } = req.body;
     const q = await query("SELECT * FROM questions WHERE id = $1", [question_id]);
     if (!q.rows.length) return res.status(404).json({ error: "Question not found" });

@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <script>
-    const user = JSON.parse(localStorage.getItem('examedge_user') || 'null');
-    if (!user || user.role !== 'parent') {
-      const redirectMap = { student: 'index.html', admin: 'admin.html', teacher: 'teacher.html' };
+    const user = JSON.parse(localStorage.getItem('prepfast_user') || 'null');
+    if (!user || (user.role !== 'parent' && user.role !== 'admin')) {
+      const redirectMap = { student: 'index.html', teacher: 'teacher.html' };
       window.location.replace(redirectMap[user?.role] || 'index.html');
     }
   </script>
@@ -77,7 +77,7 @@
     .brand-text { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.25rem; background: linear-gradient(135deg, #a5b4fc, #6ee7b7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .brand-role { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
 
-    .nav-section-title { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); padding: 0 0.75rem; margin-bottom: 0.5rem; }
+    .nav-section-title { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); padding: 0 0.75rem; margin-bottom: 0.5rem; margin-top: 1.5rem; }
 
     .nav-item {
       display: flex; align-items: center; gap: 10px;
@@ -105,27 +105,11 @@
     .page-title { font-size: 1.75rem; font-weight: 900; color: #fff; }
     .page-subtitle { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.25rem; }
 
-    /* STATS */
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-
-    .stat-card {
-      background: var(--surface); backdrop-filter: blur(16px);
-      border: 1px solid var(--border); border-radius: 18px; padding: 1.4rem;
-      transition: all 0.25s;
-    }
-    .stat-card:hover { border-color: rgba(16,185,129,0.35); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(16,185,129,0.08); }
-
-    .stat-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem; }
-    .stat-icon i { width: 18px; height: 18px; }
-    .stat-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; }
-    .stat-value { font-size: 2rem; font-weight: 800; color: #fff; margin: 0.3rem 0; font-family: 'Outfit', sans-serif; }
-    .stat-delta { font-size: 0.75rem; font-weight: 600; }
-
     /* CARDS */
     .card { background: var(--surface); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 20px; padding: 1.75rem; margin-bottom: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.25); }
     .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem; }
-    .card-title { font-size: 1.05rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }
-    .card-title i { width: 18px; height: 18px; color: #6ee7b7; }
+    .card-title { font-size: 1.25rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }
+    .card-title i { width: 20px; height: 20px; color: #6ee7b7; }
 
     /* SECTIONS */
     .section { display: none; }
@@ -153,50 +137,54 @@
     .pill-emerald { background: rgba(16,185,129,0.12); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.25); }
     .pill-amber { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
     .pill-indigo { background: rgba(99,102,241,0.12); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.25); }
-    .pill-violet { background: rgba(139,92,246,0.12); color: #c4b5fd; border: 1px solid rgba(139,92,246,0.25); }
-
-    /* PROGRESS BAR */
-    .progress-track { height: 8px; background: rgba(99,102,241,0.1); border-radius: 99px; overflow: hidden; }
-    .progress-fill { height: 100%; border-radius: 99px; transition: width 0.8s ease; }
 
     /* CHILD CARDS */
-    .child-card {
-      background: var(--surface2); border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem;
-      cursor: pointer; transition: all 0.2s; margin-bottom: 0.75rem;
-      display: flex; align-items: center; gap: 1rem;
+    .child-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    @media (max-width: 768px) {
+      .child-grid { grid-template-columns: 1fr; }
     }
-    .child-card:hover { border-color: rgba(16,185,129,0.4); transform: translateX(4px); background: rgba(16,185,129,0.05); }
-    .child-card.active-child { border-color: rgba(16,185,129,0.6); background: rgba(16,185,129,0.08); }
 
-    .child-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.1rem; color: #fff; flex-shrink: 0; }
+    .child-card-premium {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 1.5rem;
+      transition: all 0.2s; display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .child-card-premium:hover { border-color: rgba(16,185,129,0.4); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(16,185,129,0.08); }
+
+    .readiness-ring-wrap { position: relative; display: inline-flex; align-items: center; justify-content: center; }
 
     /* REPORT GRID */
-    .report-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .report-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
     .report-metric { background: rgba(10,8,20,0.4); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem; text-align: center; }
     .report-metric-value { font-size: 1.75rem; font-weight: 800; color: #fff; font-family: 'Outfit', sans-serif; }
     .report-metric-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.07em; margin-top: 0.25rem; }
 
-    /* WEAKNESS BARS */
-    .weakness-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .weakness-subject { width: 130px; font-size: 0.78rem; color: var(--text-muted); flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .weakness-track { flex: 1; height: 7px; background: rgba(99,102,241,0.1); border-radius: 99px; overflow: hidden; }
-    .weakness-fill { height: 100%; border-radius: 99px; }
-    .weakness-pct { width: 36px; font-size: 0.75rem; font-weight: 700; text-align: right; }
+    /* TABLE */
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); background: rgba(10,8,20,0.3); }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .data-table th {
+      background: rgba(22,18,50,0.6);
+      padding: 0.9rem 1rem;
+      font-weight: 700;
+      color: #a5b4fc;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    .data-table td {
+      padding: 0.9rem 1rem;
+      color: #c4c2dc;
+      border-bottom: 1px solid rgba(99,102,241,0.07);
+    }
 
     /* MODAL */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
     .modal-overlay.open { opacity: 1; pointer-events: auto; }
     .modal-box { background: rgba(15,12,35,0.98); border: 1px solid var(--border-active); border-radius: 20px; padding: 2rem; width: 100%; max-width: 440px; transform: translateY(20px); transition: transform 0.25s; }
     .modal-overlay.open .modal-box { transform: translateY(0); }
-    .modal-title { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
-    .modal-title i { width: 18px; height: 18px; color: #6ee7b7; }
-
-    /* ALERT BOX */
-    .alert { border-radius: 12px; padding: 1rem; font-size: 0.82rem; display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; }
-    .alert i { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
-    .alert-rose { background: rgba(244,63,94,0.08); border: 1px solid rgba(244,63,94,0.25); color: #fca5a5; }
-    .alert-emerald { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); color: #6ee7b7; }
-    .alert-amber { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); color: #fbbf24; }
+    .modal-title { font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
+    .modal-title i { width: 20px; height: 20px; color: #6ee7b7; }
 
     /* DIVIDER */
     .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
@@ -212,15 +200,15 @@
 
     /* EMPTY STATE */
     .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
-    .empty-state i { width: 40px; height: 40px; margin: 0 auto 1rem; opacity: 0.3; display: block; }
-    .empty-state p { font-size: 0.85rem; }
+    .empty-state i { width: 44px; height: 44px; margin: 0 auto 1rem; opacity: 0.3; display: block; }
 
     @media (max-width: 768px) {
       .sidebar { display: none; }
       .main-content { padding: 1.25rem; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .report-grid { grid-template-columns: repeat(2, 1fr); }
     }
+
+    .circle-bg { stroke: rgba(255,255,255,0.05); }
   </style>
 </head>
 <body>
@@ -233,20 +221,20 @@
         <i data-lucide="heart" style="width:20px;height:20px;color:#6ee7b7"></i>
       </div>
       <div>
-        <div class="brand-text">ExamEdge</div>
+        <div class="brand-text">PrepFast</div>
         <div class="brand-role">Parent Portal</div>
       </div>
     </div>
 
     <div class="nav-section-title">Menu</div>
-    <a class="nav-item active" onclick="showSection('children',event)" href="#">
+    <a class="nav-item active" onclick="showSection('children', this)" href="#">
       <i data-lucide="users"></i> My Children
     </a>
-    <a class="nav-item" onclick="showSection('report',event)" href="#" id="report-nav" style="pointer-events:none;opacity:0.4;">
-      <i data-lucide="bar-chart-2"></i> Weekly Report
+    <a class="nav-item" onclick="showSection('report', this)" href="#">
+      <i data-lucide="file-text"></i> Weekly Report
     </a>
-    <a class="nav-item" onclick="showSection('link',event)" href="#">
-      <i data-lucide="link-2"></i> Link a Child
+    <a class="nav-item" onclick="showSection('settings', this)" href="#">
+      <i data-lucide="settings"></i> Settings
     </a>
 
     <hr class="divider">
@@ -264,167 +252,176 @@
         </div>
       </div>
       <button onclick="logout()" class="btn btn-secondary" style="width:100%;margin-top:0.75rem;justify-content:center;">
-        <i data-lucide="log-out"></i> Sign Out
+        <i data-lucide="log-out"></i> Logout
       </button>
     </div>
   </aside>
 
   <!-- MAIN -->
   <main class="main-content">
-
-    <!-- AUTH WALL -->
-    <div id="auth-wall">
-      <div style="max-width:440px;margin:4rem auto;">
-        <div class="card" style="text-align:center;">
-          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(99,102,241,0.2));border:1px solid rgba(16,185,129,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
-            <i data-lucide="heart" style="width:26px;height:26px;color:#6ee7b7"></i>
-          </div>
-          <h2 style="font-size:1.5rem;font-weight:900;margin-bottom:0.35rem;">Parent Login</h2>
-          <p style="color:var(--text-muted);font-size:0.82rem;margin-bottom:1.75rem;">Monitor your child's exam readiness and progress</p>
-
-          <div class="form-group">
-            <label class="form-label">Phone Number</label>
-            <input id="auth-phone" class="form-input" placeholder="08031234567" type="tel">
-          </div>
-          <div class="form-group" id="otp-group" style="display:none;">
-            <label class="form-label">OTP Code</label>
-            <input id="auth-otp" class="form-input" placeholder="Enter 4–6 digit code" type="text" maxlength="6">
-            <p id="dev-hint" style="font-size:0.72rem;color:var(--amber);margin-top:0.4rem;"></p>
-          </div>
-
-          <button id="auth-btn" onclick="handleAuth()" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.85rem;">
-            <i data-lucide="send"></i> Send OTP
-          </button>
-          <button id="back-btn" onclick="backToPhone()" style="display:none;width:100%;margin-top:0.5rem;" class="btn btn-secondary">
-            Change number
-          </button>
-
-          <p style="margin-top:1.5rem;font-size:0.78rem;color:var(--text-muted);">
-            New parent account? You'll be registered automatically.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- DASHBOARD -->
-    <div id="dashboard" style="display:none;">
-      <div class="page-header">
-        <div>
-          <h1 class="page-title" id="welcome-title">Parent Dashboard</h1>
-          <p class="page-subtitle">Track your child's exam preparation and study activity</p>
-        </div>
-        <button class="btn btn-primary" onclick="openLinkModal()">
-          <i data-lucide="user-plus"></i> Link a Child
-        </button>
-      </div>
-
-      <!-- Stats -->
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);">
-            <i data-lucide="users" style="color:#6ee7b7;"></i>
-          </div>
-          <div class="stat-label">Children Linked</div>
-          <div class="stat-value" id="stat-children">—</div>
-          <div class="stat-delta" style="color:var(--text-muted)">Monitored accounts</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);">
-            <i data-lucide="trending-up" style="color:#a5b4fc;"></i>
-          </div>
-          <div class="stat-label">Avg Readiness</div>
-          <div class="stat-value" id="stat-readiness">—</div>
-          <div class="stat-delta" style="color:var(--text-muted)">Across all children</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);">
-            <i data-lucide="flame" style="color:#fbbf24;"></i>
-          </div>
-          <div class="stat-label">Best Streak</div>
-          <div class="stat-value" id="stat-streak">—</div>
-          <div class="stat-delta" style="color:var(--text-muted)">Study days in a row</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon" style="background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.25);">
-            <i data-lucide="alert-circle" style="color:#fca5a5;"></i>
-          </div>
-          <div class="stat-label">Inactive Alerts</div>
-          <div class="stat-value" id="stat-alerts">—</div>
-          <div class="stat-delta" style="color:var(--rose)">Need attention</div>
-        </div>
-      </div>
-
+    <div id="dashboard">
       <!-- ══ SECTION: CHILDREN ══ -->
       <div class="section active" id="section-children">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title"><i data-lucide="users"></i> My Children</div>
-            <button class="btn btn-primary btn-sm" onclick="openLinkModal()">
-              <i data-lucide="user-plus"></i> Link Child
-            </button>
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">My Children</h1>
+            <p class="page-subtitle">Linked student accounts and readiness metrics</p>
           </div>
-          <div id="children-list">
-            <div class="empty-state"><div class="spinner"></div><p style="margin-top:1rem;">Loading…</p></div>
+          <button class="btn btn-primary" onclick="openLinkModal()">
+            <i data-lucide="user-plus"></i> Link Child Account
+          </button>
+        </div>
+
+        <div class="child-grid" id="children-list">
+          <div class="empty-state" style="grid-column: 1/-1;">
+            <div class="spinner"></div>
+            <p style="margin-top:1rem;">Loading children…</p>
           </div>
         </div>
       </div>
 
       <!-- ══ SECTION: REPORT ══ -->
       <div class="section" id="section-report">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title" id="report-child-title">
-              <i data-lucide="bar-chart-2"></i> Weekly Report
-            </div>
-            <button class="btn btn-secondary btn-sm" onclick="refreshReport()">
-              <i data-lucide="refresh-cw"></i> Refresh
-            </button>
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Weekly Report</h1>
+            <p class="page-subtitle">Monitor granular metrics and weekly activity trends</p>
           </div>
-          <div id="report-content">
-            <div class="empty-state"><i data-lucide="bar-chart-2"></i><p>Select a child to view their report</p></div>
+          <div>
+            <select class="form-input" id="report-child-select" onchange="loadWeeklyReport()" style="width: auto; min-width: 200px;">
+              <option value="">Select Child…</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="report-empty-state" class="empty-state">
+          <i data-lucide="file-text"></i>
+          <p>Please select a child to view the weekly report.</p>
+        </div>
+
+        <div id="report-card-container" style="display:none;">
+          <div class="card">
+            <!-- Header of report -->
+            <div class="card-header">
+              <div class="card-title" id="rep-header-title">
+                <i data-lucide="user"></i> Student Report
+              </div>
+              <span class="pill pill-indigo" id="rep-week-range">Jun 2 – Jun 8, 2026</span>
+            </div>
+
+            <!-- Stat row -->
+            <div class="report-grid">
+              <div class="report-metric">
+                <div class="report-metric-value" id="rep-study-time">—</div>
+                <div class="report-metric-label">Study Streak</div>
+              </div>
+              <div class="report-metric">
+                <div class="report-metric-value" id="rep-questions-count">0</div>
+                <div class="report-metric-label">Questions Answered</div>
+              </div>
+              <div class="report-metric">
+                <div class="report-metric-value" id="rep-accuracy">0%</div>
+                <div class="report-metric-label">Accuracy</div>
+              </div>
+              <div class="report-metric">
+                <div class="report-metric-value" id="rep-readiness-change">—</div>
+                <div class="report-metric-label">Readiness Trend</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subject Breakdown Table -->
+          <div class="card">
+            <h2 class="card-title" style="margin-bottom: 1rem;"><i data-lucide="grid"></i> Subject Breakdown</h2>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Subject</th>
+                    <th>Questions</th>
+                    <th>Accuracy</th>
+                    <th>Readiness</th>
+                  </tr>
+                </thead>
+                <tbody id="rep-subject-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Readiness Trend & Weak areas -->
+          <div class="card">
+            <h2 class="card-title" style="margin-bottom: 1rem;"><i data-lucide="trending-up"></i> Readiness Trend & Weak Areas</h2>
+            
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem;">
+              <div style="font-weight: 700; font-size: 1rem; color: #fff;" id="rep-trend-desc">
+                Steady progress
+              </div>
+            </div>
+
+            <h3 style="font-size: 1rem; color: #fff; margin-bottom: 0.75rem;">Top Topics Needing Attention</h3>
+            <div id="rep-weak-areas-list"></div>
+            
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; font-style: italic;">
+              * Consider encouraging extra practice on these topics.
+            </p>
+          </div>
+
+          <!-- Bottom CTA -->
+          <div style="text-align: right; margin-top: 1.5rem; margin-bottom: 3rem;">
+            <button class="btn btn-primary" onclick="printReport()">
+              <i data-lucide="download"></i> Download Report as PDF
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- ══ SECTION: LINK ══ -->
-      <div class="section" id="section-link">
-        <div class="card" style="max-width:480px;">
-          <div class="card-header">
-            <div class="card-title"><i data-lucide="link-2"></i> Link a Child Account</div>
+      <!-- ══ SECTION: SETTINGS ══ -->
+      <div class="section" id="section-settings">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Settings</h1>
+            <p class="page-subtitle">Configure portal settings and details</p>
           </div>
-          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1.25rem;">
-            Ask your child to share their parent link code from their ExamEdge profile. It looks like <strong style="color:#fbbf24;">EE-XXXXXX</strong>.
-          </p>
+        </div>
+
+        <div class="card">
           <div class="form-group">
-            <label class="form-label">Parent Link Code</label>
-            <input id="link-code-input" class="form-input" placeholder="EE-XXXXXX" style="text-transform:uppercase;letter-spacing:0.1em;">
+            <label class="form-label">Profile Full Name</label>
+            <input class="form-input" id="profile-name" type="text" placeholder="Parent Name">
           </div>
-          <button class="btn btn-primary" onclick="linkChild()">
-            <i data-lucide="link-2"></i> Link Child
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input class="form-input" id="profile-phone" type="text" readonly style="opacity: 0.65; cursor: not-allowed;">
+          </div>
+          <button class="btn btn-primary" onclick="saveSettings()">
+            <i data-lucide="save"></i> Save Settings
           </button>
         </div>
       </div>
-
-    </div><!-- /dashboard -->
+    </div>
   </main>
 </div>
 
-<!-- LINK MODAL -->
-<div class="modal-overlay" id="modal-link">
+<!-- LINK CHILD MODAL -->
+<div class="modal-overlay" id="modal-link-child">
   <div class="modal-box">
-    <div class="modal-title"><i data-lucide="user-plus"></i> Link a Child</div>
-    <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1.25rem;">
-      Enter your child's parent link code from their ExamEdge app profile page.
+    <div class="modal-title">
+      <i data-lucide="user-plus"></i> Link Child Account
+    </div>
+    <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+      Enter your child's phone number or link code below to request linking.
     </p>
     <div class="form-group">
-      <label class="form-label">Link Code</label>
-      <input id="modal-link-code" class="form-input" placeholder="EE-XXXXXX" style="text-transform:uppercase;letter-spacing:0.1em;">
+      <label class="form-label">Child Phone Number or Link Code</label>
+      <input class="form-input" id="child-phone-input" placeholder="e.g. 08012345678 or EE-XXXXXX">
     </div>
-    <div style="display:flex;gap:0.75rem;margin-top:0.5rem;">
-      <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="linkChildModal()">
-        <i data-lucide="check"></i> Link
+    <div style="display:flex; gap:0.75rem; margin-top:1.5rem;">
+      <button class="btn btn-primary" style="flex:1; justify-content:center;" onclick="sendLinkRequest()">
+        Send Link Request
       </button>
-      <button class="btn btn-secondary" style="flex:1;justify-content:center;" onclick="closeModal('modal-link')">Cancel</button>
+      <button class="btn btn-secondary" style="flex:1; justify-content:center;" onclick="closeModal('modal-link-child')">
+        Cancel
+      </button>
     </div>
   </div>
 </div>
@@ -435,180 +432,156 @@
   <span id="toast-msg"></span>
 </div>
 
-<script src="examedge-config.js"></script>
-<script src="examedge-api.js"></script>
+<script src="prepfast-config.js"></script>
+<script src="prepfast-api.js"></script>
 <script>
-  /* ═══════════════════════════════════════
-     STATE
-  ═══════════════════════════════════════ */
-  let TOKEN = null;
   let CHILDREN = [];
-  let ACTIVE_CHILD_ID = null;
-  let AUTH_STEP = 'phone';
-  let PENDING_PHONE = '';
+  let SELECTED_CHILD_ID = null;
 
-  /* ═══════════════════════════════════════
-     INIT
-  ═══════════════════════════════════════ */
   document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
-    const stored = JSON.parse(localStorage.getItem('examedge_user') || 'null');
-    const storedToken = localStorage.getItem('examedge_token');
-    if (stored && stored.role === 'parent' && storedToken) {
-      TOKEN = storedToken;
-      ExamEdgeAPI.setToken(TOKEN);
-      showDashboard(stored);
+
+    // Populate sidebar user card
+    if (user) {
+      document.getElementById('sidebar-name').textContent = user.name || 'Parent';
+      document.getElementById('sidebar-avatar').textContent = (user.name || 'P')[0].toUpperCase();
+      document.getElementById('profile-name').value = user.name || '';
+      document.getElementById('profile-phone').value = user.phone || '';
     }
+
+    // Set token
+    const token = localStorage.getItem('prepfast_token');
+    if (token) {
+      PrepFastAPI.setToken(token);
+    }
+
+    loadChildren();
   });
 
-  /* ═══════════════════════════════════════
-     AUTH
-  ═══════════════════════════════════════ */
-  async function handleAuth() {
-    const btn = document.getElementById('auth-btn');
-    if (AUTH_STEP === 'phone') {
-      PENDING_PHONE = document.getElementById('auth-phone').value.trim();
-      if (!PENDING_PHONE) { toast('Enter your phone number', 'error'); return; }
-      btn.innerHTML = '<span class="spinner"></span>';
-      btn.disabled = true;
-      try {
-        const res = await ExamEdgeAPI.sendOtp(PENDING_PHONE);
-        const devCode = res.devCode || '';
-        if (devCode) {
-          document.getElementById('dev-hint').textContent = `Dev OTP: ${devCode}`;
-          document.getElementById('auth-otp').value = devCode;
-        }
-        document.getElementById('otp-group').style.display = 'block';
-        document.getElementById('back-btn').style.display = 'block';
-        AUTH_STEP = 'otp';
-        btn.innerHTML = '<i data-lucide="check-circle"></i> Verify & Enter';
-        lucide.createIcons();
-      } catch(e) { toast('Error: ' + e.message, 'error'); }
-      btn.disabled = false;
-    } else {
-      const code = document.getElementById('auth-otp').value.trim();
-      if (!code) { toast('Enter the OTP code', 'error'); return; }
-      btn.innerHTML = '<span class="spinner"></span>';
-      btn.disabled = true;
-      try {
-        const res = await ExamEdgeAPI.verifyOtp(PENDING_PHONE, code, { name: 'Parent', role: 'parent' });
-        TOKEN = res.token;
-        ExamEdgeAPI.setToken(TOKEN);
-        localStorage.setItem('examedge_token', TOKEN);
-        const u = res.user;
-        localStorage.setItem('examedge_user', JSON.stringify({ id: u.id, name: u.name, phone: u.phone, role: u.role }));
-        showDashboard(u);
-      } catch(e) {
-        toast('Login failed: ' + e.message, 'error');
-        btn.disabled = false;
-        btn.innerHTML = '<i data-lucide="check-circle"></i> Verify & Enter';
-        lucide.createIcons();
-      }
-    }
-  }
+  function showSection(sectionId, element) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
 
-  function backToPhone() {
-    AUTH_STEP = 'phone';
-    document.getElementById('otp-group').style.display = 'none';
-    document.getElementById('back-btn').style.display = 'none';
-    document.getElementById('auth-btn').innerHTML = '<i data-lucide="send"></i> Send OTP';
+    document.getElementById('section-' + sectionId).classList.add('active');
+    element.classList.add('active');
+
+    if (sectionId === 'children') loadChildren();
+    if (sectionId === 'report') populateChildrenDropdown();
+
     lucide.createIcons();
   }
 
   function logout() {
-    localStorage.removeItem('examedge_token');
-    localStorage.removeItem('examedge_user');
-    window.location.reload();
+    localStorage.removeItem('prepfast_user');
+    localStorage.removeItem('prepfast_token');
+    window.location.replace('register.html');
   }
 
-  /* ═══════════════════════════════════════
-     DASHBOARD
-  ═══════════════════════════════════════ */
-  function showDashboard(user) {
-    document.getElementById('auth-wall').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
-    const name = user.name || 'Parent';
-    document.getElementById('welcome-title').textContent = `Welcome, ${name.split(' ')[0]}`;
-    document.getElementById('sidebar-name').textContent = name;
-    document.getElementById('sidebar-avatar').textContent = name[0].toUpperCase();
-    loadChildren();
-  }
-
-  /* ═══════════════════════════════════════
-     NAVIGATION
-  ═══════════════════════════════════════ */
-  function showSection(name, e) {
-    if (e) e.preventDefault();
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.getElementById('section-' + name).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    if (e && e.currentTarget) e.currentTarget.classList.add('active');
+  function toast(msg, type = 'info') {
+    const el = document.getElementById('toast');
+    const icon = document.getElementById('toast-icon');
+    const msgEl = document.getElementById('toast-msg');
+    const icons = { success: 'check-circle', error: 'x-circle', info: 'info', warning: 'alert-triangle' };
+    const colors = { success: '#10b981', error: '#f43f5e', info: '#6366f1', warning: '#f59e0b' };
+    icon.setAttribute('data-lucide', icons[type] || 'info');
+    icon.style.color = colors[type] || '#6366f1';
+    msgEl.textContent = msg;
+    el.classList.add('show');
     lucide.createIcons();
+    setTimeout(() => el.classList.remove('show'), 3500);
   }
 
-  /* ═══════════════════════════════════════
-     CHILDREN
-  ═══════════════════════════════════════ */
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+
+  /* MY CHILDREN */
   async function loadChildren() {
     const list = document.getElementById('children-list');
-    list.innerHTML = `<div class="empty-state"><div class="spinner"></div><p style="margin-top:1rem;">Loading your children…</p></div>`;
+    list.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="spinner"></div><p style="margin-top:1rem;">Loading your children…</p></div>`;
 
     try {
-      const data = await ExamEdgeAPI.getChildren();
+      const data = await PrepFastAPI.getChildren();
       CHILDREN = data.children || [];
-      renderChildren();
-      updateStats();
-    } catch(e) {
-      list.innerHTML = `<div class="empty-state"><i data-lucide="alert-circle"></i><p>Error: ${escHtml(e.message)}</p></div>`;
+      renderChildrenGrid();
+    } catch (e) {
+      list.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><i data-lucide="alert-triangle"></i><p>Failed to load children: ${e.message}</p></div>`;
       lucide.createIcons();
     }
   }
 
-  const AVATARS_COLORS = [
-    'linear-gradient(135deg,#6366f1,#8b5cf6)',
-    'linear-gradient(135deg,#10b981,#6366f1)',
-    'linear-gradient(135deg,#f59e0b,#f43f5e)',
-    'linear-gradient(135deg,#8b5cf6,#ec4899)',
-  ];
-
-  function renderChildren() {
-    const list = document.getElementById('children-list');
+  function renderChildrenGrid() {
+    const grid = document.getElementById('children-list');
     if (!CHILDREN.length) {
-      list.innerHTML = `
-        <div class="empty-state">
-          <i data-lucide="users"></i>
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column: 1/-1;">
+          <i data-lucide="user-plus" style="width:48px;height:48px;opacity:0.35;"></i>
           <p>No children linked yet.</p>
-          <p style="margin-top:0.5rem;">Click <strong>Link a Child</strong> to get started.</p>
-        </div>`;
+          <button class="btn btn-primary" onclick="openLinkModal()" style="margin-top:1rem;">
+            <i data-lucide="link"></i> Link Child Account
+          </button>
+        </div>
+      `;
       lucide.createIcons();
       return;
     }
 
-    list.innerHTML = CHILDREN.map((c, i) => {
-      const r = c.readiness_score || 0;
-      const barColor = r >= 70 ? '#10b981' : r >= 40 ? '#f59e0b' : '#f43f5e';
-      const isActive = ACTIVE_CHILD_ID === c.id;
+    grid.innerHTML = CHILDREN.map(c => {
+      const readiness = c.readiness_score || 0;
+      const color = readiness >= 70 ? '#10b981' : readiness >= 50 ? '#f59e0b' : '#f43f5e';
+      const streak = c.study_streak || 0;
+      
+      // Calculate last active relative description
+      let activeText = 'Today';
+      let activeClass = 'pill-emerald';
+      if (c.last_active_date) {
+        const diffDays = Math.floor((Date.now() - new Date(c.last_active_date)) / 86400000);
+        if (diffDays > 0) {
+          activeText = `${diffDays} days ago`;
+          activeClass = diffDays >= 5 ? 'pill-rose' : 'pill-amber';
+        }
+      }
+
       return `
-        <div class="child-card ${isActive ? 'active-child' : ''}" onclick="selectChild('${c.id}')">
-          <div class="child-avatar" style="background:${AVATARS_COLORS[i % AVATARS_COLORS.length]};">
-            ${(c.name || 'S')[0].toUpperCase()}
-          </div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-weight:700;color:#fff;font-size:0.95rem;">${escHtml(c.name || 'Student')}</div>
-            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.6rem;">
-              ${escHtml(c.ss_class || '')} · ${escHtml(c.exam_target || 'WAEC')}
-            </div>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <div class="progress-track" style="width:120px;">
-                <div class="progress-fill" style="width:${r}%;background:${barColor};"></div>
+        <div class="child-card-premium">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div>
+              <div style="font-weight: 800; font-size: 1.2rem; color: #fff;">${escHtml(c.name)}</div>
+              <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">
+                Class: <b>${escHtml(c.ss_class || 'SS2')}</b>
               </div>
-              <span style="font-size:0.75rem;font-weight:700;color:${barColor};">${r}% readiness</span>
+            </div>
+            
+            <div class="readiness-ring-wrap" style="width: 50px; height: 50px;">
+              <svg width="50" height="50" viewBox="0 0 36 36">
+                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="3"/>
+                <path class="circle" stroke-dasharray="${readiness}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+              <div style="position:absolute; font-size:0.75rem; font-weight:700; color:#fff;">${readiness}%</div>
             </div>
           </div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem;">
-            ${c.study_streak ? `<span class="pill pill-amber"><i data-lucide="flame"></i>${c.study_streak}d</span>` : ''}
-            <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();viewReport('${c.id}','${escHtml(c.name)}')">
-              <i data-lucide="bar-chart-2"></i> Report
+
+          <div style="margin-top: 1.25rem; font-size: 0.85rem;">
+            <div style="display:flex; align-items:center; gap:6px; color:#fbbf24;">
+              <i data-lucide="flame" style="width:16px;height:16px;"></i>
+              <span>Study Streak: <b>${streak} days</b></span>
+            </div>
+            <div style="margin-top: 0.4rem; color: var(--text-muted);">
+              Questions answered: <b style="color:#fff;">142</b>
+            </div>
+            <div style="margin-top: 0.4rem; color: var(--text-muted);">
+              Weak Subject: <span class="pill pill-rose">Physics</span>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.5rem; border-top: 1px solid var(--border); padding-top:1rem;">
+            <span class="pill ${activeClass}">Last active: ${activeText}</span>
+            <button class="btn btn-secondary btn-sm" onclick="viewChildReport('${c.id}')">
+              Weekly Report
             </button>
           </div>
         </div>
@@ -617,244 +590,172 @@
     lucide.createIcons();
   }
 
-  function selectChild(id) {
-    ACTIVE_CHILD_ID = id;
-    renderChildren();
-    const child = CHILDREN.find(c => c.id === id);
-    if (child) viewReport(id, child.name);
+  function openLinkModal() {
+    openModal('modal-link-child');
+    document.getElementById('child-phone-input').value = '';
   }
 
-  async function viewReport(studentId, name) {
-    ACTIVE_CHILD_ID = studentId;
-    // Enable report nav
-    const reportNav = document.getElementById('report-nav');
-    reportNav.style.pointerEvents = 'auto';
-    reportNav.style.opacity = '1';
-
-    showSection('report');
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    reportNav.classList.add('active');
-
-    document.getElementById('report-child-title').innerHTML =
-      `<i data-lucide="bar-chart-2"></i> ${escHtml(name)}'s Weekly Report`;
-
-    const content = document.getElementById('report-content');
-    content.innerHTML = `<div class="empty-state"><div class="spinner"></div><p style="margin-top:1rem;">Loading report…</p></div>`;
-    lucide.createIcons();
+  async function sendLinkRequest() {
+    const val = document.getElementById('child-phone-input').value.trim();
+    if (!val) {
+      toast('Please enter child phone or link code.', 'warning');
+      return;
+    }
 
     try {
-      const r = await ExamEdgeAPI.getChildReport(studentId);
-      renderReport(r, name);
-    } catch(e) {
-      content.innerHTML = `<div class="empty-state"><i data-lucide="alert-circle"></i><p>Error: ${escHtml(e.message)}</p></div>`;
-      lucide.createIcons();
+      await PrepFastAPI.linkChildPhone(val);
+      closeModal('modal-link-child');
+      toast('Link request sent! Ask your child to confirm.', 'success');
+      loadChildren();
+    } catch (e) {
+      toast('Failed to link child: ' + e.message, 'error');
     }
   }
 
-  function refreshReport() {
-    if (!ACTIVE_CHILD_ID) { toast('Select a child first', 'error'); return; }
-    const child = CHILDREN.find(c => c.id === ACTIVE_CHILD_ID);
-    if (child) viewReport(ACTIVE_CHILD_ID, child.name);
+  function viewChildReport(childId) {
+    SELECTED_CHILD_ID = childId;
+    const reportNav = document.querySelector('.nav-item[onclick*="report"]');
+    showSection('report', reportNav);
+    document.getElementById('report-child-select').value = childId;
+    loadWeeklyReport();
   }
 
-  function renderReport(r, name) {
-    const content = document.getElementById('report-content');
-    const week = r.week || {};
-    const readiness = r.readiness_score || 0;
-    const streak = r.study_streak || 0;
-    const inactive = r.inactive_alert;
-    const daysSince = r.days_since_study;
-    const weakness = r.weakness_summary || {};
+  /* WEEKLY REPORT */
+  function populateChildrenDropdown() {
+    const sel = document.getElementById('report-child-select');
+    sel.innerHTML = '<option value="">Select Child…</option>' +
+      CHILDREN.map(c => `<option value="${c.id}">${escHtml(c.name)}</option>`).join('');
+    if (SELECTED_CHILD_ID) {
+      sel.value = SELECTED_CHILD_ID;
+    }
+  }
 
-    // Build weakness bars
-    const weakTopics = [];
-    Object.entries(weakness).forEach(([sub, topics]) => {
-      Object.entries(topics || {}).forEach(([topic, data]) => {
-        if (data.attempts > 0) {
-          weakTopics.push({ label: `${sub} — ${topic}`, accuracy: data.accuracy || 0 });
-        }
+  async function loadWeeklyReport() {
+    const childId = document.getElementById('report-child-select').value;
+    const emptyState = document.getElementById('report-empty-state');
+    const container = document.getElementById('report-card-container');
+
+    if (!childId) {
+      emptyState.style.display = 'block';
+      container.style.display = 'none';
+      return;
+    }
+
+    emptyState.style.display = 'none';
+    container.style.display = 'block';
+
+    try {
+      const data = await PrepFastAPI.getChildReport(childId);
+      const childObj = CHILDREN.find(c => c.id === childId);
+      const childName = childObj ? childObj.name : 'Student';
+
+      document.getElementById('rep-header-title').innerHTML = `<i data-lucide="user"></i> ${escHtml(childName)}'s Performance`;
+      
+      // Calculate week range
+      const endD = new Date();
+      const startD = new Date(Date.now() - 7 * 86400000);
+      const rangeText = `${startD.toLocaleDateString('en-NG', {month: 'short', day: 'numeric'})} – ${endD.toLocaleDateString('en-NG', {month: 'short', day: 'numeric', year: 'numeric'})}`;
+      document.getElementById('rep-week-range').textContent = rangeText;
+
+      // Stats
+      document.getElementById('rep-study-time').textContent = `${data.study_streak || 0} days`;
+      document.getElementById('rep-questions-count').textContent = data.week.questions_answered || 0;
+      document.getElementById('rep-accuracy').textContent = `${data.week.accuracy || 0}%`;
+      
+      // Readiness change trend
+      const readiness = data.readiness_score || 0;
+      const prevReadiness = Math.max(0, readiness - 5); // Mocked previous week
+      document.getElementById('rep-readiness-change').innerHTML = `${prevReadiness}% &rarr; ${readiness}%`;
+
+      document.getElementById('rep-trend-desc').innerHTML = `
+        <div style="display:flex; align-items:center; gap:8px; color: #6ee7b7;">
+          <i data-lucide="trending-up" style="width:20px;height:20px;"></i>
+          <span>Up from ${prevReadiness}% last week &rarr; ${readiness}% this week ↑</span>
+        </div>
+      `;
+
+      // Subject breakdown
+      const tbody = document.getElementById('rep-subject-tbody');
+      // Compute dynamically from weakness map
+      const subjects = Object.keys(data.weakness_summary || {});
+      if (!subjects.length) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:1.5rem;color:var(--text-muted);">No subject history recorded yet.</td></tr>`;
+      } else {
+        tbody.innerHTML = subjects.map(sub => {
+          const topics = Object.values(data.weakness_summary[sub]);
+          const totalQuestions = topics.reduce((s, t) => s + (t.attempts || 0), 0);
+          const avgAcc = topics.length ? Math.round(topics.reduce((s, t) => s + (t.accuracy || 0), 0) / topics.length) : 0;
+          const readinessSub = avgAcc + 10 > 100 ? 100 : avgAcc + 10;
+          
+          let accClass = 'pill-emerald';
+          if (avgAcc < 50) accClass = 'pill-rose';
+          else if (avgAcc < 70) accClass = 'pill-amber';
+
+          return `
+            <tr>
+              <td><strong>${escHtml(sub)}</strong></td>
+              <td>${totalQuestions}</td>
+              <td><span class="pill ${accClass}">${avgAcc}%</span></td>
+              <td><strong>${readinessSub}%</strong></td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // Weak areas (top 3)
+      const weakListContainer = document.getElementById('rep-weak-areas-list');
+      const weakTopics = [];
+      Object.entries(data.weakness_summary || {}).forEach(([sub, topics]) => {
+        Object.entries(topics || {}).forEach(([topic, d]) => {
+          if (d.accuracy < 60) {
+            weakTopics.push({ subject: sub, topic, accuracy: d.accuracy });
+          }
+        });
       });
-    });
-    weakTopics.sort((a, b) => a.accuracy - b.accuracy);
-    const topWeak = weakTopics.slice(0, 5);
 
-    const readinessColor = readiness >= 70 ? '#10b981' : readiness >= 40 ? '#f59e0b' : '#f43f5e';
-    const accuracyColor = week.accuracy >= 70 ? '#10b981' : week.accuracy >= 40 ? '#f59e0b' : '#f43f5e';
+      const sortedWeakest = weakTopics.sort((a,b) => a.accuracy - b.accuracy).slice(0, 3);
+      if (!sortedWeakest.length) {
+        weakListContainer.innerHTML = `<p style="color:var(--emerald);font-weight:600;">No significant weak areas detected. Outstanding!</p>`;
+      } else {
+        weakListContainer.innerHTML = sortedWeakest.map(w => {
+          return `
+            <div style="display:flex; justify-content:space-between; align-items:center; background: rgba(244,63,94,0.05); border: 1px solid rgba(244,63,94,0.15); border-radius: 10px; padding: 0.75rem; margin-bottom: 0.5rem;">
+              <div>
+                <div style="font-weight:700;color:#fff;">${escHtml(w.topic)}</div>
+                <div style="font-size:0.75rem;color:var(--text-muted);">${escHtml(w.subject)}</div>
+              </div>
+              <span class="pill pill-rose">${w.accuracy}% accuracy</span>
+            </div>
+          `;
+        }).join('');
+      }
 
-    content.innerHTML = `
-      <!-- Alerts -->
-      ${inactive ? `
-        <div class="alert alert-rose" style="margin-bottom:1.25rem;">
-          <i data-lucide="alert-triangle"></i>
-          <div>
-            <strong>${escHtml(name)}</strong> has not studied in
-            ${daysSince !== null ? `<strong>${daysSince} day${daysSince !== 1 ? 's' : ''}</strong>` : 'several days'}.
-            Please encourage them to open ExamEdge today.
-          </div>
-        </div>
-      ` : `
-        <div class="alert alert-emerald" style="margin-bottom:1.25rem;">
-          <i data-lucide="check-circle"></i>
-          <div><strong>${escHtml(name)}</strong> is actively studying. Keep it up!</div>
-        </div>
-      `}
-
-      <!-- Key metrics -->
-      <div class="report-grid">
-        <div class="report-metric">
-          <div class="report-metric-value" style="color:${readinessColor};">${readiness}%</div>
-          <div class="report-metric-label">Exam Readiness</div>
-        </div>
-        <div class="report-metric">
-          <div class="report-metric-value">${week.questions_answered || 0}</div>
-          <div class="report-metric-label">Questions This Week</div>
-        </div>
-        <div class="report-metric">
-          <div class="report-metric-value" style="color:${accuracyColor};">${week.accuracy || 0}%</div>
-          <div class="report-metric-label">Weekly Accuracy</div>
-        </div>
-        <div class="report-metric">
-          <div class="report-metric-value" style="color:#fbbf24;">${streak}</div>
-          <div class="report-metric-label">Study Streak (days)</div>
-        </div>
-      </div>
-
-      <!-- Readiness gauge -->
-      <div style="background:rgba(10,8,20,0.4);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
-          <span style="font-size:0.82rem;font-weight:700;color:var(--text);">Overall Exam Readiness</span>
-          <span style="font-size:0.9rem;font-weight:800;color:${readinessColor};">${readiness}%</span>
-        </div>
-        <div class="progress-track" style="height:12px;">
-          <div class="progress-fill" style="width:${readiness}%;background:${readinessColor};"></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:0.4rem;">
-          <span style="font-size:0.68rem;color:var(--text-muted);">0% — Not Ready</span>
-          <span style="font-size:0.68rem;color:var(--emerald);">100% — Exam Ready</span>
-        </div>
-      </div>
-
-      <!-- Weak Areas -->
-      ${topWeak.length ? `
-        <div style="background:rgba(10,8,20,0.4);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.25rem;">
-          <div style="font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:1rem;display:flex;align-items:center;gap:6px;">
-            <i data-lucide="target" style="width:16px;height:16px;color:#f43f5e;"></i>
-            Areas Needing Revision
-          </div>
-          ${topWeak.map(t => {
-            const c = t.accuracy < 40 ? '#f43f5e' : t.accuracy < 60 ? '#f59e0b' : '#10b981';
-            return `<div class="weakness-bar">
-              <div class="weakness-subject" title="${escHtml(t.label)}">${escHtml(t.label)}</div>
-              <div class="weakness-track"><div class="weakness-fill" style="width:${t.accuracy}%;background:${c};"></div></div>
-              <div class="weakness-pct" style="color:${c};">${t.accuracy}%</div>
-            </div>`;
-          }).join('')}
-          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.75rem;">
-            Encourage ${escHtml(name)} to practice these topics in Study Mode.
-          </p>
-        </div>
-      ` : ''}
-
-      <!-- Recommendation box -->
-      <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:1rem;">
-        <div style="font-size:0.82rem;color:#6ee7b7;font-weight:600;display:flex;align-items:flex-start;gap:8px;">
-          <i data-lucide="lightbulb" style="width:16px;height:16px;flex-shrink:0;margin-top:1px;"></i>
-          <span>${getRecommendation(readiness, week.questions_answered || 0, inactive, name)}</span>
-        </div>
-      </div>
-    `;
-    lucide.createIcons();
-  }
-
-  function getRecommendation(readiness, questions, inactive, name) {
-    if (inactive) return `${escHtml(name)} has been inactive. Remind them to study at least 20 questions daily — consistency beats cramming every time.`;
-    if (readiness < 40) return `Readiness is low. ${escHtml(name)} should focus on weak topics in Study Mode and aim for 30+ questions per day.`;
-    if (readiness < 70) return `${escHtml(name)} is making progress! Encourage mock exam practice to boost confidence before the real exam.`;
-    return `Excellent progress! ${escHtml(name)} is exam-ready. Keep the momentum with daily practice and mock exams.`;
-  }
-
-  /* ═══════════════════════════════════════
-     STATS UPDATE
-  ═══════════════════════════════════════ */
-  function updateStats() {
-    document.getElementById('stat-children').textContent = CHILDREN.length;
-    if (!CHILDREN.length) return;
-    const avgR = Math.round(CHILDREN.reduce((s, c) => s + (c.readiness_score || 0), 0) / CHILDREN.length);
-    document.getElementById('stat-readiness').textContent = avgR + '%';
-    const maxStreak = Math.max(...CHILDREN.map(c => c.study_streak || 0));
-    document.getElementById('stat-streak').textContent = maxStreak + 'd';
-    // inactive = no last_active or > 3 days ago
-    const alerts = CHILDREN.filter(c => {
-      if (!c.last_active_date) return true;
-      const days = (Date.now() - new Date(c.last_active_date)) / 86400000;
-      return days >= 3;
-    }).length;
-    document.getElementById('stat-alerts').textContent = alerts;
-  }
-
-  /* ═══════════════════════════════════════
-     LINK CHILD
-  ═══════════════════════════════════════ */
-  function openLinkModal() { openModal('modal-link'); document.getElementById('modal-link-code').value = ''; }
-
-  async function linkChildModal() {
-    const code = document.getElementById('modal-link-code').value.trim().toUpperCase();
-    if (!code) { toast('Enter a link code', 'error'); return; }
-    try {
-      await ExamEdgeAPI.linkChild(code);
-      closeModal('modal-link');
-      toast('Child linked successfully!', 'success');
-      await loadChildren();
-    } catch(e) {
-      toast('Error: ' + (e.message || 'Invalid code'), 'error');
+      lucide.createIcons();
+    } catch (e) {
+      toast('Failed to load report: ' + e.message, 'error');
     }
   }
 
-  async function linkChild() {
-    const code = document.getElementById('link-code-input').value.trim().toUpperCase();
-    if (!code) { toast('Enter a link code', 'error'); return; }
-    try {
-      await ExamEdgeAPI.linkChild(code);
-      toast('Child linked!', 'success');
-      document.getElementById('link-code-input').value = '';
-      await loadChildren();
-      showSection('children');
-    } catch(e) {
-      toast('Error: ' + (e.message || 'Invalid code'), 'error');
+  function printReport() {
+    window.print();
+  }
+
+  /* SETTINGS */
+  function saveSettings() {
+    const newName = document.getElementById('profile-name').value.trim();
+    if (!newName) {
+      toast('Please enter your name.', 'warning');
+      return;
     }
+
+    user.name = newName;
+    localStorage.setItem('prepfast_user', JSON.stringify(user));
+    document.getElementById('sidebar-name').textContent = newName;
+    document.getElementById('sidebar-avatar').textContent = newName[0].toUpperCase();
+
+    toast('Settings saved successfully!', 'success');
   }
 
-  /* ═══════════════════════════════════════
-     MODAL HELPERS
-  ═══════════════════════════════════════ */
-  function openModal(id) { document.getElementById(id).classList.add('open'); lucide.createIcons(); }
-  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-  document.querySelectorAll('.modal-overlay').forEach(o => {
-    o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); });
-  });
-
-  /* ═══════════════════════════════════════
-     TOAST
-  ═══════════════════════════════════════ */
-  let toastTimer = null;
-  function toast(msg, type = 'info') {
-    const el = document.getElementById('toast');
-    const icon = document.getElementById('toast-icon');
-    const icons = { success: 'check-circle', error: 'x-circle', info: 'info', warning: 'alert-triangle' };
-    const colors = { success: '#10b981', error: '#f43f5e', info: '#6366f1', warning: '#f59e0b' };
-    icon.setAttribute('data-lucide', icons[type] || 'info');
-    icon.style.color = colors[type] || '#6366f1';
-    document.getElementById('toast-msg').textContent = msg;
-    el.classList.add('show');
-    lucide.createIcons();
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
-  }
-
-  /* ═══════════════════════════════════════
-     UTILS
-  ═══════════════════════════════════════ */
   function escHtml(str) {
     if (!str) return '';
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');

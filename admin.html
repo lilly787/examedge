@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <script>
-    const user = JSON.parse(localStorage.getItem('examedge_user') || 'null');
-    if (!user || user.role !== 'admin') {
-      const redirectMap = {
-        student: 'index.html', teacher: 'teacher.html',
-        parent: 'parent.html'
-      };
-      window.location.replace(redirectMap[user?.role] || 'index.html');
-    }
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = JSON.parse(localStorage.getItem('prepfast_user') || 'null');
+      if (!user || user.role !== 'admin') {
+        document.getElementById('admin-login-overlay').style.display = 'flex';
+      } else {
+        document.getElementById('admin-login-overlay').style.display = 'none';
+      }
+    });
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -467,6 +467,30 @@
 </head>
 <body>
 
+  <!-- Glassmorphic Admin Login Overlay -->
+  <div id="admin-login-overlay" style="position: fixed; inset: 0; z-index: 10000; background: rgba(7, 6, 15, 0.9); backdrop-filter: blur(25px); display: none; align-items: center; justify-content: center; padding: 1.5rem;">
+    <div style="background: rgba(18, 15, 38, 0.85); border: 1px solid rgba(99, 102, 241, 0.25); border-radius: 24px; padding: 2.5rem; max-width: 400px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: center; font-family: 'Inter', sans-serif; color: #f1f0f7;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">🛡️</div>
+      <h2 style="font-family: 'Outfit', sans-serif; font-weight: 950; font-size: 1.8rem; color: #fff; margin-bottom: 0.5rem;">Admin Authorization</h2>
+      <p style="font-size: 0.85rem; color: #8b88a8; margin-bottom: 2rem; line-height: 1.6;">Please enter the secure admin passcode to access the PrepFast platform management portal.</p>
+      
+      <div style="margin-bottom: 1.5rem; text-align: left;">
+        <label style="display: block; font-size: 0.72rem; font-weight: 700; color: #8b88a8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem;">Admin Passcode</label>
+        <input type="password" id="admin-passcode-input" style="width: 100%; background: rgba(10, 8, 20, 0.5); border: 1.5px solid rgba(99, 102, 241, 0.18); border-radius: 12px; padding: 0.85rem 1rem; color: #fff; font-size: 1rem; outline: none; transition: all 0.25s;" placeholder="••••••••" onkeydown="if(event.key==='Enter') submitAdminLogin()">
+      </div>
+      
+      <div id="admin-login-error" style="color: #f43f5e; font-size: 0.8rem; font-weight: 600; margin-bottom: 1.25rem; display: none;"></div>
+      
+      <button onclick="submitAdminLogin()" style="width: 100%; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; border: none; border-radius: 12px; padding: 0.9rem; font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 0.95rem; cursor: pointer; transition: all 0.25s; box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);">
+        Unlock Admin Portal
+      </button>
+      
+      <a href="index.html" style="display: inline-block; margin-top: 1.25rem; font-size: 0.8rem; color: #a5b4fc; text-decoration: none; font-weight: 600;">
+        ← Back to App Dashboard
+      </a>
+    </div>
+  </div>
+
   <!-- Modal -->
   <div class="modal-overlay" id="confirm-modal">
     <div class="modal-box">
@@ -489,14 +513,17 @@
       <div class="brand">
         <div class="logo-icon">🛡️</div>
         <div>
-          <h1 class="logo-text">ExamEdge Admin</h1>
+          <h1 class="logo-text">PrepFast Admin</h1>
           <p style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Platform Management Portal</p>
         </div>
       </div>
       <div class="header-actions">
-        <a href="index.html" class="btn btn-secondary"><i data-lucide="layout-dashboard" class="icon-sm"></i> Back to App Dashboard</a>
-        <a href="cbt.html" class="btn btn-secondary"><i data-lucide="file-text" class="icon-sm"></i> Practice CBT Engine</a>
-        <button class="btn btn-danger" onclick="confirmWipeDatabase()"><i data-lucide="alert-triangle" class="icon-sm"></i> Reset System DB</button>
+        <a href="index.html" class="btn btn-secondary"><i data-lucide="user" class="icon-sm"></i> Student</a>
+        <a href="teacher.html" class="btn btn-secondary"><i data-lucide="users" class="icon-sm"></i> Teacher</a>
+        <a href="parent.html" class="btn btn-secondary"><i data-lucide="shield" class="icon-sm"></i> Parent</a>
+        <a href="school-portal.html" class="btn btn-secondary"><i data-lucide="building" class="icon-sm"></i> School</a>
+        <a href="cbt.html" class="btn btn-secondary"><i data-lucide="file-text" class="icon-sm"></i> CBT Engine</a>
+        <button class="btn btn-danger" onclick="confirmWipeDatabase()"><i data-lucide="alert-triangle" class="icon-sm"></i> Reset DB</button>
       </div>
     </header>
 
@@ -561,13 +588,18 @@
           <div class="question-list-items" id="question-list-container">
             <!-- Dynamic loading -->
           </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; padding-top:1rem; border-top:1px solid var(--border);">
+            <button class="btn btn-secondary" id="btn-prev-page" onclick="prevQuestionsPage()" style="padding:6px 12px;font-size:0.75rem;">← Previous</button>
+            <span id="txt-page-info" style="font-size:0.8rem;color:var(--text-muted)">Page 1</span>
+            <button class="btn btn-secondary" id="btn-next-page" onclick="nextQuestionsPage()" style="padding:6px 12px;font-size:0.75rem;">Next →</button>
+          </div>
         </div>
 
-        <!-- Registered Students Panel -->
+        <!-- User & Role Management Panel -->
         <div class="admin-card">
           <div class="card-title-wrap">
-            <h2 class="card-title">👥 Registered Students</h2>
-            <button class="btn btn-danger" onclick="confirmDeleteAllStudents()" style="padding:6px 12px;font-size:0.75rem;">Delete All Student Accounts</button>
+            <h2 class="card-title">👥 User & Role Management</h2>
+            <button class="btn btn-danger" onclick="confirmDeleteAllStudents()" style="padding:6px 12px;font-size:0.75rem;">Clear Local Students List</button>
           </div>
 
           <div class="table-container">
@@ -576,9 +608,8 @@
                 <tr>
                   <th>Name</th>
                   <th>Phone Number</th>
-                  <th>Class</th>
-                  <th>Target Exam</th>
-                  <th>XP</th>
+                  <th>Role</th>
+                  <th>Tier</th>
                   <th>Joined Date</th>
                   <th>Actions</th>
                 </tr>
@@ -686,6 +717,11 @@
               <textarea id="new-q-explanation" class="form-input" placeholder="Provide step-by-step resolution details..." required></textarea>
             </div>
 
+            <div class="form-group">
+              <label class="form-label">Common Mistakes (Optional)</label>
+              <textarea id="new-q-mistakes" class="form-input" placeholder="E.g., Students often forget to change the sign when moving across the equal sign."></textarea>
+            </div>
+
             <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.5rem;justify-content:center;">🚀 Save Question to Bank</button>
           </form>
         </div>
@@ -695,6 +731,8 @@
   </div>
 
   <!-- Load script dependencies -->
+  <script src="prepfast-config.js"></script>
+  <script src="prepfast-api.js"></script>
   <script src="questions.js"></script>
   <script src="database.js"></script>
 
@@ -702,10 +740,55 @@
     // State
     let activeModalAction = "";
     let activeDeleteId = "";
+    let questionsCurrentPage = 1;
+    let questionsPerPage = 50;
+    let questionsTotalCount = 0;
 
     document.addEventListener("DOMContentLoaded", () => {
-      refreshData();
+      const user = JSON.parse(localStorage.getItem('prepfast_user') || 'null');
+      if (user && user.role === 'admin') {
+        refreshData();
+      }
     });
+
+    async function submitAdminLogin() {
+      const password = document.getElementById('admin-passcode-input').value.trim();
+      const errorEl = document.getElementById('admin-login-error');
+      errorEl.style.display = 'none';
+      if (!password) {
+        errorEl.textContent = 'Please enter a passcode.';
+        errorEl.style.display = 'block';
+        return;
+      }
+      
+      const useApi = window.PREPFAST_CONFIG?.useApi;
+      if (useApi) {
+        try {
+          const res = await PrepFastAPI.adminLogin(password);
+          localStorage.setItem('prepfast_token', res.token);
+          localStorage.setItem('prepfast_user', JSON.stringify(res.user));
+          localStorage.setItem('PREPFAST_LOGGED_IN', 'true');
+          document.getElementById('admin-login-overlay').style.display = 'none';
+          showToast('Authorized successfully!');
+          refreshData();
+        } catch (err) {
+          errorEl.textContent = err.message || 'Invalid admin passcode.';
+          errorEl.style.display = 'block';
+        }
+      } else {
+        if (password === 'admin123') {
+          const adminUser = { id: 'admin-offline', name: 'Offline Admin', role: 'admin', phone: '08000000000' };
+          localStorage.setItem('prepfast_user', JSON.stringify(adminUser));
+          localStorage.setItem('PREPFAST_LOGGED_IN', 'true');
+          document.getElementById('admin-login-overlay').style.display = 'none';
+          showToast('Authorized offline!');
+          refreshData();
+        } else {
+          errorEl.textContent = 'Invalid admin passcode (offline mode).';
+          errorEl.style.display = 'block';
+        }
+      }
+    }
 
     function refreshData() {
       renderStats();
@@ -713,25 +796,56 @@
       renderQuestionsList();
     }
 
-    function renderStats() {
-      // 1. Total Students
-      const list = JSON.parse(localStorage.getItem('EXAMEDGE_all_students') || '[]');
+    async function renderStats() {
+      const useApi = window.PREPFAST_CONFIG?.useApi;
+      
+      if (useApi) {
+        try {
+          // Get total questions size from backend
+          const stats = await PrepFastAPI.getQuestionStats();
+          document.getElementById("stat-questions").textContent = stats.total || 0;
+          document.getElementById("stat-questions-desc").textContent = "Live SQL database";
+          document.getElementById("btn-reset-q").style.display = "none";
+          
+          // Get registered users from API
+          const usersRes = await PrepFastAPI.getUsers();
+          const list = usersRes.users || [];
+          document.getElementById("stat-students").textContent = list.length;
+          document.getElementById("stat-students-desc").textContent = `${list.length} accounts total`;
+          
+          // Leaderboard avg XP
+          const lbRes = await PrepFastAPI.getLeaderboard({ limit: 10 }).catch(() => ({}));
+          const lbList = lbRes.leaderboard || [];
+          if (lbList.length > 0) {
+            const totalXp = lbList.reduce((sum, item) => sum + (item.xp || 0), 0);
+            const avg = Math.round(totalXp / lbList.length);
+            document.getElementById("stat-xp").textContent = `${avg} PTS`;
+            document.getElementById("stat-xp-desc").textContent = "Live leaderboard avg";
+          } else {
+            document.getElementById("stat-xp").textContent = "0 PTS";
+          }
+          return;
+        } catch (e) {
+          console.warn("Failed fetching live admin stats, falling back to local:", e.message);
+        }
+      }
+
+      // Offline/Local Fallback:
+      const list = JSON.parse(localStorage.getItem('PREPFAST_all_students') || '[]');
       document.getElementById("stat-students").textContent = list.length;
       document.getElementById("stat-students-desc").textContent = list.length === 1 
         ? "1 student registered" 
         : `${list.length} student accounts`;
 
-      // 2. Questions length
       const questionsList = ExamEdgeDB.getQuestions();
       document.getElementById("stat-questions").textContent = questionsList.length;
       
-      const customQs = localStorage.getItem("EXAMEDGE_custom_questions");
+      const customQs = localStorage.getItem("PREPFAST_custom_questions");
       document.getElementById("stat-questions-desc").innerHTML = customQs 
         ? `<span style="color:var(--amber)">Custom database overrides active</span>` 
         : `Static seeded database`;
       document.getElementById("btn-reset-q").style.display = customQs ? "block" : "none";
 
-      // 3. Avg Student XP
       if (list.length > 0) {
         const totalXp = list.reduce((sum, item) => sum + (item.xp || 0), 0);
         const avg = Math.round(totalXp / list.length);
@@ -741,48 +855,155 @@
       }
     }
 
-    function renderStudentsList() {
-      const list = JSON.parse(localStorage.getItem('EXAMEDGE_all_students') || '[]');
+    async function renderStudentsList() {
+      const useApi = window.PREPFAST_CONFIG?.useApi;
       const tbody = document.getElementById("students-table-body");
       tbody.innerHTML = "";
+      
+      let list = [];
+      if (useApi) {
+        try {
+          const res = await PrepFastAPI.getUsers();
+          list = res.users || [];
+        } catch (e) {
+          console.warn("Failed to get users from API:", e.message);
+          list = JSON.parse(localStorage.getItem('PREPFAST_all_students') || '[]');
+        }
+      } else {
+        list = JSON.parse(localStorage.getItem('PREPFAST_all_students') || '[]');
+      }
 
       if (list.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="7" style="text-align:center;padding:2rem;color:var(--text-muted)">
-              No registered students found. You can register your account on the <a href="register.html" style="color:var(--indigo);font-weight:700">registration page</a>.
+            <td colspan="6" style="text-align:center;padding:2rem;color:var(--text-muted)">
+              No registered users found.
             </td>
           </tr>
         `;
         return;
       }
 
-      list.forEach(student => {
-        const joinedDate = student.joinedAt 
-          ? new Date(student.joinedAt).toLocaleDateString('en-NG', { month: 'short', day: 'numeric', year: 'numeric' }) 
+      list.forEach(u => {
+        const joinedDate = u.created_at || u.joinedAt
+          ? new Date(u.created_at || u.joinedAt).toLocaleDateString('en-NG', { month: 'short', day: 'numeric', year: 'numeric' }) 
           : 'Seed User';
 
         const row = document.createElement("tr");
+        
+        // Render role toggle or promote button
+        let actionBtn = "";
+        if (u.role === 'admin') {
+          actionBtn = `<button class="btn btn-secondary" onclick="changeUserRole('${u.id}', 'student')" style="padding:4px 8px;font-size:0.7rem;margin-right:4px;">Demote</button>`;
+        } else {
+          actionBtn = `<button class="btn btn-primary" onclick="changeUserRole('${u.id}', 'admin')" style="padding:4px 8px;font-size:0.7rem;margin-right:4px;box-shadow:none;background:var(--indigo);">Make Admin</button>`;
+        }
+        
+        actionBtn += `<button class="btn btn-danger" onclick="deleteIndividualUser('${u.id || u.phone}')" style="padding:4px 8px;font-size:0.7rem;">Delete</button>`;
+
         row.innerHTML = `
-          <td><strong>${student.name}</strong></td>
-          <td class="mono">${student.phone}</td>
-          <td>${student.class || 'SS3'}</td>
-          <td><span class="badge ${student.subscription === 'premium' ? 'badge-premium' : 'badge-free'}">${student.examTarget || 'WAEC'}</span></td>
-          <td class="mono" style="color:var(--indigo);font-weight:700;">${student.xp || 0}</td>
+          <td><strong>${u.name}</strong></td>
+          <td class="mono">${u.phone}</td>
+          <td><span class="badge" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">${u.role.toUpperCase()}</span></td>
+          <td><span class="badge ${u.subscription_tier === 'premium' || u.subscription === 'premium' ? 'badge-premium' : 'badge-free'}">${(u.subscription_tier || u.subscription || 'free').toUpperCase()}</span></td>
           <td>${joinedDate}</td>
-          <td>
-            <button class="btn btn-danger" onclick="deleteIndividualStudent('${student.phone}')" style="padding:4px 8px;font-size:0.7rem;">Delete</button>
-          </td>
+          <td>${actionBtn}</td>
         `;
         tbody.appendChild(row);
       });
     }
 
-    function renderQuestionsList(questions = null) {
-      const qs = questions || ExamEdgeDB.getQuestions();
+    async function changeUserRole(userId, role) {
+      const useApi = window.PREPFAST_CONFIG?.useApi;
+      if (useApi) {
+        try {
+          await PrepFastAPI.updateUserRole(userId, role);
+          showToast(`Successfully changed user role to ${role}`);
+          refreshData();
+        } catch (e) {
+          showToast(e.message || "Failed to change user role", "error");
+        }
+      } else {
+        // Offline simulation
+        const list = JSON.parse(localStorage.getItem('PREPFAST_all_students') || '[]');
+        const u = list.find(student => student.id === userId || student.phone === userId);
+        if (u) {
+          u.role = role;
+          localStorage.setItem('PREPFAST_all_students', JSON.stringify(list));
+          showToast(`Offline simulation: user role updated to ${role}`);
+          refreshData();
+        }
+      }
+    }
+
+    async function renderQuestionsList() {
+      const useApi = window.PREPFAST_CONFIG?.useApi;
       const container = document.getElementById("question-list-container");
       container.innerHTML = "";
 
+      const queryVal = document.getElementById("q-search").value.toLowerCase().trim();
+      const subject = document.getElementById("q-subject-filter").value;
+      const year = document.getElementById("q-year-filter").value;
+
+      let qs = [];
+      
+      if (useApi) {
+        try {
+          const params = {
+            limit: questionsPerPage,
+            offset: (questionsCurrentPage - 1) * questionsPerPage
+          };
+          if (subject !== "All") params.subject = subject;
+          if (year !== "All") params.year = year;
+          if (queryVal !== "") params.topic = queryVal; // API supports topic search
+          
+          const data = await PrepFastAPI.getQuestions(params);
+          qs = data.questions || [];
+          questionsTotalCount = data.total || 0;
+          
+          // Update pagination display
+          document.getElementById("txt-page-info").textContent = `Page ${questionsCurrentPage} (Total: ${questionsTotalCount})`;
+          document.getElementById("btn-prev-page").disabled = questionsCurrentPage <= 1;
+          document.getElementById("btn-next-page").disabled = (questionsCurrentPage * questionsPerPage) >= questionsTotalCount;
+        } catch (e) {
+          console.warn("Failed fetching live questions list:", e.message);
+          useApiOfflineQuestionsFallback(queryVal, subject, year);
+          return;
+        }
+      } else {
+        useApiOfflineQuestionsFallback(queryVal, subject, year);
+        return;
+      }
+
+      renderQuestionsToDOM(qs);
+    }
+
+    function useApiOfflineQuestionsFallback(queryVal, subject, year) {
+      let list = ExamEdgeDB.getQuestions();
+      if (subject !== "All") {
+        list = list.filter(q => q.subject === subject);
+      }
+      if (year !== "All") {
+        list = list.filter(q => q.year === parseInt(year));
+      }
+      if (queryVal !== "") {
+        list = list.filter(q => q.question.toLowerCase().includes(queryVal) || q.topic.toLowerCase().includes(queryVal));
+      }
+
+      questionsTotalCount = list.length;
+      const start = (questionsCurrentPage - 1) * questionsPerPage;
+      const paginatedList = list.slice(start, start + questionsPerPage);
+
+      document.getElementById("txt-page-info").textContent = `Page ${questionsCurrentPage} (Total: ${questionsTotalCount})`;
+      document.getElementById("btn-prev-page").disabled = questionsCurrentPage <= 1;
+      document.getElementById("btn-next-page").disabled = (questionsCurrentPage * questionsPerPage) >= questionsTotalCount;
+
+      renderQuestionsToDOM(paginatedList);
+    }
+
+    function renderQuestionsToDOM(qs) {
+      const container = document.getElementById("question-list-container");
+      container.innerHTML = "";
       if (qs.length === 0) {
         container.innerHTML = `
           <div style="text-align:center;padding:2rem;color:var(--text-muted)">
@@ -792,16 +1013,13 @@
         return;
       }
 
-      // Sort newest first
-      const displayList = [...qs].reverse();
-
-      displayList.forEach(q => {
+      qs.forEach(q => {
         const item = document.createElement("div");
         item.className = "q-item";
         item.innerHTML = `
           <div class="q-item-meta">
             <span><strong>${q.subject}</strong> · ${q.topic}</span>
-            <span>WAEC ${q.year} · <span style="color:var(--amber);text-transform:uppercase;font-weight:700">${q.difficulty}</span></span>
+            <span>${q.exam_body || 'WAEC'} ${q.year} · <span style="color:var(--amber);text-transform:uppercase;font-weight:700">${q.difficulty}</span></span>
           </div>
           <div class="q-item-text">${q.question}</div>
           <div class="q-item-answer">Correct Option: ${q.answer}</div>
@@ -811,28 +1029,27 @@
       });
     }
 
+    function prevQuestionsPage() {
+      if (questionsCurrentPage > 1) {
+        questionsCurrentPage--;
+        renderQuestionsList();
+      }
+    }
+
+    function nextQuestionsPage() {
+      if ((questionsCurrentPage * questionsPerPage) < questionsTotalCount) {
+        questionsCurrentPage++;
+        renderQuestionsList();
+      }
+    }
+
     function filterQuestions() {
-      const query = document.getElementById("q-search").value.toLowerCase().trim();
-      const subject = document.getElementById("q-subject-filter").value;
-      const year = document.getElementById("q-year-filter").value;
-
-      let list = ExamEdgeDB.getQuestions();
-
-      if (subject !== "All") {
-        list = list.filter(q => q.subject === subject);
-      }
-      if (year !== "All") {
-        list = list.filter(q => q.year === parseInt(year));
-      }
-      if (query !== "") {
-        list = list.filter(q => q.question.toLowerCase().includes(query) || q.topic.toLowerCase().includes(query));
-      }
-
-      renderQuestionsList(list);
+      questionsCurrentPage = 1;
+      renderQuestionsList();
     }
 
     // FORM ACTION
-    function handleQuestionFormSubmit(e) {
+    async function handleQuestionFormSubmit(e) {
       e.preventDefault();
 
       const subject = document.getElementById("new-q-subject").value;
@@ -848,6 +1065,7 @@
       const answer = document.getElementById("new-q-answer").value;
       const difficulty = document.getElementById("new-q-difficulty").value;
       const explanation = document.getElementById("new-q-explanation").value.trim();
+      const common_mistakes = document.getElementById("new-q-mistakes").value.trim();
 
       const newQ = {
         id: "cust-" + Date.now(),
@@ -866,9 +1084,24 @@
         },
         answer,
         explanation,
+        common_mistakes,
         difficulty,
         tags: [topic.toLowerCase()]
       };
+
+      const useApi = window.PREPFAST_CONFIG?.useApi;
+      if (useApi) {
+        try {
+          await PrepFastAPI.addQuestion(newQ);
+          showToast("Question added to backend database!");
+          document.getElementById("add-question-form").reset();
+          refreshData();
+          return;
+        } catch (err) {
+          showToast(err.message || "Failed to add question to backend", "error");
+          return;
+        }
+      }
 
       const fullList = [...ExamEdgeDB.getQuestions()];
       fullList.push(newQ);
@@ -891,19 +1124,19 @@
 
     function confirmDeleteAllStudents() {
       openModal(
-        "Delete All Student Accounts?",
-        "This will remove the current active profile session and clear the entire registered student database so that the next registration will be the first student record.",
-        "Delete Students",
+        "Clear Local List?",
+        "This will clear the offline cached student registration profiles from this browser.",
+        "Clear Cache",
         "delete_students"
       );
     }
 
-    function deleteIndividualStudent(phone) {
-      activeDeleteId = phone;
+    function deleteIndividualUser(uId) {
+      activeDeleteId = uId;
       openModal(
-        "Delete Student Account?",
-        `Are you sure you want to delete the student with phone number ${phone}?`,
-        "Delete Student",
+        "Delete User Account?",
+        `Are you sure you want to delete this user account?`,
+        "Delete User",
         "delete_individual_student"
       );
     }
@@ -912,7 +1145,7 @@
       activeDeleteId = qId;
       openModal(
         "Delete Question from Bank?",
-        "This will remove the selected question from the active database cache list.",
+        "This will remove the selected question from the active database.",
         "Delete Question",
         "delete_individual_question"
       );
@@ -933,7 +1166,7 @@
       if (!file) return;
 
       const reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = async function(e) {
         try {
           const imported = JSON.parse(e.target.result);
           if (!Array.isArray(imported)) {
@@ -945,6 +1178,22 @@
             const first = imported[0];
             if (!first.question || !first.subject || !first.options || !first.answer) {
               showToast("Error: Invalid question format in JSON.", "error");
+              return;
+            }
+          }
+
+          const useApi = window.PREPFAST_CONFIG?.useApi;
+          if (useApi) {
+            try {
+              const res = await PrepFastAPI.request("/questions/bulk", {
+                method: "POST",
+                body: JSON.stringify({ questions: imported })
+              });
+              showToast(`Successfully imported ${res.imported} new questions to backend!`);
+              refreshData();
+              return;
+            } catch (err) {
+              showToast(err.message || "Failed bulk import to backend", "error");
               return;
             }
           }
@@ -1008,26 +1257,46 @@
         showToast("All registered students cleared.");
         refreshData();
       } else if (activeModalAction === "delete_individual_student") {
-        const list = JSON.parse(localStorage.getItem('EXAMEDGE_all_students') || '[]');
-        const updated = list.filter(s => s.phone !== activeDeleteId);
-        localStorage.setItem('EXAMEDGE_all_students', JSON.stringify(updated));
+        const useApi = window.PREPFAST_CONFIG?.useApi;
+        if (useApi) {
+          PrepFastAPI.deleteUser(activeDeleteId).then(() => {
+            showToast("User account deleted.");
+            refreshData();
+          }).catch(err => {
+            showToast(err.message || "Failed to delete user", "error");
+          });
+        } else {
+          const list = JSON.parse(localStorage.getItem('PREPFAST_all_students') || '[]');
+          const updated = list.filter(s => s.phone !== activeDeleteId && s.id !== activeDeleteId);
+          localStorage.setItem('PREPFAST_all_students', JSON.stringify(updated));
 
-        // If active user log in phone is deleted, log them out
-        const currentUser = ExamEdgeDB.getUser();
-        if (currentUser && currentUser.phone === activeDeleteId) {
-          ExamEdgeDB.logout();
+          // If active user log in phone is deleted, log them out
+          const currentUser = ExamEdgeDB.getUser();
+          if (currentUser && (currentUser.phone === activeDeleteId || currentUser.id === activeDeleteId)) {
+            ExamEdgeDB.logout();
+          }
+
+          showToast("Student account deleted.");
+          refreshData();
         }
-
-        showToast("Student account deleted.");
-        refreshData();
       } else if (activeModalAction === "delete_individual_question") {
-        const fullList = ExamEdgeDB.getQuestions();
-        const updated = fullList.filter(q => q.id !== activeDeleteId);
-        
-        // Save as override
-        ExamEdgeDB.saveQuestions(updated);
-        showToast("Question removed from bank.");
-        refreshData();
+        const useApi = window.PREPFAST_CONFIG?.useApi;
+        if (useApi) {
+          PrepFastAPI.deleteQuestion(activeDeleteId).then(() => {
+            showToast("Question deleted from backend database.");
+            refreshData();
+          }).catch(err => {
+            showToast(err.message || "Failed to delete question", "error");
+          });
+        } else {
+          const fullList = ExamEdgeDB.getQuestions();
+          const updated = fullList.filter(q => q.id !== activeDeleteId);
+          
+          // Save as override
+          ExamEdgeDB.saveQuestions(updated);
+          showToast("Question removed from bank.");
+          refreshData();
+        }
       }
     }
 

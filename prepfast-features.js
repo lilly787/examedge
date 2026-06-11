@@ -1,4 +1,4 @@
-// ExamEdge Phase 1–2 feature integrations (auth, Paystack, AI, study planner, WhatsApp)
+// PrepFast Phase 1–2 feature integrations (auth, Paystack, AI, study planner, WhatsApp)
 
 // ——— Auth (real OTP via API) ———
 const _triggerOTPSending = window.triggerOTPSending;
@@ -11,13 +11,13 @@ window.triggerOTPSending = async function triggerOTPSendingApi() {
   }
   window._authPending = { phone, name };
 
-  if (window.EXAMEDGE_CONFIG?.useApi) await ExamEdgeBridge.whenReady();
+  if (window.PREPFAST_CONFIG?.useApi) await PrepFastBridge.whenReady();
 
-  if (ExamEdgeBridge?.apiOnline) {
+  if (PrepFastBridge?.apiOnline) {
     try {
-      const res = await ExamEdgeAPI.sendOtp(phone);
+      const res = await PrepFastAPI.sendOtp(phone);
       if (res.devCode) {
-        showSMSBanner(`[ExamEdge OTP] Verification code: ${res.devCode}`);
+        showSMSBanner(`[PrepFast OTP] Verification code: ${res.devCode}`);
       } else {
         showSMSBanner(`[SMS] Verification code sent to +234 ${phone}`);
       }
@@ -48,11 +48,11 @@ window.verifyOTPCode = async function verifyOTPCodeApi() {
   const name =
     pending.name || document.getElementById("auth-name-input")?.value.trim();
 
-  if (window.EXAMEDGE_CONFIG?.useApi) await ExamEdgeBridge.whenReady();
+  if (window.PREPFAST_CONFIG?.useApi) await PrepFastBridge.whenReady();
 
-  if (ExamEdgeBridge?.apiOnline) {
+  if (PrepFastBridge?.apiOnline) {
     try {
-      const res = await ExamEdgeAPI.verifyOtp(phone, entered, {
+      const res = await PrepFastAPI.verifyOtp(phone, entered, {
         name,
         role: "student",
         ss_class: "SS3",
@@ -65,7 +65,7 @@ window.verifyOTPCode = async function verifyOTPCodeApi() {
         ],
         exam_target: "WAEC",
       });
-      ExamEdgeDB.loginFromApi(res.user, res.token);
+      PrepFastDB.loginFromApi(res.user, res.token);
       window._needsApiReauth = false;
       showToast(`Welcome, ${res.user.name}!`, "success");
       navigate("dashboard");
@@ -77,8 +77,8 @@ window.verifyOTPCode = async function verifyOTPCodeApi() {
   }
   if (typeof _verifyOTPCode === "function") {
     _verifyOTPCode();
-    if (ExamEdgeBridge?.apiOnline) {
-      setTimeout(() => ExamEdgeBridge.ensureApiSession(), 500);
+    if (PrepFastBridge?.apiOnline) {
+      setTimeout(() => PrepFastBridge.ensureApiSession(), 500);
     }
   }
 };
@@ -88,7 +88,7 @@ window.openPaystackSim = async function openPaystackReal() {
   const overlay = document.getElementById("paystack-sim-overlay");
   if (!overlay) return;
 
-  if (!ExamEdgeAPI.getToken()) {
+  if (!PrepFastAPI.getToken()) {
     showToast("Please log in first", "error");
     navigate("auth");
     return;
@@ -99,14 +99,14 @@ window.openPaystackSim = async function openPaystackReal() {
   overlay.innerHTML = `<div class="text-white text-center p-8">Initializing Paystack…</div>`;
 
   try {
-    const init = await ExamEdgeAPI.initPayment("monthly");
+    const init = await PrepFastAPI.initPayment("monthly");
 
     if (init.simulated || !init.authorization_url) {
       overlay.innerHTML = `
         <div class="bg-[#12101f] border border-indigo-500/20 rounded-2xl p-8 max-w-md w-full text-center">
           <h3 class="text-xl font-bold text-white mb-2">Dev Payment Mode</h3>
           <p class="text-gray-400 text-sm mb-6">Paystack keys not set. Activate Premium for testing?</p>
-          <button onclick="ExamEdgeFeatures.devActivatePremium()" class="w-full bg-emerald-500 text-slate-950 font-bold py-3 rounded-xl mb-3">Activate Premium (Dev)</button>
+          <button onclick="PrepFastFeatures.devActivatePremium()" class="w-full bg-emerald-500 text-slate-950 font-bold py-3 rounded-xl mb-3">Activate Premium (Dev)</button>
           <button onclick="closePaystackSim()" class="text-indigo-400 text-sm">Cancel</button>
         </div>`;
       return;
@@ -166,11 +166,11 @@ function buildLocalStudyPlan(examDate, subjects, hoursPerDay) {
   return plan;
 }
 
-const ExamEdgeFeatures = {
+const PrepFastFeatures = {
   async ensureApiSession() {
-    if (ExamEdgeAPI.getToken()) return true;
-    if (ExamEdgeBridge?.apiOnline) {
-      const ok = await ExamEdgeBridge.ensureApiSession();
+    if (PrepFastAPI.getToken()) return true;
+    if (PrepFastBridge?.apiOnline) {
+      const ok = await PrepFastBridge.ensureApiSession();
       if (ok) return true;
     }
     return false;
@@ -178,8 +178,8 @@ const ExamEdgeFeatures = {
 
   async devActivatePremium() {
     try {
-      await ExamEdgeAPI.devActivatePremium("monthly");
-      ExamEdgeDB.upgradeToPremium();
+      await PrepFastAPI.devActivatePremium("monthly");
+      PrepFastDB.upgradeToPremium();
       closePaystackSim(true);
       showToast("Premium activated!", "success");
       navigate("dashboard");
@@ -193,8 +193,8 @@ const ExamEdgeFeatures = {
     const ref = params.get("reference") || params.get("trxref");
     if (!ref) return;
     try {
-      await ExamEdgeAPI.verifyPayment(ref);
-      ExamEdgeDB.upgradeToPremium();
+      await PrepFastAPI.verifyPayment(ref);
+      PrepFastDB.upgradeToPremium();
       showToast("Payment successful — Premium unlocked!", "success");
       window.history.replaceState({}, "", "index.html");
     } catch (e) {
@@ -205,7 +205,7 @@ const ExamEdgeFeatures = {
 
 // ——— AI Tutor ———
 window.openAiTutor = async function openAiTutor(questionId) {
-  const q = ExamEdgeDB.getQuestions().find((item) => item.id === questionId);
+  const q = PrepFastDB.getQuestions().find((item) => item.id === questionId);
   if (!q) return;
   const idx = PRACTICE_SESSION.currentIndex;
   const studentAnswer = PRACTICE_SESSION.selectedAnswers[idx] || "";
@@ -222,33 +222,33 @@ window.openAiTutor = async function openAiTutor(questionId) {
   overlay.innerHTML = `
     <div class="bg-[#12101f] border border-indigo-500/30 rounded-2xl max-w-lg w-full max-h-[80vh] overflow-hidden flex flex-col">
       <div class="p-4 border-b border-indigo-900/50 flex justify-between items-center">
-        <h3 class="font-bold text-white">🤖 ExamEdge AI Tutor</h3>
+        <h3 class="font-bold text-white">🤖 PrepFast AI Tutor</h3>
         <button onclick="document.getElementById('ai-tutor-overlay').classList.add('hidden')" class="text-gray-400 hover:text-white">&times;</button>
       </div>
       <div id="ai-tutor-body" class="p-4 overflow-y-auto text-sm text-gray-300">Thinking…</div>
       <div class="p-3 border-t border-indigo-900/50 flex gap-2">
         <input id="ai-tutor-input" type="text" placeholder="Ask a follow-up…" class="flex-1 bg-indigo-950/40 border border-indigo-900/60 rounded-xl px-3 py-2 text-white text-sm">
-        <button onclick="ExamEdgeFeatures.sendTutorFollowUp('${questionId}')" class="bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-bold">Send</button>
+        <button onclick="PrepFastFeatures.sendTutorFollowUp('${questionId}')" class="bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-bold">Send</button>
       </div>
     </div>`;
 
   window._aiTutorQuestionId = questionId;
   try {
-    const res = await ExamEdgeAPI.askTutor(questionId, studentAnswer, null);
+    const res = await PrepFastAPI.askTutor(questionId, studentAnswer, null);
     document.getElementById("ai-tutor-body").innerHTML = `<p class="whitespace-pre-wrap">${res.text}</p>`;
   } catch (e) {
     document.getElementById("ai-tutor-body").innerHTML = `<p class="text-amber-400">${e.message}. Upgrade to Premium or set ANTHROPIC_API_KEY.</p><p class="mt-3 text-gray-400">${q.explanation}</p>`;
   }
 };
 
-ExamEdgeFeatures.sendTutorFollowUp = async function (questionId) {
+PrepFastFeatures.sendTutorFollowUp = async function (questionId) {
   const msg = document.getElementById("ai-tutor-input")?.value.trim();
   if (!msg) return;
   const idx = PRACTICE_SESSION.currentIndex;
   const studentAnswer = PRACTICE_SESSION.selectedAnswers[idx] || "";
   document.getElementById("ai-tutor-body").textContent = "Thinking…";
   try {
-    const res = await ExamEdgeAPI.askTutor(questionId, studentAnswer, msg);
+    const res = await PrepFastAPI.askTutor(questionId, studentAnswer, msg);
     document.getElementById("ai-tutor-body").innerHTML = `<p class="whitespace-pre-wrap">${res.text}</p>`;
   } catch (e) {
     document.getElementById("ai-tutor-body").textContent = e.message;
@@ -259,11 +259,11 @@ ExamEdgeFeatures.sendTutorFollowUp = async function (questionId) {
 function renderStudyPlannerView() {
   const container = document.getElementById("view-study-planner");
   if (!container) return;
-  const user = ExamEdgeDB.getUser();
+  const user = PrepFastDB.getUser();
   const needsSignIn =
-    window.EXAMEDGE_CONFIG?.useApi &&
+    window.PREPFAST_CONFIG?.useApi &&
     window._needsApiReauth &&
-    !ExamEdgeAPI.getToken();
+    !PrepFastAPI.getToken();
 
   container.innerHTML = `
     <div class="mb-8">
@@ -288,27 +288,27 @@ function renderStudyPlannerView() {
         <input type="number" id="planner-hours" value="2" min="1" max="8" class="w-full mt-1 bg-indigo-950/40 border border-indigo-900/60 rounded-xl px-3 py-2 text-white">
       </div>
       <div class="flex items-end">
-        <button onclick="ExamEdgeFeatures.generatePlan()" class="w-full bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold py-2.5 rounded-xl">Generate Plan</button>
+        <button onclick="PrepFastFeatures.generatePlan()" class="w-full bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold py-2.5 rounded-xl">Generate Plan</button>
       </div>
     </div>
     <div id="planner-auth-hint" class="hidden mb-4 p-3 rounded-xl bg-amber-950/30 border border-amber-500/30 text-amber-200 text-xs"></div>
     <div id="planner-calendar" class="space-y-2"></div>`;
 
-  if (!ExamEdgeAPI.getToken()) {
+  if (!PrepFastAPI.getToken()) {
     const hint = document.getElementById("planner-auth-hint");
     if (hint) {
       hint.classList.remove("hidden");
       hint.innerHTML =
-        'You are using offline login. Click <button type="button" onclick="ExamEdgeFeatures.ensureApiSession().then(ok => showToast(ok ? \"Connected!\" : \"Could not connect\", ok ? \"success\" : \"error\"))" class="underline font-bold">Connect account</button> or sign out and log in again with OTP.';
+        'You are using offline login. Click <button type="button" onclick="PrepFastFeatures.ensureApiSession().then(ok => showToast(ok ? \"Connected!\" : \"Could not connect\", ok ? \"success\" : \"error\"))" class="underline font-bold">Connect account</button> or sign out and log in again with OTP.';
     }
   }
 
-  ExamEdgeFeatures.loadExistingPlan();
+  PrepFastFeatures.loadExistingPlan();
   refreshIcons();
 }
 
-ExamEdgeFeatures.generatePlan = async function () {
-  const user = ExamEdgeDB.getUser();
+PrepFastFeatures.generatePlan = async function () {
+  const user = PrepFastDB.getUser();
   if (!user) {
     showToast("Please log in first", "error");
     navigate("auth");
@@ -329,13 +329,13 @@ ExamEdgeFeatures.generatePlan = async function () {
     btn.textContent = "Generating…";
   }
 
-  if (window.EXAMEDGE_CONFIG?.useApi) await ExamEdgeBridge.whenReady();
+  if (window.PREPFAST_CONFIG?.useApi) await PrepFastBridge.whenReady();
 
   let plan = null;
 
-  if (ExamEdgeBridge?.apiOnline) {
+  if (PrepFastBridge?.apiOnline) {
     try {
-      const localRes = await ExamEdgeAPI.generateStudyPlanLocal(examDate, subjects, hours);
+      const localRes = await PrepFastAPI.generateStudyPlanLocal(examDate, subjects, hours);
       plan = localRes.plan;
     } catch (_) {}
   }
@@ -344,23 +344,23 @@ ExamEdgeFeatures.generatePlan = async function () {
     plan = buildLocalStudyPlan(examDate, subjects, hours);
   }
 
-  if (ExamEdgeAPI.getToken()) {
+  if (PrepFastAPI.getToken()) {
     try {
-      await ExamEdgeAPI.generateStudyPlan(examDate, subjects, hours);
+      await PrepFastAPI.generateStudyPlan(examDate, subjects, hours);
       window._needsApiReauth = false;
       document.getElementById("planner-auth-hint")?.classList.add("hidden");
     } catch (_) {}
   } else {
-    await ExamEdgeFeatures.ensureApiSession();
+    await PrepFastFeatures.ensureApiSession();
   }
 
-  ExamEdgeFeatures.renderPlanCalendar(plan);
+  PrepFastFeatures.renderPlanCalendar(plan);
   localStorage.setItem(
-    "EXAMEDGE_study_plan",
+    "prepfast_study_plan",
     JSON.stringify({ plan, exam_date: examDate })
   );
   if (user.exam_date !== examDate) {
-    ExamEdgeDB.updateUser({ exam_date: examDate });
+    PrepFastDB.updateUser({ exam_date: examDate });
   }
 
   if (btn) {
@@ -370,23 +370,23 @@ ExamEdgeFeatures.generatePlan = async function () {
   showToast("Your study plan is ready", "success");
 };
 
-ExamEdgeFeatures.loadExistingPlan = async function () {
-  const saved = localStorage.getItem("EXAMEDGE_study_plan");
+PrepFastFeatures.loadExistingPlan = async function () {
+  const saved = localStorage.getItem("prepfast_study_plan");
   if (saved) {
     try {
       const data = JSON.parse(saved);
-      if (data.plan) ExamEdgeFeatures.renderPlanCalendar(data.plan);
+      if (data.plan) PrepFastFeatures.renderPlanCalendar(data.plan);
     } catch (_) {}
   }
 
-  if (!ExamEdgeAPI.getToken()) return;
+  if (!PrepFastAPI.getToken()) return;
   try {
-    const res = await ExamEdgeAPI.getLatestStudyPlan();
-    if (res.plan) ExamEdgeFeatures.renderPlanCalendar(res.plan);
+    const res = await PrepFastAPI.getLatestStudyPlan();
+    if (res.plan) PrepFastFeatures.renderPlanCalendar(res.plan);
   } catch (_) {}
 };
 
-ExamEdgeFeatures.renderPlanCalendar = function (plan) {
+PrepFastFeatures.renderPlanCalendar = function (plan) {
   const el = document.getElementById("planner-calendar");
   if (!el || !plan?.length) return;
   el.innerHTML = plan
@@ -409,9 +409,9 @@ window.sendWhatsAppMessage = async function sendWhatsAppApi() {
   const txt = input?.value.trim().toUpperCase();
   if (!txt) return;
 
-  if (ExamEdgeBridge?.apiOnline) {
+  if (PrepFastBridge?.apiOnline) {
     try {
-      const res = await ExamEdgeAPI.whatsappSimulate("2348000000000", txt);
+      const res = await PrepFastAPI.whatsappSimulate("2348000000000", txt);
       const now = new Date();
       const timeStr = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
       WHATSAPP_SESSION.messages.push({ sender: "student", text: txt, time: timeStr });
@@ -431,7 +431,7 @@ window.sendWhatsAppMessage = async function sendWhatsAppApi() {
 // ——— Offline download ———
 window.downloadSubjectOffline = async function (subject) {
   try {
-    const count = await ExamEdgeBridge.downloadOfflineSubject(subject);
+    const count = await PrepFastBridge.downloadOfflineSubject(subject);
     showToast(`Downloaded ${count} ${subject} questions for offline use`, "success");
   } catch (e) {
     if (e.data?.upgrade) openPaystackSim();
@@ -441,14 +441,20 @@ window.downloadSubjectOffline = async function (subject) {
 
 // ——— Mood check-in ———
 window.saveMoodCheckin = async function (mood) {
-  if (ExamEdgeAPI.getToken()) {
+  if (PrepFastAPI.getToken()) {
     try {
-      await ExamEdgeAPI.saveMood(mood, "practice");
+      await PrepFastAPI.saveMood(mood, "practice");
     } catch (_) {}
   }
   showToast("Mood saved — keep going!", "success");
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  ExamEdgeFeatures.checkPaymentReturn();
+  PrepFastFeatures.checkPaymentReturn();
 });
+
+const ExamEdgeFeatures = PrepFastFeatures;
+if (typeof window !== "undefined") {
+  window.PrepFastFeatures = PrepFastFeatures;
+  window.ExamEdgeFeatures = ExamEdgeFeatures;
+}

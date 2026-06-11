@@ -88,38 +88,62 @@ async function updateStreak(studentId) {
 }
 
 router.get("/me", authRequired, requireRole("student"), async (req, res) => {
-  const progress = await query(
-    `SELECT * FROM student_progress WHERE student_id = $1 ORDER BY attempted_at DESC LIMIT 500`,
-    [req.user.id]
-  );
-  res.json({ progress: progress.rows });
+  try {
+    const progress = await query(
+      `SELECT * FROM student_progress WHERE student_id = $1 ORDER BY attempted_at DESC LIMIT 500`,
+      [req.user.id]
+    );
+    res.json({ progress: progress.rows });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 });
 
 router.get("/analytics/weakness", authRequired, async (req, res) => {
-  const studentId = req.query.student_id || req.user.id;
-  const map = await getWeaknessMap(studentId);
-  res.json({ weakness: map });
+  try {
+    const studentId = req.query.student_id || req.user.id;
+    const map = await getWeaknessMap(studentId);
+    res.json({ weakness: map });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 });
 
 router.get("/analytics/readiness", authRequired, async (req, res) => {
-  const studentId = req.query.student_id || req.user.id;
-  const score = await getExamReadinessScore(studentId);
-  res.json({ readiness_score: score });
+  try {
+    const studentId = req.query.student_id || req.user.id;
+    const score = await getExamReadinessScore(studentId);
+    res.json({ readiness_score: score });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 });
 
 router.post("/sync", authRequired, requireRole("student"), async (req, res) => {
-  const { attempts } = req.body;
-  if (!Array.isArray(attempts)) return res.status(400).json({ error: "attempts array required" });
-  for (const a of attempts) {
-    await query(
-      `INSERT INTO student_progress (student_id, question_id, is_correct, time_taken_seconds, attempted_at)
-       VALUES ($1, $2, $3, $4, COALESCE($5::timestamptz, NOW()))`,
-      [req.user.id, a.question_id, a.is_correct, a.time_taken_seconds || 0, a.attempted_at || null]
-    );
+  try {
+    const { attempts } = req.body;
+    if (!Array.isArray(attempts)) return res.status(400).json({ error: "attempts array required" });
+
+    // Verify user exists in the database
+    const userCheck = await query("SELECT id FROM users WHERE id = $1", [req.user.id]);
+    if (!userCheck.rows.length) {
+      return res.status(401).json({ error: "User session is invalid. Please log in again." });
+    }
+
+    for (const a of attempts) {
+      await query(
+        `INSERT INTO student_progress (student_id, question_id, is_correct, time_taken_seconds, attempted_at)
+         VALUES ($1, $2, $3, $4, COALESCE($5::timestamptz, NOW()))`,
+        [req.user.id, a.question_id, a.is_correct, a.time_taken_seconds || 0, a.attempted_at || null]
+      );
+    }
+    await recalculateWeaknessMap(req.user.id);
+    const readiness = await getExamReadinessScore(req.user.id);
+    res.json({ synced: attempts.length, readiness_score: readiness });
+  } catch (e) {
+    console.error("[progress/sync] sync failed:", e.message);
+    res.status(500).json({ error: e.message || "Failed to sync progress" });
   }
-  await recalculateWeaknessMap(req.user.id);
-  const readiness = await getExamReadinessScore(req.user.id);
-  res.json({ synced: attempts.length, readiness_score: readiness });
 });
 
 module.exports = router;

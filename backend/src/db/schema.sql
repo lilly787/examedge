@@ -89,6 +89,7 @@ CREATE TABLE IF NOT EXISTS questions (
   correct_answer TEXT NOT NULL,
   explanation_text TEXT,
   explanation_video_url TEXT,
+  common_mistakes TEXT,
   difficulty TEXT DEFAULT 'medium',
   tags JSONB DEFAULT '[]',
   created_at TIMESTAMPTZ DEFAULT NOW()
