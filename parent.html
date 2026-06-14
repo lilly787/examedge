@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="auth-guard.js"></script>
   <script>
-    const user = JSON.parse(localStorage.getItem('prepfast_user') || 'null');
-    if (!user || (user.role !== 'parent' && user.role !== 'admin')) {
-      const redirectMap = { student: 'index.html', teacher: 'teacher.html' };
-      window.location.replace(redirectMap[user?.role] || 'index.html');
-    }
+    checkAccess(['parent', 'admin']);
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

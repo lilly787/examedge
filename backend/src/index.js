@@ -16,6 +16,7 @@ const schoolRoutes = require("./routes/schools");
 const gamificationRoutes = require("./routes/gamification");
 const offlineRoutes = require("./routes/offline");
 const userRoutes = require("./routes/users");
+const adminRoutes = require("./routes/admin");
 
 const app = express();
 const rootDir = path.join(__dirname, "../..");
@@ -64,6 +65,7 @@ app.use("/api/schools", schoolRoutes);
 app.use("/api/gamification", gamificationRoutes);
 app.use("/api/offline", offlineRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/admin", adminRoutes);
 
 const MIME = {
   ".html": "text/html",

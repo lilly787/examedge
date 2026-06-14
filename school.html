@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="auth-guard.js"></script>
+  <script>
+    checkAccess(['school', 'admin']);
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrepFast — School Portal</title>
+  <meta name="description" content="PrepFast School Portal — Register your institution, bulk-enroll students, manage classes, and upload internal past questions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07060f;
+      --surface: rgba(18, 15, 38, 0.85);
+      --surface2: rgba(22, 18, 50, 0.75);
+      --border: rgba(99, 102, 241, 0.18);
+      --border-active: rgba(99, 102, 241, 0.55);
+      --indigo: #6366f1;
+      --violet: #8b5cf6;
+      --emerald: #10b981;
+      --rose: #f43f5e;
+      --amber: #f59e0b;
+      --cyan: #06b6d4;
+      --text: #f1f0f7;
+      --text-muted: #8b88a8;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 10%, rgba(99,102,241,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(139,92,246,0.07) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* LAYOUT */
+    .layout { display: flex; min-height: 100vh; position: relative; z-index: 1; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      background: rgba(12, 10, 28, 0.92);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 1rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-brand .logo-icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--indigo), var(--violet));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .sidebar-brand h2 {
+      font-weight: 900; font-size: 1.2rem;
+      background: linear-gradient(135deg, #c7d2fe, #a78bfa);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .sidebar-brand p { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    .nav-section-title {
+      font-size: 0.65rem; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 0.75rem 0.75rem 0.5rem;
+    }
+
+    .nav-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0.65rem 0.75rem;
+      border-radius: 10px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      margin-bottom: 2px;
+      cursor: pointer;
+    }
+    .nav-link:hover { background: rgba(99, 102, 241, 0.08); color: var(--text); }
+    .nav-link.active { background: rgba(99, 102, 241, 0.12); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.2); }
+    .nav-link .icon-sm { width: 18px; height: 18px; }
+
+    .nav-spacer { flex: 1; }
+
+    /* MAIN */
+    .main-content {
+      flex: 1;
+      padding: 2rem 2.5rem;
+      overflow-y: auto;
+    }
+
+    .page-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+    .page-header h1 {
+      font-size: 1.8rem; font-weight: 900;
+      background: linear-gradient(135deg, #e0e7ff, #a5b4fc);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .page-header p { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.3rem; }
+
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 0.55rem 1rem;
+      border-radius: 10px;
+      font-size: 0.8rem; font-weight: 600;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--indigo), var(--violet));
+      color: #fff; border-color: transparent;
+    }
+    .btn-primary:hover { box-shadow: 0 8px 20px rgba(99,102,241,0.3); transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: rgba(99, 102, 241, 0.08);
+      border: 1.5px solid rgba(99, 102, 241, 0.18);
+      color: #a5b4fc;
+    }
+    .btn-secondary:hover { background: rgba(99, 102, 241, 0.15); border-color: var(--indigo); color: #fff; }
+
+    .btn-danger {
+      background: rgba(244, 63, 94, 0.1);
+      border: 1.5px solid rgba(244, 63, 94, 0.25);
+      color: #fca5a5;
+    }
+
+    /* STATS GRID */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .stat-card {
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex; flex-direction: column; gap: 6px;
+      transition: all 0.25s;
+    }
+    .stat-card:hover { border-color: var(--border-active); transform: translateY(-2px); }
+    .stat-title { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .stat-value { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 2rem; }
+    .stat-desc { font-size: 0.72rem; color: var(--emerald); font-weight: 600; }
+
+    /* CARDS */
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.25s;
+    }
+    .card:hover { border-color: var(--border-active); }
+
+    .card-title {
+      font-size: 1.1rem; font-weight: 800;
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .card-title .icon-sm { width: 20px; height: 20px; color: var(--indigo); }
+
+    .card-subtitle {
+      font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem;
+    }
+
+    /* FORM ELEMENTS */
+    .form-group { margin-bottom: 1rem; }
+    .form-label {
+      display: block;
+      font-size: 0.72rem; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    .form-input {
+      width: 100%;
+      background: rgba(10, 8, 20, 0.5);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.25s;
+      outline: none;
+    }
+    .form-input:focus { border-color: var(--border-active); box-shadow: 0 0 0 3px rgba(99,102,241,0.08); }
+    .form-input::placeholder { color: rgba(139, 136, 168, 0.5); }
+
+    select.form-input {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b88a8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 2rem;
+    }
+
+    textarea.form-input { resize: vertical; min-height: 80px; }
+
+    .form-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    }
+
+    .form-hint { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.35rem; }
+
+    /* TABLE */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .data-table th {
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-table td {
+      padding: 0.85rem 1rem;
+      font-size: 0.82rem;
+      border-bottom: 1px solid rgba(99, 102, 241, 0.06);
+      vertical-align: middle;
+    }
+    .data-table tr:hover td { background: rgba(99, 102, 241, 0.03); }
+
+    /* BADGE */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 0.68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .badge-emerald { background: rgba(16,185,129,0.12); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.2); }
+    .badge-amber { background: rgba(245,158,11,0.12); color: #fcd34d; border: 1px solid rgba(245,158,11,0.2); }
+    .badge-rose { background: rgba(244,63,94,0.12); color: #fda4af; border: 1px solid rgba(244,63,94,0.2); }
+    .badge-indigo { background: rgba(99,102,241,0.12); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.2); }
+
+    /* SECTION TABS */
+    .section-content { display: none; }
+    .section-content.active { display: block; }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center; padding: 3rem 1.5rem;
+      color: var(--text-muted);
+    }
+    .empty-state .icon-lg { width: 48px; height: 48px; margin: 0 auto 1rem; opacity: 0.4; }
+    .empty-state p { font-size: 0.85rem; margin-bottom: 0.5rem; }
+
+    /* UPLOAD ZONE */
+    .upload-zone {
+      border: 2px dashed rgba(99, 102, 241, 0.25);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s;
+      background: rgba(99, 102, 241, 0.03);
+    }
+    .upload-zone:hover {
+      border-color: var(--indigo);
+      background: rgba(99, 102, 241, 0.06);
+    }
+    .upload-zone .icon-lg { width: 40px; height: 40px; color: var(--indigo); margin: 0 auto 0.75rem; }
+    .upload-zone p { font-size: 0.85rem; color: var(--text-muted); }
+    .upload-zone .upload-hint { font-size: 0.72rem; color: rgba(139, 136, 168, 0.6); margin-top: 0.5rem; }
+
+    /* SCHOOL CODE BADGE */
+    .school-code {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(99, 102, 241, 0.08);
+      border: 1.5px solid rgba(99, 102, 241, 0.2);
+      border-radius: 12px;
+      padding: 0.5rem 1.2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem; font-weight: 700;
+      color: #a5b4fc;
+      letter-spacing: 0.05em;
+    }
+    .school-code button {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-muted); transition: color 0.2s;
+    }
+    .school-code button:hover { color: var(--indigo); }
+
+    /* TOAST */
+    .toast-wrap {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .toast {
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 0.8rem; font-weight: 600;
+      background: rgba(18, 15, 38, 0.95);
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: slideIn 0.3s ease forwards;
+    }
+    .toast-success { border-color: var(--emerald); color: #a7f3d0; }
+    .toast-error { border-color: var(--rose); color: #fecaca; }
+    @keyframes slideIn { from{transform:translateX(100px); opacity:0;} to{transform:translateX(0); opacity:1;} }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .layout { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; position: static; flex-direction: row; flex-wrap: wrap; padding: 1rem; gap: 4px; }
+      .sidebar-brand { margin-bottom: 0.5rem; padding-bottom: 0.5rem; }
+      .nav-section-title { display: none; }
+      .nav-link { padding: 0.5rem 0.6rem; font-size: 0.75rem; }
+      .nav-spacer { display: none; }
+      .main-content { padding: 1.5rem 1rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toast-wrap" id="toast-wrap"></div>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo-icon">🏫</div>
+        <div>
+          <h2>PrepFast</h2>
+          <p>School Portal</p>
+        </div>
+      </div>
+
+      <div class="nav-section-title">Management</div>
+      <a class="nav-link active" onclick="switchSection('overview')">
+        <i data-lucide="layout-dashboard" class="icon-sm"></i> Overview
+      </a>
+      <a class="nav-link" onclick="switchSection('students')">
+        <i data-lucide="users" class="icon-sm"></i> Student Roster
+      </a>
+      <a class="nav-link" onclick="switchSection('enrollment')">
+        <i data-lucide="user-plus" class="icon-sm"></i> Bulk Enrollment
+      </a>
+      <a class="nav-link" onclick="switchSection('questions')">
+        <i data-lucide="book-open" class="icon-sm"></i> Internal Questions
+      </a>
+
+      <div class="nav-section-title">Settings</div>
+      <a class="nav-link" onclick="switchSection('settings')">
+        <i data-lucide="settings" class="icon-sm"></i> School Settings
+      </a>
+
+      <div class="nav-spacer"></div>
+
+      <a class="nav-link" onclick="logoutSchool()">
+        <i data-lucide="log-out" class="icon-sm"></i> Log Out
+      </a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- ═══════════ OVERVIEW SECTION ═══════════ -->
+      <div id="section-overview" class="section-content active">
+        <div class="page-header">
+          <div>
+            <h1 id="school-display-name">School Dashboard</h1>
+            <p>Manage your institution, students, and internal exam questions</p>
+          </div>
+          <div class="header-actions">
+            <div class="school-code" id="school-code-display">
+              <span id="school-code-text">PF-XXXX</span>
+              <button onclick="copySchoolCode()" title="Copy code"><i data-lucide="copy" class="icon-sm"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <section class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-title">Total Enrolled Students</span>
+            <span class="stat-value" id="stat-total-students">0</span>
+            <span class="stat-desc" id="stat-students-desc">Registered via portal</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">Active Last 7 Days</span>
+            <span class="stat-value" id="stat-active-students">0</span>
+            <span class="stat-desc" style="color: var(--amber);" id="stat-active-desc">Students who practiced</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">Average Readiness Score</span>
+            <span class="stat-value" id="stat-avg-readiness">—</span>
+            <span class="stat-desc" style="color: var(--indigo);">School-wide metric</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">Internal Questions</span>
+            <span class="stat-value" id="stat-internal-questions">0</span>
+            <span class="stat-desc" style="color: var(--cyan);">Custom uploaded questions</span>
+          </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <div class="card">
+          <h3 class="card-title"><i data-lucide="zap" class="icon-sm"></i> Quick Actions</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <button class="btn btn-secondary" onclick="switchSection('enrollment')" style="justify-content: center; padding: 1rem;">
+              <i data-lucide="user-plus" class="icon-sm"></i> Bulk Enroll Students
+            </button>
+            <button class="btn btn-secondary" onclick="switchSection('questions')" style="justify-content: center; padding: 1rem;">
+              <i data-lucide="upload" class="icon-sm"></i> Upload Internal Questions
+            </button>
+            <button class="btn btn-secondary" onclick="switchSection('students')" style="justify-content: center; padding: 1rem;">
+              <i data-lucide="bar-chart-3" class="icon-sm"></i> View Student Performance
+            </button>
+            <button class="btn btn-secondary" onclick="exportStudentData()" style="justify-content: center; padding: 1rem;">
+              <i data-lucide="download" class="icon-sm"></i> Export Report (CSV)
+            </button>
+          </div>
+        </div>
+
+        <!-- Class Breakdown -->
+        <div class="card">
+          <h3 class="card-title"><i data-lucide="pie-chart" class="icon-sm"></i> Class Distribution</h3>
+          <div id="class-breakdown" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+            <div style="text-align: center; padding: 1.25rem; background: rgba(99,102,241,0.05); border-radius: 14px; border: 1px solid rgba(99,102,241,0.1);">
+              <div style="font-family: 'Outfit'; font-weight: 900; font-size: 1.8rem; color: #a5b4fc;">0</div>
+              <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">SS1 Students</div>
+            </div>
+            <div style="text-align: center; padding: 1.25rem; background: rgba(139,92,246,0.05); border-radius: 14px; border: 1px solid rgba(139,92,246,0.1);">
+              <div style="font-family: 'Outfit'; font-weight: 900; font-size: 1.8rem; color: #c4b5fd;">0</div>
+              <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">SS2 Students</div>
+            </div>
+            <div style="text-align: center; padding: 1.25rem; background: rgba(245,158,11,0.05); border-radius: 14px; border: 1px solid rgba(245,158,11,0.1);">
+              <div style="font-family: 'Outfit'; font-weight: 900; font-size: 1.8rem; color: #fcd34d;">0</div>
+              <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">SS3 Students</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════ STUDENT ROSTER SECTION ═══════════ -->
+      <div id="section-students" class="section-content">
+        <div class="page-header">
+          <div>
+            <h1>Student Roster</h1>
+            <p>View and manage all enrolled students</p>
+          </div>
+          <div class="header-actions">
+            <select id="class-filter" class="form-input" style="width: 130px;" onchange="filterStudents()">
+              <option value="All">All Classes</option>
+              <option value="SS1">SS1</option>
+              <option value="SS2">SS2</option>
+              <option value="SS3">SS3</option>
+            </select>
+            <button class="btn btn-secondary" onclick="exportStudentData()">
+              <i data-lucide="download" class="icon-sm"></i> Export CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div id="student-roster-content">
+            <div class="empty-state">
+              <div><i data-lucide="users" class="icon-lg"></i></div>
+              <p>No students enrolled yet.</p>
+              <p style="font-size: 0.75rem;">Use the Bulk Enrollment feature to add students, or share your school code.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════ BULK ENROLLMENT SECTION ═══════════ -->
+      <div id="section-enrollment" class="section-content">
+        <div class="page-header">
+          <div>
+            <h1>Bulk Enrollment</h1>
+            <p>Register hundreds of students instantly via CSV or JSON</p>
+          </div>
+        </div>
+
+        <!-- Upload Zone -->
+        <div class="card">
+          <h3 class="card-title"><i data-lucide="upload-cloud" class="icon-sm"></i> Upload Student List</h3>
+          <p class="card-subtitle">Drag & drop or click to upload a CSV or JSON file with student details.</p>
+
+          <div class="upload-zone" id="enrollment-upload-zone" onclick="document.getElementById('enrollment-file').click()">
+            <div><i data-lucide="file-spreadsheet" class="icon-lg"></i></div>
+            <p>Click to upload or drag and drop</p>
+            <p class="upload-hint">Supports .csv and .json files (max 10MB)</p>
+          </div>
+          <input type="file" id="enrollment-file" accept=".csv,.json" style="display: none;" onchange="handleEnrollmentUpload(event)">
+
+          <div id="enrollment-preview" style="display: none; margin-top: 1.5rem;">
+            <h4 style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.75rem;">📋 Preview (<span id="enrollment-count">0</span> students)</h4>
+            <div style="max-height: 300px; overflow-y: auto; border-radius: 12px; border: 1px solid var(--border);">
+              <table class="data-table" id="enrollment-preview-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Class</th>
+                    <th>Exam Target</th>
+                  </tr>
+                </thead>
+                <tbody id="enrollment-preview-body"></tbody>
+              </table>
+            </div>
+            <div style="margin-top: 1rem; display: flex; gap: 10px;">
+              <button class="btn btn-primary" id="btn-confirm-enroll" onclick="confirmEnrollment()">
+                <i data-lucide="check" class="icon-sm"></i> Enroll All Students
+              </button>
+              <button class="btn btn-secondary" onclick="cancelEnrollment()">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manual Add -->
+        <div class="card">
+          <h3 class="card-title"><i data-lucide="user-plus" class="icon-sm"></i> Add Student Manually</h3>
+          <form onsubmit="addStudentManually(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" id="manual-name" class="form-input" placeholder="e.g. Fatima Yusuf" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" id="manual-phone" class="form-input" placeholder="e.g. 08012345678" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Class</label>
+                <select id="manual-class" class="form-input">
+                  <option value="SS1">SS1</option>
+                  <option value="SS2">SS2</option>
+                  <option value="SS3" selected>SS3</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Exam Target</label>
+                <select id="manual-exam" class="form-input">
+                  <option value="WAEC" selected>WAEC</option>
+                  <option value="NECO">NECO</option>
+                  <option value="JAMB">JAMB</option>
+                  <option value="POST-UTME">POST-UTME</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-manual-add" style="margin-top: 0.5rem;">
+              <i data-lucide="plus" class="icon-sm"></i> Add Student
+            </button>
+          </form>
+        </div>
+
+        <!-- CSV Template -->
+        <div class="card">
+          <h3 class="card-title"><i data-lucide="file-text" class="icon-sm"></i> CSV Template</h3>
+          <p class="card-subtitle">Download or copy this template format to prepare your student data.</p>
+          <div style="background: rgba(10,8,20,0.5); border-radius: 12px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: #a5b4fc; overflow-x: auto;">
+            <div style="color: var(--text-muted); margin-bottom: 0.5rem;"># CSV Format:</div>
+            <div>name,phone,class,exam_target</div>
+            <div>Fatima Yusuf,08012345678,SS3,WAEC</div>
+            <div>James Okoro,09098765432,SS2,JAMB</div>
+            <div>Amina Ibrahim,07065432109,SS3,NECO</div>
+          </div>
+          <button class="btn btn-secondary" style="margin-top: 1rem;" onclick="downloadCSVTemplate()">
+            <i data-lucide="download" class="icon-sm"></i> Download Template
+          </button>
+        </div>
+      </div>
+
+      <!-- ═══════════ INTERNAL QUESTIONS SECTION ═══════════ -->
+      <div id="section-questions" class="section-content">
+        <div class="page-header">
+          <div>
+            <h1>Internal Question Bank</h1>
+            <p>Upload your school's own promotional and mock exam questions</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title"><i data-lucide="upload-cloud" class="icon-sm"></i> Upload Questions (JSON)</h3>
+          <p class="card-subtitle">Upload a JSON file of questions. Each question must have: subject, question, options (A-D), answer, and explanation.</p>
+
+          <div class="upload-zone" onclick="document.getElementById('questions-file').click()">
+            <div><i data-lucide="file-json" class="icon-lg"></i></div>
+            <p>Click to upload question JSON file</p>
+            <p class="upload-hint">Each question must follow the PrepFast schema</p>
+          </div>
+          <input type="file" id="questions-file" accept=".json" style="display: none;" onchange="handleQuestionsUpload(event)">
+
+          <div id="questions-upload-result" style="display: none; margin-top: 1.25rem;"></div>
+        </div>
+
+        <!-- Add Single Question -->
+        <div class="card">
+          <h3 class="card-title"><i data-lucide="plus-circle" class="icon-sm"></i> Add Single Question</h3>
+          <form onsubmit="addInternalQuestion(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Subject</label>
+                <select id="iq-subject" class="form-input" required>
+                  <option value="Mathematics">Mathematics</option>
+                  <option value="English Language">English Language</option>
+                  <option value="Physics">Physics</option>
+                  <option value="Chemistry">Chemistry</option>
+                  <option value="Biology">Biology</option>
+                  <option value="Economics">Economics</option>
+                  <option value="Government">Government</option>
+                  <option value="Literature">Literature</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Commerce">Commerce</option>
+                  <option value="Agricultural Science">Agricultural Science</option>
+                  <option value="Civic Education">Civic Education</option>
+                  <option value="CRS">CRS</option>
+                  <option value="IRS">IRS</option>
+                  <option value="Accounting">Accounting</option>
+                  <option value="Further Mathematics">Further Mathematics</option>
+                  <option value="Computer Studies">Computer Studies</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Topic</label>
+                <input type="text" id="iq-topic" class="form-input" placeholder="e.g. Algebra" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Question Text</label>
+              <textarea id="iq-question" class="form-input" placeholder="Enter the question text..." required></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Option A</label>
+                <input type="text" id="iq-opt-a" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Option B</label>
+                <input type="text" id="iq-opt-b" class="form-input" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Option C</label>
+                <input type="text" id="iq-opt-c" class="form-input" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Option D</label>
+                <input type="text" id="iq-opt-d" class="form-input" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Correct Answer</label>
+                <select id="iq-answer" class="form-input" required>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Difficulty</label>
+                <select id="iq-difficulty" class="form-input">
+                  <option value="easy">Easy</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Explanation</label>
+              <textarea id="iq-explanation" class="form-input" placeholder="Step-by-step explanation..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="btn-save-question">
+              <i data-lucide="save" class="icon-sm"></i> Save Question
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- ═══════════ SETTINGS SECTION ═══════════ -->
+      <div id="section-settings" class="section-content">
+        <div class="page-header">
+          <div>
+            <h1>School Settings</h1>
+            <p>Configure your institution's profile and preferences</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title"><i data-lucide="building" class="icon-sm"></i> Institution Profile</h3>
+          <form onsubmit="saveSchoolSettings(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">School Name</label>
+                <input type="text" id="setting-name" class="form-input" placeholder="e.g. Queens College, Lagos" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">State</label>
+                <select id="setting-state" class="form-input">
+                  <option value="Abia">Abia</option><option value="Adamawa">Adamawa</option>
+                  <option value="Akwa Ibom">Akwa Ibom</option><option value="Anambra">Anambra</option>
+                  <option value="Bauchi">Bauchi</option><option value="Bayelsa">Bayelsa</option>
+                  <option value="Benue">Benue</option><option value="Borno">Borno</option>
+                  <option value="Cross River">Cross River</option><option value="Delta">Delta</option>
+                  <option value="Ebonyi">Ebonyi</option><option value="Edo">Edo</option>
+                  <option value="Ekiti">Ekiti</option><option value="Enugu">Enugu</option>
+                  <option value="FCT">FCT</option><option value="Gombe">Gombe</option>
+                  <option value="Imo">Imo</option><option value="Jigawa">Jigawa</option>
+                  <option value="Kaduna">Kaduna</option><option value="Kano">Kano</option>
+                  <option value="Katsina">Katsina</option><option value="Kebbi">Kebbi</option>
+                  <option value="Kogi">Kogi</option><option value="Kwara">Kwara</option>
+                  <option value="Lagos" selected>Lagos</option><option value="Nasarawa">Nasarawa</option>
+                  <option value="Niger">Niger</option><option value="Ogun">Ogun</option>
+                  <option value="Ondo">Ondo</option><option value="Osun">Osun</option>
+                  <option value="Oyo">Oyo</option><option value="Plateau">Plateau</option>
+                  <option value="Rivers">Rivers</option><option value="Sokoto">Sokoto</option>
+                  <option value="Taraba">Taraba</option><option value="Yobe">Yobe</option>
+                  <option value="Zamfara">Zamfara</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">School Type</label>
+                <select id="setting-type" class="form-input">
+                  <option value="public">Public / Government</option>
+                  <option value="private">Private</option>
+                  <option value="mission">Mission / Faith-based</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Contact Phone</label>
+                <input type="tel" id="setting-phone" class="form-input" placeholder="e.g. 08012345678">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">School Email</label>
+                <input type="email" id="setting-email" class="form-input" placeholder="e.g. admin@school.com">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Address</label>
+                <input type="text" id="setting-address" class="form-input" placeholder="e.g. Yaba, Lagos">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-save-settings" style="margin-top: 0.5rem;">
+              <i data-lucide="save" class="icon-sm"></i> Save Settings
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="prepfast-config.js"></script>
+  <script src="prepfast-api.js"></script>
+  <script>
+    // ─── STATE ───
+    let schoolProfile = null;
+    let enrolledStudents = [];
+    let internalQuestionsCount = 0;
+    let pendingEnrollment = [];
+
+    // ─── INIT ───
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      refreshDashboard();
+    });
+
+    async function refreshDashboard() {
+      try {
+        // Fetch School Profile
+        const profileRes = await PrepFastAPI.getSchoolProfile();
+        schoolProfile = profileRes.school;
+        
+        if (schoolProfile) {
+          document.getElementById('school-display-name').textContent = schoolProfile.name || 'School Dashboard';
+          document.getElementById('school-code-text').textContent = schoolProfile.school_code || 'PF-XXXX';
+          
+          // Pre-populate settings form
+          document.getElementById('setting-name').value = schoolProfile.name || '';
+          document.getElementById('setting-state').value = schoolProfile.state || 'Lagos';
+          document.getElementById('setting-type').value = schoolProfile.type || 'public';
+          document.getElementById('setting-phone').value = schoolProfile.phone || '';
+          document.getElementById('setting-email').value = schoolProfile.email || '';
+          document.getElementById('setting-address').value = schoolProfile.address || '';
+        }
+
+        // Fetch Dashboard Summary Stats
+        const statsRes = await PrepFastAPI.getSchoolDashboard();
+        document.getElementById('stat-total-students').textContent = statsRes.total_students || 0;
+        document.getElementById('stat-active-students').textContent = statsRes.active_last_7_days || 0;
+
+        // Fetch Students
+        const studentsRes = await PrepFastAPI.getSchoolStudents();
+        enrolledStudents = studentsRes.students || [];
+        
+        // Class breakdown calculation
+        const ss1 = enrolledStudents.filter(s => s.ss_class === 'SS1').length;
+        const ss2 = enrolledStudents.filter(s => s.ss_class === 'SS2').length;
+        const ss3 = enrolledStudents.filter(s => s.ss_class === 'SS3').length;
+        
+        const breakdownEl = document.getElementById('class-breakdown');
+        if (breakdownEl) {
+          breakdownEl.children[0].querySelector('div:first-child').textContent = ss1;
+          breakdownEl.children[1].querySelector('div:first-child').textContent = ss2;
+          breakdownEl.children[2].querySelector('div:first-child').textContent = ss3;
+        }
+
+        // Fetch custom questions count
+        const questionsRes = await PrepFastAPI.getSchoolQuestions();
+        internalQuestionsCount = (questionsRes.questions || []).length;
+        document.getElementById('stat-internal-questions').textContent = internalQuestionsCount;
+
+        renderStudentRoster();
+      } catch (err) {
+        showToast('Error loading school data: ' + err.message, 'error');
+      }
+    }
+
+    // ─── NAVIGATION ───
+    function switchSection(name) {
+      document.querySelectorAll('.section-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+      const target = document.getElementById('section-' + name);
+      if (target) target.classList.add('active');
+      // Mark the nav link active
+      const links = document.querySelectorAll('.nav-link');
+      links.forEach(l => {
+        if (l.getAttribute('onclick')?.includes(`'${name}'`)) l.classList.add('active');
+      });
+    }
+
+    // ─── TOAST ───
+    function showToast(msg, type = 'success') {
+      const wrap = document.getElementById('toast-wrap');
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      toast.textContent = msg;
+      wrap.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+    // ─── SCHOOL CODE ───
+    function copySchoolCode() {
+      const code = document.getElementById('school-code-text').textContent;
+      navigator.clipboard.writeText(code);
+      showToast('School code copied!');
+    }
+
+    // ─── STUDENT ROSTER ───
+    function renderStudentRoster() {
+      const container = document.getElementById('student-roster-content');
+      const filterVal = document.getElementById('class-filter')?.value || 'All';
+      const filtered = filterVal === 'All' ? enrolledStudents : enrolledStudents.filter(s => s.ss_class === filterVal);
+
+      if (!filtered.length) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div><i data-lucide="users" class="icon-lg"></i></div>
+            <p>No students enrolled yet.</p>
+            <p style="font-size: 0.75rem;">Use the Bulk Enrollment feature to add students, or share your school code.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      let html = `<table class="data-table">
+        <thead><tr>
+          <th>Name</th><th>Phone</th><th>Class</th><th>Exam Target</th><th>Status</th><th>Actions</th>
+        </tr></thead><tbody>`;
+
+      filtered.forEach((s) => {
+        const active = s.last_active_date && (Date.now() - new Date(s.last_active_date).getTime() < 7 * 86400000);
+        html += `<tr>
+          <td style="font-weight: 600;">${s.name}</td>
+          <td class="mono" style="font-size: 0.78rem;">${s.phone || '—'}</td>
+          <td><span class="badge badge-indigo">${s.ss_class || 'SS3'}</span></td>
+          <td>${s.exam_target || 'WAEC'}</td>
+          <td><span class="badge ${active ? 'badge-emerald' : 'badge-amber'}">${active ? 'Active' : 'Inactive'}</span></td>
+          <td><button class="btn btn-danger" style="padding: 4px 8px; font-size: 0.7rem;" onclick="removeStudent('${s.id}')">Remove</button></td>
+        </tr>`;
+      });
+
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+
+    function filterStudents() { renderStudentRoster(); }
+
+    async function removeStudent(studentId) {
+      if (!confirm('Remove this student from the roster?')) return;
+      try {
+        await PrepFastAPI.deleteSchoolStudent(studentId);
+        showToast('Student removed successfully');
+        refreshDashboard();
+      } catch (err) {
+        showToast('Failed to remove student: ' + err.message, 'error');
+      }
+    }
+
+    // ─── BULK ENROLLMENT ───
+    function handleEnrollmentUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const text = e.target.result;
+          if (file.name.endsWith('.json')) {
+            pendingEnrollment = JSON.parse(text);
+          } else {
+            // CSV parse
+            const lines = text.split('\n').filter(l => l.trim());
+            const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+            pendingEnrollment = lines.slice(1).map(line => {
+              const vals = line.split(',').map(v => v.trim());
+              const obj = {};
+              headers.forEach((h, i) => obj[h] = vals[i] || '');
+              return {
+                name: obj.name || obj.full_name || '',
+                phone: obj.phone || obj.phone_number || '',
+                class: obj.class || obj.ss_class || 'SS3',
+                exam_target: obj.exam_target || obj.exam || 'WAEC'
+              };
+            }).filter(s => s.name);
+          }
+
+          // Show preview
+          document.getElementById('enrollment-count').textContent = pendingEnrollment.length;
+          const tbody = document.getElementById('enrollment-preview-body');
+          tbody.innerHTML = pendingEnrollment.slice(0, 20).map(s => `
+            <tr>
+              <td>${s.name}</td>
+              <td class="mono" style="font-size: 0.78rem;">${s.phone || '—'}</td>
+              <td><span class="badge badge-indigo">${s.class || 'SS3'}</span></td>
+              <td>${s.exam_target || 'WAEC'}</td>
+            </tr>
+          `).join('');
+          if (pendingEnrollment.length > 20) {
+            tbody.innerHTML += `<tr><td colspan="4" style="text-align:center; color: var(--text-muted);">...and ${pendingEnrollment.length - 20} more</td></tr>`;
+          }
+
+          document.getElementById('enrollment-preview').style.display = 'block';
+          showToast(`Loaded ${pendingEnrollment.length} students from file`);
+        } catch (err) {
+          showToast('Error parsing file: ' + err.message, 'error');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    async function confirmEnrollment() {
+      const btn = document.getElementById('btn-confirm-enroll');
+      btn.disabled = true;
+      btn.textContent = 'Enrolling...';
+      try {
+        const res = await PrepFastAPI.schoolBulkEnroll(pendingEnrollment);
+        showToast(`Successfully enrolled ${res.enrolled} students!`);
+        pendingEnrollment = [];
+        document.getElementById('enrollment-preview').style.display = 'none';
+        document.getElementById('enrollment-file').value = '';
+        refreshDashboard();
+      } catch (err) {
+        showToast('Failed to enroll students: ' + err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Enroll All Students';
+      }
+    }
+
+    function cancelEnrollment() {
+      pendingEnrollment = [];
+      document.getElementById('enrollment-preview').style.display = 'none';
+      document.getElementById('enrollment-file').value = '';
+    }
+
+    async function addStudentManually(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-manual-add');
+      btn.disabled = true;
+      btn.textContent = 'Adding...';
+      
+      const student = {
+        name: document.getElementById('manual-name').value.trim(),
+        phone: document.getElementById('manual-phone').value.trim(),
+        class: document.getElementById('manual-class').value,
+        exam_target: document.getElementById('manual-exam').value,
+      };
+
+      try {
+        await PrepFastAPI.schoolBulkEnroll([student]);
+        showToast(`${student.name} enrolled successfully!`);
+        e.target.reset();
+        refreshDashboard();
+      } catch (err) {
+        showToast('Failed to add student: ' + err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="plus" class="icon-sm"></i> Add Student`;
+        lucide.createIcons();
+      }
+    }
+
+    function downloadCSVTemplate() {
+      const csv = 'name,phone,class,exam_target\nFatima Yusuf,08012345678,SS3,WAEC\nJames Okoro,09098765432,SS2,JAMB\nAmina Ibrahim,07065432109,SS3,NECO\n';
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'prepfast_enrollment_template.csv';
+      a.click();
+      showToast('Template downloaded!');
+    }
+
+    function exportStudentData() {
+      if (!enrolledStudents.length) { showToast('No students to export', 'error'); return; }
+      const header = 'Name,Phone,Class,Exam Target\n';
+      const rows = enrolledStudents.map(s => `${s.name},${s.phone},${s.ss_class},${s.exam_target}`).join('\n');
+      const blob = new Blob([header + rows], { type: 'text/csv' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'prepfast_students_export.csv';
+      a.click();
+      showToast('Student roster exported!');
+    }
+
+    // ─── INTERNAL QUESTIONS ───
+    async function handleQuestionsUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        try {
+          const questions = JSON.parse(e.target.result);
+          const arr = Array.isArray(questions) ? questions : [questions];
+          const valid = arr.filter(q => q.question && q.options && q.answer);
+
+          if (!valid.length) {
+            showToast('No valid questions found in JSON file', 'error');
+            return;
+          }
+
+          const res = await PrepFastAPI.schoolUploadQuestions(valid);
+          showToast(`Successfully uploaded ${res.uploaded} questions!`);
+          
+          document.getElementById('questions-upload-result').style.display = 'block';
+          document.getElementById('questions-upload-result').innerHTML = `
+            <div style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); border-radius: 12px; padding: 1rem; color: #a7f3d0; font-size: 0.85rem;">
+              ✅ Successfully imported <strong>${res.uploaded}</strong> questions! (${arr.length - valid.length} skipped due to missing fields)
+            </div>
+          `;
+          refreshDashboard();
+        } catch (err) {
+          showToast('Error uploading questions: ' + err.message, 'error');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    async function addInternalQuestion(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-save-question');
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+      
+      const q = {
+        subject: document.getElementById('iq-subject').value,
+        topic: document.getElementById('iq-topic').value.trim(),
+        question: document.getElementById('iq-question').value.trim(),
+        options: {
+          A: document.getElementById('iq-opt-a').value.trim(),
+          B: document.getElementById('iq-opt-b').value.trim(),
+          C: document.getElementById('iq-opt-c').value.trim(),
+          D: document.getElementById('iq-opt-d').value.trim()
+        },
+        answer: document.getElementById('iq-answer').value,
+        difficulty: document.getElementById('iq-difficulty').value,
+        explanation: document.getElementById('iq-explanation').value.trim(),
+        source: 'internal',
+        year: new Date().getFullYear(),
+        exam_body: 'Internal'
+      };
+
+      try {
+        await PrepFastAPI.schoolUploadQuestions([q]);
+        showToast('Internal question added!');
+        e.target.reset();
+        refreshDashboard();
+      } catch (err) {
+        showToast('Failed to save question: ' + err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="save" class="icon-sm"></i> Save Question`;
+        lucide.createIcons();
+      }
+    }
+
+    // ─── SCHOOL SETTINGS ───
+    async function saveSchoolSettings(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-save-settings');
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+      
+      const name = document.getElementById('setting-name').value.trim();
+      const state = document.getElementById('setting-state').value;
+      const type = document.getElementById('setting-type').value;
+      const phone = document.getElementById('setting-phone').value.trim();
+      const email = document.getElementById('setting-email').value.trim();
+      const address = document.getElementById('setting-address').value.trim();
+
+      try {
+        const res = await PrepFastAPI.updateSchoolProfile({ name, state, type, phone, email, address });
+        schoolProfile = res.school;
+        showToast('School settings saved!');
+        refreshDashboard();
+      } catch (err) {
+        showToast('Failed to save settings: ' + err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Save Settings';
+      }
+    }
+
+    function logoutSchool() {
+      localStorage.removeItem('prepfast_user');
+      localStorage.removeItem('prepfast_token');
+      window.location.replace('index.html');
+    }
+  </script>
+</body>
+</html>

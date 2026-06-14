@@ -4,13 +4,16 @@
 CREATE TABLE IF NOT EXISTS schools (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
+  school_code TEXT UNIQUE,
+  email TEXT,
+  phone TEXT,
+  address TEXT,
   state TEXT,
   lga TEXT,
-  type TEXT CHECK (type IN ('public', 'private')),
+  type TEXT,
   subscription_tier TEXT DEFAULT 'free',
   admin_user_id UUID,
   logo_url TEXT,
-  school_code TEXT UNIQUE,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -19,7 +22,7 @@ CREATE TABLE IF NOT EXISTS users (
   name TEXT NOT NULL,
   email TEXT UNIQUE,
   phone TEXT UNIQUE NOT NULL,
-  role TEXT NOT NULL DEFAULT 'student' CHECK (role IN ('student', 'teacher', 'parent', 'admin')),
+  role TEXT NOT NULL DEFAULT 'student' CHECK (role IN ('student', 'teacher', 'parent', 'school', 'admin')),
   school_name TEXT,
   school_id UUID REFERENCES schools(id) ON DELETE SET NULL,
   subscription_tier TEXT DEFAULT 'free',
@@ -43,11 +46,24 @@ CREATE TABLE IF NOT EXISTS students (
 
 CREATE TABLE IF NOT EXISTS teachers (
   user_id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
-  subjects JSONB DEFAULT '[]'
+  subjects JSONB DEFAULT '[]',
+  subject_taught TEXT,
+  purpose TEXT
 );
 
 CREATE TABLE IF NOT EXISTS parents (
   user_id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS parent_links (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  parent_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  student_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('linked', 'pending')),
+  requested_code TEXT,
+  child_name TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE (parent_id, student_id)
 );
 
 CREATE TABLE IF NOT EXISTS parent_student_links (

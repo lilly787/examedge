@@ -285,6 +285,44 @@ const PrepFastAPI = {
       method: "DELETE",
     });
   },
+  async adminImpersonate(userId) {
+    return PrepFastAPI.request(`/admin/impersonate/${userId}`);
+  },
+  async getSchoolProfile() {
+    return PrepFastAPI.request("/schools/profile");
+  },
+  async updateSchoolProfile(data) {
+    return PrepFastAPI.request("/schools/profile", {
+      method: "PUT",
+      body: JSON.stringify(data),
+    });
+  },
+  async schoolBulkEnroll(students) {
+    return PrepFastAPI.request("/schools/enroll/bulk", {
+      method: "POST",
+      body: JSON.stringify({ students }),
+    });
+  },
+  async schoolUploadQuestions(questions) {
+    return PrepFastAPI.request("/schools/questions/upload", {
+      method: "POST",
+      body: JSON.stringify({ questions }),
+    });
+  },
+  async getSchoolDashboard() {
+    return PrepFastAPI.request("/schools/dashboard");
+  },
+  async getSchoolStudents() {
+    return PrepFastAPI.request("/schools/students");
+  },
+  async deleteSchoolStudent(studentId) {
+    return PrepFastAPI.request(`/schools/students/${studentId}`, {
+      method: "DELETE",
+    });
+  },
+  async getSchoolQuestions() {
+    return PrepFastAPI.request("/schools/questions");
+  },
 };
 
 const ExamEdgeAPI = PrepFastAPI;

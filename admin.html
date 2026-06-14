@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="auth-guard.js"></script>
+  <script>
+    const guardUser = JSON.parse(localStorage.getItem('prepfast_user') || 'null');
+    if (guardUser && guardUser.role !== 'admin') {
+      const redirectMap = {
+        student: 'index.html',
+        teacher: 'teacher.html',
+        parent: 'parent.html',
+        school: 'school.html'
+      };
+      window.location.replace(redirectMap[guardUser.role] || 'landing.html');
+    }
+  </script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const user = JSON.parse(localStorage.getItem('prepfast_user') || 'null');
@@ -897,6 +910,7 @@
           actionBtn = `<button class="btn btn-secondary" onclick="changeUserRole('${u.id}', 'student')" style="padding:4px 8px;font-size:0.7rem;margin-right:4px;">Demote</button>`;
         } else {
           actionBtn = `<button class="btn btn-primary" onclick="changeUserRole('${u.id}', 'admin')" style="padding:4px 8px;font-size:0.7rem;margin-right:4px;box-shadow:none;background:var(--indigo);">Make Admin</button>`;
+          actionBtn += `<button class="btn btn-secondary" onclick="impersonateUser('${u.id}', '${u.role}')" style="padding:4px 8px;font-size:0.7rem;margin-right:4px;color:#f59e0b;border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.06);">View Dashboard</button>`;
         }
         
         actionBtn += `<button class="btn btn-danger" onclick="deleteIndividualUser('${u.id || u.phone}')" style="padding:4px 8px;font-size:0.7rem;">Delete</button>`;
@@ -911,6 +925,34 @@
         `;
         tbody.appendChild(row);
       });
+    }
+
+    async function impersonateUser(userId, role) {
+      try {
+        const adminToken = localStorage.getItem('prepfast_token');
+        const adminUser = localStorage.getItem('prepfast_user');
+        
+        localStorage.setItem('admin_token', adminToken);
+        localStorage.setItem('admin_user', adminUser);
+        
+        const res = await PrepFastAPI.adminImpersonate(userId);
+        PrepFastDB.loginFromApi(res.user, res.token);
+        
+        localStorage.setItem('isAdminView', 'true');
+        
+        const map = {
+          student: 'index.html',
+          teacher: 'teacher.html',
+          parent: 'parent.html',
+          school: 'school.html'
+        };
+        const dest = map[role] || 'index.html';
+        
+        showToast(`Entering Admin View as ${res.user.name}...`);
+        setTimeout(() => { window.location.href = dest; }, 1000);
+      } catch (err) {
+        showToast('Impersonation failed: ' + err.message, 'error');
+      }
     }
 
     async function changeUserRole(userId, role) {

@@ -113,6 +113,20 @@ async function seedJsonFile(filePath) {
   }
 }
 
+async function seedAdminUser() {
+  const adminId = "00000000-0000-0000-0000-000000000001";
+  const existing = await query("SELECT id FROM users WHERE id = $1 OR phone = $2", [adminId, "+2348000000000"]);
+  if (existing.rows.length) return;
+
+  await query(
+    `INSERT INTO users (id, name, phone, email, role, subscription_tier)
+     VALUES ($1, $2, $3, $4, $5, $6)
+     ON CONFLICT (id) DO NOTHING`,
+    [adminId, "Administrator", "+2348000000000", "admin@prepfast.app", "admin", "premium"]
+  );
+  console.log("[Seed] Admin user seeded successfully.");
+}
+
 async function seedDatabase() {
   const questions = parseQuestionsJs();
   console.log(`[Seed] Loading ${questions.length} questions from questions.js...`);
@@ -139,6 +153,8 @@ async function seedDatabase() {
 
   const schoolId = await seedDemoSchool();
   console.log("[Seed] Demo school:", schoolId);
+
+  await seedAdminUser();
 
   const total = await query("SELECT COUNT(*)::int AS c FROM questions");
   console.log(`[Seed] Total questions in DB: ${total.rows[0].c}`);

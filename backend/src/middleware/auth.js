@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config");
 
+const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 function authRequired(req, res, next) {
   const header = req.headers.authorization || "";
   const token = header.startsWith("Bearer ") ? header.slice(7) : null;
@@ -8,7 +10,11 @@ function authRequired(req, res, next) {
     return res.status(401).json({ error: "Authentication required" });
   }
   try {
-    req.user = jwt.verify(token, config.jwtSecret);
+    const payload = jwt.verify(token, config.jwtSecret);
+    if (!payload || !payload.id || !uuidRegex.test(payload.id)) {
+      return res.status(401).json({ error: "Invalid token format or invalid ID" });
+    }
+    req.user = payload;
     next();
   } catch {
     return res.status(401).json({ error: "Invalid or expired token" });

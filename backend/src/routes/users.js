@@ -24,7 +24,7 @@ router.put("/:id/role", authRequired, requireRole("admin"), async (req, res) => 
       return res.status(400).json({ error: "Role required" });
     }
 
-    const validRoles = ["student", "teacher", "parent", "admin"];
+    const validRoles = ["student", "teacher", "parent", "school", "admin"];
     if (!validRoles.includes(role)) {
       return res.status(400).json({ error: `Invalid role. Must be one of: ${validRoles.join(", ")}` });
     }
@@ -63,6 +63,17 @@ router.put("/:id/role", authRequired, requireRole("admin"), async (req, res) => 
       const p = await query("SELECT 1 FROM parents WHERE user_id = $1", [req.params.id]);
       if (!p.rows.length) {
         await query("INSERT INTO parents (user_id) VALUES ($1)", [req.params.id]);
+      }
+    } else if (role === "school") {
+      const sc = await query("SELECT 1 FROM schools WHERE admin_user_id = $1", [req.params.id]);
+      if (!sc.rows.length) {
+        const schoolId = uuidv4();
+        const schoolCode = `SCH-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+        await query(
+          "INSERT INTO schools (id, name, school_code, subscription_tier, admin_user_id) VALUES ($1, $2, $3, 'school', $4)",
+          [schoolId, "School Admin User", schoolCode, req.params.id]
+        );
+        await query("UPDATE users SET school_id = $1 WHERE id = $2", [schoolId, req.params.id]);
       }
     }
 
