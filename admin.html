@@ -3,17 +3,9 @@
 <head>
   <script src="auth-guard.js"></script>
   <script>
-    const guardUser = JSON.parse(localStorage.getItem('prepfast_user') || 'null');
-    if (guardUser && guardUser.role !== 'admin') {
-      const redirectMap = {
-        student: 'index.html',
-        teacher: 'teacher.html',
-        parent: 'parent.html',
-        school: 'school.html'
-      };
-      window.location.replace(redirectMap[guardUser.role] || 'landing.html');
-    }
+    // Show passcode overlay if user is not authorized as admin
   </script>
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const user = JSON.parse(localStorage.getItem('prepfast_user') || 'null');

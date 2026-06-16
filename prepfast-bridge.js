@@ -78,7 +78,7 @@ const PrepFastBridge = {
       const result = original(questionId, isCorrect, timeTakenSeconds, questionObj);
       if (result?.success === false) return result;
 
-      if (this.apiOnline && PrepFastAPI.getToken()) {
+      if (this.apiOnline && PrepFastAPI.getToken() && !window._bypass_bridge_sync) {
         PrepFastAPI.recordProgress({
           question_id: questionId,
           is_correct: isCorrect,
@@ -99,6 +99,7 @@ const PrepFastBridge = {
       return result;
     };
   },
+
 
   async syncPending() {
     const raw = localStorage.getItem("prepfast_pending_sync");

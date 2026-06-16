@@ -61,47 +61,65 @@ const DEFAULT_LEADERBOARD = [
 ];
 
 // ── Complete weakness map schema (all subjects + topics) ─────────────
+// Topics MUST match the actual topic values in questions.js exactly
 const INITIAL_WEAKNESS_MAP = {
   "Mathematics": {
     "Algebra":                    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
     "Calculus":                   { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
     "Geometry":                   { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Statistics & Probability":   { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Coordinate Geometry":        { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Statistics":                 { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
     "Mensuration":                { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Number & Numeration":        { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Trigonometry":               { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+    "Number and Numeration":      { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Trigonometry":               { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "General":                    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
   },
   "English Language": {
     "Vocabulary":                 { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
     "Grammar":                    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Lexis and Structure":        { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
     "Oral English":               { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
     "Comprehension & Summary":    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Literature in English":      { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+    "Literature in English":      { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "General":                    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
   },
   "Physics": {
     "Mechanics":                  { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
     "Electricity & Magnetism":    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
     "Waves & Optics":             { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Heat & Thermodynamics":      { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Nuclear & Modern Physics":   { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+    "Thermal Physics":            { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Modern Physics":             { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "General":                    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
   },
   "Chemistry": {
     "Atomic Structure & Periodic Table": { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
     "Chemical Bonding":           { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Acids, Bases & Salts":       { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Acids, Bases, and Salts":    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
     "Organic Chemistry":          { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Stoichiometry & Calculations":{ attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Stoichiometry & Mole Concept":{ attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
     "Physical Chemistry":         { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Electrochemistry & Redox":   { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Metals, Alloys & Industry":  { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+    "Electrochemistry":           { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Redox Reactions":            { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Metals & Extraction":        { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Inorganic Chemistry":        { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Gas Laws":                   { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Chemical Kinetics & Equilibrium": { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Non-Metals & Compounds":     { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Solutions & Colloids":       { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "States of Matter & Separations": { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "General":                    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
   },
   "Biology": {
     "Cell Biology":               { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Genetics & Evolution":       { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Ecology & Environment":      { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Human Biology & Health":     { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Plant Biology":              { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
-    "Classification & Diversity": { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
+    "Genetics":                   { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Ecology":                    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Evolution & Adaptation":     { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Human Anatomy & Physiology": { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Physiology":                 { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Plant Biology & Physiology": { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Classification & Diversity": { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "Microorganisms & Diseases":  { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
+    "General":                    { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
   },
   "Economics": {
     "Microeconomics":             { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" },
@@ -185,6 +203,35 @@ const INITIAL_WEAKNESS_MAP = {
     "Literature & Culture":       { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" }
   }
 };
+
+// ── Topic alias map: maps old/variant topic names → canonical names ───
+// This ensures that if questions.js uses a slightly different name, we still
+// merge into the correct weakness map bucket instead of creating a duplicate.
+const TOPIC_ALIASES = {
+  // Mathematics
+  "Number & Numeration":      "Number and Numeration",
+  "Statistics & Probability":  "Statistics",
+  // English
+  "Lexis and Structure":       "Lexis and Structure",
+  // Chemistry
+  "Acids, Bases & Salts":      "Acids, Bases, and Salts",
+  "Stoichiometry & Calculations": "Stoichiometry & Mole Concept",
+  "Electrochemistry & Redox":  "Electrochemistry",
+  "Metals, Alloys & Industry": "Metals & Extraction",
+  // Biology
+  "Genetics & Evolution":      "Genetics",
+  "Ecology & Environment":     "Ecology",
+  "Human Biology & Health":    "Human Anatomy & Physiology",
+  "Plant Biology":             "Plant Biology & Physiology",
+  // Physics
+  "Heat & Thermodynamics":     "Thermal Physics",
+  "Nuclear & Modern Physics":  "Modern Physics"
+};
+
+/** Normalize a topic name using the alias map */
+function normalizeTopic(topic) {
+  return TOPIC_ALIASES[topic] || topic;
+}
 
 const PrepFastDB = {
   // 1. Authentication & Session Manager
@@ -444,7 +491,7 @@ const PrepFastDB = {
     if (questionObj && questionObj.subject && questionObj.topic) {
       const wm = storage.get("weaknessMap") || JSON.parse(JSON.stringify(INITIAL_WEAKNESS_MAP));
       const sub = questionObj.subject;
-      const top = questionObj.topic;
+      const top = normalizeTopic(questionObj.topic); // Normalize to canonical name
 
       // Ensure subject and topic exist (handles newly tagged topics)
       if (!wm[sub]) wm[sub] = {};
@@ -459,9 +506,7 @@ const PrepFastDB = {
       wm[sub][top].accuracy = parseFloat(acc.toFixed(1));
 
       // Status thresholds
-      if (wm[sub][top].attempts === 0) {
-        wm[sub][top].status = "Unattempted";
-      } else if (acc < 60) {
+      if (acc < 60) {
         wm[sub][top].status = "Needs Work";
       } else if (acc <= 85) {
         wm[sub][top].status = "Progressing";
@@ -522,15 +567,16 @@ const PrepFastDB = {
     progress.forEach(attempt => {
       const q = questions.find(item => item.id === attempt.question_id);
       if (q && q.subject && q.topic) {
+        const top = normalizeTopic(q.topic);
         if (!wm[q.subject]) wm[q.subject] = {};
-        if (!wm[q.subject][q.topic]) {
-          wm[q.subject][q.topic] = { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" };
+        if (!wm[q.subject][top]) {
+          wm[q.subject][top] = { attempts: 0, correct: 0, accuracy: 0, status: "Unattempted" };
         }
-        wm[q.subject][q.topic].attempts += 1;
-        if (attempt.is_correct) wm[q.subject][q.topic].correct += 1;
-        const acc = (wm[q.subject][q.topic].correct / wm[q.subject][q.topic].attempts) * 100;
-        wm[q.subject][q.topic].accuracy = parseFloat(acc.toFixed(1));
-        wm[q.subject][q.topic].status = acc < 60 ? "Needs Work" : acc <= 85 ? "Progressing" : "Strong";
+        wm[q.subject][top].attempts += 1;
+        if (attempt.is_correct) wm[q.subject][top].correct += 1;
+        const acc = (wm[q.subject][top].correct / wm[q.subject][top].attempts) * 100;
+        wm[q.subject][top].accuracy = parseFloat(acc.toFixed(1));
+        wm[q.subject][top].status = acc < 60 ? "Needs Work" : acc <= 85 ? "Progressing" : "Strong";
       }
     });
 
@@ -540,6 +586,10 @@ const PrepFastDB = {
 
   // Live 0–100% Exam Readiness Score calculation
   getExamReadinessScore: (questionsList) => {
+    const override = localStorage.getItem("PREPFAST_readiness_override");
+    if (override !== null && typeof window !== "undefined" && window.PREPFAST_CONFIG?.useApi) {
+      return parseInt(override, 10);
+    }
     const progress = storage.get("progress") || [];
     if (progress.length === 0) return 0;
 
@@ -581,6 +631,7 @@ const PrepFastDB = {
     storage.set("daily_limit", { date: new Date().toISOString().split("T")[0], count: 0 });
     storage.set("leaderboard", DEFAULT_LEADERBOARD);
     storage.set("weaknessMap", JSON.parse(JSON.stringify(INITIAL_WEAKNESS_MAP)));
+    localStorage.removeItem("PREPFAST_readiness_override");
     const user = PrepFastDB.getUser();
     if (user) {
       user.study_streak = 0;

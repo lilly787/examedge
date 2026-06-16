@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>
-    const existingUser = JSON.parse(
-      localStorage.getItem('prepfast_user') || 'null'
-    );
-    if (existingUser) {
-      const map = {
-        student: 'index.html', teacher: 'teacher.html',
-        parent: 'parent.html', admin: 'admin.html'
-      };
-      window.location.replace(map[existingUser.role] || 'index.html');
-    }
-  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Account — ExamEdge</title>

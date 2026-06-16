@@ -109,12 +109,13 @@ router.post("/bulk", authRequired, async (req, res) => {
   if (!Array.isArray(questions)) return res.status(400).json({ error: "questions array required" });
   let count = 0;
   for (const q of questions) {
+    const qId = q.id || "imported-" + Math.random().toString(36).substr(2, 9) + "-" + Date.now();
     await query(
       `INSERT INTO questions (id, subject, topic, subtopic, year, exam_body, type, question_text, options, correct_answer, explanation_text, common_mistakes, difficulty, tags)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
        ON CONFLICT (id) DO NOTHING`,
       [
-        q.id,
+        qId,
         q.subject,
         q.topic || "General",
         q.subtopic || "",
@@ -134,6 +135,7 @@ router.post("/bulk", authRequired, async (req, res) => {
   }
   res.json({ imported: count });
 });
+
 
 const { requireRole } = require("../middleware/auth");
 

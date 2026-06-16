@@ -280,9 +280,48 @@ function renderDashboardView() {
 
   const xp = ExamEdgeDB.getXP();
   const limitInfo = ExamEdgeDB.getDailyLimitInfo();
+  
+  // Get initial values from local storage
   const readiness = ExamEdgeDB.getExamReadinessScore(ExamEdgeDB.getQuestions());
   const weakness = ExamEdgeDB.getWeaknessMap(ExamEdgeDB.getQuestions());
 
+  // Render the dashboard with local values first (fast load)
+  renderDashboardHTML(user, xp, limitInfo, readiness, weakness);
+
+  // If useApi is true, fetch fresh metrics from backend API and re-render/update
+  if (window.PREPFAST_CONFIG?.useApi && PrepFastAPI.getToken() && !window._dashboard_fetching) {
+    window._dashboard_fetching = true;
+    Promise.all([
+      PrepFastAPI.getReadiness().catch(() => null),
+      PrepFastAPI.getWeakness().catch(() => null)
+    ]).then(([readinessRes, weaknessRes]) => {
+      window._dashboard_fetching = false;
+      let updated = false;
+
+      let freshReadiness = readiness;
+      let freshWeakness = weakness;
+
+      if (readinessRes && readinessRes.readiness_score !== undefined) {
+        localStorage.setItem("PREPFAST_readiness_override", readinessRes.readiness_score);
+        freshReadiness = readinessRes.readiness_score;
+        updated = true;
+      }
+
+      if (weaknessRes && weaknessRes.weakness) {
+        localStorage.setItem("PREPFAST_weaknessMap", JSON.stringify(weaknessRes.weakness));
+        freshWeakness = weaknessRes.weakness;
+        updated = true;
+      }
+
+      // Re-render only if the user is still on the dashboard view
+      if (updated && ACTIVE_VIEW === "dashboard") {
+        renderDashboardHTML(user, xp, limitInfo, freshReadiness, freshWeakness);
+      }
+    });
+  }
+}
+
+function renderDashboardHTML(user, xp, limitInfo, readiness, weakness) {
   // Compile "Focus Areas Today"
   let focusHtml = "";
   let focusCount = 0;
@@ -469,6 +508,7 @@ function renderDashboardView() {
   // Initialize counting text
   updateCountdownTimerText();
 }
+
 
 function updateCountdownTimerText() {
   const elem = document.getElementById("dash-countdown-text");
