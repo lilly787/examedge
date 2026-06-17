@@ -711,7 +711,7 @@
   <div id="setup-screen">
     <div class="setup-card fade-in">
       <a href="landing.html" class="logo-link">
-        <div class="logo-icon">🎓</div>
+        <div class="logo-icon"><i data-lucide="graduation-cap"></i></div>
         <span class="logo-text">ExamEdge</span>
       </a>
 
@@ -723,12 +723,12 @@
       <label class="filter-label">Exam Mode</label>
       <div class="mode-grid">
         <div class="mode-card selected" id="mode-study" onclick="selectMode('study')">
-          <span class="mode-icon">📝</span>
+          <span class="mode-icon"><i data-lucide="edit-3"></i></span>
           <div class="mode-name">Study Mode</div>
           <div class="mode-desc">Instant feedback after each question. See explanations. No time pressure.</div>
         </div>
         <div class="mode-card" id="mode-mock" onclick="selectMode('mock')">
-          <span class="mode-icon">⏱️</span>
+          <span class="mode-icon">⏱</span>
           <div class="mode-name">Timed CBT Mock</div>
           <div class="mode-desc">Authentic WAEC exam format. 10-minute countdown. Submit at the end.</div>
         </div>
@@ -754,11 +754,11 @@
 
       <!-- Count Indicator -->
       <div class="count-chip" id="count-chip">
-        <span>📚</span> <span><b id="q-count">100</b> questions available</span>
+        <span><i data-lucide="book"></i></span> <span><b id="q-count">100</b> questions available</span>
       </div>
 
       <button class="start-btn" onclick="startSession()" id="start-btn">
-        🚀 Start Practice Session →
+        <i data-lucide="rocket"></i> Start Practice Session →
       </button>
     </div>
   </div>
@@ -769,7 +769,7 @@
     <div class="cbt-topbar">
       <div class="topbar-left">
         <a href="landing.html" style="text-decoration:none;display:flex;align-items:center;gap:8px;">
-          <div class="logo-icon" style="width:32px;height:32px;font-size:1rem">🎓</div>
+          <div class="logo-icon" style="width:32px;height:32px;font-size:1rem"><i data-lucide="graduation-cap"></i></div>
           <span style="font-family:'Outfit',sans-serif;font-weight:900;color:#fff;font-size:1rem">ExamEdge</span>
         </a>
         <span class="topbar-badge" id="mode-badge">STUDY MODE</span>
@@ -828,7 +828,7 @@
           <button class="nav-btn" id="prev-btn" onclick="prevQ()">← Prev</button>
 
           <div style="display:flex;gap:8px;align-items:center">
-            <button class="flag-btn" id="flag-btn" onclick="toggleFlag()">🚩 Flag</button>
+            <button class="flag-btn" id="flag-btn" onclick="toggleFlag()"><i data-lucide="flag"></i> Flag</button>
           </div>
 
           <button class="nav-btn" id="next-btn" onclick="nextQ()">Next →</button>
@@ -893,7 +893,7 @@
 
       <!-- Grade Banner -->
       <div class="grade-banner" id="grade-banner" style="margin-top:1.2rem">
-        <span id="grade-icon" style="font-size:1.4rem">🎉</span>
+        <span id="grade-icon" style="font-size:1.4rem"><i data-lucide="party-popper"></i></span>
         <span id="grade-text">Outstanding! You're exam-ready.</span>
       </div>
 
@@ -934,13 +934,13 @@
 
       <!-- Actions -->
       <div class="result-actions" style="margin-bottom:1.5rem">
-        <button class="btn-outline" onclick="retrySession()">🔄 Retry Same Questions</button>
-        <button class="btn-outline" onclick="newSession()">📝 New Session</button>
-        <a href="index.html" class="btn-primary-res">🏠 Dashboard →</a>
+        <button class="btn-outline" onclick="retrySession()"><i data-lucide="refresh-cw"></i> Retry Same Questions</button>
+        <button class="btn-outline" onclick="newSession()"><i data-lucide="edit-3"></i> New Session</button>
+        <a href="index.html" class="btn-primary-res"><i data-lucide="home"></i> Dashboard →</a>
       </div>
 
       <!-- Review -->
-      <div class="review-header" id="review-header">📋 Question Review</div>
+      <div class="review-header" id="review-header"><i data-lucide="clipboard-list"></i> Question Review</div>
       <div class="review-items" id="review-list"></div>
 
     </div>
@@ -999,39 +999,39 @@
 
     // ── Subject picker groups ─────────────────────────────────────────
     const SUBJECT_GROUPS = [
-      { group: '📌 Core', subjects: [
-        { key: 'Mathematics',       label: 'Mathematics',       icon: '📐' },
-        { key: 'English Language',  label: 'English',           icon: '📖' }
+      { group: '<i data-lucide="pin"></i> Core', subjects: [
+        { key: 'Mathematics',       label: 'Mathematics',       icon: '<i data-lucide="pen-tool"></i>' },
+        { key: 'English Language',  label: 'English',           icon: '<i data-lucide="book-open"></i>' }
       ]},
-      { group: '🔬 Sciences', subjects: [
+      { group: '<i data-lucide="microscope"></i> Sciences', subjects: [
         { key: 'Physics',           label: 'Physics',           icon: '<i data-lucide="zap" class="icon-sm"></i>' },
         { key: 'Chemistry',         label: 'Chemistry',         icon: '<i data-lucide="flask-conical" class="icon-sm"></i>' },
-        { key: 'Biology',           label: 'Biology',           icon: '🔬' },
+        { key: 'Biology',           label: 'Biology',           icon: '<i data-lucide="microscope"></i>' },
         { key: 'Further Mathematics', label: 'Further Maths',  icon: '∑' },
-        { key: 'Agricultural Science', label: 'Agric Sci',     icon: '🌿' },
-        { key: 'Computer Science',  label: 'Comp. Sci',         icon: '💻' }
+        { key: 'Agricultural Science', label: 'Agric Sci',     icon: '<i data-lucide="leaf"></i>' },
+        { key: 'Computer Science',  label: 'Comp. Sci',         icon: '<i data-lucide="monitor"></i>' }
       ]},
-      { group: '📊 Commercials', subjects: [
-        { key: 'Economics',         label: 'Economics',         icon: '📈' },
-        { key: 'Commerce',          label: 'Commerce',          icon: '🏪' },
-        { key: 'Financial Accounting', label: 'Accounting',    icon: '📒' }
+      { group: '<i data-lucide="bar-chart-2"></i> Commercials', subjects: [
+        { key: 'Economics',         label: 'Economics',         icon: '<i data-lucide="trending-up"></i>' },
+        { key: 'Commerce',          label: 'Commerce',          icon: '<i data-lucide="store"></i>' },
+        { key: 'Financial Accounting', label: 'Accounting',    icon: '<i data-lucide="book-marked"></i>' }
       ]},
-      { group: '🌍 Humanities', subjects: [
-        { key: 'Government',        label: 'Government',        icon: '🏛️' },
-        { key: 'History',           label: 'History',           icon: '📜' },
-        { key: 'Geography',         label: 'Geography',         icon: '🌍' },
-        { key: 'Literature in English', label: 'Literature',   icon: '📚' },
-        { key: 'Civic Education',   label: 'Civic Edu.',        icon: '🤝' }
+      { group: '<i data-lucide="globe"></i> Humanities', subjects: [
+        { key: 'Government',        label: 'Government',        icon: '<i data-lucide="landmark"></i>' },
+        { key: 'History',           label: 'History',           icon: '<i data-lucide="scroll"></i>' },
+        { key: 'Geography',         label: 'Geography',         icon: '<i data-lucide="globe"></i>' },
+        { key: 'Literature in English', label: 'Literature',   icon: '<i data-lucide="book"></i>' },
+        { key: 'Civic Education',   label: 'Civic Edu.',        icon: '<i data-lucide="handshake"></i>' }
       ]},
       { group: 'Religious Studies', subjects: [
         { key: 'Christian Religious Studies', label: 'CRS',    icon: '<i data-lucide="cross" class="icon-sm"></i>' },
         { key: 'Islamic Religious Studies',   label: 'IRS',    icon: '<i data-lucide="moon" class="icon-sm"></i>' }
       ]},
-      { group: '🗣️ Languages', subjects: [
+      { group: '<i data-lucide="mic"></i> Languages', subjects: [
         { key: 'French',            label: 'French',            icon: '🇫🇷' },
-        { key: 'Yoruba',            label: 'Yoruba',            icon: '🥁' },
-        { key: 'Igbo',              label: 'Igbo',              icon: '🌺' },
-        { key: 'Hausa',             label: 'Hausa',             icon: '🌟' }
+        { key: 'Yoruba',            label: 'Yoruba',            icon: '<i data-lucide="music"></i>' },
+        { key: 'Igbo',              label: 'Igbo',              icon: '<i data-lucide="flower"></i>' },
+        { key: 'Hausa',             label: 'Hausa',             icon: '<i data-lucide="star"></i>' }
       ]}
     ];
 
@@ -1047,7 +1047,7 @@
       const totalCount = allQs.length;
       const allPill = document.createElement('div');
       allPill.style.cssText = 'margin-bottom:12px';
-      allPill.innerHTML = `<div class="subject-pill active" id="pill-all" data-subject="all" onclick="selectSubject(this,'all')">🎯 All Subjects <span style="margin-left:6px;background:rgba(139,92,246,0.25);color:#c4b5fd;border-radius:10px;padding:1px 7px;font-size:0.7rem;font-weight:700">${totalCount}</span></div>`;
+      allPill.innerHTML = `<div class="subject-pill active" id="pill-all" data-subject="all" onclick="selectSubject(this,'all')"><i data-lucide="target"></i> All Subjects <span style="margin-left:6px;background:rgba(139,92,246,0.25);color:#c4b5fd;border-radius:10px;padding:1px 7px;font-size:0.7rem;font-weight:700">${totalCount}</span></div>`;
       container.appendChild(allPill);
 
       SUBJECT_GROUPS.forEach(group => {
@@ -1291,10 +1291,10 @@
       const flagBtn = document.getElementById('flag-btn');
       if (session.flagged[idx]) {
         flagBtn.classList.add('flagged');
-        flagBtn.textContent = '🚩 Flagged';
+        flagBtn.textContent = '<i data-lucide="flag"></i> Flagged';
       } else {
         flagBtn.classList.remove('flagged');
-        flagBtn.textContent = '🚩 Flag';
+        flagBtn.textContent = '<i data-lucide="flag"></i> Flag';
       }
 
       // Study mode: disable next if not answered yet (but allow if already answered)
@@ -1470,15 +1470,15 @@
       const gradeText = document.getElementById('grade-text');
       if (pct >= 70) {
         banner.className = 'grade-banner excellent';
-        gradeIcon.textContent = '🏆';
+        gradeIcon.textContent = '<i data-lucide="trophy"></i>';
         gradeText.textContent = pct >= 90 ? 'Outstanding! You\'re absolutely exam-ready.' : 'Great work! You\'re performing well above average.';
       } else if (pct >= 50) {
         banner.className = 'grade-banner good';
-        gradeIcon.textContent = '📈';
+        gradeIcon.textContent = '<i data-lucide="trending-up"></i>';
         gradeText.textContent = 'Good effort! Review your weak spots and try again.';
       } else {
         banner.className = 'grade-banner poor';
-        gradeIcon.textContent = '💪';
+        gradeIcon.textContent = '<i data-lucide="dumbbell"></i>';
         gradeText.textContent = 'Keep practicing! Focus on your weak topics — you\'ll improve fast.';
       }
 
@@ -1505,7 +1505,7 @@
         reviewList.appendChild(item);
       });
 
-      document.getElementById('review-header').textContent = `📋 Question Review (${qs.length} questions)`;
+      document.getElementById('review-header').textContent = `<i data-lucide="clipboard-list"></i> Question Review (${qs.length} questions)`;
     }
 
     function retrySession() {

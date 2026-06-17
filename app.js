@@ -20,13 +20,13 @@ let PRACTICE_SESSION = {
 let WHATSAPP_SESSION = {
   open: false,
   messages: [
-    { sender: "bot", text: "🇳🇬 <b>ExamEdge WhatsApp Study Bot</b> active!<br>Ready for your daily WAEC challenge?", time: "09:00" },
+    { sender: "bot", text: " <b>ExamEdge WhatsApp Study Bot</b> active!<br>Ready for your daily WAEC challenge?", time: "09:00" },
     { sender: "bot", text: "<b>Subject: Biology (Ecology)</b><br>Question: <i>Which organism is a primary producer in a food chain?</i><br>A) Grasshopper<br>B) Green plant<br>C) Lion<br>D) Frog<br><br>Reply with <b>A</b>, <b>B</b>, <b>C</b>, or <b>D</b> to answer!", time: "09:01" }
   ]
 };
 
-// Active Countdown Target (WAEC Exam: June 15, 2026)
-const TARGET_DATE = new Date("2026-06-15T09:00:00").getTime();
+// Active Countdown Target (now dynamic via CURRENT_USER)
+// const TARGET_DATE = new Date("2026-06-15T09:00:00").getTime();
 
 // List of motivational quotes for secondary students
 const MOTIVATIONAL_QUOTES = [
@@ -116,7 +116,9 @@ function navigate(viewName) {
       renderSettingsView();
       break;
     case "wellbeing":
-      renderWellbeingView();
+      // Redirect to practice and expand wellbeing inline widget
+      navigate("practice");
+      setTimeout(() => toggleInlineWellbeing(true), 100);
       break;
     case "study-planner":
       if (typeof renderStudyPlannerView === "function") renderStudyPlannerView();
@@ -148,7 +150,7 @@ function renderAuthView() {
 
         <div class="mb-6 flex justify-center">
           <div class="bg-indigo-600/20 p-4 rounded-full border border-indigo-500/30">
-            <span class="text-3xl">🎓</span>
+            <span class="text-3xl"><i data-lucide="graduation-cap"></i></span>
           </div>
         </div>
 
@@ -364,20 +366,28 @@ function renderDashboardHTML(user, xp, limitInfo, readiness, weakness) {
     `;
   });
 
+  let total_attempts = 0;
+  const wm = ExamEdgeDB.getWeaknessMap(EXAMEDGE_QUESTIONS);
+  for (const subj in wm) {
+    for (const topic in wm[subj]) {
+      total_attempts += wm[subj][topic].attempts || 0;
+    }
+  }
+
   // Render dynamic dashboard view elements
   const container = document.getElementById("view-dashboard");
   container.innerHTML = `
     <!-- Top Greeting Banner -->
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
       <div>
-        <h1 class="text-3xl font-extrabold text-white tracking-tight">Kedu, ${user.name}! 👋</h1>
+        <h1 class="text-3xl font-extrabold text-white tracking-tight">${new Date().getHours() < 12 ? 'Good morning' : new Date().getHours() < 18 ? 'Good afternoon' : 'Good evening'}, ${user.name.split(' ')[0]}!</h1>
         <p class="text-gray-400 text-sm mt-1">Ready to step up your exam scores today?</p>
       </div>
 
       <!-- Streak and XP badges -->
       <div class="flex items-center gap-3">
         <div class="flex items-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-xl">
-          <span class="text-amber-400 text-xl font-extrabold streak-active">🔥</span>
+          <span class="text-amber-400 text-xl font-extrabold streak-active"><i data-lucide="flame"></i></span>
           <div>
             <div class="text-xs text-amber-500 font-bold uppercase tracking-wider leading-none">Streak</div>
             <div class="text-sm font-black text-amber-300 leading-none mt-1">${user.study_streak} Days</div>
@@ -400,12 +410,15 @@ function renderDashboardHTML(user, xp, limitInfo, readiness, weakness) {
       <!-- Target Countdown -->
       <div class="glass-panel p-6 rounded-2xl border border-indigo-500/10 relative overflow-hidden flex flex-col justify-between">
         <div>
-          <span class="text-xs font-semibold text-indigo-400 uppercase tracking-widest">Countdown to ${user.exam_target}</span>
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-semibold text-indigo-400 uppercase tracking-widest">Countdown to ${user.exam_target}</span>
+            <button onclick="openSetExamDateModal()" class="text-xs px-2 py-1 bg-indigo-500/20 text-indigo-300 rounded hover:bg-indigo-500/30 transition-all"><i data-lucide="edit-2" class="w-3 h-3 inline"></i> Edit</button>
+          </div>
           <h2 class="text-2xl font-black text-white mt-1" id="dash-countdown-text">-- Days -- Hours</h2>
         </div>
         <div class="mt-4 pt-4 border-t border-indigo-900/60 flex items-center justify-between text-xs text-gray-400">
           <span>Target Exam Date:</span>
-          <span class="font-bold text-white">${new Date(user.exam_date).toLocaleDateString('en-NG', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+          <span class="font-bold text-white">${user.exam_date ? new Date(user.exam_date).toLocaleDateString('en-NG', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Not set'}</span>
         </div>
       </div>
 
@@ -413,9 +426,9 @@ function renderDashboardHTML(user, xp, limitInfo, readiness, weakness) {
       <div class="glass-panel p-6 rounded-2xl border border-indigo-500/10 flex items-center justify-between gap-4">
         <div class="flex-1">
           <span class="text-xs font-semibold text-indigo-400 uppercase tracking-widest">Exam Readiness</span>
-          <h3 class="text-3xl font-extrabold text-white mt-1">${readiness}%</h3>
+          <h3 class="text-3xl font-extrabold text-white mt-1">${total_attempts === 0 ? "—" : readiness + "%"}</h3>
           <p class="text-xs text-gray-400 mt-2">
-            ${readiness < 40 ? "Needs massive practice. Keep working!" : readiness < 75 ? "You're getting closer! Practice 10 more Biology sessions." : "Super ready! Go crush that exam!"}
+            ${total_attempts === 0 ? "Ready to begin! Take your first practice session." : total_attempts < 10 ? "Getting started — keep going! Practice makes perfect." : readiness < 40 ? "Needs massive practice. Keep working!" : readiness < 75 ? "You're getting closer! Keep it up." : "Super ready! Go crush that exam!"}
           </p>
         </div>
         
@@ -451,7 +464,7 @@ function renderDashboardHTML(user, xp, limitInfo, readiness, weakness) {
 
         <div class="mt-4">
           ${user.subscription_tier === 'free' 
-            ? `<button onclick="openPaystackSim()" class="w-full text-center text-xs font-bold text-amber-400 hover:text-amber-300 py-1 border border-dashed border-amber-500/30 hover:border-amber-500 rounded-lg transition-all">🔑 Go Premium for Unlimited Practice</button>`
+            ? `<button onclick="openPaystackSim()" class="w-full text-center text-xs font-bold text-amber-400 hover:text-amber-300 py-1 border border-dashed border-amber-500/30 hover:border-amber-500 rounded-lg transition-all"> Go Premium for Unlimited Practice</button>`
             : `<span class="text-xs text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="check-circle" style="width:13px;height:13px"></i> Unlimited Practice Active</span>`
           }
         </div>
@@ -465,7 +478,7 @@ function renderDashboardHTML(user, xp, limitInfo, readiness, weakness) {
       <!-- Focus List -->
       <div class="lg:col-span-2 glass-panel p-6 rounded-2xl border border-indigo-500/10">
         <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-          <span>🎯</span> Your Focus Today (Weakness map targets)
+          <span><i data-lucide="target"></i></span> Your Focus Today (Weakness map targets)
         </h3>
         
         <div class="flex flex-col gap-3">
@@ -474,11 +487,11 @@ function renderDashboardHTML(user, xp, limitInfo, readiness, weakness) {
 
         <div class="mt-6 flex flex-wrap gap-3">
           <button onclick="startStandardPractice()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
-            <span>📝</span> Practice Mode
+            <span><i data-lucide="edit-3"></i></span> Practice Mode
           </button>
           
           <button onclick="startCBTMode()" class="flex-1 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
-            <span>⏱️</span> Timed Mock Exam
+            <span>⏱</span> Timed Mock Exam
           </button>
         </div>
       </div>
@@ -487,7 +500,7 @@ function renderDashboardHTML(user, xp, limitInfo, readiness, weakness) {
       <div class="glass-panel p-6 rounded-2xl border border-indigo-500/10 flex flex-col justify-between">
         <div>
           <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
-            <span>💡</span> Study Coach Advice
+            <span></span> Study Coach Advice
           </h3>
           <p class="text-sm text-gray-300 italic font-light leading-relaxed">
             ${MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)]}
@@ -496,7 +509,7 @@ function renderDashboardHTML(user, xp, limitInfo, readiness, weakness) {
 
         <div class="mt-6 pt-4 border-t border-indigo-900/60">
           <button onclick="navigate('wellbeing')" class="w-full bg-violet-950/40 hover:bg-violet-950/60 border border-violet-800/40 text-violet-300 py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2">
-            <span>🍃</span> Wellbeing Corner (Breathing/Anxiety)
+            <span><i data-lucide="leaf"></i></span> Wellbeing Corner (Breathing/Anxiety)
           </button>
         </div>
       </div>
@@ -514,11 +527,19 @@ function updateCountdownTimerText() {
   const elem = document.getElementById("dash-countdown-text");
   if (!elem) return;
 
+  const user = ExamEdgeDB.getUser() || CURRENT_USER;
+  let targetDate = user && user.exam_date ? new Date(user.exam_date + "T09:00:00").getTime() : null;
+
+  if (!targetDate) {
+    elem.innerHTML = `<button onclick="openSetExamDateModal()" class="text-xs px-2 py-1 bg-indigo-500/20 text-indigo-300 rounded hover:bg-indigo-500/30 mt-1">Set your next exam date</button>`;
+    return;
+  }
+
   const now = Date.now();
-  const distance = TARGET_DATE - now;
+  const distance = targetDate - now;
 
   if (distance < 0) {
-    elem.innerText = "EXAM TIME STARTED!";
+    elem.innerHTML = `<button onclick="openSetExamDateModal()" class="text-xs px-2 py-1 bg-indigo-500/20 text-indigo-300 rounded hover:bg-indigo-500/30 mt-1">Set your next exam date</button>`;
     return;
   }
 
@@ -526,6 +547,18 @@ function updateCountdownTimerText() {
   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   
   elem.innerText = `${days}d ${hours}h left`;
+}
+
+function openSetExamDateModal() {
+  const user = ExamEdgeDB.getUser() || CURRENT_USER;
+  const newDate = prompt("Enter your target exam date (YYYY-MM-DD):", user?.exam_date || new Date().toISOString().split('T')[0]);
+  if (newDate && newDate.trim() !== "") {
+    if (user) {
+      user.exam_date = newDate;
+      ExamEdgeDB.updateUser({ exam_date: newDate });
+      navigate("dashboard");
+    }
+  }
 }
 
 function startClockCountdowns() {
@@ -568,7 +601,7 @@ function renderPracticeSelection() {
   container.innerHTML = `
     <div class="max-w-2xl mx-auto glass-panel p-8 rounded-2xl border border-indigo-500/10">
       <h2 class="text-2xl font-extrabold text-white mb-2 flex items-center gap-2">
-        ${mode === 'study' ? '📝 Practice & Review' : '⏱️ Timed CBT Mock Exam'}
+        ${mode === 'study' ? '<i data-lucide="edit-3"></i> Practice & Review' : '⏱ Timed CBT Mock Exam'}
       </h2>
       <p class="text-gray-400 text-sm mb-8">
         ${mode === 'study' ? 'Gain immediate feedback, review correct solutions, and ask AI tutor tips.' : 'Simulate authentic WAEC/JAMB digital conditions. Timed countdown with score report.'}
@@ -846,10 +879,10 @@ function renderPracticeInterface() {
         
         <div class="pt-4 border-t border-indigo-900/60 flex flex-wrap gap-3">
           <button onclick="openAiTutor('${q.id}')" class="text-xs font-semibold px-3 py-1.5 bg-violet-600/20 text-violet-300 rounded-lg border border-violet-800/40 hover:bg-violet-600/40 transition-all">
-            🤖 Ask AI Tutor
+            <i data-lucide="bot"></i> Ask AI Tutor
           </button>
           <button onclick="triggerWhatsAppDailyChallengeSim('${q.id}')" class="text-xs font-semibold px-3 py-1.5 bg-indigo-600/20 text-indigo-300 rounded-lg border border-indigo-800/40 hover:bg-indigo-600/40 transition-all">
-            💬 Share to WhatsApp
+            <i data-lucide="message-square"></i> Share to WhatsApp
           </button>
         </div>
       </div>
@@ -941,7 +974,7 @@ function renderPracticeInterface() {
         </button>
 
         <button onclick="toggleFlagQuestion()" class="px-5 py-2.5 rounded-xl border border-amber-500/20 text-xs font-semibold flex items-center gap-2 ${PRACTICE_SESSION.flaggedQuestions[idx] ? 'bg-amber-500/20 text-amber-400' : 'bg-transparent text-gray-400 hover:text-amber-400'} transition-all">
-          <span>🚩</span> Flag Question
+          <span><i data-lucide="flag"></i></span> Flag Question
         </button>
 
         <button onclick="nextQuestion()" ${isLast ? 'disabled' : ''} class="px-5 py-2.5 bg-indigo-950/40 border border-indigo-900/60 rounded-xl text-xs font-semibold text-gray-400 hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-all">
@@ -1007,11 +1040,23 @@ function renderPracticeInterface() {
         ${mode === 'mock' 
           ? sideGridHtml 
           : `
-            <div class="glass-panel p-6 rounded-2xl border border-indigo-500/10 text-center">
-              <span class="text-3xl mb-3 block">🍃</span>
-              <h3 class="text-base font-bold text-white mb-2">Feeling anxious during practice?</h3>
-              <p class="text-xs text-gray-400 leading-relaxed mb-4">Exam stress is real. Take 60 seconds to calm down with a deep breathing rhythm.</p>
-              <button onclick="navigate('wellbeing')" class="w-full bg-violet-950/40 border border-violet-800/40 text-violet-300 text-xs font-bold py-2 rounded-xl transition-all">
+            <div class="glass-panel p-6 rounded-2xl border border-indigo-500/10 text-center relative" id="inline-wellbeing-widget">
+              <i data-lucide="leaf" class="w-8 h-8 mx-auto text-emerald-400 mb-3 block"></i>
+              <h3 class="text-base font-bold text-white mb-2">Feeling anxious?</h3>
+              <p class="text-xs text-gray-400 leading-relaxed mb-4" id="wb-widget-desc">Exam stress is real. Take 60 seconds to calm down with a deep breathing rhythm.</p>
+              
+              <!-- Expanding section -->
+              <div id="wb-expanded-content" class="hidden flex flex-col items-center border-t border-indigo-500/20 pt-4 mt-4">
+                <div class="w-24 h-24 rounded-full flex items-center justify-center relative bg-indigo-600/10 border border-indigo-500/20 mb-4">
+                  <div class="w-12 h-12 rounded-full breathing-circle absolute"></div>
+                  <span class="text-white text-xs font-black z-10 font-mono uppercase tracking-widest" id="inline-breathing-stage-lbl">Breathe</span>
+                </div>
+                <button onclick="toggleInlineWellbeing(false)" class="text-xs text-indigo-400 hover:text-indigo-300 font-bold underline mt-4">
+                  I'm ready to continue
+                </button>
+              </div>
+
+              <button onclick="toggleInlineWellbeing(true)" id="wb-start-btn" class="w-full bg-violet-950/40 border border-violet-800/40 text-violet-300 text-xs font-bold py-2 rounded-xl transition-all">
                 Start Relax Guide
               </button>
             </div>
@@ -1310,7 +1355,7 @@ async function renderScorecardScreen(correctCount, total, qList, answers) {
   container.innerHTML = `
     <div class="max-w-3xl mx-auto glass-panel p-8 rounded-2xl border border-indigo-500/10">
       <div class="text-center mb-6">
-        <span class="text-5xl mb-4 block">${percent >= 70 ? '🏆' : percent >= 40 ? '👍' : '📚'}</span>
+        <span class="text-5xl mb-4 block">${percent >= 70 ? '<i data-lucide="trophy"></i>' : percent >= 40 ? '' : '<i data-lucide="book"></i>'}</span>
         <h2 class="text-3xl font-black text-white">${PRACTICE_SESSION.mode === 'mock' ? 'Mock Exam Scorecard' : 'Practice Session Scorecard'}</h2>
         <p class="text-gray-400 text-xs mt-1">${PRACTICE_SESSION.mode === 'mock' ? 'CBT Mock Simulation completed.' : 'Practice session completed.'}</p>
       </div>
@@ -1435,7 +1480,7 @@ function renderLeaderboardView() {
           <p class="text-gray-400 text-xs mt-1">Live competition rankings for top-performing secondary students.</p>
         </div>
         <div class="px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded-lg text-xs font-bold text-amber-400">
-          🏆 WEEK 24 ACTIVE
+          <i data-lucide="trophy"></i> WEEK 24 ACTIVE
         </div>
       </div>
 
@@ -1459,13 +1504,41 @@ function renderLeaderboardView() {
   `;
 }
 
+function toggleInlineWellbeing(expand) {
+  const content = document.getElementById("wb-expanded-content");
+  const btn = document.getElementById("wb-start-btn");
+  const desc = document.getElementById("wb-widget-desc");
+  const stage = document.getElementById("inline-breathing-stage-lbl");
+  
+  if (expand) {
+    content.classList.remove("hidden");
+    btn.classList.add("hidden");
+    desc.classList.add("hidden");
+    
+    // Start interval
+    let count = 0;
+    if (window._inlineBreathingInterval) clearInterval(window._inlineBreathingInterval);
+    window._inlineBreathingInterval = setInterval(() => {
+      count += 1;
+      const stages = ["Inhale", "Hold", "Exhale"];
+      if (stage) stage.innerText = stages[count % 3];
+    }, 2000);
+    if (stage) stage.innerText = "Inhale";
+  } else {
+    content.classList.add("hidden");
+    btn.classList.remove("hidden");
+    desc.classList.remove("hidden");
+    if (window._inlineBreathingInterval) clearInterval(window._inlineBreathingInterval);
+  }
+}
+
 // 5. Wellbeing Anxiety Corner with Breathing Exercise
 let breathingGuideState = "Hold";
 function renderWellbeingView() {
   const container = document.getElementById("view-wellbeing");
   container.innerHTML = `
     <div class="max-w-2xl mx-auto glass-panel p-8 rounded-2xl border border-indigo-500/10 text-center">
-      <span class="text-4xl mb-3 block">🌿</span>
+      <span class="text-4xl mb-3 block"><i data-lucide="leaf"></i></span>
       <h2 class="text-2xl font-extrabold text-white">Student Wellbeing Corner</h2>
       <p class="text-gray-400 text-sm mb-8">Exam preparation is a marathon, not a sprint. Take care of your mental peace.</p>
 
@@ -1476,17 +1549,17 @@ function renderWellbeingView() {
         
         <div class="flex justify-around gap-4">
           <button onclick="logStudentMood('fine')" class="flex-1 py-3 bg-indigo-950/40 border border-indigo-900 hover:border-emerald-500 rounded-xl flex flex-col items-center gap-1 transition-all">
-            <span class="text-2xl">😊</span>
+            <span class="text-2xl"><i data-lucide="smile"></i></span>
             <span class="text-xs text-gray-300 font-semibold">Fine & Motivated</span>
           </button>
           
           <button onclick="logStudentMood('neutral')" class="flex-1 py-3 bg-indigo-950/40 border border-indigo-900 hover:border-amber-500 rounded-xl flex flex-col items-center gap-1 transition-all">
-            <span class="text-2xl">😐</span>
+            <span class="text-2xl"><i data-lucide="meh"></i></span>
             <span class="text-xs text-gray-300 font-semibold">Tired / Calm</span>
           </button>
 
           <button onclick="logStudentMood('anxious')" class="flex-1 py-3 bg-indigo-950/40 border border-indigo-900 hover:border-rose-500 rounded-xl flex flex-col items-center gap-1 transition-all">
-            <span class="text-2xl">😔</span>
+            <span class="text-2xl"><i data-lucide="frown"></i></span>
             <span class="text-xs text-gray-300 font-semibold">Anxious / Stressed</span>
           </button>
         </div>
@@ -1533,10 +1606,10 @@ function toggleBreathingLoop() {
   
   breathingIntervalId = setInterval(() => {
     count += 1;
-    const stages = ["Inhale 💨", "Hold 🧘", "Exhale 🍃"];
-    stage.innerText = stages[count % 3];
+    const stages = ["Inhale <i data-lucide='wind'></i>", "Hold <i data-lucide='activity'></i>", "Exhale <i data-lucide='leaf'></i>"];
+    stage.innerHTML = stages[count % 3];
   }, 2000);
-  stage.innerText = "Inhale 💨";
+  stage.innerHTML = "Inhale <i data-lucide='wind'></i>";
   showToast("Breathing relaxation timer active. Focus on the circle.", "success");
 }
 
@@ -1581,7 +1654,7 @@ function renderSettingsView() {
         ? `
           <div class="p-6 bg-gradient-to-br from-amber-600/20 to-yellow-600/10 border border-amber-500/30 rounded-2xl text-left mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <h3 class="text-base font-bold text-amber-300">🔑 Unlock Student Premium</h3>
+              <h3 class="text-base font-bold text-amber-300"> Unlock Student Premium</h3>
               <p class="text-xs text-gray-400 mt-1 leading-relaxed">Gain unlimited questions, mock exams, full statistics logging, and offline subject bundles.</p>
             </div>
             <button onclick="openPaystackSim()" class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-slate-950 font-black rounded-xl text-xs transition-all shadow-md shadow-amber-500/10">
@@ -1610,19 +1683,21 @@ function renderSettingsView() {
 
       <!-- Portal links -->
       <div class="text-left mb-8 pb-8 border-b border-indigo-900/60 grid gap-2">
-        <a href="teacher.html" class="text-xs text-indigo-400 hover:underline">👩‍🏫 Teacher Dashboard</a>
-        <a href="parent.html" class="text-xs text-indigo-400 hover:underline">👨‍👩‍👧 Parent Portal</a>
-        <a href="school-portal.html" class="text-xs text-indigo-400 hover:underline">🏫 School Institutional Portal</a>
+        <a href="teacher.html" class="text-xs text-indigo-400 hover:underline"><i data-lucide="users"></i> Teacher Dashboard</a>
+        <a href="parent.html" class="text-xs text-indigo-400 hover:underline"><i data-lucide="users"></i> Parent Portal</a>
+        <a href="school-portal.html" class="text-xs text-indigo-400 hover:underline"><i data-lucide="building"></i> School Institutional Portal</a>
       </div>
 
       <!-- Admin Portal Link -->
+      ${typeof hasRole === 'function' && hasRole('admin') ? `
       <div class="text-left mb-8 pb-8 border-b border-indigo-900/60">
         <h3 class="text-sm font-bold text-indigo-400 mb-2">Platform Administration</h3>
         <p class="text-xs text-gray-500 mb-4">Manage past questions, view all student logs, and perform full system database resets.</p>
-        <a href="admin.html" class="inline-block px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs transition-all shadow-md shadow-indigo-500/15">
-          🛡️ Open Admin Panel
+        <a href="admin.html" class="inline-block px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs transition-all shadow-md shadow-indigo-500/15 flex items-center gap-2 w-max">
+          <i data-lucide="shield" class="w-4 h-4"></i> Open Admin Panel
         </a>
       </div>
+      ` : ''}
 
       <!-- Danger Zone Reset -->
       <div class="text-left">
@@ -1654,11 +1729,17 @@ function triggerResetStorageData() {
 }
 
 function triggerAppLogout() {
+  handleLogout();
+}
+
+function handleLogout() {
   if (confirm("Are you sure you want to logout?")) {
     ExamEdgeDB.logout();
     showToast("Logged out successfully!", "success");
-    document.getElementById("sidebar-nav").classList.add("hidden");
-    document.getElementById("bottom-nav").classList.add("hidden");
+    const sn = document.getElementById("sidebar-nav");
+    if(sn) sn.classList.add("hidden");
+    const bn = document.getElementById("bottom-nav");
+    if(bn) bn.classList.add("hidden");
     window.location.replace("register.html");
   }
 }
@@ -1695,7 +1776,7 @@ function openPaystackSim() {
         <div class="text-left mb-4">
           <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Card Number</label>
           <div class="bg-indigo-950/40 border border-indigo-900/60 rounded-xl p-3 flex items-center gap-2">
-            <span class="text-sm">💳</span>
+            <span class="text-sm"></span>
             <input type="text" placeholder="4012 8888 8888 1881" class="w-full bg-transparent text-sm text-white placeholder-gray-700 outline-none font-semibold">
           </div>
         </div>
@@ -1864,11 +1945,11 @@ function sendWhatsAppMessage() {
     // Generate responsive bot reply
     let replyText = "";
     if (txt === "B") {
-      replyText = "🎉 <b>CORRECT!</b> Green plants are primary producers because they make their own food through photosynthesis.<br><br>💡 <b>Explanation:</b> Chlorophyll captures solar energy to convert CO2 and water into glucose.<br><br>👉 Want to practice 20 more questions? Tap here: <a onclick=\"navigate('practice')\" class=\"text-emerald-400 font-bold underline cursor-pointer\">Start Mock Session</a>";
+      replyText = "<i data-lucide='party-popper'></i> <b>CORRECT!</b> Green plants are primary producers because they make their own food through photosynthesis.<br><br> <b>Explanation:</b> Chlorophyll captures solar energy to convert CO2 and water into glucose.<br><br> Want to practice 20 more questions? Tap here: <a onclick=\"navigate('practice')\" class=\"text-emerald-400 font-bold underline cursor-pointer\">Start Mock Session</a>";
     } else if (["A", "C", "D"].includes(txt)) {
-      replyText = "❌ <b>INCORRECT.</b> The correct answer was <b>B (Green plant)</b>.<br><br>💡 <b>Explanation:</b> Grasshoppers are primary consumers; lions are top carnivores; frogs are secondary consumers. Only green plants make food from scratch.<br><br>👉 Study the topic step-by-step: <a onclick=\"navigate('practice')\" class=\"text-emerald-400 font-bold underline cursor-pointer\">Review Practice Engine</a>";
+      replyText = " <b>INCORRECT.</b> The correct answer was <b>B (Green plant)</b>.<br><br> <b>Explanation:</b> Grasshoppers are primary consumers; lions are top carnivores; frogs are secondary consumers. Only green plants make food from scratch.<br><br> Study the topic step-by-step: <a onclick=\"navigate('practice')\" class=\"text-emerald-400 font-bold underline cursor-pointer\">Review Practice Engine</a>";
     } else {
-      replyText = "👋 Welcome to <b>ExamEdge Opt-In Daily Question Bot!</b><br><br>Please respond only with the letter <b>A</b>, <b>B</b>, <b>C</b>, or <b>D</b> to answer the active question above.";
+      replyText = " Welcome to <b>ExamEdge Opt-In Daily Question Bot!</b><br><br>Please respond only with the letter <b>A</b>, <b>B</b>, <b>C</b>, or <b>D</b> to answer the active question above.";
     }
 
     WHATSAPP_SESSION.messages.push({

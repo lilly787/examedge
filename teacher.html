@@ -521,9 +521,11 @@
     <a class="nav-item" href="index.html">
       <i data-lucide="arrow-left"></i> Student App
     </a>
-    <a class="nav-item" href="admin.html">
-      <i data-lucide="shield"></i> Admin Panel
-    </a>
+    <script>
+      if (typeof hasRole === 'function' && hasRole('admin')) {
+        document.write('<a class="nav-item" href="admin.html"><i data-lucide="shield"></i> Admin Panel</a>');
+      }
+    </script>
 
     <div class="sidebar-footer">
       <div class="user-card">

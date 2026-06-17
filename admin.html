@@ -475,7 +475,7 @@
   <!-- Glassmorphic Admin Login Overlay -->
   <div id="admin-login-overlay" style="position: fixed; inset: 0; z-index: 10000; background: rgba(7, 6, 15, 0.9); backdrop-filter: blur(25px); display: none; align-items: center; justify-content: center; padding: 1.5rem;">
     <div style="background: rgba(18, 15, 38, 0.85); border: 1px solid rgba(99, 102, 241, 0.25); border-radius: 24px; padding: 2.5rem; max-width: 400px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: center; font-family: 'Inter', sans-serif; color: #f1f0f7;">
-      <div style="font-size: 3rem; margin-bottom: 1rem;">🛡️</div>
+      <div style="font-size: 3rem; margin-bottom: 1rem;"><i data-lucide="shield"></i></div>
       <h2 style="font-family: 'Outfit', sans-serif; font-weight: 950; font-size: 1.8rem; color: #fff; margin-bottom: 0.5rem;">Admin Authorization</h2>
       <p style="font-size: 0.85rem; color: #8b88a8; margin-bottom: 2rem; line-height: 1.6;">Please enter the secure admin passcode to access the PrepFast platform management portal.</p>
       
@@ -516,7 +516,7 @@
     <!-- HEADER -->
     <header class="admin-header">
       <div class="brand">
-        <div class="logo-icon">🛡️</div>
+        <div class="logo-icon"><i data-lucide="shield"></i></div>
         <div>
           <h1 class="logo-text">PrepFast Admin</h1>
           <p style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Platform Management Portal</p>
@@ -558,9 +558,9 @@
       <div>
         <div class="admin-card">
           <div class="card-title-wrap">
-            <h2 class="card-title">📚 Question Bank Manager</h2>
+            <h2 class="card-title"><i data-lucide="book"></i> Question Bank Manager</h2>
             <div style="display:flex; gap: 8px; align-items: center;">
-              <button class="btn btn-secondary" onclick="triggerBulkImport()" style="padding:6px 12px;font-size:0.75rem;">📁 Bulk Import JSON</button>
+              <button class="btn btn-secondary" onclick="triggerBulkImport()" style="padding:6px 12px;font-size:0.75rem;"> Bulk Import JSON</button>
               <button class="btn btn-secondary" onclick="resetQuestionsDefault()" id="btn-reset-q" style="display:none;padding:6px 12px;font-size:0.75rem;">Reset Default Question Bank</button>
             </div>
             <input type="file" id="bulk-import-file" accept=".json" style="display:none;" onchange="handleBulkImport(event)">
@@ -603,7 +603,7 @@
         <!-- User & Role Management Panel -->
         <div class="admin-card">
           <div class="card-title-wrap">
-            <h2 class="card-title">👥 User & Role Management</h2>
+            <h2 class="card-title"> User & Role Management</h2>
             <button class="btn btn-danger" onclick="confirmDeleteAllStudents()" style="padding:6px 12px;font-size:0.75rem;">Clear Local Students List</button>
           </div>
 
@@ -727,7 +727,7 @@
               <textarea id="new-q-mistakes" class="form-input" placeholder="E.g., Students often forget to change the sign when moving across the equal sign."></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.5rem;justify-content:center;">🚀 Save Question to Bank</button>
+            <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.5rem;justify-content:center;"><i data-lucide="rocket"></i> Save Question to Bank</button>
           </form>
         </div>
       </div>

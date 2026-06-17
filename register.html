@@ -404,23 +404,23 @@
 
       <div class="feature-list">
         <div class="feat-item">
-          <div class="feat-check">✓</div>
+          <div class="feat-check"></div>
           <div class="feat-text"><b>5,000+ real past questions</b> from WAEC, NECO & JAMB (2010–2025)</div>
         </div>
         <div class="feat-item">
-          <div class="feat-check">✓</div>
+          <div class="feat-check"></div>
           <div class="feat-text"><b>Timed CBT mock exams</b> — exact replica of digital exam conditions</div>
         </div>
         <div class="feat-item">
-          <div class="feat-check">✓</div>
+          <div class="feat-check"></div>
           <div class="feat-text"><b>Weakness detection</b> — your red topics get automatically drilled daily</div>
         </div>
         <div class="feat-item">
-          <div class="feat-check">✓</div>
+          <div class="feat-check"></div>
           <div class="feat-text"><b>Offline access</b> — no internet needed after download</div>
         </div>
         <div class="feat-item">
-          <div class="feat-check">✓</div>
+          <div class="feat-check"></div>
           <div class="feat-text"><b>Free forever</b> — 20 practice questions daily at zero cost</div>
         </div>
       </div>
@@ -436,7 +436,7 @@
       </div>
       <div>
         <div class="proof-text"><b>100,000+ students</b> already practicing</div>
-        <span class="stars-sm">★★★★★ 4.9/5 · 89% improved WAEC scores</span>
+        <span class="stars-sm"> 4.9/5 · 89% improved WAEC scores</span>
       </div>
     </div>
   </div>
@@ -631,7 +631,7 @@
         <p>Your account is ready, <span id="success-first-name" style="color:#fff;font-weight:700"></span>! Time to crush those past questions and get your A1.</p>
 
         <div id="pending-link-warning" style="display:none; margin: 1.5rem 0; padding: 1rem; border-radius: 12px; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.3); color: #fcd34d; font-size: 0.82rem; line-height: 1.5; text-align: left;">
-          ⚠️ We couldn't find this student ID — your account is created but linking is pending. Contact your child's school.
+           We couldn't find this student ID — your account is created but linking is pending. Contact your child's school.
         </div>
 
         <div class="progress-wave"></div>
@@ -823,8 +823,8 @@
       const node = document.getElementById(`sn${i}`);
       if (i < n) {
         node.className = 'step-node done';
-        node.firstChild.textContent = '✓'; // text node
-        node.textContent = '✓';
+        node.firstChild.textContent = ''; // text node
+        node.textContent = '';
         const label = document.createElement('span');
         label.className = 'step-label';
         label.textContent = ['Details','Verify','Subjects'][i-1];

@@ -1,4 +1,4 @@
-// ExamEdge Question Bank ? 5712 questions total
+// PrepFast Question Bank - 338 verified questions
 
 const EXAMEDGE_QUESTIONS = [
   {
@@ -3092,30 +3092,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-863",
-    "subject": "Mathematics",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2016,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "OGIVE is constructed using",
-    "options": {
-      "A": "Third quartile range",
-      "B": "Semi-quartile range",
-      "C": "Cummulative frequency table",
-      "D": "Inter-quartile table"
-    },
-    "answer": "C",
-    "explanation": "The correct answer is option C.",
-    "difficulty": "medium",
-    "tags": [
-      "mathematics",
-      "jamb",
-      "2016"
-    ]
-  },
-  {
     "id": "aloc-1102",
     "subject": "Mathematics",
     "topic": "General",
@@ -3212,30 +3188,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-245",
-    "subject": "Mathematics",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2003,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Evaluate ∫<sup>2</sup>\n<sub>3</sub>(x2−2x)dx",
-    "options": {
-      "A": "4",
-      "B": "2",
-      "C": "4/3",
-      "D": "1/3"
-    },
-    "answer": "C",
-    "explanation": "The correct answer is option C.",
-    "difficulty": "medium",
-    "tags": [
-      "mathematics",
-      "jamb",
-      "2003"
-    ]
-  },
-  {
     "id": "aloc-1021",
     "subject": "Mathematics",
     "topic": "General",
@@ -3260,30 +3212,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-526",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2010,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "The footballers moved with their tails between their legs.",
-    "options": {
-      "A": "They moved happily because they won the match",
-      "B": "They were unhappy because they had been despised  by their opponents.",
-      "C": "They were ashamed because they had been defeated",
-      "D": "they moved with their tails between their legs."
-    },
-    "answer": "C",
-    "explanation": "The correct answer is option C.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2010"
-    ]
-  },
-  {
     "id": "aloc-1331",
     "subject": "English Language",
     "topic": "General",
@@ -3305,30 +3233,6 @@ const EXAMEDGE_QUESTIONS = [
       "english language",
       "jamb",
       "2020"
-    ]
-  },
-  {
-    "id": "aloc-655",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2001,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "<u>Ch</u>urch?",
-    "options": {
-      "A": "feature",
-      "B": "chauffeur",
-      "C": "ocean",
-      "D": "machine"
-    },
-    "answer": "A",
-    "explanation": "The correct answer is option A.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2001"
     ]
   },
   {
@@ -3401,30 +3305,6 @@ const EXAMEDGE_QUESTIONS = [
       "english language",
       "jamb",
       "2020"
-    ]
-  },
-  {
-    "id": "aloc-624",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2001,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "",
-    "options": {
-      "A": "toil",
-      "B": "rejoice",
-      "C": "enjoy",
-      "D": "log"
-    },
-    "answer": "D",
-    "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2001"
     ]
   },
   {
@@ -3548,30 +3428,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-426",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2008,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "You must practise in order to................perfection.",
-    "options": {
-      "A": "obtain",
-      "B": "have",
-      "C": "get",
-      "D": "achieve"
-    },
-    "answer": "D",
-    "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2008"
-    ]
-  },
-  {
     "id": "aloc-1061",
     "subject": "English Language",
     "topic": "General",
@@ -3617,54 +3473,6 @@ const EXAMEDGE_QUESTIONS = [
       "english language",
       "jamb",
       "2010"
-    ]
-  },
-  {
-    "id": "aloc-670",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2001,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Some equatorial areas have a <u>sultry</u> climate?",
-    "options": {
-      "A": "a hot",
-      "B": "an inclement",
-      "C": "a temperate",
-      "D": "a stable"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2001"
-    ]
-  },
-  {
-    "id": "aloc-369",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2007,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "There's a door at either end of the building.",
-    "options": {
-      "A": "The building has two ends and two doors.",
-      "B": "The building has two ends, but only one doc'",
-      "C": "The building has two ends, but I do not know which of the two has a door.",
-      "D": "The building has many ends each with a door."
-    },
-    "answer": "A",
-    "explanation": "The correct answer is option A.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2007"
     ]
   },
   {
@@ -3836,30 +3644,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-38",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2003,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "An argument against Lamarck’s theory of evolution is that",
-    "options": {
-      "A": "disuse of  body part cannot weaken the part",
-      "B": "disused part is dropped off in the offspring",
-      "C": "acquired traits cannot be passed onto the offspring",
-      "D": "traits cannot be acquired through constant use of body parts"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2003"
-    ]
-  },
-  {
     "id": "aloc-2",
     "subject": "Biology",
     "topic": "General",
@@ -3881,30 +3665,6 @@ const EXAMEDGE_QUESTIONS = [
       "biology",
       "jamb",
       "2003"
-    ]
-  },
-  {
-    "id": "aloc-376",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2012,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Which of the following is true in blood transfusion?",
-    "options": {
-      "A": "a person of blood group AB can donate blood only to another person of blood group AB",
-      "B": "Persons of blood groups A and B can donate or receive blood from each other",
-      "C": "A person of blood group AB can receive blood only from persons of blood group A or B",
-      "D": "A person of blood group O can donate only to a person of blood group O."
-    },
-    "answer": "A",
-    "explanation": "The correct answer is option A.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2012"
     ]
   },
   {
@@ -4017,30 +3777,6 @@ const EXAMEDGE_QUESTIONS = [
       "B": "19oC",
       "C": "24oC",
       "D": "33oC"
-    },
-    "answer": "A",
-    "explanation": "The correct answer is option A.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2005"
-    ]
-  },
-  {
-    "id": "aloc-96",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2005,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "The function of the fluid filled pericardium is to",
-    "options": {
-      "A": "reduce the friction caused by the pumping movements of the heart",
-      "B": "supply the heart with oxygen and nutrients",
-      "C": "prevent disease organisms from attacking the heart",
-      "D": "reduce the  intensity of the pumping action of the heart"
     },
     "answer": "A",
     "explanation": "The correct answer is option A.",
@@ -4316,54 +4052,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-192",
-    "subject": "Chemistry",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2005,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Sugar is separated from its impurities by",
-    "options": {
-      "A": "Distillation",
-      "B": "Evaporation",
-      "C": "Precipitation",
-      "D": "Crystallization"
-    },
-    "answer": "D",
-    "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
-    "tags": [
-      "chemistry",
-      "jamb",
-      "2005"
-    ]
-  },
-  {
-    "id": "aloc-143",
-    "subject": "Chemistry",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2004,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "ZnO(s) + CO (g) → Zn(s) + CO2 (g).",
-    "options": {
-      "A": "Decomposed",
-      "B": "Displaced",
-      "C": "Oxidized",
-      "D": "Reduced"
-    },
-    "answer": "D",
-    "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
-    "tags": [
-      "chemistry",
-      "jamb",
-      "2004"
-    ]
-  },
-  {
     "id": "aloc-294",
     "subject": "Chemistry",
     "topic": "General",
@@ -4505,30 +4193,6 @@ const EXAMEDGE_QUESTIONS = [
       "chemistry",
       "jamb",
       "2015"
-    ]
-  },
-  {
-    "id": "aloc-232",
-    "subject": "Chemistry",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2006,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "The element with the electron configuration 1s22s22p3 is",
-    "options": {
-      "A": "Oxygen",
-      "B": "Chlorine",
-      "C": "Nitrogen",
-      "D": "Calcium"
-    },
-    "answer": "C",
-    "explanation": "The correct answer is option C.",
-    "difficulty": "medium",
-    "tags": [
-      "chemistry",
-      "jamb",
-      "2006"
     ]
   },
   {
@@ -5396,30 +5060,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-32",
-    "subject": "Mathematics",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2008,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Factorize 16(3x +2y)2 -25(a+2b)2",
-    "options": {
-      "A": "(12x + 8y -5a-10b)(12x+8y-5a-10b)",
-      "B": "20(3x +2y-a-2b)(3x+2y+a+1-2b)",
-      "C": "(12x +8y+5a+10b)(12x +8y-5a-10b)",
-      "D": "20(3x +2y+ a+2b)(3x + 2y+a+2b)"
-    },
-    "answer": "A",
-    "explanation": "The correct answer is option A.",
-    "difficulty": "medium",
-    "tags": [
-      "mathematics",
-      "jamb",
-      "2008"
-    ]
-  },
-  {
     "id": "aloc-179",
     "subject": "Mathematics",
     "topic": "General",
@@ -6116,30 +5756,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-44",
-    "subject": "Mathematics",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2008,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "With replacement",
-    "options": {
-      "A": "0.9,",
-      "B": "1,",
-      "C": "0.4,",
-      "D": "0.49"
-    },
-    "answer": "D",
-    "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
-    "tags": [
-      "mathematics",
-      "jamb",
-      "2008"
-    ]
-  },
-  {
     "id": "aloc-542",
     "subject": "Mathematics",
     "topic": "General",
@@ -6159,54 +5775,6 @@ const EXAMEDGE_QUESTIONS = [
     "difficulty": "medium",
     "tags": [
       "mathematics",
-      "jamb",
-      "2009"
-    ]
-  },
-  {
-    "id": "aloc-459",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2009,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "The boy is <i>indolent</i> to do well at school?",
-    "options": {
-      "A": "intelligent",
-      "B": "industrious",
-      "C": "inactive",
-      "D": "stothful."
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2009"
-    ]
-  },
-  {
-    "id": "aloc-519",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2009,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "I AM called Uche a pilot.",
-    "options": {
-      "A": "What did Lam call Uche",
-      "B": "Did Okoro call Uche a pilot?",
-      "C": "Did I am Uche a driver?",
-      "D": "Did Lam wish Uche to be a pilot?"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
       "jamb",
       "2009"
     ]
@@ -6260,30 +5828,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-404",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2008,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Scientists have <i>invented</i> ways of preserving fruits much longer",
-    "options": {
-      "A": "coined",
-      "B": "devised",
-      "C": "arranged",
-      "D": "organized"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2008"
-    ]
-  },
-  {
     "id": "aloc-1135",
     "subject": "English Language",
     "topic": "General",
@@ -6329,30 +5873,6 @@ const EXAMEDGE_QUESTIONS = [
       "english language",
       "jamb",
       "2012"
-    ]
-  },
-  {
-    "id": "aloc-267",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2006,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "The government has announced its <i>preparedness for</i> the scheme",
-    "options": {
-      "A": "determination",
-      "B": "regret",
-      "C": "pleasure",
-      "D": "readiness"
-    },
-    "answer": "D",
-    "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2006"
     ]
   },
   {
@@ -6500,54 +6020,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-866",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2002,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "They are considered to be legal <u>luminaries</u>",
-    "options": {
-      "A": "directors",
-      "B": "power",
-      "C": "experts",
-      "D": "practioners"
-    },
-    "answer": "C",
-    "explanation": "The correct answer is option C.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2002"
-    ]
-  },
-  {
-    "id": "aloc-22",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2003,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Be careful not to…………….  this money",
-    "options": {
-      "A": "loose",
-      "B": "loss",
-      "C": "lost",
-      "D": "loss"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2003"
-    ]
-  },
-  {
     "id": "aloc-1083",
     "subject": "English Language",
     "topic": "General",
@@ -6593,30 +6065,6 @@ const EXAMEDGE_QUESTIONS = [
       "english language",
       "jamb",
       "2021"
-    ]
-  },
-  {
-    "id": "aloc-594",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2010,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "EMEKA finished his home work yesterday",
-    "options": {
-      "A": "Was Emeka helped to do his home work?",
-      "B": "Did Emeka do his home work yesterday?",
-      "C": "When did Emeka finish his home work?",
-      "D": "Who finished his home work yesterday"
-    },
-    "answer": "D",
-    "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2010"
     ]
   },
   {
@@ -6884,30 +6332,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-274",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2006,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "77. The recommended novel has a <i>convoluted</i> theme",
-    "options": {
-      "A": "a simple",
-      "B": "an attractive",
-      "C": "a disgusting",
-      "D": "a complicated"
-    },
-    "answer": "D",
-    "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2006"
-    ]
-  },
-  {
     "id": "aloc-159",
     "subject": "English Language",
     "topic": "General",
@@ -7001,54 +6425,6 @@ const EXAMEDGE_QUESTIONS = [
       "english language",
       "jamb",
       "2020"
-    ]
-  },
-  {
-    "id": "aloc-240",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2006,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Despite all preparations, the wedding did not …..",
-    "options": {
-      "A": "come along",
-      "B": "come by",
-      "C": "come on",
-      "D": "come off"
-    },
-    "answer": "D",
-    "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2006"
-    ]
-  },
-  {
-    "id": "aloc-271",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2006,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "His loss suddenly became <i>redeemable</i>",
-    "options": {
-      "A": "Incurable",
-      "B": "exclusive",
-      "C": "recoverable",
-      "D": "repulsive"
-    },
-    "answer": "C",
-    "explanation": "The correct answer is option C.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2006"
     ]
   },
   {
@@ -7196,30 +6572,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-332",
-    "subject": "English Language",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2007,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Do not be <i>discouraged</i> by failure in life.",
-    "options": {
-      "A": "overjoyed",
-      "B": "dissuaded",
-      "C": "actuated",
-      "D": "disoriented."
-    },
-    "answer": "C",
-    "explanation": "The correct answer is option C.",
-    "difficulty": "medium",
-    "tags": [
-      "english language",
-      "jamb",
-      "2007"
-    ]
-  },
-  {
     "id": "aloc-1736",
     "subject": "English Language",
     "topic": "General",
@@ -7337,78 +6689,6 @@ const EXAMEDGE_QUESTIONS = [
       "biology",
       "jamb",
       "2011"
-    ]
-  },
-  {
-    "id": "aloc-167",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2007,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Pineapple is an example of",
-    "options": {
-      "A": "a composite fruit",
-      "B": "a simple fruit",
-      "C": "an aggregate fruit",
-      "D": "a dehiscent fruit"
-    },
-    "answer": "A",
-    "explanation": "The correct answer is option A.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2007"
-    ]
-  },
-  {
-    "id": "aloc-76",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2004,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Identical twins inherit their genes from",
-    "options": {
-      "A": "Different eggs and sperms",
-      "B": "The same egg and sperm",
-      "C": "two egg and a sperm",
-      "D": "one egg and two sperms"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2004"
-    ]
-  },
-  {
-    "id": "aloc-45",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2004,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "A plant like feature I Euglena is the",
-    "options": {
-      "A": "Pellicle",
-      "B": "pigment sport",
-      "C": "large vacuole",
-      "D": "gullet"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2004"
     ]
   },
   {
@@ -7652,30 +6932,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-224",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2009,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "A characteristic exhibited by all living organism is",
-    "options": {
-      "A": "sexual reproduction",
-      "B": "aerobic respiration",
-      "C": "the ability to move from one place to another",
-      "D": "the ability to remove unwanted substances."
-    },
-    "answer": "D",
-    "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2009"
-    ]
-  },
-  {
     "id": "aloc-377",
     "subject": "Biology",
     "topic": "General",
@@ -7745,54 +7001,6 @@ const EXAMEDGE_QUESTIONS = [
       "biology",
       "jamb",
       "2011"
-    ]
-  },
-  {
-    "id": "aloc-139",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2006,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Which of following produces both hormones and enzymes?",
-    "options": {
-      "A": "Gall blader",
-      "B": "Lieum",
-      "C": "Pancreas",
-      "D": "kidney"
-    },
-    "answer": "C",
-    "explanation": "The correct answer is option C.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2006"
-    ]
-  },
-  {
-    "id": "aloc-24",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2003,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "One example of fossil fuel is",
-    "options": {
-      "A": "limestone",
-      "B": "coral",
-      "C": "coal",
-      "D": "firewood"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2003"
     ]
   },
   {
@@ -7889,30 +7097,6 @@ const EXAMEDGE_QUESTIONS = [
       "biology",
       "jamb",
       "2008"
-    ]
-  },
-  {
-    "id": "aloc-97",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2005,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "The mammalian lung is made air light by the",
-    "options": {
-      "A": "pleural cavity",
-      "B": "mucous membrane",
-      "C": "pleural membrane",
-      "D": "diaphragm"
-    },
-    "answer": "A",
-    "explanation": "The correct answer is option A.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2005"
     ]
   },
   {
@@ -8132,54 +7316,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-309",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2011,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Which of the following is true of leucocytes?",
-    "options": {
-      "A": "They are most numerous and ramify all cells",
-      "B": "They are large and nucleated",
-      "C": "They are involved in blood clotting",
-      "D": "They are respiratory pigments"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2011"
-    ]
-  },
-  {
-    "id": "aloc-57",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2004,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "The opening of the stoma is controlled by the",
-    "options": {
-      "A": "presence of a pore",
-      "B": "increase in solute concentration  in the guard cells",
-      "C": "presence of guard cells",
-      "D": "decrease in solute concentration in the guard cells"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2004"
-    ]
-  },
-  {
     "id": "aloc-221",
     "subject": "Biology",
     "topic": "General",
@@ -8201,30 +7337,6 @@ const EXAMEDGE_QUESTIONS = [
       "biology",
       "jamb",
       "2008"
-    ]
-  },
-  {
-    "id": "aloc-19",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2003,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "An example of a caryopsis is",
-    "options": {
-      "A": "guava",
-      "B": "maize grain",
-      "C": "coconut",
-      "D": "tomato"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2003"
     ]
   },
   {
@@ -8348,30 +7460,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-229",
-    "subject": "Biology",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2009,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "A blue-green alga is not a protophytes because",
-    "options": {
-      "A": "it is aquatic",
-      "B": "its cells are prokaryotic",
-      "C": "it cannot move",
-      "D": "it is not a green plant"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "biology",
-      "jamb",
-      "2009"
-    ]
-  },
-  {
     "id": "aloc-241",
     "subject": "Biology",
     "topic": "General",
@@ -8417,30 +7505,6 @@ const EXAMEDGE_QUESTIONS = [
       "chemistry",
       "jamb",
       "2015"
-    ]
-  },
-  {
-    "id": "aloc-122",
-    "subject": "Chemistry",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2003,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "the principal constituent of natural gas is methane",
-    "options": {
-      "A": "ethane",
-      "B": "propane",
-      "C": "butane",
-      "D": "butane"
-    },
-    "answer": "A",
-    "explanation": "The correct answer is option A.",
-    "difficulty": "medium",
-    "tags": [
-      "chemistry",
-      "jamb",
-      "2003"
     ]
   },
   {
@@ -8588,30 +7652,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-149",
-    "subject": "Chemistry",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2004,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "N2O4(g)    ⇌  2NO2(g)",
-    "options": {
-      "A": "A constant volume",
-      "B": "An increase in pressure",
-      "C": "A decrease in pressure",
-      "D": "A decrease in volume"
-    },
-    "answer": "C",
-    "explanation": "The correct answer is option C.",
-    "difficulty": "medium",
-    "tags": [
-      "chemistry",
-      "jamb",
-      "2004"
-    ]
-  },
-  {
     "id": "aloc-715",
     "subject": "Chemistry",
     "topic": "General",
@@ -8636,30 +7676,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-250",
-    "subject": "Chemistry",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2006,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Dynamic equilibrium describes a situation where",
-    "options": {
-      "A": "A reaction gives back the reactants",
-      "B": "Reactants are converted to products",
-      "C": "The concentration of reactants and products is equal",
-      "D": "Both forward and reverse reaction proceed at the same rate"
-    },
-    "answer": "D",
-    "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
-    "tags": [
-      "chemistry",
-      "jamb",
-      "2006"
-    ]
-  },
-  {
     "id": "aloc-345",
     "subject": "Chemistry",
     "topic": "General",
@@ -8681,30 +7697,6 @@ const EXAMEDGE_QUESTIONS = [
       "chemistry",
       "jamb",
       "2015"
-    ]
-  },
-  {
-    "id": "aloc-27",
-    "subject": "Chemistry",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2001,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "As the concentration of an electrolyte reduces, the conductivity",
-    "options": {
-      "A": "Reduces to zero",
-      "B": "Decreases",
-      "C": "Increases",
-      "D": "Is unaffected"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "chemistry",
-      "jamb",
-      "2001"
     ]
   },
   {
@@ -8876,30 +7868,6 @@ const EXAMEDGE_QUESTIONS = [
     ]
   },
   {
-    "id": "aloc-162",
-    "subject": "Chemistry",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2004,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "An isomer of C5H12 is",
-    "options": {
-      "A": "Butane",
-      "B": "2-methylbutane",
-      "C": "2-methylprpane",
-      "D": "2-ethylbutane"
-    },
-    "answer": "B",
-    "explanation": "The correct answer is option B.",
-    "difficulty": "medium",
-    "tags": [
-      "chemistry",
-      "jamb",
-      "2004"
-    ]
-  },
-  {
     "id": "aloc-687",
     "subject": "Chemistry",
     "topic": "General",
@@ -8969,30 +7937,6 @@ const EXAMEDGE_QUESTIONS = [
       "chemistry",
       "jamb",
       "2001"
-    ]
-  },
-  {
-    "id": "aloc-50",
-    "subject": "Chemistry",
-    "topic": "General",
-    "subtopic": "",
-    "year": 2002,
-    "exam_body": "JAMB",
-    "type": "MCQ",
-    "question": "Steam changes the colour of anhydrous cobalt(II) chloride from",
-    "options": {
-      "A": "White to red",
-      "B": "Blue to white",
-      "C": "White to green",
-      "D": "Blue to pink"
-    },
-    "answer": "D",
-    "explanation": "The correct answer is option D.",
-    "difficulty": "medium",
-    "tags": [
-      "chemistry",
-      "jamb",
-      "2002"
     ]
   },
   {

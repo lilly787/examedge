@@ -381,7 +381,7 @@
     <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="sidebar-brand">
-        <div class="logo-icon">🏫</div>
+        <div class="logo-icon"><i data-lucide="building"></i></div>
         <div>
           <h2>PrepFast</h2>
           <p>School Portal</p>
@@ -409,9 +409,11 @@
 
       <div class="nav-spacer"></div>
 
-      <a class="nav-link" href="admin.html">
-        <i data-lucide="shield" class="icon-sm"></i> Admin Panel
-      </a>
+      <script>
+        if (typeof hasRole === 'function' && hasRole('admin')) {
+          document.write('<a class="nav-link" href="admin.html"><i data-lucide="shield" class="icon-sm"></i> Admin Panel</a>');
+        }
+      </script>
       <a class="nav-link" href="index.html">
         <i data-lucide="graduation-cap" class="icon-sm"></i> Student View
       </a>
@@ -551,7 +553,7 @@
           <input type="file" id="enrollment-file" accept=".csv,.json" style="display: none;" onchange="handleEnrollmentUpload(event)">
 
           <div id="enrollment-preview" style="display: none; margin-top: 1.5rem;">
-            <h4 style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.75rem;">📋 Preview (<span id="enrollment-count">0</span> students)</h4>
+            <h4 style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.75rem;"><i data-lucide="clipboard-list"></i> Preview (<span id="enrollment-count">0</span> students)</h4>
             <div style="max-height: 300px; overflow-y: auto; border-radius: 12px; border: 1px solid var(--border);">
               <table class="data-table" id="enrollment-preview-table">
                 <thead>
@@ -1081,7 +1083,7 @@
           document.getElementById('questions-upload-result').style.display = 'block';
           document.getElementById('questions-upload-result').innerHTML = `
             <div style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); border-radius: 12px; padding: 1rem; color: #a7f3d0; font-size: 0.85rem;">
-              ✅ Successfully imported <strong>${valid.length}</strong> questions! (${arr.length - valid.length} skipped due to missing fields)
+               Successfully imported <strong>${valid.length}</strong> questions! (${arr.length - valid.length} skipped due to missing fields)
             </div>
           `;
 

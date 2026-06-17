@@ -98,9 +98,15 @@
             <i data-lucide="settings" class="ee-icon"></i> Settings & Upgrade
           </button>
 
-          <a href="admin.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 hover:bg-rose-950/20 hover:text-rose-400 border-l-2 border-transparent transition-all">
-            <i data-lucide="shield" class="ee-icon"></i> Admin Panel
-          </a>
+          <script>
+            if (typeof hasRole === 'function' && hasRole('admin')) {
+              document.write('<a href="admin.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 hover:bg-rose-950/20 hover:text-rose-400 border-l-2 border-transparent transition-all"><i data-lucide="shield" class="ee-icon"></i> Admin Panel</a>');
+            }
+          </script>
+          
+          <button onclick="handleLogout ? handleLogout() : (typeof triggerAppLogout === 'function' ? triggerAppLogout() : ExamEdgeDB.logout())" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-rose-950/20 text-rose-400 hover:text-rose-300 w-full text-left mt-2 border-t border-indigo-900/30 pt-4">
+            <i data-lucide="log-out" class="ee-icon"></i> Logout
+          </button>
         </nav>
       </div>
 
