@@ -1,7 +1,7 @@
 const express = require("express");
 const { query } = require("../db/pool");
 const { authRequired, requireRole } = require("../middleware/auth");
-const { tutorReply, buildFallbackPlan } = require("../services/claude");
+const { tutorReply, generateStudyPlan, buildFallbackPlan } = require("../services/claude");
 const { getWeaknessMap } = require("../services/analytics");
 
 const router = express.Router();
@@ -49,7 +49,21 @@ router.post("/study-plan", authRequired, async (req, res) => {
     }
 
     const subjectList = Array.isArray(subjects) ? subjects : [];
-    const plan = buildFallbackPlan(exam_date, subjectList, hours_per_day);
+    
+    // Attempt Claude generation first
+    let generated;
+    try {
+      generated = await generateStudyPlan({ 
+        examDate: exam_date, 
+        subjects: subjectList, 
+        weaknessMap: req.user.weakness_map || {}, 
+        hoursPerDay: hours_per_day 
+      });
+    } catch (err) {
+      console.error("[study-plan] Claude failed:", err.message);
+      generated = { plan: buildFallbackPlan(exam_date, subjectList, hours_per_day), simulated: true };
+    }
+    const plan = generated.plan;
 
     let planId = null;
     if (req.user.role === "student") {

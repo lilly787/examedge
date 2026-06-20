@@ -43,10 +43,22 @@ document.addEventListener("DOMContentLoaded", () => {
   ExamEdgeDB.init();
   CURRENT_USER = ExamEdgeDB.getUser();
 
-  // Route initial page
+  // Role-aware initial routing
   if (!CURRENT_USER) {
     navigate("auth");
   } else {
+    const role = CURRENT_USER.role || "student";
+    const rolePortals = {
+      school:  "school.html",
+      teacher: "teacher.html",
+      parent:  "parent.html",
+      admin:   "admin.html",
+    };
+    if (rolePortals[role]) {
+      // Non-student roles don't belong in the student PWA — redirect them
+      window.location.replace(rolePortals[role]);
+      return;
+    }
     navigate("dashboard");
   }
 
@@ -71,6 +83,21 @@ function navigate(viewName) {
   if (!CURRENT_USER && viewName !== "auth") {
     navigate("auth");
     return;
+  }
+
+  // Role guard — redirect non-student roles to their own portals
+  if (CURRENT_USER && viewName !== "auth") {
+    const role = CURRENT_USER.role || "student";
+    const rolePortals = {
+      school:  "school.html",
+      teacher: "teacher.html",
+      parent:  "parent.html",
+      admin:   "admin.html",
+    };
+    if (rolePortals[role]) {
+      window.location.replace(rolePortals[role]);
+      return;
+    }
   }
 
   // Toggle body auth class to hide navigation menus
@@ -116,9 +143,8 @@ function navigate(viewName) {
       renderSettingsView();
       break;
     case "wellbeing":
-      // Redirect to practice and expand wellbeing inline widget
-      navigate("practice");
-      setTimeout(() => toggleInlineWellbeing(true), 100);
+      renderWellbeingView();
+      if (typeof refreshIcons === "function") refreshIcons();
       break;
     case "study-planner":
       if (typeof renderStudyPlannerView === "function") renderStudyPlannerView();
@@ -246,7 +272,7 @@ function verifyOTPCode() {
 
   // Save session
   const user = ExamEdgeDB.login("+234" + phone, name);
-  
+
   // Save user to prepfast_user
   const userObj = {
     id: user.id || 'u-' + Date.now(),
@@ -259,7 +285,7 @@ function verifyOTPCode() {
   localStorage.setItem('prepfast_user', JSON.stringify(userObj));
 
   showToast(`Welcome back, ${user.name}!`, "success");
-  
+
   // Redirect based on role
   const map = {
     student: 'index.html',
@@ -282,7 +308,7 @@ function renderDashboardView() {
 
   const xp = ExamEdgeDB.getXP();
   const limitInfo = ExamEdgeDB.getDailyLimitInfo();
-  
+
   // Get initial values from local storage
   const readiness = ExamEdgeDB.getExamReadinessScore(ExamEdgeDB.getQuestions());
   const weakness = ExamEdgeDB.getWeaknessMap(ExamEdgeDB.getQuestions());
@@ -321,6 +347,87 @@ function renderDashboardView() {
       }
     });
   }
+}
+
+function renderDailyLimitCard(user, questionsToday) {
+  const isPremium = user.subscription_tier === 'premium';
+
+  if (isPremium) {
+    return `
+      <div class="glass-panel p-6 rounded-2xl border border-indigo-500/10 flex flex-col justify-between">
+        <div style="display:flex; justify-content:space-between; 
+                    align-items:center; margin-bottom:12px;">
+          <span style="color:#A78BFA; font-size:13px; 
+                       font-weight:700; letter-spacing:1px;">
+            DAILY PRACTICE
+          </span>
+          <span style="background:rgba(245,158,11,0.15); 
+                       color:#F59E0B; padding:4px 12px; 
+                       border-radius:20px; font-size:12px; 
+                       font-weight:700;">
+            PREMIUM
+          </span>
+        </div>
+        <div style="font-size:28px; font-weight:700; 
+                    color:#fff; margin-bottom:6px;">
+          Unlimited Questions
+        </div>
+        <div style="color:#9CA3AF; font-size:14px;">
+          ${questionsToday} answered today — keep going, 
+          no limit.
+        </div>
+        <div style="display:flex; align-items:center; 
+                    gap:8px; margin-top:16px; 
+                    color:#10B981; font-size:13px; 
+                    font-weight:600;">
+          <i data-lucide="badge-check" 
+             style="width:16px;height:16px;"></i>
+          Premium Member
+        </div>
+      </div>
+    `;
+  }
+
+  // FREE TIER — existing behavior, unchanged
+  const remaining = 20 - questionsToday;
+  const percent = Math.min((questionsToday / 20) * 100, 100);
+  return `
+    <div class="glass-panel p-6 rounded-2xl border border-indigo-500/10 flex flex-col justify-between">
+      <div>
+        <div style="display:flex; justify-content:space-between; 
+                    align-items:center; margin-bottom:12px;">
+          <span style="color:#A78BFA; font-size:13px; 
+                       font-weight:700; letter-spacing:1px;">
+            DAILY LIMIT
+          </span>
+          <span style="background:rgba(156,163,175,0.15); 
+                       color:#9CA3AF; padding:4px 12px; 
+                       border-radius:20px; font-size:12px; 
+                       font-weight:700;">
+            FREE
+          </span>
+        </div>
+        <div style="font-size:28px; font-weight:700; 
+                    color:#fff; margin-bottom:12px;">
+          ${questionsToday} / 20 Qs
+        </div>
+        <div style="background:#1F2937; border-radius:8px; 
+                    height:6px; overflow:hidden; 
+                    margin-bottom:16px;">
+          <div style="background:linear-gradient(90deg,#A78BFA,#6B21A8); 
+                      height:100%; width:${percent}%;"></div>
+        </div>
+      </div>
+      <button onclick="openPaystackSim()"
+              style="width:100%; padding:10px; 
+                     border:1px dashed #F59E0B; 
+                     border-radius:8px; background:transparent; 
+                     color:#F59E0B; font-weight:600; 
+                     font-size:13px; cursor:pointer;">
+        Go Premium for Unlimited Practice
+      </button>
+    </div>
+  `;
 }
 
 function renderDashboardHTML(user, xp, limitInfo, readiness, weakness) {
@@ -447,28 +554,7 @@ function renderDashboardHTML(user, xp, limitInfo, readiness, weakness) {
       </div>
 
       <!-- Practice Limit Cards (Tier Gate) -->
-      <div class="glass-panel p-6 rounded-2xl border border-indigo-500/10 flex flex-col justify-between">
-        <div>
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-semibold text-indigo-400 uppercase tracking-widest">Daily Limit</span>
-            <span class="text-xs font-bold px-2 py-0.5 rounded-full ${user.subscription_tier === 'premium' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' : 'bg-gray-500/20 text-gray-400'}">
-              ${user.subscription_tier.toUpperCase()}
-            </span>
-          </div>
-          <h3 class="text-2xl font-bold text-white mt-1">${limitInfo.count} / ${limitInfo.limit} Qs</h3>
-          
-          <div class="w-full bg-indigo-950/60 rounded-full h-2 mt-3 overflow-hidden">
-            <div class="h-full bg-gradient-to-r from-indigo-500 to-purple-500" style="width: ${Math.min((limitInfo.count / limitInfo.limit) * 100, 100)}%"></div>
-          </div>
-        </div>
-
-        <div class="mt-4">
-          ${user.subscription_tier === 'free' 
-            ? `<button onclick="openPaystackSim()" class="w-full text-center text-xs font-bold text-amber-400 hover:text-amber-300 py-1 border border-dashed border-amber-500/30 hover:border-amber-500 rounded-lg transition-all"> Go Premium for Unlimited Practice</button>`
-            : `<span class="text-xs text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="check-circle" style="width:13px;height:13px"></i> Unlimited Practice Active</span>`
-          }
-        </div>
-      </div>
+      ${renderDailyLimitCard(user, limitInfo.count)}
 
     </div>
 
@@ -545,7 +631,7 @@ function updateCountdownTimerText() {
 
   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  
+
   elem.innerText = `${days}d ${hours}h left`;
 }
 
@@ -571,10 +657,10 @@ function startClockCountdowns() {
 function startFocusPractice(subject, topic) {
   PRACTICE_SESSION.subject = subject;
   PRACTICE_SESSION.mode = "study";
-  
+
   // Filter questions by subject and topic
   PRACTICE_SESSION.questions = ExamEdgeDB.getQuestions().filter(q => q.subject === subject && q.topic === topic);
-  
+
   if (PRACTICE_SESSION.questions.length === 0) {
     showToast("No questions available for this specific topic yet!", "error");
     return;
@@ -783,7 +869,7 @@ async function startActivePracticeFlow() {
   if (PRACTICE_SESSION.mode === "mock") {
     // 10 minutes (600 seconds) for mock exam
     PRACTICE_SESSION.timeRemainingSeconds = 600;
-    
+
     // Clear old interval
     if (PRACTICE_SESSION.timerInterval) clearInterval(PRACTICE_SESSION.timerInterval);
 
@@ -940,8 +1026,8 @@ function renderPracticeInterface() {
 
     if (isSelected) {
       if (mode === "study") {
-        optStyle = key === correctKey 
-          ? "bg-emerald-950/30 border-emerald-500/60 text-emerald-200" 
+        optStyle = key === correctKey
+          ? "bg-emerald-950/30 border-emerald-500/60 text-emerald-200"
           : "bg-rose-950/30 border-rose-500/60 text-rose-200";
       } else {
         optStyle = "bg-indigo-500/20 border-indigo-500 text-indigo-200";
@@ -990,10 +1076,10 @@ function renderPracticeInterface() {
           ← Back
         </button>
 
-        ${isLast 
-          ? `<button onclick="finishStudySession()" class="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-slate-950 font-bold rounded-xl text-xs shadow-lg transition-all">Finish Session</button>`
-          : `<button onclick="nextQuestion()" ${!hasAnswered ? 'disabled' : ''} class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs disabled:opacity-40 disabled:pointer-events-none shadow-lg transition-all">Next Question →</button>`
-        }
+        ${isLast
+        ? `<button onclick="finishStudySession()" class="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-slate-950 font-bold rounded-xl text-xs shadow-lg transition-all">Finish Session</button>`
+        : `<button onclick="nextQuestion()" ${!hasAnswered ? 'disabled' : ''} class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs disabled:opacity-40 disabled:pointer-events-none shadow-lg transition-all">Next Question →</button>`
+      }
       </div>
     `;
   }
@@ -1037,9 +1123,9 @@ function renderPracticeInterface() {
 
       <!-- CBT Sidebar grid -->
       <div class="lg:col-span-1">
-        ${mode === 'mock' 
-          ? sideGridHtml 
-          : `
+        ${mode === 'mock'
+      ? sideGridHtml
+      : `
             <div class="glass-panel p-6 rounded-2xl border border-indigo-500/10 text-center relative" id="inline-wellbeing-widget">
               <i data-lucide="leaf" class="w-8 h-8 mx-auto text-emerald-400 mb-3 block"></i>
               <h3 class="text-base font-bold text-white mb-2">Feeling anxious?</h3>
@@ -1061,7 +1147,7 @@ function renderPracticeInterface() {
               </button>
             </div>
           `
-        }
+    }
       </div>
 
     </div>
@@ -1088,10 +1174,10 @@ function selectOption(optionKey) {
   if (mode === "study") {
     const correctKey = q._correctDisplayKey || q.answer;
     const isCorrect = optionKey === correctKey;
-    
+
     // Log active progress in DB — pass questionObj for weakness-map update
     const res = ExamEdgeDB.logAttempt(q.id, isCorrect, 10, q);
-    
+
     if (res && res.success === false && res.reason === "limit_reached") {
       PRACTICE_SESSION.dailyLimitTriggered = true;
       openPaystackSim();
@@ -1146,7 +1232,7 @@ function jumpToQuestion(index) {
 async function finishStudySession() {
   const qList = PRACTICE_SESSION.questions;
   const answers = PRACTICE_SESSION.selectedAnswers;
-  
+
   let correctCount = 0;
   qList.forEach((q, index) => {
     const chosen = answers[index];
@@ -1164,7 +1250,7 @@ function confirmSubmitMockExam() {
   const answered = Object.keys(PRACTICE_SESSION.selectedAnswers).length;
   const unanswered = total - answered;
 
-  const msg = unanswered > 0 
+  const msg = unanswered > 0
     ? `You have ${unanswered} unanswered questions remaining. Are you sure you want to submit?`
     : `Are you ready to submit your CBT mock exam?`;
 
@@ -1178,7 +1264,7 @@ async function submitMockExamSession(forced = false) {
 
   const qList = PRACTICE_SESSION.questions;
   const answers = PRACTICE_SESSION.selectedAnswers;
-  
+
   let correctCount = 0;
   let loggedAttempts = 0;
   let limitBlocked = false;
@@ -1220,7 +1306,7 @@ async function submitMockExamSession(forced = false) {
 
 async function renderScorecardScreen(correctCount, total, qList, answers) {
   const percent = Math.round((correctCount / total) * 100);
-  
+
   // Calculate time taken
   let timeTakenText = "N/A";
   if (PRACTICE_SESSION.startTime) {
@@ -1328,7 +1414,7 @@ async function renderScorecardScreen(correctCount, total, qList, answers) {
       : isCorrect
         ? `<span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded text-[10px] font-bold">CORRECT</span>`
         : `<span class="px-2 py-0.5 bg-rose-500/10 text-rose-400 border border-rose-500/20 rounded text-[10px] font-bold">WRONG</span>`;
-    
+
     questionsRowsHtml += `
       <tr class="border-b border-indigo-900/20 hover:bg-indigo-950/10 transition-colors">
         <td class="p-3 font-semibold text-gray-400">${idx + 1}</td>
@@ -1509,12 +1595,12 @@ function toggleInlineWellbeing(expand) {
   const btn = document.getElementById("wb-start-btn");
   const desc = document.getElementById("wb-widget-desc");
   const stage = document.getElementById("inline-breathing-stage-lbl");
-  
+
   if (expand) {
     content.classList.remove("hidden");
     btn.classList.add("hidden");
     desc.classList.add("hidden");
-    
+
     // Start interval
     let count = 0;
     if (window._inlineBreathingInterval) clearInterval(window._inlineBreathingInterval);
@@ -1532,92 +1618,210 @@ function toggleInlineWellbeing(expand) {
   }
 }
 
-// 5. Wellbeing Anxiety Corner with Breathing Exercise
-let breathingGuideState = "Hold";
+// 5. Wellbeing Anxiety Corner
+const moodResponses = {
+  fine: "Great to hear! Keep up the positive momentum. You're doing amazing.",
+  tired: "It is completely okay to feel tired. Take a break, drink some water, and come back when you're ready.",
+  anxious: "Take a deep breath. Exam anxiety is normal, but it doesn't define your ability. Try the breathing exercise below."
+};
+
+function selectMood(mood) {
+  const responseBox = document.getElementById("mood-response-text");
+  if (responseBox) {
+    responseBox.innerText = moodResponses[mood] || "";
+    responseBox.parentElement.classList.remove("hidden");
+  }
+}
+
+const studentStories = [
+  { name: "Chidi", exam: "WAEC 2023", text: "I was so stressed I couldn't sleep. I started doing 5 mins of breathing before studying and my focus doubled!" },
+  { name: "Aisha", exam: "JAMB 2024", text: "I felt like giving up in March. Took a full weekend off to just rest. Came back and scored 290." },
+  { name: "Emeka", exam: "NECO 2022", text: "Don't cram the night before! I watched a movie instead of reading and felt so fresh during the exam." },
+  { name: "Bisi", exam: "WAEC 2024", text: "Used the Pomodoro technique. 25 mins study, 5 mins walk. It completely stopped my brain fog." },
+  { name: "Tolu", exam: "JAMB 2023", text: "I failed my first mock exam. Instead of crying, I reviewed every mistake. Got 310 in the main exam!" },
+  { name: "Favour", exam: "WAEC 2023", text: "Always hydrate! I started keeping a water bottle on my desk, and my afternoon headaches vanished." }
+];
+
+let currentStoryIndex = 0;
+
+function renderStory() {
+  const storyName = document.getElementById("story-name");
+  const storyExam = document.getElementById("story-exam");
+  const storyText = document.getElementById("story-text");
+  const storyInitial = document.getElementById("story-initial");
+
+  if (storyName && studentStories[currentStoryIndex]) {
+    const story = studentStories[currentStoryIndex];
+    storyName.innerText = story.name;
+    storyExam.innerText = story.exam;
+    storyText.innerText = `"${story.text}"`;
+    if (storyInitial) {
+      storyInitial.innerText = story.name.charAt(0);
+    }
+  }
+}
+
+function nextStory() {
+  currentStoryIndex = (currentStoryIndex + 1) % studentStories.length;
+  renderStory();
+}
+
+let breathingCycleInterval = null;
+
+function startBreathing() {
+  const btn = document.getElementById("full-breath-btn");
+  const circle = document.getElementById("full-breathing-circle");
+  const text = document.getElementById("full-breathing-text");
+
+  if (breathingCycleInterval) return; // already running
+
+  btn.disabled = true;
+  btn.innerText = "Exercise in progress...";
+
+  let cycles = 0;
+
+  runBreathingCycle(circle, text);
+  breathingCycleInterval = setInterval(() => {
+    cycles++;
+    if (cycles >= 3) {
+      clearInterval(breathingCycleInterval);
+      breathingCycleInterval = null;
+      btn.disabled = false;
+      btn.innerText = "Start Breathing Exercise";
+      text.innerText = "Ready";
+      circle.style.transform = "scale(1)";
+    } else {
+      runBreathingCycle(circle, text);
+    }
+  }, 12000); // 4s inhale + 4s hold + 4s exhale = 12s per cycle
+}
+
+function runBreathingCycle(circle, text) {
+  // Inhale
+  text.innerText = "Inhale...";
+  circle.style.transition = "transform 4s ease-in-out";
+  circle.style.transform = "scale(1.5)";
+
+  setTimeout(() => {
+    // Hold
+    text.innerText = "Hold...";
+
+    setTimeout(() => {
+      // Exhale
+      text.innerText = "Exhale...";
+      circle.style.transition = "transform 4s ease-in-out";
+      circle.style.transform = "scale(1)";
+    }, 4000);
+
+  }, 4000);
+}
+
 function renderWellbeingView() {
   const container = document.getElementById("view-wellbeing");
   container.innerHTML = `
-    <div class="max-w-2xl mx-auto glass-panel p-8 rounded-2xl border border-indigo-500/10 text-center">
-      <span class="text-4xl mb-3 block"><i data-lucide="leaf"></i></span>
-      <h2 class="text-2xl font-extrabold text-white">Student Wellbeing Corner</h2>
-      <p class="text-gray-400 text-sm mb-8">Exam preparation is a marathon, not a sprint. Take care of your mental peace.</p>
+    <div class="max-w-2xl mx-auto flex flex-col gap-6 pb-12">
+      
+      <!-- Page Header -->
+      <div class="text-center mb-4">
+        <span class="text-4xl mb-3 flex justify-center text-emerald-400"><i data-lucide="heart-pulse" class="w-10 h-10"></i></span>
+        <h2 class="text-3xl font-extrabold text-white">Wellbeing Corner</h2>
+        <p class="text-gray-400 text-sm mt-2">Take a moment. Your mental state matters as much as your study time.</p>
+      </div>
 
-      <!-- Mood selector portal -->
-      <div class="mb-8 p-6 bg-indigo-950/20 border border-indigo-900/40 rounded-2xl text-left">
-        <h3 class="text-sm font-bold text-white mb-2">How are you feeling right now?</h3>
-        <p class="text-xs text-gray-500 mb-4">Choose a mood indicator to check in with yourself.</p>
-        
-        <div class="flex justify-around gap-4">
-          <button onclick="logStudentMood('fine')" class="flex-1 py-3 bg-indigo-950/40 border border-indigo-900 hover:border-emerald-500 rounded-xl flex flex-col items-center gap-1 transition-all">
-            <span class="text-2xl"><i data-lucide="smile"></i></span>
-            <span class="text-xs text-gray-300 font-semibold">Fine & Motivated</span>
+      <!-- Mood Check-In Card -->
+      <div class="glass-panel p-6 rounded-2xl border border-indigo-500/20">
+        <h3 class="text-lg font-bold text-white mb-4">How are you feeling right now?</h3>
+        <div class="grid grid-cols-3 gap-3">
+          <button onclick="selectMood('fine')" class="py-4 bg-indigo-950/40 hover:bg-emerald-900/40 border border-indigo-900/60 hover:border-emerald-500/50 rounded-xl flex flex-col items-center gap-2 transition-all">
+            <i data-lucide="smile" class="text-emerald-400 w-8 h-8"></i>
+            <span class="text-xs text-gray-300 font-semibold text-center">Fine and Motivated</span>
           </button>
           
-          <button onclick="logStudentMood('neutral')" class="flex-1 py-3 bg-indigo-950/40 border border-indigo-900 hover:border-amber-500 rounded-xl flex flex-col items-center gap-1 transition-all">
-            <span class="text-2xl"><i data-lucide="meh"></i></span>
-            <span class="text-xs text-gray-300 font-semibold">Tired / Calm</span>
+          <button onclick="selectMood('tired')" class="py-4 bg-indigo-950/40 hover:bg-amber-900/40 border border-indigo-900/60 hover:border-amber-500/50 rounded-xl flex flex-col items-center gap-2 transition-all">
+            <i data-lucide="meh" class="text-amber-400 w-8 h-8"></i>
+            <span class="text-xs text-gray-300 font-semibold text-center">Tired or Calm</span>
           </button>
 
-          <button onclick="logStudentMood('anxious')" class="flex-1 py-3 bg-indigo-950/40 border border-indigo-900 hover:border-rose-500 rounded-xl flex flex-col items-center gap-1 transition-all">
-            <span class="text-2xl"><i data-lucide="frown"></i></span>
-            <span class="text-xs text-gray-300 font-semibold">Anxious / Stressed</span>
+          <button onclick="selectMood('anxious')" class="py-4 bg-indigo-950/40 hover:bg-rose-900/40 border border-indigo-900/60 hover:border-rose-500/50 rounded-xl flex flex-col items-center gap-2 transition-all">
+            <i data-lucide="frown" class="text-rose-400 w-8 h-8"></i>
+            <span class="text-xs text-gray-300 font-semibold text-center">Anxious or Stressed</span>
           </button>
+        </div>
+        
+        <div class="mt-4 p-4 bg-indigo-900/20 border border-indigo-500/20 rounded-xl hidden">
+          <p id="mood-response-text" class="text-sm text-indigo-200"></p>
         </div>
       </div>
 
-      <!-- Breathing Guide bubble -->
-      <div class="p-8 bg-indigo-950/10 border border-indigo-900/30 rounded-2xl flex flex-col items-center">
-        <h3 class="text-sm font-bold text-white mb-1">De-Stress Breathing Bubble</h3>
-        <p class="text-xs text-gray-400 mb-8">Follow the contracting visual circle: inhale, hold, exhale.</p>
-
-        <div class="w-36 h-36 rounded-full flex items-center justify-center relative bg-indigo-600/10 border border-indigo-500/20 mb-8">
-          <!-- Animated Pulsing Circle -->
-          <div class="w-16 h-16 rounded-full breathing-circle absolute"></div>
-          
-          <span class="text-white text-xs font-black z-10 font-mono tracking-widest uppercase" id="breathing-stage-lbl">Breathe</span>
+      <!-- Breathing Exercise Card -->
+      <div class="glass-panel p-6 rounded-2xl border border-indigo-500/20 flex flex-col items-center text-center">
+        <h3 class="text-lg font-bold text-white mb-2">Breathing Exercise</h3>
+        <p class="text-xs text-gray-400 mb-8">Follow the expanding and contracting circle. 4 seconds inhale, 4 seconds hold, 4 seconds exhale.</p>
+        
+        <div class="w-48 h-48 flex items-center justify-center relative mb-8">
+          <div class="absolute w-32 h-32 bg-indigo-500/20 rounded-full border border-indigo-400/30 flex items-center justify-center" id="full-breathing-circle">
+          </div>
+          <span id="full-breathing-text" class="z-10 text-white font-bold tracking-widest uppercase">Ready</span>
         </div>
 
-        <button onclick="toggleBreathingLoop()" id="breath-action-btn" class="px-6 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-bold rounded-xl text-xs transition-all">
-          Start Relaxation Timer
+        <button id="full-breath-btn" onclick="startBreathing()" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all disabled:opacity-50">
+          Start Breathing Exercise
         </button>
       </div>
+
+      <!-- Student Success Stories Card -->
+      <div class="glass-panel p-6 rounded-2xl border border-indigo-500/20">
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center justify-between">
+          <span>From Students Who Made It</span>
+          <button onclick="nextStory()" class="text-xs px-3 py-1.5 bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-300 rounded-lg transition-all flex items-center gap-1">
+            Next Story <i data-lucide="chevron-right" class="w-3 h-3"></i>
+          </button>
+        </h3>
+        
+        <div class="p-5 bg-indigo-950/40 rounded-xl border border-indigo-900/60 relative">
+          <i data-lucide="quote" class="absolute top-4 left-4 text-indigo-500/20 w-8 h-8"></i>
+          <p id="story-text" class="text-sm text-gray-300 italic mb-4 relative z-10 pl-6 pt-2"></p>
+          <div class="flex items-center gap-2 pl-6">
+            <div class="w-8 h-8 rounded-full bg-indigo-500/30 flex items-center justify-center text-indigo-200 font-bold text-xs" id="story-initial">S</div>
+            <div>
+              <p id="story-name" class="text-xs font-bold text-white"></p>
+              <p id="story-exam" class="text-[10px] text-indigo-400"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Anxiety Toolkit Card -->
+      <div class="glass-panel p-6 rounded-2xl border border-indigo-500/20">
+        <h3 class="text-lg font-bold text-white mb-4">Anxiety Toolkit</h3>
+        
+        <div class="space-y-4">
+          <div class="p-4 bg-indigo-950/30 rounded-xl border border-indigo-900/40">
+            <h4 class="text-sm font-bold text-indigo-300 mb-2">5-4-3-2-1 Grounding Exercise</h4>
+            <p class="text-xs text-gray-400 mb-2">When panic hits, look around you and find:</p>
+            <ul class="text-xs text-gray-300 space-y-1 pl-4 list-disc marker:text-indigo-500">
+              <li>5 things you can see</li>
+              <li>4 things you can physically feel</li>
+              <li>3 things you can hear</li>
+              <li>2 things you can smell</li>
+              <li>1 thing you can taste</li>
+            </ul>
+          </div>
+          
+          <div class="p-4 bg-indigo-950/30 rounded-xl border border-indigo-900/40">
+            <h4 class="text-sm font-bold text-indigo-300 mb-2">Quick Perspective Reset</h4>
+            <p class="text-xs text-gray-400">
+              "This exam is important, but it is just one event in my life. It does not measure my worth, my intelligence, or my future. I will do my best, and my best is enough."
+            </p>
+          </div>
+        </div>
+      </div>
+
     </div>
   `;
 
-  resetBreathingTextLoop();
-}
-
-let breathingIntervalId = null;
-function toggleBreathingLoop() {
-  const btn = document.getElementById("breath-action-btn");
-  const stage = document.getElementById("breathing-stage-lbl");
-
-  if (breathingIntervalId) {
-    clearInterval(breathingIntervalId);
-    breathingIntervalId = null;
-    btn.innerText = "Start Relaxation Timer";
-    stage.innerText = "Breathe";
-    stage.className = "text-white text-xs font-black z-10 font-mono tracking-widest uppercase";
-    return;
-  }
-
-  btn.innerText = "Stop Timer";
-  let count = 0;
-  
-  breathingIntervalId = setInterval(() => {
-    count += 1;
-    const stages = ["Inhale <i data-lucide='wind'></i>", "Hold <i data-lucide='activity'></i>", "Exhale <i data-lucide='leaf'></i>"];
-    stage.innerHTML = stages[count % 3];
-  }, 2000);
-  stage.innerHTML = "Inhale <i data-lucide='wind'></i>";
-  showToast("Breathing relaxation timer active. Focus on the circle.", "success");
-}
-
-function resetBreathingTextLoop() {
-  if (breathingIntervalId) {
-    clearInterval(breathingIntervalId);
-    breathingIntervalId = null;
-  }
+  currentStoryIndex = 0;
+  renderStory();
 }
 
 function logStudentMood(mood) {
@@ -1650,8 +1854,8 @@ function renderSettingsView() {
       </div>
 
       <!-- Upgrade Premium Banner -->
-      ${user.subscription_tier === 'free' 
-        ? `
+      ${user.subscription_tier === 'free'
+      ? `
           <div class="p-6 bg-gradient-to-br from-amber-600/20 to-yellow-600/10 border border-amber-500/30 rounded-2xl text-left mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
               <h3 class="text-base font-bold text-amber-300"> Unlock Student Premium</h3>
@@ -1662,13 +1866,13 @@ function renderSettingsView() {
             </button>
           </div>
         `
-        : `
+      : `
           <div class="p-6 bg-emerald-950/20 border border-emerald-500/30 rounded-2xl text-left mb-8">
             <h3 class="text-base font-bold text-emerald-400 flex items-center gap-2"><i data-lucide="sparkles" class="icon-sm"></i> Premium Subscription Active</h3>
             <p class="text-xs text-gray-400 mt-1">Enjoy unlimited question bank access, PWA downloads, and readiness scoring. Thank you for studying with ExamEdge!</p>
           </div>
         `
-      }
+    }
 
       <!-- Offline subject bundles (Premium) -->
       <div class="text-left mb-8 pb-8 border-b border-indigo-900/60">
@@ -1737,9 +1941,9 @@ function handleLogout() {
     ExamEdgeDB.logout();
     showToast("Logged out successfully!", "success");
     const sn = document.getElementById("sidebar-nav");
-    if(sn) sn.classList.add("hidden");
+    if (sn) sn.classList.add("hidden");
     const bn = document.getElementById("bottom-nav");
-    if(bn) bn.classList.add("hidden");
+    if (bn) bn.classList.add("hidden");
     window.location.replace("register.html");
   }
 }
@@ -1838,7 +2042,7 @@ function closePaystackSim(success = false) {
     ExamEdgeDB.upgradeToPremium();
     showToast("Premium successfully activated! Enjoy unlimited questions.", "success");
     triggerMicroConfetti();
-    
+
     // Refresh active views
     navigate(ACTIVE_VIEW);
   }
@@ -1846,7 +2050,7 @@ function closePaystackSim(success = false) {
 
 function processPaystackCard() {
   showToast("Routing transaction to bank security...", "info");
-  
+
   // Visual transition
   document.getElementById("paystack-card-view").classList.add("hidden");
   document.getElementById("paystack-otp-view").classList.remove("hidden");
@@ -1914,7 +2118,7 @@ function sendWhatsAppMessage() {
   // Add student message
   const now = new Date();
   const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-  
+
   WHATSAPP_SESSION.messages.push({
     sender: "student",
     text: txt,
@@ -2065,7 +2269,7 @@ function triggerMicroConfetti() {
   for (let i = 0; i < 40; i++) {
     const flake = document.createElement("div");
     flake.className = "confetti";
-    
+
     // Random placement and velocities
     flake.style.left = `${Math.random() * 100}vw`;
     flake.style.top = `-10px`;
@@ -2073,7 +2277,7 @@ function triggerMicroConfetti() {
     flake.style.transform = `rotate(${Math.random() * 360}deg)`;
     flake.style.width = `${Math.random() * 6 + 6}px`;
     flake.style.height = `${Math.random() * 6 + 6}px`;
-    
+
     // Set custom transition duration
     const speed = Math.random() * 2 + 1.5;
     flake.style.animation = `confetti-fall ${speed}s linear forwards`;

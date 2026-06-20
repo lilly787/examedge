@@ -255,45 +255,96 @@ PrepFastFeatures.sendTutorFollowUp = async function (questionId) {
   }
 };
 
-// ——— Study Planner ———
-function renderStudyPlannerView() {
-  const container = document.getElementById("view-study-planner");
-  if (!container) return;
-  const user = PrepFastDB.getUser();
-  const needsSignIn =
-    window.PREPFAST_CONFIG?.useApi &&
-    window._needsApiReauth &&
-    !PrepFastAPI.getToken();
+const WAEC_SUBJECT_GROUPS = {
+  "Core": ["English Language", "Mathematics"],
+  "Sciences": ["Physics", "Chemistry", "Biology", "Further Maths", "Agricultural Science", "Computer Science"],
+  "Arts": ["Literature", "Government", "History", "CRS", "IRS", "Fine & Applied Arts"],
+  "Commercial": ["Economics", "Commerce", "Financial Accounting", "Office Practice"],
+  "Social Sciences": ["Geography", "Civic Education", "French", "Yoruba", "Igbo", "Hausa"]
+};
 
+window.toggleSubjectChip = function(btn) {
+  btn.classList.toggle('bg-indigo-600');
+  btn.classList.toggle('border-indigo-500');
+  btn.classList.toggle('text-white');
+  btn.classList.toggle('bg-indigo-950/40');
+  btn.classList.toggle('border-indigo-900/60');
+  btn.classList.toggle('text-indigo-300');
+  
+  const selectedCount = document.querySelectorAll('#subject-chips-container .bg-indigo-600').length;
+  const warning = document.getElementById('subject-warning');
+  if (selectedCount > 9) {
+    warning.classList.remove('hidden');
+  } else {
+    warning.classList.add('hidden');
+  }
+};
+
+window.goToPlannerStep2 = function() {
+  const selected = Array.from(document.querySelectorAll('#subject-chips-container .bg-indigo-600'))
+    .map(btn => btn.dataset.subject);
+    
+  if (selected.length === 0) {
+    showToast("Please select at least one subject", "error");
+    return;
+  }
+  
+  window._plannerSelectedSubjects = selected;
+  
+  const user = PrepFastDB.getUser();
+  const container = document.getElementById("planner-content-area");
+  
   container.innerHTML = `
-    <div class="mb-8">
-      <h2 class="text-2xl font-black text-white flex items-center gap-2">${iconHtml("calendar-days", "w-6 h-6 text-indigo-400")} Study Planner</h2>
-      <p class="text-gray-400 text-sm mt-1">Day-by-day revision schedule until your exam</p>
-    </div>
-    ${
-      needsSignIn
-        ? `<div class="mb-6 p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-100 text-sm">
-            Sign in with your phone number to save and generate AI study plans.
-            <button onclick="navigate('auth')" class="ml-2 underline font-semibold text-amber-300">Sign in</button>
-          </div>`
-        : ""
-    }
-    <div class="glass-panel p-6 rounded-2xl border border-indigo-500/10 mb-6 grid gap-4 md:grid-cols-3">
-      <div>
-        <label class="text-xs text-gray-400 uppercase font-bold">Exam date</label>
-        <input type="date" id="planner-exam-date" value="${(user.exam_date || "").toString().slice(0, 10)}" class="w-full mt-1 bg-indigo-950/40 border border-indigo-900/60 rounded-xl px-3 py-2 text-white">
+    <div class="glass-panel p-6 rounded-2xl border border-indigo-500/10 mb-6 max-w-lg mx-auto text-center">
+      <h3 class="text-xl font-bold text-white mb-4">When is your exam?</h3>
+      <p class="text-gray-400 text-sm mb-6">We'll build a daily schedule from today until your exam date.</p>
+      
+      <div class="text-left mb-6">
+        <label class="text-xs text-gray-400 uppercase font-bold">Target Exam Date</label>
+        <div class="flex gap-2 mt-1">
+          <input type="text" readonly id="planner-exam-date" value="${(user.exam_date ? new Date(user.exam_date).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' }) : "Not Set")}" class="flex-1 bg-indigo-950/40 border border-indigo-900/60 rounded-xl px-3 py-2 text-white">
+          <button onclick="openSetExamDateModal(); setTimeout(() => document.getElementById('planner-exam-date').value = (PrepFastDB.getUser().exam_date ? new Date(PrepFastDB.getUser().exam_date).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' }) : 'Not Set'), 500)" class="bg-indigo-500/20 text-indigo-300 px-4 rounded-xl font-bold hover:bg-indigo-500/30">Select Date</button>
+        </div>
       </div>
-      <div>
+      
+      <div class="text-left mb-6">
         <label class="text-xs text-gray-400 uppercase font-bold">Hours per day</label>
         <input type="number" id="planner-hours" value="2" min="1" max="8" class="w-full mt-1 bg-indigo-950/40 border border-indigo-900/60 rounded-xl px-3 py-2 text-white">
       </div>
-      <div class="flex items-end">
-        <button onclick="PrepFastFeatures.generatePlan()" class="w-full bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold py-2.5 rounded-xl">Generate Plan</button>
-      </div>
+      
+      <button onclick="PrepFastFeatures.generatePlan()" class="w-full bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold py-3 rounded-xl shadow-lg shadow-indigo-500/20">Generate My Plan</button>
+      <button onclick="renderStudyPlannerView()" class="w-full mt-3 text-indigo-400 font-bold py-2">Back to Subjects</button>
     </div>
-    <div id="planner-auth-hint" class="hidden mb-4 p-3 rounded-xl bg-amber-950/30 border border-amber-500/30 text-amber-200 text-xs"></div>
-    <div id="planner-calendar" class="space-y-2"></div>`;
+  `;
+};
 
+window.regeneratePlan = function() {
+  localStorage.removeItem("prepfast_study_plan");
+  renderStudyPlannerView();
+};
+
+function renderStudyPlannerView() {
+  const container = document.getElementById("view-study-planner");
+  if (!container) return;
+  const user = PrepFastDB.getUser() || { subjects: [] };
+  const userSubjects = user.subjects || [];
+
+  container.innerHTML = `
+    <div class="mb-8 flex justify-between items-end">
+      <div>
+        <h2 class="text-2xl font-black text-white flex items-center gap-2">${iconHtml("calendar-days", "w-6 h-6 text-indigo-400")} Study Planner</h2>
+        <p class="text-gray-400 text-sm mt-1">Day-by-day revision schedule until your exam</p>
+      </div>
+      <button onclick="regeneratePlan()" class="text-sm text-indigo-400 hover:text-white flex items-center gap-1 font-semibold">
+        <i data-lucide="refresh-cw" class="w-4 h-4"></i> Regenerate Plan
+      </button>
+    </div>
+    
+    <div id="planner-auth-hint" class="hidden mb-4 p-3 rounded-xl bg-amber-950/30 border border-amber-500/30 text-amber-200 text-xs"></div>
+    
+    <div id="planner-content-area"></div>
+    <div id="planner-calendar" class="space-y-2"></div>`;
+    
   if (!PrepFastAPI.getToken()) {
     const hint = document.getElementById("planner-auth-hint");
     if (hint) {
@@ -303,7 +354,58 @@ function renderStudyPlannerView() {
     }
   }
 
-  PrepFastFeatures.loadExistingPlan();
+  // Check if plan exists
+  const saved = localStorage.getItem("prepfast_study_plan");
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      if (data.plan && data.plan.length > 0) {
+        PrepFastFeatures.renderPlanCalendar(data.plan);
+        refreshIcons();
+        return; // Plan already rendered
+      }
+    } catch (_) {}
+  }
+
+  // Render Step 1: Subject Selection
+  let subjectsHtml = '';
+  Object.entries(WAEC_SUBJECT_GROUPS).forEach(([group, subjects]) => {
+    subjectsHtml += `
+      <div class="mb-5">
+        <h4 class="text-xs font-bold text-indigo-300 uppercase tracking-widest mb-2">${group}</h4>
+        <div class="flex flex-wrap gap-2">
+          ${subjects.map(sub => {
+            // Match against user.subjects (some might be canonical aliases)
+            const isSelected = userSubjects.includes(sub) || userSubjects.includes(SUBJECT_ID_TO_NAME[sub.toLowerCase()]) || (group==='Core');
+            const classes = isSelected 
+              ? 'bg-indigo-600 border-indigo-500 text-white' 
+              : 'bg-indigo-950/40 border-indigo-900/60 text-indigo-300';
+            return `<button onclick="toggleSubjectChip(this)" data-subject="${sub}" class="border rounded-full px-4 py-1.5 text-sm font-semibold transition-all ${classes}">${sub}</button>`;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  });
+
+  document.getElementById("planner-content-area").innerHTML = `
+    <div class="glass-panel p-6 rounded-2xl border border-indigo-500/10 mb-6">
+      <h3 class="text-xl font-bold text-white mb-1">Which subjects are you preparing for?</h3>
+      <p class="text-gray-400 text-sm mb-6">Select all that apply. We'll build your study plan around these.</p>
+      
+      <div id="subject-chips-container">
+        ${subjectsHtml}
+      </div>
+      
+      <div id="subject-warning" class="hidden mt-4 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg text-amber-300 text-sm flex items-center gap-2">
+        <i data-lucide="alert-triangle" class="w-4 h-4"></i> WAEC candidates typically sit 8-9 subjects — are you sure?
+      </div>
+      
+      <div class="mt-8 flex justify-end">
+        <button onclick="goToPlannerStep2()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2.5 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/20">Continue to Exam Date</button>
+      </div>
+    </div>
+  `;
+
   refreshIcons();
 }
 
@@ -314,9 +416,9 @@ PrepFastFeatures.generatePlan = async function () {
     navigate("auth");
     return;
   }
-  const examDate = document.getElementById("planner-exam-date")?.value;
+  const examDate = user.exam_date;
   const hours = parseInt(document.getElementById("planner-hours")?.value || "2", 10);
-  const subjects = normalizePlannerSubjects(user.subjects);
+  const subjects = window._plannerSelectedSubjects || normalizePlannerSubjects(user.subjects);
 
   if (!examDate) {
     showToast("Please choose an exam date", "error");
@@ -368,6 +470,9 @@ PrepFastFeatures.generatePlan = async function () {
     btn.textContent = "Generate Plan";
   }
   showToast("Your study plan is ready", "success");
+  
+  // Clear the input area to just show the calendar
+  document.getElementById("planner-content-area").innerHTML = '';
 };
 
 PrepFastFeatures.loadExistingPlan = async function () {
@@ -393,10 +498,15 @@ PrepFastFeatures.renderPlanCalendar = function (plan) {
     .slice(0, 30)
     .map(
       (day) => `
-    <div class="glass-panel p-4 rounded-xl border border-indigo-500/10 flex flex-wrap justify-between gap-2">
-      <div><span class="text-indigo-400 font-bold text-sm">${day.date}</span>
-        <span class="text-white font-semibold ml-2">${day.subject}</span></div>
-      <div class="text-xs text-gray-400">${(day.topics || []).join(", ")} · ${day.question_count_target || 20} questions</div>
+    <div class="glass-panel p-4 rounded-xl border border-indigo-500/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-indigo-400 font-bold text-sm bg-indigo-500/10 px-2 py-0.5 rounded">${new Date(day.date).toLocaleDateString('en-GB', {weekday:'short', day:'numeric', month:'short'})}</span>
+          <span class="text-white font-semibold">${day.subject}</span>
+        </div>
+        <div class="text-xs text-gray-400 mt-1">${(day.topics || []).join(", ")} · ${day.question_count_target || 20} questions target</div>
+      </div>
+      <button onclick="navigate('practice'); setTimeout(() => { document.getElementById('practice-mode-select').value = 'focus'; startFocusPractice('${day.subject}', '${(day.topics || [])[0] || 'General'}'); }, 100);" class="shrink-0 bg-indigo-500/20 hover:bg-indigo-500 text-indigo-200 hover:text-white px-4 py-2 rounded-xl text-sm font-bold transition-all">Start Practice</button>
     </div>`
     )
     .join("");

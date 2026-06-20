@@ -248,6 +248,13 @@ const PrepFastAPI = {
     });
   },
 
+  async joinClass(classCode) {
+    return PrepFastAPI.request('/users/join-class', {
+      method: 'POST',
+      body: JSON.stringify({ class_code: classCode }),
+    });
+  },
+
   // Admin specific APIs
   async adminLogin(password) {
     return PrepFastAPI.request("/auth/admin/login", {

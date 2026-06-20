@@ -9,7 +9,8 @@
     "db:migrate": "node backend/src/db/migrate.js",
     "db:seed": "node backend/src/db/seed.js",
     "db:setup": "node backend/src/db/setup.js",
-    "import:aloc": "python import_aloc_questions.py"
+    "import:aloc": "python import_aloc_questions.py",
+    "seed:admin": "node backend/scripts/seed-admin.js"
   },
   "engines": {
     "node": ">=18"

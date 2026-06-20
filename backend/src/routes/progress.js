@@ -130,16 +130,29 @@ router.post("/sync", authRequired, requireRole("student"), async (req, res) => {
       return res.status(401).json({ error: "User session is invalid. Please log in again." });
     }
 
+    let synced = 0;
+    let skipped = 0;
     for (const a of attempts) {
-      await query(
-        `INSERT INTO student_progress (student_id, question_id, is_correct, time_taken_seconds, attempted_at)
-         VALUES ($1, $2, $3, $4, COALESCE($5::timestamptz, NOW()))`,
-        [req.user.id, a.question_id, a.is_correct, a.time_taken_seconds || 0, a.attempted_at || null]
-      );
+      try {
+        const result = await query(
+          `INSERT INTO student_progress (student_id, question_id, is_correct, time_taken_seconds, attempted_at)
+           VALUES ($1, $2, $3, $4, COALESCE($5::timestamptz, NOW()))
+           ON CONFLICT DO NOTHING`,
+          [req.user.id, a.question_id, a.is_correct, a.time_taken_seconds || 0, a.attempted_at || null]
+        );
+        // pg rowCount = 0 means conflict was skipped
+        if (result.rowCount > 0) synced++;
+        else skipped++;
+      } catch (rowErr) {
+        // Log but continue with remaining attempts
+        console.warn("[progress/sync] skipping row:", rowErr.message);
+        skipped++;
+      }
     }
+
     await recalculateWeaknessMap(req.user.id);
     const readiness = await getExamReadinessScore(req.user.id);
-    res.json({ synced: attempts.length, readiness_score: readiness });
+    res.json({ synced, skipped, readiness_score: readiness });
   } catch (e) {
     console.error("[progress/sync] sync failed:", e.message);
     res.status(500).json({ error: e.message || "Failed to sync progress" });

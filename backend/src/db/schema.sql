@@ -152,6 +152,7 @@ CREATE TABLE IF NOT EXISTS classes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   school_id UUID REFERENCES schools(id) ON DELETE CASCADE,
   teacher_id UUID REFERENCES teachers(user_id) ON DELETE SET NULL,
+  class_code TEXT UNIQUE,
   name TEXT NOT NULL,
   ss_level TEXT,
   subject TEXT,

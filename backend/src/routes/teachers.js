@@ -18,20 +18,27 @@ router.get("/classes", async (req, res) => {
 router.post("/classes", async (req, res) => {
   const { name, ss_level, subject, school_id, student_ids } = req.body;
   const id = uuidv4();
+  // generate short class code e.g. BIO-SS2-X7K2
+  const subjectPrefix = (subject || "GEN").substring(0, 3).toUpperCase();
+  const levelPrefix = (ss_level || "ALL").toUpperCase();
+  const randomStr = Math.random().toString(36).substring(2, 6).toUpperCase();
+  const classCode = `${subjectPrefix}-${levelPrefix}-${randomStr}`;
+
   await query(
-    `INSERT INTO classes (id, school_id, teacher_id, name, ss_level, subject, student_ids)
-     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+    `INSERT INTO classes (id, school_id, teacher_id, class_code, name, ss_level, subject, student_ids)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
     [
       id,
       school_id || null,
       req.user.id,
+      classCode,
       name,
       ss_level,
       subject,
       JSON.stringify(student_ids || []),
     ]
   );
-  res.json({ id });
+  res.json({ id, class_code: classCode });
 });
 
 router.get("/classes/:classId/students", async (req, res) => {

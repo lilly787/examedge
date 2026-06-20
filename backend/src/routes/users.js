@@ -104,4 +104,39 @@ router.delete("/:id", authRequired, requireRole("admin"), async (req, res) => {
   }
 });
 
+router.post("/join-class", authRequired, requireRole("student"), async (req, res) => {
+  try {
+    const { class_code } = req.body;
+    if (!class_code) return res.status(400).json({ error: "Class code required" });
+
+    const cls = await query(
+      `SELECT c.id, c.name, c.student_ids, u.name as teacher_name 
+       FROM classes c 
+       LEFT JOIN users u ON c.teacher_id = u.id 
+       WHERE c.class_code = $1`, 
+      [class_code]
+    );
+
+    if (!cls.rows.length) {
+      return res.status(404).json({ error: "Invalid class code" });
+    }
+
+    const classData = cls.rows[0];
+    const studentIds = classData.student_ids || [];
+
+    if (!studentIds.includes(req.user.id)) {
+      studentIds.push(req.user.id);
+      await query("UPDATE classes SET student_ids = $1 WHERE id = $2", [JSON.stringify(studentIds), classData.id]);
+    }
+
+    res.json({ 
+      success: true, 
+      className: classData.name, 
+      teacherName: classData.teacher_name || "your teacher" 
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 module.exports = router;
