@@ -58,9 +58,13 @@ function createPgMemPool() {
   return { pool: memPool, saveBackup: savePgMemBackup };
 }
 
+
 function createPostgresPool() {
   const { Pool } = require("pg");
-  const pgPool = new Pool({ connectionString: config.databaseUrl });
+  const pgPool = new Pool({
+    connectionString: config.databaseUrl,
+    ssl: { rejectUnauthorized: false },
+  });
   pgPool.on("error", (err) => {
     console.error("[DB] Unexpected error:", err.message);
   });

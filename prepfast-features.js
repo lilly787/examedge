@@ -257,10 +257,9 @@ PrepFastFeatures.sendTutorFollowUp = async function (questionId) {
 
 const WAEC_SUBJECT_GROUPS = {
   "Core": ["English Language", "Mathematics"],
-  "Sciences": ["Physics", "Chemistry", "Biology", "Further Maths", "Agricultural Science", "Computer Science"],
-  "Arts": ["Literature", "Government", "History", "CRS", "IRS", "Fine & Applied Arts"],
-  "Commercial": ["Economics", "Commerce", "Financial Accounting", "Office Practice"],
-  "Social Sciences": ["Geography", "Civic Education", "French", "Yoruba", "Igbo", "Hausa"]
+  "Sciences": ["Physics", "Chemistry", "Biology"],
+  "Arts": ["Government"],
+  "Commercial": ["Economics"]
 };
 
 window.toggleSubjectChip = function(btn) {
