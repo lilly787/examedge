@@ -76,6 +76,10 @@ const MIME = {
   ".ico": "image/x-icon",
 };
 
+app.get("/", (req, res) => {
+  res.sendFile(path.join(rootDir, "landing.html"));
+});
+
 app.use(express.static(rootDir));
 
 app.get("*", (req, res, next) => {
