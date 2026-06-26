@@ -96,7 +96,7 @@ async function startServer() {
     console.error("       Run: npm run db:setup");
   }
 
-  app.listen(config.port, "127.0.0.1", () => {
+  app.listen(config.port, "0.0.0.0", () => {
     const { isPgMem } = require("./db/pool");
     console.log(`\n✅ PrepFast running at ${config.appUrl}`);
     console.log(`   Database: ${isPgMem() ? "in-memory (pg-mem) — no Docker needed" : "PostgreSQL"}`);
