@@ -444,8 +444,21 @@
 
   <!-- ===== RIGHT PANEL ===== -->
   <div class="panel-right">
-    <a href="landing.html" class="back-link">← Back to Home</a>
-
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 2rem;">
+      <a href="landing.html" class="back-link" style="margin:0;">← Back to Home</a>
+      <!-- Theme Toggle -->
+      <button id="theme-toggle" onclick="toggleTheme()"
+        style="display:flex; align-items:center; gap:8px;
+               padding: 6px 12px; border-radius: 8px;
+               background: rgba(255,255,255,0.05);
+               border: 1px solid rgba(255,255,255,0.1);
+               color: #9CA3AF; cursor:pointer;
+               font-size:13px;
+               transition: all 0.2s ease;">
+        <i data-lucide="sun" style="width:14px;height:14px;"></i>
+        Light Mode
+      </button>
+    </div>
     <!-- Mobile Logo -->
     <div class="mobile-logo">
       <div class="logo-icon-lg"><i data-lucide="graduation-cap" class="ee-icon" style="width:1.4rem;height:1.4rem"></i></div>
