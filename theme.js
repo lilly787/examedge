@@ -1,21 +1,46 @@
-/**
- * PrepFast Theme Manager — Light / Dark Mode
- * Reads from localStorage and applies theme before first paint.
- */
-(function () {
-  // 1. Apply saved theme immediately (before paint) to avoid flash
-  const saved = localStorage.getItem('pf-theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', saved);
+// ── THEME SYSTEM ─────────────────────────────
+function initTheme() {
+  const saved = localStorage.getItem('prepfast_theme') || 'dark';
+  applyTheme(saved);
+}
 
-  // Expose a global function to toggle the theme from settings menus
-  window.toggleTheme = function() {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('pf-theme', next);
-    
-    // Dispatch a custom event in case components need to react
-    window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: next } }));
-    return next;
-  };
-})();
+function toggleTheme() {
+  const current = localStorage.getItem('prepfast_theme') || 'dark';
+  const next = current === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  localStorage.setItem('prepfast_theme', next);
+}
+
+function applyTheme(theme) {
+  const root = document.documentElement;
+  
+  if (theme === 'light') {
+    root.setAttribute('data-theme', 'light');
+  } else {
+    root.removeAttribute('data-theme');
+  }
+  
+  // Update toggle button text and icon
+  const btn = document.getElementById('theme-toggle');
+  if (btn) {
+    if (theme === 'light') {
+      btn.innerHTML = `
+        <i data-lucide="moon" style="width:16px;height:16px;"></i>
+        Dark Mode
+      `;
+      btn.style.color = '#475569';
+    } else {
+      btn.innerHTML = `
+        <i data-lucide="sun" style="width:16px;height:16px;"></i>
+        Light Mode
+      `;
+      btn.style.color = '#9CA3AF';
+    }
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  }
+}
+
+// Call on every page load — before anything renders
+initTheme();

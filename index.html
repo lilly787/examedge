@@ -51,7 +51,7 @@
   <!-- Premium Styles -->
   <link rel="stylesheet" href="index.css">
 </head>
-<body class="auth-view bg-[#0b0f19] text-[#f1f0f7] min-h-screen flex flex-col">
+<body class="auth-view bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen flex flex-col">
 
   <!-- 1. SMS Banner Notification Simulator Container (Floated Notification) -->
   <div id="sms-banner-container" class="fixed top-0 left-0 w-full z-[99999] flex flex-col gap-1"></div>
@@ -60,51 +60,66 @@
   <div class="flex flex-1 flex-col lg:flex-row min-h-screen">
     
     <!-- Desktop Sidebar Panel Navigation -->
-    <aside id="sidebar-nav" class="hidden lg:flex flex-col w-64 bg-[#111827] border-r border-indigo-950/50 p-6 justify-between select-none">
+    <aside id="sidebar-nav" class="hidden lg:flex flex-col w-64 bg-[var(--bg-secondary)] border-r border-indigo-950/50 p-6 justify-between select-none">
       <div>
         <!-- Logo Brand -->
         <div id="nav-logo-btn" class="flex items-center gap-3 mb-10 cursor-pointer group">
-          <div class="bg-indigo-600/20 p-2.5 rounded-xl border border-indigo-500/25 group-hover:border-indigo-400 transition-all text-indigo-400">
+          <div class="bg-indigo-600/20 p-2.5 rounded-xl border border-indigo-500/25 group-hover:border-indigo-400 transition-all text-[var(--accent-purple)]">
             <i data-lucide="graduation-cap" class="ee-icon-lg"></i>
           </div>
           <div>
-            <h1 class="text-lg font-black tracking-tight text-white font-display">PrepFast</h1>
-            <span class="text-[10px] text-indigo-400/60 uppercase tracking-widest font-bold font-display">WAEC / JAMB prep</span>
+            <h1 class="text-lg font-black tracking-tight text-[var(--text-primary)] font-display">PrepFast</h1>
+            <span class="text-[10px] text-[var(--accent-purple)]/60 uppercase tracking-widest font-bold font-display">WAEC / JAMB prep</span>
           </div>
         </div>
 
         <!-- Navigation Links -->
         <nav class="flex flex-col gap-2">
-          <button data-view="dashboard" onclick="navigate('dashboard')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
+          <button data-view="dashboard" onclick="navigate('dashboard')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-[var(--text-primary)]">
             <i data-lucide="layout-dashboard" class="ee-icon"></i> Smart Study Home
           </button>
           
-          <button data-view="practice" onclick="navigate('practice')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
+          <button data-view="practice" onclick="navigate('practice')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-[var(--text-primary)]">
             <i data-lucide="clipboard-list" class="ee-icon"></i> Practice CBT Engine
           </button>
 
-          <button data-view="leaderboard" onclick="navigate('leaderboard')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
+          <button data-view="leaderboard" onclick="navigate('leaderboard')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-[var(--text-primary)]">
             <i data-lucide="trophy" class="ee-icon"></i> Leaderboard
           </button>
 
-          <button data-view="wellbeing" onclick="navigate('wellbeing')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
+          <button data-view="wellbeing" onclick="navigate('wellbeing')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-[var(--text-primary)]">
             <i data-lucide="heart-pulse" class="ee-icon"></i> Wellbeing Corner
           </button>
 
-          <button data-view="study-planner" onclick="navigate('study-planner')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
+          <button data-view="study-planner" onclick="navigate('study-planner')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-[var(--text-primary)]">
             <i data-lucide="calendar-days" class="ee-icon"></i> Study Planner
           </button>
 
-          <button data-view="settings" onclick="navigate('settings')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-white">
+          <button data-view="settings" onclick="navigate('settings')" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-indigo-950/20 hover:text-[var(--text-primary)]">
             <i data-lucide="settings" class="ee-icon"></i> Settings & Upgrade
           </button>
 
           <script>
             if (typeof hasRole === 'function' && hasRole('admin')) {
-              document.write('<a href="admin.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 hover:bg-rose-950/20 hover:text-rose-400 border-l-2 border-transparent transition-all"><i data-lucide="shield" class="ee-icon"></i> Admin Panel</a>');
+              document.write('<a href="admin.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-[var(--text-secondary)] hover:bg-rose-950/20 hover:text-rose-400 border-l-2 border-transparent transition-all"><i data-lucide="shield" class="ee-icon"></i> Admin Panel</a>');
             }
           </script>
           
+          <!-- Theme Toggle -->
+          <div class="px-2 mt-4">
+            <button id="theme-toggle" onclick="toggleTheme()"
+              style="display:flex; align-items:center; gap:10px;
+                     padding: 10px 16px; border-radius: 10px;
+                     background: rgba(255,255,255,0.05);
+                     border: 1px solid rgba(255,255,255,0.1);
+                     color: #9CA3AF; cursor:pointer;
+                     font-size:14px; width:100%;
+                     transition: all 0.2s ease;">
+              <i data-lucide="sun" style="width:16px;height:16px;"></i>
+              Light Mode
+            </button>
+          </div>
+
           <button onclick="handleLogout ? handleLogout() : (typeof triggerAppLogout === 'function' ? triggerAppLogout() : ExamEdgeDB.logout())" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold border-l-2 border-transparent transition-all hover:bg-rose-950/20 text-rose-400 hover:text-rose-300 w-full text-left mt-2 border-t border-indigo-900/30 pt-4">
             <i data-lucide="log-out" class="ee-icon"></i> Logout
           </button>
@@ -112,17 +127,17 @@
       </div>
 
       <!-- App developer credit/brand bottom -->
-      <div class="pt-6 border-t border-indigo-900/30 text-[10px] text-gray-500 font-medium">
+      <div class="pt-6 border-t border-indigo-900/30 text-[10px] text-[var(--text-muted)] font-medium">
         <span>ExamEdge PWA v1.0.0</span><br>
         <span class="opacity-60 block mt-1">Nigeria Premium EdTech</span>
       </div>
     </aside>
 
     <!-- Mobile Top Navigation Header -->
-    <header id="mobile-header" class="flex lg:hidden bg-[#111827] border-b border-indigo-950/50 px-6 py-4 flex justify-between items-center z-40 select-none">
-      <div class="flex items-center gap-2 text-indigo-400" onclick="navigate('dashboard')">
+    <header id="mobile-header" class="flex lg:hidden bg-[var(--bg-secondary)] border-b border-indigo-950/50 px-6 py-4 flex justify-between items-center z-40 select-none">
+      <div class="flex items-center gap-2 text-[var(--accent-purple)]" onclick="navigate('dashboard')">
         <i data-lucide="graduation-cap" class="ee-icon-lg"></i>
-        <h1 class="text-base font-black tracking-tight text-white font-display">PrepFast</h1>
+        <h1 class="text-base font-black tracking-tight text-[var(--text-primary)] font-display">PrepFast</h1>
       </div>
       <div class="flex items-center gap-3">
         <span class="text-xs font-bold px-2.5 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-lg flex items-center gap-1"><i data-lucide="flame" class="w-3.5 h-3.5"></i> Streak</span>
@@ -159,20 +174,20 @@
     </main>
  
     <!-- Mobile Floating Bottom Navigation Bar -->
-    <nav id="bottom-nav" class="flex lg:hidden fixed bottom-0 left-0 w-full bg-[#111827] border-t border-indigo-950/50 py-3 px-4 flex justify-around items-center z-50 select-none shadow-2xl">
-      <button onclick="navigate('dashboard')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-gray-400">
+    <nav id="bottom-nav" class="flex lg:hidden fixed bottom-0 left-0 w-full bg-[var(--bg-secondary)] border-t border-indigo-950/50 py-3 px-4 flex justify-around items-center z-50 select-none shadow-2xl">
+      <button onclick="navigate('dashboard')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-[var(--text-secondary)]">
         <i data-lucide="layout-dashboard" class="ee-icon-lg"></i> Home
       </button>
-      <button onclick="navigate('practice')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-gray-400">
+      <button onclick="navigate('practice')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-[var(--text-secondary)]">
         <i data-lucide="clipboard-list" class="ee-icon-lg"></i> Practice
       </button>
-      <button onclick="navigate('leaderboard')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-gray-400">
+      <button onclick="navigate('leaderboard')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-[var(--text-secondary)]">
         <i data-lucide="trophy" class="ee-icon-lg"></i> Rank
       </button>
-      <button onclick="navigate('wellbeing')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-gray-400">
+      <button onclick="navigate('wellbeing')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-[var(--text-secondary)]">
         <i data-lucide="heart-pulse" class="ee-icon-lg"></i> Peace
       </button>
-      <button onclick="navigate('settings')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-gray-400">
+      <button onclick="navigate('settings')" class="flex flex-col items-center gap-1 text-[10px] font-bold text-[var(--text-secondary)]">
         <i data-lucide="settings" class="ee-icon-lg"></i> Settings
       </button>
     </nav>
@@ -198,11 +213,11 @@
             <i data-lucide="brain" class="w-5 h-5 text-emerald-400"></i>
           </div>
           <div>
-            <h4 class="text-xs font-bold text-white leading-none">PrepFast WhatsApp Bot</h4>
+            <h4 class="text-xs font-bold text-[var(--text-primary)] leading-none">PrepFast WhatsApp Bot</h4>
             <span class="text-[9px] text-emerald-400 font-semibold leading-none mt-1 block">● Study Bot Online</span>
           </div>
         </div>
-        <button onclick="toggleWhatsApp()" class="text-gray-400 hover:text-white font-bold text-base px-2">&times;</button>
+        <button onclick="toggleWhatsApp()" class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-bold text-base px-2">&times;</button>
       </div>
 
       <!-- Messages Content Box -->
@@ -210,7 +225,7 @@
 
       <!-- Footer Message Input bar -->
       <div class="bg-[#202c33] p-2 flex items-center gap-2 border-t border-[#2f3b43]">
-        <input type="text" id="whatsapp-input-field" placeholder="Reply A, B, C, or D..." class="flex-1 bg-[#2a3942] border border-transparent rounded-xl px-4 py-2 text-xs text-white placeholder-gray-500 outline-none focus:border-emerald-500 font-semibold">
+        <input type="text" id="whatsapp-input-field" placeholder="Reply A, B, C, or D..." class="flex-1 bg-[#2a3942] border border-transparent rounded-xl px-4 py-2 text-xs text-[var(--text-primary)] placeholder-gray-500 outline-none focus:border-emerald-500 font-semibold">
         <button onclick="sendWhatsAppMessage()" class="w-8 h-8 rounded-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold flex items-center justify-center text-xs transition-all">
           <i data-lucide="message-circle" class="w-4 h-4 text-slate-950"></i>
         </button>

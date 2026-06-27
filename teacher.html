@@ -337,7 +337,7 @@
     .pill-emerald { background: rgba(16,185,129,0.12); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.25); }
     .pill-amber { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
     .pill-indigo { background: rgba(99,102,241,0.12); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.25); }
-    .pill-grey { background: rgba(255,255,255,0.08); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15); }
+    .pill-grey { background: var(--border-color); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15); }
 
     /* CLASS CARDS */
     .class-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
@@ -536,6 +536,18 @@
           <div class="user-role">Teacher</div>
         </div>
       </div>
+      <!-- Theme Toggle -->
+      <button id="theme-toggle" onclick="toggleTheme()"
+        style="display:flex; align-items:center; gap:10px;
+               padding: 10px 16px; border-radius: 10px;
+               background: rgba(255,255,255,0.05);
+               border: 1px solid rgba(255,255,255,0.1);
+               color: #9CA3AF; cursor:pointer;
+               font-size:14px; width:100%;
+               transition: all 0.2s ease; margin-top:0.75rem;">
+        <i data-lucide="sun" style="width:16px;height:16px;"></i>
+        Light Mode
+      </button>
       <button onclick="logout()" class="btn btn-secondary" style="width:100%;margin-top:0.75rem;justify-content:center;">
         <i data-lucide="log-out"></i> Logout
       </button>
