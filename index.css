@@ -316,3 +316,145 @@ main {
 .card-icon [data-lucide] { width: 24px; height: 24px; }
 .icon-sm [data-lucide]   { width: 14px; height: 14px; }
 
+/* ==============================================
+   LIGHT MODE — COMPREHENSIVE OVERRIDES
+   These fix Tailwind compiled literal colors that
+   don't respond to CSS variables alone.
+   ============================================== */
+
+[data-theme="light"] body {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+/* Force all general text to be dark in light mode */
+[data-theme="light"] p,
+[data-theme="light"] span,
+[data-theme="light"] div,
+[data-theme="light"] label,
+[data-theme="light"] li,
+[data-theme="light"] td,
+[data-theme="light"] th,
+[data-theme="light"] a,
+[data-theme="light"] button {
+  color: #0F172A;
+}
+
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6 {
+  color: #0F172A;
+}
+
+/* Subtle/muted text */
+[data-theme="light"] .text-gray-400,
+[data-theme="light"] .text-gray-500,
+[data-theme="light"] .text-slate-400,
+[data-theme="light"] .text-slate-500 {
+  color: #64748B !important;
+}
+
+/* Glass panels become white cards */
+[data-theme="light"] .glass-panel {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+}
+
+/* Sidebar */
+[data-theme="light"] #sidebar-nav,
+[data-theme="light"] aside.sidebar {
+  background-color: #FFFFFF !important;
+  border-right: 1px solid #E2E8F0 !important;
+}
+[data-theme="light"] #sidebar-nav a,
+[data-theme="light"] #sidebar-nav button,
+[data-theme="light"] aside.sidebar a,
+[data-theme="light"] aside.sidebar button {
+  color: #475569 !important;
+}
+[data-theme="light"] #sidebar-nav .nav-item:hover,
+[data-theme="light"] aside .nav-link:hover {
+  background: rgba(124, 58, 237, 0.08) !important;
+  color: #7C3AED !important;
+}
+
+/* Bottom nav bar */
+[data-theme="light"] #bottom-nav {
+  background: #FFFFFF !important;
+  border-top: 1px solid #E2E8F0 !important;
+}
+[data-theme="light"] #bottom-nav button,
+[data-theme="light"] #bottom-nav span {
+  color: #64748B !important;
+}
+
+/* Input fields */
+[data-theme="light"] input,
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  background: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Keep accent / badge colors vivid */
+[data-theme="light"] .text-amber-400,
+[data-theme="light"] .text-emerald-400,
+[data-theme="light"] .text-rose-400,
+[data-theme="light"] .text-indigo-400,
+[data-theme="light"] .text-purple-400 {
+  color: inherit;
+}
+
+/* Keep correct/wrong answer colors white-on-color */
+[data-theme="light"] [class*="bg-emerald"] span,
+[data-theme="light"] [class*="bg-emerald"] p,
+[data-theme="light"] [class*="bg-rose"] span,
+[data-theme="light"] [class*="bg-rose"] p,
+[data-theme="light"] [class*="bg-green"] span,
+[data-theme="light"] [class*="bg-red"] span {
+  color: #FFFFFF !important;
+}
+
+/* Fix inline dark backgrounds set via inline styles in JS */
+[data-theme="light"] [style*="#0B0F19"],
+[data-theme="light"] [style*="#0b0f19"],
+[data-theme="light"] [style*="#111827"],
+[data-theme="light"] [style*="rgba(17, 24, 39"],
+[data-theme="light"] [style*="rgba(17,24,39"] {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+/* Modals */
+[data-theme="light"] [class*="modal-box"],
+[data-theme="light"] [id*="modal"] .modal-box,
+[data-theme="light"] .modal-box {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #E2E8F0 !important;
+}
+
+/* Shimmer placeholder in light mode */
+[data-theme="light"] .shimmer-element {
+  background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%) !important;
+}
+
+/* Scrollbars */
+[data-theme="light"] ::-webkit-scrollbar-track { background: #F1F5F9; }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: #CBD5E1; }
+
+/* Theme toggle button in light mode */
+[data-theme="light"] #theme-toggle {
+  background: rgba(0,0,0,0.04) !important;
+  border-color: #E2E8F0 !important;
+  color: #475569 !important;
+}
