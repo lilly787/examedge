@@ -1885,6 +1885,15 @@ function renderSettingsView() {
         </div>
       </div>
 
+      <!-- Appearance -->
+      <div class="text-left mb-8 pb-8 border-b border-indigo-900/60">
+        <h3 class="text-sm font-bold text-indigo-400 mb-2">Appearance</h3>
+        <p class="text-xs text-gray-500 mb-3">Toggle between Light and Dark mode for comfortable reading.</p>
+        <button onclick="window.toggleTheme()" class="px-5 py-2.5 bg-indigo-900/40 border border-indigo-700/50 text-indigo-200 rounded-xl text-xs font-bold hover:bg-indigo-800/60 transition-all flex items-center gap-2">
+          <i data-lucide="sun" class="icon-sm"></i> Switch Theme
+        </button>
+      </div>
+
       <!-- Portal links -->
       <div class="text-left mb-8 pb-8 border-b border-indigo-900/60 grid gap-2">
         <a href="teacher.html" class="text-xs text-indigo-400 hover:underline"><i data-lucide="users"></i> Teacher Dashboard</a>
