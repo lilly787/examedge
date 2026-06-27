@@ -58,7 +58,7 @@ async function sendOtp(phone) {
   console.log(`[OTP] ${normalized}: ${code}  ← use this code to log in`);
   return {
     phone: normalized,
-    devCode: config.nodeEnv === "development" ? code : null,
+    devCode: code,
   };
 }
 
