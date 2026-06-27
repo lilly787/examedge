@@ -1,7 +1,8 @@
 /* ExamEdge Premium Custom Stylesheet & Design Tokens */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
 
-:root {
+:root,
+[data-theme="dark"] {
   /* Brand Palettes */
   --bg-primary: #0b0f19;
   --bg-secondary: #111827;
@@ -11,9 +12,9 @@
 
   --accent-purple: #4f46e5;
   --accent-violet: #6366f1;
-  --accent-amber: #f59e0b;    /* Electric Gold/Amber */
-  --accent-emerald: #10b981;  /* Mint Emerald */
-  --accent-rose: #f43f5e;     /* Coral Rose */
+  --accent-amber: #f59e0b;
+  --accent-emerald: #10b981;
+  --accent-rose: #f43f5e;
 
   --text-white: #ffffff;
   --text-primary: #f1f0f7;
@@ -25,6 +26,32 @@
 
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* ── LIGHT MODE OVERRIDES ── */
+[data-theme="light"] {
+  --bg-primary: #f1f5f9;
+  --bg-secondary: #ffffff;
+  --card-glass: rgba(255, 255, 255, 0.82);
+  --card-border: rgba(79, 70, 229, 0.18);
+  --card-glow-active: rgba(79, 70, 229, 0.1);
+
+  --accent-purple: #4f46e5;
+  --accent-violet: #6366f1;
+  --accent-amber: #d97706;
+  --accent-emerald: #059669;
+  --accent-rose: #e11d48;
+
+  --text-white: #0f172a;
+  --text-primary: #1e293b;
+  --text-muted: #64748b;
+  --text-dimmed: #94a3b8;
+}
+
+/* Smooth theme transitions */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 
 /* Base resets & styling */
 * {
