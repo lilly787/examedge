@@ -369,10 +369,10 @@ function renderDailyLimitCard(user, questionsToday) {
           </span>
         </div>
         <div style="font-size:28px; font-weight:700; 
-                    color:#fff; margin-bottom:6px;">
+                    color:var(--text-primary); margin-bottom:6px;">
           Unlimited Questions
         </div>
-        <div style="color:#9CA3AF; font-size:14px;">
+        <div style="color:var(--text-secondary); font-size:14px;">
           ${questionsToday} answered today — keep going, 
           no limit.
         </div>
@@ -408,10 +408,10 @@ function renderDailyLimitCard(user, questionsToday) {
           </span>
         </div>
         <div style="font-size:28px; font-weight:700; 
-                    color:#fff; margin-bottom:12px;">
+                    color:var(--text-primary); margin-bottom:12px;">
           ${questionsToday} / 20 Qs
         </div>
-        <div style="background:#1F2937; border-radius:8px; 
+        <div style="background:var(--bg-secondary); border-radius:8px; 
                     height:6px; overflow:hidden; 
                     margin-bottom:16px;">
           <div style="background:linear-gradient(90deg,#A78BFA,#6B21A8); 
