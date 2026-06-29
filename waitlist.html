@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrepFast — Join the Waitlist | WAEC & JAMB Practice</title>
+  <meta name="description" content="Nigeria's smartest exam prep platform is launching soon. Join the waitlist and be first to practice WAEC & JAMB past questions with AI-powered feedback." />
+
+  <!-- Facebook / Open Graph Tags (controls how the link looks when shared on Facebook) -->
+  <meta property="og:title" content="PrepFast — Nigeria's Smartest Exam Prep is Launching 🚀" />
+  <meta property="og:description" content="Practice WAEC & JAMB past questions from 2000–2025. AI-powered. Free to start. Join the waitlist now!" />
+  <meta property="og:image" content="https://prepfast.onrender.com/logo.svg" />
+  <meta property="og:url" content="https://prepfast.onrender.com/waitlist.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="PrepFast" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #7C3AED;
+      --violet: #6366F1;
+      --amber:  #F59E0B;
+      --emerald:#10B981;
+      --bg:     #09090F;
+      --card:   rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: #F1F5F9;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── Animated background ─── */
+    .bg-glow {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124,58,237,0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 90%,  rgba(99,102,241,0.2)  0%, transparent 70%);
+    }
+    .particles {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 3px; height: 3px;
+      background: rgba(139,92,246,0.6);
+      border-radius: 50%;
+      animation: drift linear infinite;
+    }
+
+    @keyframes drift {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ─── Layout ─── */
+    .container {
+      position: relative; z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+    }
+
+    /* ─── Nav Bar ─── */
+    .nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0 2.5rem;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo img { width: 36px; height: 36px; }
+    .nav-logo-text {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800; font-size: 1.1rem; color: #fff;
+    }
+    .nav-badge {
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.3);
+      color: #A78BFA;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 4px 12px; border-radius: 100px;
+    }
+
+    /* ─── Live badge ─── */
+    .live-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.25);
+      color: #34D399;
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 1.8rem;
+      text-transform: uppercase;
+    }
+    .live-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 8px #10B981;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* ─── Hero ─── */
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.2rem, 8vw, 3.8rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.2rem;
+    }
+    h1 .accent {
+      background: linear-gradient(135deg, #A78BFA, #6366F1, #34D399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      font-size: clamp(1rem, 3vw, 1.15rem);
+      color: #94A3B8;
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── Stats row ─── */
+    .stats {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .stat {
+      display: flex; flex-direction: column; align-items: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 22px;
+      min-width: 110px;
+    }
+    .stat-number {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900; font-size: 1.6rem;
+      color: #fff;
+    }
+    .stat-label {
+      font-size: 0.72rem; color: #64748B;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      margin-top: 2px;
+    }
+
+    /* ─── Form card ─── */
+    .form-card {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 2rem 1.8rem;
+      backdrop-filter: blur(10px);
+      margin-bottom: 2rem;
+    }
+    .form-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800; font-size: 1.25rem;
+      margin-bottom: 0.4rem;
+    }
+    .form-sub {
+      color: #64748B; font-size: 0.88rem;
+      margin-bottom: 1.5rem;
+    }
+    .field {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .field input {
+      width: 100%;
+      background: rgba(0,0,0,0.3);
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 0.85rem 1rem 0.85rem 3rem;
+      color: #F1F5F9;
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .field input:focus {
+      border-color: rgba(124,58,237,0.6);
+      background: rgba(124,58,237,0.05);
+    }
+    .field input::placeholder { color: #475569; }
+    .field-icon {
+      position: absolute;
+      left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: #475569; font-size: 1rem;
+      pointer-events: none;
+    }
+
+    /* ─── Select field ─── */
+    .field select {
+      width: 100%;
+      background: rgba(0,0,0,0.3);
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 0.85rem 1rem 0.85rem 3rem;
+      color: #F1F5F9;
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+      cursor: pointer;
+    }
+    .field select:focus {
+      border-color: rgba(124,58,237,0.6);
+    }
+    .field select option { background: #1E1B4B; color: #F1F5F9; }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #7C3AED, #6366F1);
+      border: none;
+      border-radius: 14px;
+      padding: 1rem;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: all 0.25s;
+      box-shadow: 0 8px 24px rgba(124,58,237,0.35);
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(124,58,237,0.5);
+    }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* ─── Success state ─── */
+    .success-msg {
+      display: none;
+      flex-direction: column; align-items: center;
+      gap: 1rem; padding: 2rem 0;
+    }
+    .success-icon {
+      width: 64px; height: 64px;
+      background: rgba(16,185,129,0.15);
+      border: 2px solid rgba(16,185,129,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+    }
+    .success-msg h3 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800; font-size: 1.3rem;
+    }
+    .success-msg p { color: #64748B; font-size: 0.9rem; }
+
+    /* ─── Features ─── */
+    .features {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem 1rem;
+      text-align: left;
+    }
+    .feature-icon {
+      font-size: 1.5rem; margin-bottom: 0.6rem;
+    }
+    .feature-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700; font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+    }
+    .feature-desc {
+      font-size: 0.78rem; color: #64748B; line-height: 1.5;
+    }
+
+    /* ─── Subjects pills ─── */
+    .subjects {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      justify-content: center; margin-bottom: 2.5rem;
+    }
+    .pill {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 0.78rem; color: #94A3B8;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      text-align: center;
+      color: #334155;
+      font-size: 0.8rem;
+      padding-top: 1rem;
+    }
+
+    /* ─── Share bar ─── */
+    .share-bar {
+      display: flex; align-items: center; gap: 1rem;
+      flex-wrap: wrap; justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .share-label { color: #475569; font-size: 0.85rem; }
+    .share-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 0.82rem; font-weight: 700;
+      border: none; cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .share-btn:hover { transform: translateY(-2px); }
+    .share-fb {
+      background: #1877F2; color: #fff;
+      box-shadow: 0 4px 14px rgba(24,119,242,0.4);
+    }
+    .share-wa {
+      background: #25D366; color: #fff;
+      box-shadow: 0 4px 14px rgba(37,211,102,0.4);
+    }
+    .share-copy {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #94A3B8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="container">
+
+    <!-- Nav -->
+    <nav class="nav">
+      <a href="landing.html" class="nav-logo">
+        <img src="logo.svg" alt="PrepFast Logo" />
+        <span class="nav-logo-text">PrepFast</span>
+      </a>
+      <span class="nav-badge">LAUNCHING SOON</span>
+    </nav>
+
+    <!-- Live badge -->
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      Early Access — Limited Spots
+    </div>
+
+    <!-- Hero -->
+    <h1>
+      Ace Your WAEC &amp;<br />
+      <span class="accent">JAMB Exams</span><br />
+      The Smart Way.
+    </h1>
+
+    <p class="subtitle">
+      PrepFast gives Nigerian students access to <strong style="color:#A78BFA;">9,100+ past questions</strong>
+      from 2000–2025, with instant explanations, AI study planning, and a daily practice engine — 
+      all in one free app.
+    </p>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-number">9,100+</span>
+        <span class="stat-label">Questions</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">7</span>
+        <span class="stat-label">Subjects</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">25</span>
+        <span class="stat-label">Years</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">Free</span>
+        <span class="stat-label">To Start</span>
+      </div>
+    </div>
+
+    <!-- Waitlist Form -->
+    <div class="form-card">
+      <div class="form-title">🎯 Join the Waitlist</div>
+      <div class="form-sub">Be first to get access when we launch. No spam, ever.</div>
+
+      <!-- IMPORTANT: Replace YOUR_FORM_ID with your Formspree form ID -->
+      <!-- Sign up free at formspree.io, create a form, and paste your ID below -->
+      <form id="waitlist-form" action="https://formspree.io/f/mzdlvrqz" method="POST">
+
+        <div class="field">
+          <span class="field-icon">👤</span>
+          <input type="text" name="name" placeholder="Your Full Name" required autocomplete="name" />
+        </div>
+
+        <div class="field">
+          <span class="field-icon">📧</span>
+          <input type="email" name="email" placeholder="Your Email Address" required autocomplete="email" />
+        </div>
+
+        <div class="field">
+          <span class="field-icon">📱</span>
+          <input type="tel" name="phone" placeholder="Phone Number (e.g. 08012345678)" autocomplete="tel" />
+        </div>
+
+        <div class="field">
+          <span class="field-icon">🎓</span>
+          <select name="exam_target" required>
+            <option value="" disabled selected>Which exam are you preparing for?</option>
+            <option value="WAEC Only">WAEC Only</option>
+            <option value="JAMB Only">JAMB (UTME) Only</option>
+            <option value="Both WAEC & JAMB">Both WAEC &amp; JAMB</option>
+            <option value="NECO">NECO</option>
+          </select>
+        </div>
+
+        <!-- Hidden field so you know where the submission came from -->
+        <input type="hidden" name="_subject" value="New PrepFast Waitlist Sign-up!" />
+        <input type="hidden" name="source" value="Facebook Waitlist Page" />
+
+        <button type="submit" class="btn-submit">
+          🚀 Reserve My Free Spot
+        </button>
+      </form>
+
+      <!-- Success Message (shown after form submits) -->
+      <div class="success-msg" id="success-msg">
+        <div class="success-icon">✅</div>
+        <h3>You're on the list!</h3>
+        <p>We'll send you an email the moment PrepFast launches.<br />Tell your classmates to join too! 👇</p>
+      </div>
+    </div>
+
+    <!-- Share buttons -->
+    <div class="share-bar">
+      <span class="share-label">Share with friends:</span>
+      <a class="share-btn share-fb"
+         href="https://www.facebook.com/sharer/sharer.php?u=https://prepfast.onrender.com/waitlist.html"
+         target="_blank">
+        📘 Facebook
+      </a>
+      <a class="share-btn share-wa"
+         href="https://wa.me/?text=PrepFast%20is%20launching%20soon!%20Practice%20WAEC%20%26%20JAMB%20past%20questions%202000-2025.%20Join%20the%20waitlist%20here%3A%20https%3A%2F%2Fprepfast.onrender.com%2Fwaitlist.html"
+         target="_blank">
+        💬 WhatsApp
+      </a>
+      <button class="share-btn share-copy" onclick="copyLink()">
+        🔗 Copy Link
+      </button>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">📚</div>
+        <div class="feature-title">Past Questions</div>
+        <div class="feature-desc">WAEC & JAMB questions from 2000–2025, all subjects</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-title">AI Study Planner</div>
+        <div class="feature-desc">Personalized daily study plans based on your weak spots</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Instant Explanations</div>
+        <div class="feature-desc">Every answer comes with a clear step-by-step explanation</div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🏆</div>
+        <div class="feature-title">Leaderboard</div>
+        <div class="feature-desc">Compete with students nationwide and track your rank</div>
+      </div>
+    </div>
+
+    <!-- Subjects -->
+    <p style="color:#475569; font-size:0.85rem; margin-bottom:1rem;">Available Subjects</p>
+    <div class="subjects">
+      <span class="pill">📐 Mathematics</span>
+      <span class="pill">✍️ English Language</span>
+      <span class="pill">⚗️ Chemistry</span>
+      <span class="pill">🔬 Biology</span>
+      <span class="pill">⚡ Physics</span>
+      <span class="pill">📈 Economics</span>
+      <span class="pill">🏛️ Government</span>
+    </div>
+
+    <footer>
+      © 2025 PrepFast · Built for Nigerian students 🇳🇬
+      <br />
+      <a href="landing.html" style="color:#475569; text-decoration:none; margin-top:6px; display:inline-block;">
+        ← Back to main site
+      </a>
+    </footer>
+
+  </div>
+
+  <script>
+    // ─── Floating particles ───
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 25; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.cssText = `
+        left: ${Math.random() * 100}%;
+        width: ${Math.random() * 4 + 2}px;
+        height: ${Math.random() * 4 + 2}px;
+        animation-duration: ${Math.random() * 15 + 10}s;
+        animation-delay: ${Math.random() * 10}s;
+        opacity: ${Math.random() * 0.5 + 0.2};
+        background: ${['rgba(124,58,237,0.6)','rgba(99,102,241,0.6)','rgba(16,185,129,0.4)'][Math.floor(Math.random()*3)]};
+      `;
+      container.appendChild(p);
+    }
+
+    // ─── Formspree AJAX submission ───
+    const form = document.getElementById('waitlist-form');
+    const successMsg = document.getElementById('success-msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('.btn-submit');
+      btn.textContent = '⏳ Joining...';
+      btn.disabled = true;
+
+      const data = new FormData(form);
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          successMsg.style.display = 'flex';
+        } else {
+          btn.textContent = '❌ Error. Try again.';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = '❌ No connection.';
+        btn.disabled = false;
+      }
+    });
+
+    // ─── Copy link ───
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btn = document.querySelector('.share-copy');
+        const original = btn.textContent;
+        btn.textContent = '✅ Copied!';
+        setTimeout(() => btn.textContent = original, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
