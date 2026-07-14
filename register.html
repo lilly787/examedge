@@ -310,24 +310,40 @@
     /* SUCCESS STATE */
     .success-state { text-align: center; padding: 1.5rem 0; }
     .success-icon { margin-bottom: 1rem; display: flex; justify-content: center; color: var(--emerald); animation: popIn 0.5s ease; }
-    .role-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    .role-tab {
-      padding: 0.65rem 0.5rem;
-      border-radius: 11px;
+    .role-select-wrap { position: relative; }
+    .role-select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid var(--indigo);
+      pointer-events: none;
+    }
+    .role-select {
+      width: 100%;
+      padding: 0.85rem 2.5rem 0.85rem 1rem;
+      border-radius: 12px;
       border: 1.5px solid var(--border);
-      background: rgba(10,8,20,0.4);
-      color: var(--muted);
-      font-size: 0.78rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-    }
-    .role-tab.active {
-      border-color: var(--indigo);
-      background: rgba(79,70,229,0.15);
+      background: rgba(10,8,20,0.5);
       color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
     }
+    .role-select:focus {
+      border-color: var(--indigo);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+    }
+    .role-select option { background: #120f26; color: #fff; }
     .ee-icon { width: 1rem; height: 1rem; stroke: currentColor; }
     @keyframes popIn { 0%{transform:scale(0) rotate(-15deg);opacity:0} 65%{transform:scale(1.2) rotate(4deg)} 100%{transform:scale(1) rotate(0);opacity:1} }
     .success-state h2 { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 0.4rem; }
@@ -491,12 +507,14 @@
     <!-- ===== STEP 1: DETAILS ===== -->
     <div class="form-panel active" id="panel-1">
       <div class="input-group">
-        <label class="input-label">I am a</label>
-        <div class="role-tabs" id="role-tabs">
-          <button type="button" class="role-tab active" data-role="student" onclick="setRole('student', this)"><img src="logo.svg" alt="PrepFast Logo" class="ee-icon-lg" style="width: 2.2rem; height: 2.2rem; display: block; margin: auto;"> Student</button>
-          <button type="button" class="role-tab" data-role="teacher" onclick="setRole('teacher', this)"><i data-lucide="book-open" class="ee-icon"></i> Teacher</button>
-          <button type="button" class="role-tab" data-role="parent" onclick="setRole('parent', this)"><i data-lucide="users" class="ee-icon"></i> Parent</button>
-          <button type="button" class="role-tab" data-role="school" onclick="setRole('school', this)"><i data-lucide="school" class="ee-icon"></i> School</button>
+        <label class="input-label" for="role-select">I am a</label>
+        <div class="role-select-wrap">
+          <select id="role-select" class="role-select" onchange="setRole(this.value)">
+            <option value="student">🎓 Student</option>
+            <option value="teacher">📖 Teacher</option>
+            <option value="parent">👨‍👩‍👧 Parent</option>
+            <option value="school">🏫 School</option>
+          </select>
         </div>
       </div>
       <div class="input-group">
@@ -691,10 +709,9 @@
     step: 1
   };
 
-  function setRole(role, el) {
+  function setRole(role) {
     state.role = role;
-    document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
+    document.getElementById('role-select').value = role;
     
     // Grab all field wraps
     const nameWrap = document.getElementById('reg-name').parentElement;
