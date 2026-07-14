@@ -1,4 +1,5 @@
 const config = require("../config");
+const { GoogleGenAI } = require("@google/genai");
 
 const TUTOR_SYSTEM = `You are PrepFast Tutor — a friendly, expert Nigerian secondary school exam coach helping students prepare for WAEC, NECO, and JAMB.
 
@@ -11,39 +12,32 @@ Your role:
 - Keep responses under 200 words unless a step-by-step solution requires more
 - End with: "Try a similar question to test your understanding!"`;
 
-async function callClaude(messages, maxTokens = 1024) {
-  if (!config.anthropic.apiKey) {
+async function callGemini(systemInstruction, userMessage, responseMimeType = "text/plain") {
+  if (!config.gemini.apiKey) {
     return {
       text:
-        "AI Tutor is not configured yet. Add ANTHROPIC_API_KEY to your .env file. " +
+        "AI Tutor is not configured yet. Add GEMINI_API_KEY to your .env file. " +
         "Meanwhile, read the explanation below and practice similar questions in Weakness Drill mode.",
       simulated: true,
     };
   }
 
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": config.anthropic.apiKey,
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify({
-      model: config.anthropic.model,
-      max_tokens: maxTokens,
-      system: messages.system,
-      messages: messages.userMessages,
-    }),
-  });
+  const ai = new GoogleGenAI({ apiKey: config.gemini.apiKey });
 
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Claude API error: ${err}`);
+  try {
+    const response = await ai.models.generateContent({
+      model: config.gemini.model,
+      contents: userMessage,
+      config: {
+        systemInstruction: systemInstruction,
+        responseMimeType: responseMimeType
+      }
+    });
+
+    return { text: response.text, simulated: false };
+  } catch (err) {
+    throw new Error(`Gemini API error: ${err.message || err}`);
   }
-
-  const data = await res.json();
-  const text = data.content?.find((c) => c.type === "text")?.text || "";
-  return { text, simulated: false };
 }
 
 async function tutorReply({ question, studentAnswer, userMessage }) {
@@ -56,18 +50,9 @@ Student's answer: ${studentAnswer || "Not answered"}
 Correct answer: ${question.correct_answer}
 `;
 
-  const userMessages = [
-    {
-      role: "user",
-      content:
-        context +
-        (userMessage
-          ? `\nStudent asks: ${userMessage}`
-          : "\nPlease explain this question and help the student understand."),
-    },
-  ];
+  const finalMessage = context + (userMessage ? `\nStudent asks: ${userMessage}` : "\nPlease explain this question and help the student understand.");
 
-  return callClaude({ system: TUTOR_SYSTEM, userMessages });
+  return callGemini(TUTOR_SYSTEM, finalMessage);
 }
 
 async function generateStudyPlan({ examDate, subjects, weaknessMap, hoursPerDay }) {
@@ -77,21 +62,24 @@ Subjects: ${subjects.join(", ")}
 Weak topics: ${JSON.stringify(weaknessMap)}
 Daily study hours: ${hoursPerDay}
 
-Return ONLY valid JSON array:
+Return ONLY a JSON array with this structure, nothing else:
 [{"date":"YYYY-MM-DD","subject":"...","topics":["..."],"question_count_target":20}]`;
 
-  const result = await callClaude(
-    {
-      system: "You are a study plan generator. Return only JSON, no markdown.",
-      userMessages: [{ role: "user", content: prompt }],
-    },
-    4096
-  );
-
   try {
+    const result = await callGemini(
+      "You are a study plan generator. Return only JSON, no markdown.",
+      prompt,
+      "application/json"
+    );
+
+    if (result.simulated) {
+      return { plan: buildFallbackPlan(examDate, subjects, hoursPerDay), simulated: true };
+    }
+
     const cleaned = result.text.replace(/```json|```/g, "").trim();
-    return { plan: JSON.parse(cleaned), simulated: result.simulated };
-  } catch {
+    return { plan: JSON.parse(cleaned), simulated: false };
+  } catch (err) {
+    console.error("[generateStudyPlan] Gemini failed:", err.message);
     return { plan: buildFallbackPlan(examDate, subjects, hoursPerDay), simulated: true };
   }
 }

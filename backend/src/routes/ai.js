@@ -1,22 +1,22 @@
 const express = require("express");
 const { query } = require("../db/pool");
 const { authRequired, requireRole } = require("../middleware/auth");
-const { tutorReply, generateStudyPlan, buildFallbackPlan } = require("../services/claude");
+const { tutorReply, generateStudyPlan, buildFallbackPlan } = require("../services/gemini");
 const { getWeaknessMap } = require("../services/analytics");
 
 const router = express.Router();
 
 router.post("/tutor", authRequired, async (req, res) => {
   try {
-    const apiKey = process.env.ANTHROPIC_API_KEY || "";
-    if (!apiKey || apiKey === "your-anthropic-api-key-here" || apiKey.endsWith("your-anthropic-api-key-here")) {
+    const apiKey = process.env.GEMINI_API_KEY || "";
+    if (!apiKey || apiKey === "your-gemini-api-key-here" || apiKey.endsWith("your-gemini-api-key-here")) {
       return res.status(503).json({
         error: "AI tutor not configured",
-        message: "Add a valid ANTHROPIC_API_KEY to your .env file"
+        message: "Add a valid GEMINI_API_KEY to your .env file"
       });
     }
-    // Access ANTHROPIC_MODEL to ensure it is read
-    const anthropicModel = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-20250514";
+    // Access GEMINI_MODEL to ensure it is read
+    const geminiModel = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
     const { question_id, student_answer, message } = req.body;
     const q = await query("SELECT * FROM questions WHERE id = $1", [question_id]);
@@ -50,7 +50,7 @@ router.post("/study-plan", authRequired, async (req, res) => {
 
     const subjectList = Array.isArray(subjects) ? subjects : [];
     
-    // Attempt Claude generation first
+    // Attempt Gemini generation first
     let generated;
     try {
       generated = await generateStudyPlan({ 
@@ -60,7 +60,7 @@ router.post("/study-plan", authRequired, async (req, res) => {
         hoursPerDay: hours_per_day 
       });
     } catch (err) {
-      console.error("[study-plan] Claude failed:", err.message);
+      console.error("[study-plan] Gemini failed:", err.message);
       generated = { plan: buildFallbackPlan(exam_date, subjectList, hours_per_day), simulated: true };
     }
     const plan = generated.plan;

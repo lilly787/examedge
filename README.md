@@ -2,7 +2,7 @@
 
 Past questions and exam readiness platform for Nigerian secondary schools (WAEC, NECO, JAMB).
 
-**Phases 0–2** are implemented: waitlist, full backend API, student PWA, teacher/parent/school portals, Paystack, Claude AI tutor, study planner, WhatsApp bot hooks, offline bundles, gamification.
+**Phases 0–2** are implemented: waitlist, full backend API, student PWA, teacher/parent/school portals, Paystack, Gemini AI tutor, study planner, WhatsApp bot hooks, offline bundles, gamification.
 
 ## Quick start
 
@@ -48,7 +48,7 @@ Open:
 |----------|---------|
 | `TERMII_API_KEY` | Real SMS OTP |
 | `PAYSTACK_SECRET_KEY` / `PAYSTACK_PUBLIC_KEY` | Payments |
-| `ANTHROPIC_API_KEY` | AI tutor + study plans |
+| `GEMINI_API_KEY` | AI tutor + study plans |
 | `WHATSAPP_TOKEN` + `WHATSAPP_PHONE_NUMBER_ID` | WhatsApp Business bot |
 
 Without keys, the app runs in **dev mode** (OTP printed to server console, simulated Paystack, AI fallback messages).
@@ -59,7 +59,7 @@ Without keys, the app runs in **dev mode** (OTP printed to server console, simul
 examedge/
 ├── backend/src/          # Express + PostgreSQL API
 │   ├── routes/           # auth, questions, progress, ai, payments, …
-│   ├── services/         # OTP, Paystack, Claude, WhatsApp, analytics
+│   ├── services/         # OTP, Paystack, Gemini, WhatsApp, analytics
 │   └── db/schema.sql     # Full data model
 ├── index.html + app.js   # Student PWA (offline-first)
 ├── examedge-api.js       # Frontend API client
@@ -77,7 +77,7 @@ examedge/
 | `POST /api/auth/otp/verify` | Verify OTP → JWT |
 | `GET /api/questions` | Filter question bank |
 | `POST /api/progress` | Log attempt + weakness/readiness |
-| `POST /api/ai/tutor` | Claude tutor (Premium) |
+| `POST /api/ai/tutor` | Gemini tutor (Premium) |
 | `POST /api/ai/study-plan` | AI study calendar |
 | `POST /api/payments/initialize` | Paystack checkout |
 | `POST /api/whatsapp/webhook` | WhatsApp Cloud API |
@@ -106,7 +106,7 @@ Or bulk upload via `POST /api/questions/bulk` (admin).
 |-------|--------|
 | 0 — Validate | Waitlist + docs; market tasks manual |
 | 1 — MVP | Backend, auth, CBT, progress, Paystack, WhatsApp hooks, PWA offline |
-| 2 — AI | Weakness/readiness (server), Claude tutor, study planner, badges, leaderboards |
+| 2 — AI | Weakness/readiness (server), Gemini tutor, study planner, badges, leaderboards |
 | 3+ | React Native app scaffold in `/mobile` — build when ready |
 
 ## License

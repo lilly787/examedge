@@ -45,7 +45,7 @@ app.get("/api/config/public", (_req, res) => {
     free_daily_limit: config.freeTier.dailyQuestionLimit,
     premium_monthly_naira: config.premium.monthlyKobo / 100,
     features: {
-      ai_tutor: !!config.anthropic.apiKey,
+      ai_tutor: !!config.gemini.apiKey,
       whatsapp: !!config.whatsapp.token,
       sms_otp: !!config.termii.apiKey,
     },

@@ -28,9 +28,9 @@ module.exports = {
     secretKey: process.env.PAYSTACK_SECRET_KEY || "",
     publicKey: process.env.PAYSTACK_PUBLIC_KEY || "",
   },
-  anthropic: {
-    apiKey: process.env.ANTHROPIC_API_KEY || "",
-    model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-20250514",
+  gemini: {
+    apiKey: process.env.GEMINI_API_KEY || "",
+    model: process.env.GEMINI_MODEL || "gemini-2.5-flash",
   },
   whatsapp: {
     token: process.env.WHATSAPP_TOKEN || "",
