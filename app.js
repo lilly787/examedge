@@ -181,7 +181,7 @@ function renderAuthView() {
         </div>
 
         <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-purple-300 to-amber-200 mb-2">ExamEdge</h1>
-        <p class="text-gray-400 text-sm mb-8 font-light">Join 100,000+ Nigerian students preparing for WAEC, NECO, & JAMB exams.</p>
+        <p class="text-gray-400 text-sm mb-8 font-light">Practice 5,000+ WAEC, NECO, & JAMB past questions with explanations.</p>
 
         <!-- Phone Number Input Screen -->
         <div id="auth-phone-screen">
