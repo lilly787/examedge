@@ -237,7 +237,7 @@ window.openAiTutor = async function openAiTutor(questionId) {
     const res = await PrepFastAPI.askTutor(questionId, studentAnswer, null);
     document.getElementById("ai-tutor-body").innerHTML = `<p class="whitespace-pre-wrap">${res.text}</p>`;
   } catch (e) {
-    document.getElementById("ai-tutor-body").innerHTML = `<p class="text-amber-400">${e.message}. Upgrade to Premium or set GEMINI_API_KEY.</p><p class="mt-3 text-gray-400">${q.explanation}</p>`;
+    document.getElementById("ai-tutor-body").innerHTML = `<p class="text-amber-400"><strong>Update:</strong> To use the new Google Gemini AI Tutor, you must activate Premium (Dev Mode).</p><p class="mt-3 text-gray-400">${q.explanation}</p>`;
   }
 };
 
