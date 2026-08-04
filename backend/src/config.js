@@ -32,11 +32,6 @@ module.exports = {
     apiKey: process.env.GEMINI_API_KEY || "",
     model: process.env.GEMINI_MODEL || "gemini-2.5-flash",
   },
-  whatsapp: {
-    token: process.env.WHATSAPP_TOKEN || "",
-    phoneNumberId: process.env.WHATSAPP_PHONE_NUMBER_ID || "",
-    verifyToken: process.env.WHATSAPP_VERIFY_TOKEN || "prepfast_verify_token",
-  },
   resend: {
     apiKey: process.env.RESEND_API_KEY || "",
     fromEmail: process.env.FROM_EMAIL || "reports@prepfast.app",

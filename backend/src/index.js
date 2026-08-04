@@ -8,7 +8,6 @@ const questionRoutes = require("./routes/questions");
 const progressRoutes = require("./routes/progress");
 const aiRoutes = require("./routes/ai");
 const paymentRoutes = require("./routes/payments");
-const whatsappRoutes = require("./routes/whatsapp");
 const waitlistRoutes = require("./routes/waitlist");
 const teacherRoutes = require("./routes/teachers");
 const parentRoutes = require("./routes/parents");
@@ -46,7 +45,6 @@ app.get("/api/config/public", (_req, res) => {
     premium_monthly_naira: config.premium.monthlyKobo / 100,
     features: {
       ai_tutor: !!config.gemini.apiKey,
-      whatsapp: !!config.whatsapp.token,
       sms_otp: !!config.termii.apiKey,
     },
   });
@@ -57,7 +55,6 @@ app.use("/api/questions", questionRoutes);
 app.use("/api/progress", progressRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/payments", paymentRoutes);
-app.use("/api/whatsapp", whatsappRoutes);
 app.use("/api/waitlist", waitlistRoutes);
 app.use("/api/teachers", teacherRoutes);
 app.use("/api/parents", parentRoutes);

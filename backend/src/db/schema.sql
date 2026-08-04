@@ -227,11 +227,6 @@ CREATE TABLE IF NOT EXISTS payments (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-CREATE TABLE IF NOT EXISTS whatsapp_sessions (
-  phone TEXT PRIMARY KEY,
-  active_question_id TEXT,
-  last_message_at TIMESTAMPTZ DEFAULT NOW()
-);
 
 CREATE TABLE IF NOT EXISTS mood_checkins (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

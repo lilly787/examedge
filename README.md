@@ -2,7 +2,7 @@
 
 Past questions and exam readiness platform for Nigerian secondary schools (WAEC, NECO, JAMB).
 
-**Phases 0–2** are implemented: waitlist, full backend API, student PWA, teacher/parent/school portals, Paystack, Gemini AI tutor, study planner, WhatsApp bot hooks, offline bundles, gamification.
+**Phases 0–2** are implemented: waitlist, full backend API, student PWA, teacher/parent/school portals, Paystack, Gemini AI tutor, study planner, offline bundles, gamification.
 
 ## Quick start
 
@@ -49,7 +49,6 @@ Open:
 | `TERMII_API_KEY` | Real SMS OTP |
 | `PAYSTACK_SECRET_KEY` / `PAYSTACK_PUBLIC_KEY` | Payments |
 | `GEMINI_API_KEY` | AI tutor + study plans |
-| `WHATSAPP_TOKEN` + `WHATSAPP_PHONE_NUMBER_ID` | WhatsApp Business bot |
 
 Without keys, the app runs in **dev mode** (OTP printed to server console, simulated Paystack, AI fallback messages).
 
@@ -59,7 +58,7 @@ Without keys, the app runs in **dev mode** (OTP printed to server console, simul
 examedge/
 ├── backend/src/          # Express + PostgreSQL API
 │   ├── routes/           # auth, questions, progress, ai, payments, …
-│   ├── services/         # OTP, Paystack, Gemini, WhatsApp, analytics
+│   ├── services/         # OTP, Paystack, Gemini, analytics
 │   └── db/schema.sql     # Full data model
 ├── index.html + app.js   # Student PWA (offline-first)
 ├── examedge-api.js       # Frontend API client
@@ -80,7 +79,6 @@ examedge/
 | `POST /api/ai/tutor` | Gemini tutor (Premium) |
 | `POST /api/ai/study-plan` | AI study calendar |
 | `POST /api/payments/initialize` | Paystack checkout |
-| `POST /api/whatsapp/webhook` | WhatsApp Cloud API |
 | `POST /api/waitlist` | Phase 0 waitlist |
 
 ## Question bank (5,000+ target)
@@ -105,7 +103,7 @@ Or bulk upload via `POST /api/questions/bulk` (admin).
 | Phase | Status |
 |-------|--------|
 | 0 — Validate | Waitlist + docs; market tasks manual |
-| 1 — MVP | Backend, auth, CBT, progress, Paystack, WhatsApp hooks, PWA offline |
+| 1 — MVP | Backend, auth, CBT, progress, Paystack, PWA offline |
 | 2 — AI | Weakness/readiness (server), Gemini tutor, study planner, badges, leaderboards |
 | 3+ | React Native app scaffold in `/mobile` — build when ready |
 
