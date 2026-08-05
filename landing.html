@@ -1565,18 +1565,7 @@
         <p>Download any subject bundle once. Practice thousands of questions without internet. Perfect for Nigeria's
           variable network conditions.</p>
       </div>
-      <div class="feature-card glass appear" style="border-radius:18px;">
-        <div class="feat-icon" style="background:rgba(52,211,153,0.15);border:1px solid rgba(52,211,153,0.3);"><span
-            class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5 5h14v12H5z" fill="none" stroke="currentColor" stroke-width="1.8" />
-              <path d="M7 9h10M7 13h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
-              <path d="M9 19l2-2h4l2 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg></span></div>
-        <h3>WhatsApp Daily Questions</h3>
-        <p>Opt in to receive one WAEC past question daily via WhatsApp. Reply A/B/C/D. Get instant explanation. Study
-          anywhere, anytime.</p>
-      </div>
+
     </div>
   </section>
 
@@ -1722,7 +1711,6 @@
         <ul class="plan-features">
           <li><span class="tick"></span> 20 questions per day</li>
           <li><span class="tick"></span> 1 mock exam per month</li>
-          <li><span class="tick"></span> WhatsApp daily question</li>
           <li><span class="tick"></span> Basic progress tracking</li>
           <li><span class="cross"></span> <span class="cross-text">Unlimited questions</span></li>
           <li><span class="cross"></span> <span class="cross-text">Weakness detection map</span></li>
@@ -1761,10 +1749,10 @@
           <li><span class="tick"></span> Dedicated onboarding</li>
           <li><span class="tick"></span> Bulk student enrollment</li>
         </ul>
-        <a href="mailto:schools@examedge.app" class="plan-btn"
-          style="display:block;text-align:center;padding:0.9rem;border:1.5px solid rgba(245,158,11,0.3);border-radius:14px;color:#fbbf24;text-decoration:none;font-weight:700;transition:all 0.2s;"
+        <button onclick="openContactModal()" class="plan-btn"
+          style="display:block;width:100%;text-align:center;padding:0.9rem;border:1.5px solid rgba(245,158,11,0.3);border-radius:14px;color:#fbbf24;background:transparent;font-weight:700;font-family:'Outfit',sans-serif;font-size:1rem;cursor:pointer;transition:all 0.2s;"
           onmouseover="this.style.background='rgba(245,158,11,0.08)'"
-          onmouseout="this.style.background='transparent'">Contact Us</a>
+          onmouseout="this.style.background='transparent'">Contact Us</button>
       </div>
     </div>
   </section>
@@ -1878,10 +1866,91 @@
         if (el) el.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
       }
     }, 1000);
+    // Contact modal
+    function openContactModal() {
+      document.getElementById('contact-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeContactModal() {
+      document.getElementById('contact-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeContactModal();
+    });
+    function submitContactForm(e) {
+      e.preventDefault();
+      const name    = document.getElementById('contact-name').value.trim();
+      const email   = document.getElementById('contact-email').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+      const subject = encodeURIComponent('School Plan Enquiry – ' + name);
+      const body    = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+      window.location.href = 'mailto:preciouspady@gmail.com?subject=' + subject + '&body=' + body;
+      document.getElementById('contact-success').style.display = 'block';
+      document.getElementById('contact-form-inner').style.display = 'none';
+    }
   </script>
   <script src="prepfast-config.js"></script>
   <script src="prepfast-api.js"></script>
 
+  <!-- ===== CONTACT MODAL ===== -->
+  <div id="contact-modal" style="display:flex;align-items:center;justify-content:center;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity 0.25s;">
+    <div style="background:#0f1629;border:1px solid rgba(245,158,11,0.25);border-radius:24px;padding:2.5rem;width:min(480px,92vw);position:relative;box-shadow:0 24px 80px rgba(0,0,0,0.6);transform:translateY(20px);transition:transform 0.25s;">
+      <button onclick="closeContactModal()" aria-label="Close" style="position:absolute;top:1.2rem;right:1.2rem;background:rgba(255,255,255,0.06);border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;color:#fff;font-size:1.2rem;display:flex;align-items:center;justify-content:center;">✕</button>
+      <div style="font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.4rem;">Get in Touch 🏫</div>
+      <div style="color:var(--muted);font-size:0.9rem;margin-bottom:1.2rem;">Reach out directly or fill the form and we'll get back to you within 24 hours.</div>
+      <!-- Direct contact info -->
+      <div style="display:flex;gap:0.75rem;margin-bottom:1.6rem;flex-wrap:wrap;">
+        <a href="mailto:preciouspady@gmail.com" style="flex:1;min-width:140px;display:flex;align-items:center;gap:0.6rem;padding:0.75rem 1rem;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:12px;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='rgba(245,158,11,0.16)'" onmouseout="this.style.background='rgba(245,158,11,0.08)'">
+          <span style="font-size:1.2rem;">✉️</span>
+          <div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-bottom:0.1rem;">Email</div>
+            <div style="font-size:0.78rem;color:#fbbf24;font-weight:600;word-break:break-all;">preciouspady@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://wa.me/2348080827232" target="_blank" rel="noopener" style="flex:1;min-width:140px;display:flex;align-items:center;gap:0.6rem;padding:0.75rem 1rem;background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.2);border-radius:12px;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='rgba(37,211,102,0.16)'" onmouseout="this.style.background='rgba(37,211,102,0.08)'">
+          <span style="font-size:1.2rem;">📱</span>
+          <div>
+            <div style="font-size:0.7rem;color:var(--muted);margin-bottom:0.1rem;">WhatsApp</div>
+            <div style="font-size:0.78rem;color:#25d366;font-weight:600;">08080827232</div>
+          </div>
+        </a>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.4rem;">
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.08);"></div>
+        <span style="font-size:0.75rem;color:var(--muted);">or send a message</span>
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.08);"></div>
+      </div>
+      <div id="contact-form-inner">
+        <form onsubmit="submitContactForm(event)">
+          <div style="margin-bottom:1rem;">
+            <label style="display:block;font-size:0.82rem;color:var(--muted);margin-bottom:0.4rem;">Your Name</label>
+            <input id="contact-name" type="text" required placeholder="e.g. Bello Adeyemi" style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#fff;font-size:0.95rem;font-family:'Outfit',sans-serif;outline:none;transition:border 0.2s;" onfocus="this.style.border='1px solid rgba(245,158,11,0.5)'" onblur="this.style.border='1px solid rgba(255,255,255,0.12)'">
+          </div>
+          <div style="margin-bottom:1rem;">
+            <label style="display:block;font-size:0.82rem;color:var(--muted);margin-bottom:0.4rem;">School Email</label>
+            <input id="contact-email" type="email" required placeholder="admin@yourschool.edu.ng" style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#fff;font-size:0.95rem;font-family:'Outfit',sans-serif;outline:none;transition:border 0.2s;" onfocus="this.style.border='1px solid rgba(245,158,11,0.5)'" onblur="this.style.border='1px solid rgba(255,255,255,0.12)'">
+          </div>
+          <div style="margin-bottom:1.6rem;">
+            <label style="display:block;font-size:0.82rem;color:var(--muted);margin-bottom:0.4rem;">Message</label>
+            <textarea id="contact-message" required rows="4" placeholder="Tell us about your school, number of students, and any questions you have..." style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#fff;font-size:0.95rem;font-family:'Outfit',sans-serif;outline:none;resize:vertical;transition:border 0.2s;" onfocus="this.style.border='1px solid rgba(245,158,11,0.5)'" onblur="this.style.border='1px solid rgba(255,255,255,0.12)'"></textarea>
+          </div>
+          <button type="submit" style="width:100%;padding:0.9rem;background:linear-gradient(135deg,#f59e0b,#d97706);border:none;border-radius:12px;color:#000;font-weight:800;font-size:1rem;font-family:'Outfit',sans-serif;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">Send Message →</button>
+          <div style="text-align:center;margin-top:1rem;font-size:0.82rem;color:var(--muted);">Or reach us at <a href="mailto:preciouspady@gmail.com" style="color:#fbbf24;text-decoration:none;">preciouspady@gmail.com</a></div>
+        </form>
+      </div>
+      <div id="contact-success" style="display:none;text-align:center;padding:2rem 0;">
+        <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+        <div style="font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:0.5rem;">Message Sent!</div>
+        <div style="color:var(--muted);font-size:0.9rem;">Your email client should open shortly. We'll get back to you within 24 hours.</div>
+        <button onclick="closeContactModal()" style="margin-top:1.5rem;padding:0.7rem 2rem;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:10px;color:#fbbf24;font-family:'Outfit',sans-serif;font-weight:700;cursor:pointer;">Close</button>
+      </div>
+    </div>
+  </div>
+  <style>
+    #contact-modal.open { opacity:1 !important; pointer-events:auto !important; }
+    #contact-modal.open > div { transform:translateY(0) !important; }
+  </style>
 </body>
 
 </html>

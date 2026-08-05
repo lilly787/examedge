@@ -16,14 +16,7 @@ let PRACTICE_SESSION = {
   dailyLimitTriggered: false
 };
 
-// WhatsApp Bot Session State
-let WHATSAPP_SESSION = {
-  open: false,
-  messages: [
-    { sender: "bot", text: " <b>ExamEdge WhatsApp Study Bot</b> active!<br>Ready for your daily WAEC challenge?", time: "09:00" },
-    { sender: "bot", text: "<b>Subject: Biology (Ecology)</b><br>Question: <i>Which organism is a primary producer in a food chain?</i><br>A) Grasshopper<br>B) Green plant<br>C) Lion<br>D) Frog<br><br>Reply with <b>A</b>, <b>B</b>, <b>C</b>, or <b>D</b> to answer!", time: "09:01" }
-  ]
-};
+
 
 // Active Countdown Target (now dynamic via CURRENT_USER)
 // const TARGET_DATE = new Date("2026-06-15T09:00:00").getTime();
@@ -155,10 +148,7 @@ function navigate(viewName) {
       break;
   }
 
-  // Close WhatsApp if open on practice or mock exam to prevent overlapping
-  if (viewName === "practice-active" && WHATSAPP_SESSION.open) {
-    toggleWhatsApp();
-  }
+
 }
 
 // ----------------------------------------------------
@@ -967,9 +957,7 @@ function renderPracticeInterface() {
           <button onclick="openAiTutor('${q.id}')" class="text-xs font-semibold px-3 py-1.5 bg-violet-600/20 text-violet-300 rounded-lg border border-violet-800/40 hover:bg-violet-600/40 transition-all">
             <i data-lucide="bot"></i> Ask AI Tutor
           </button>
-          <button onclick="triggerWhatsAppDailyChallengeSim('${q.id}')" class="text-xs font-semibold px-3 py-1.5 bg-indigo-600/20 text-indigo-300 rounded-lg border border-indigo-800/40 hover:bg-indigo-600/40 transition-all">
-            <i data-lucide="message-square"></i> Share to WhatsApp
-          </button>
+
         </div>
       </div>
     `;
@@ -2079,138 +2067,7 @@ function submitPaystackOTP() {
   document.getElementById("paystack-success-view").classList.remove("hidden");
 }
 
-// 2. WhatsApp Study Bot Widget Simulator
-function toggleWhatsApp() {
-  WHATSAPP_SESSION.open = !WHATSAPP_SESSION.open;
-  const widget = document.getElementById("whatsapp-widget");
-  const panel = document.getElementById("whatsapp-panel");
 
-  if (WHATSAPP_SESSION.open) {
-    // Populate chat messages
-    renderWhatsAppMessages();
-    panel.classList.remove("hidden");
-    widget.classList.add("ring-2", "ring-emerald-500");
-  } else {
-    panel.classList.add("hidden");
-    widget.classList.remove("ring-2", "ring-emerald-500");
-  }
-}
-
-function renderWhatsAppMessages() {
-  const box = document.getElementById("whatsapp-msg-box");
-  if (!box) return;
-
-  let msgHtml = "";
-  WHATSAPP_SESSION.messages.forEach(msg => {
-    const isBot = msg.sender === "bot";
-    msgHtml += `
-      <div class="flex flex-col ${isBot ? 'items-start' : 'items-end'} mb-3">
-        <div class="max-w-4/5 p-3 rounded-2xl text-xs leading-relaxed ${isBot ? 'bg-[#202c33] text-white border border-[#2f3b43] rounded-tl-none' : 'bg-[#005c4b] text-white rounded-tr-none'}">
-          ${msg.text}
-        </div>
-        <span class="text-[10px] text-gray-500 mt-1 px-1">${msg.time}</span>
-      </div>
-    `;
-  });
-
-  box.innerHTML = msgHtml;
-  box.scrollTop = box.scrollHeight; // Scroll to bottom
-}
-
-function sendWhatsAppMessage() {
-  const input = document.getElementById("whatsapp-input-field");
-  if (!input) return;
-
-  const txt = input.value.trim().toUpperCase();
-  if (txt === "") return;
-
-  // Add student message
-  const now = new Date();
-  const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-
-  WHATSAPP_SESSION.messages.push({
-    sender: "student",
-    text: txt,
-    time: timeStr
-  });
-
-  input.value = "";
-  renderWhatsAppMessages();
-
-  // Trigger typing indicator and reply
-  const box = document.getElementById("whatsapp-msg-box");
-  const typingDiv = document.createElement("div");
-  typingDiv.className = "flex items-start mb-3" + " typing-indicator-node";
-  typingDiv.innerHTML = `
-    <div class="bg-[#202c33] p-3 rounded-2xl flex items-center gap-1">
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
-    </div>
-  `;
-  box.appendChild(typingDiv);
-  box.scrollTop = box.scrollHeight;
-
-  setTimeout(() => {
-    // Remove typing
-    document.querySelectorAll(".typing-indicator-node").forEach(n => n.remove());
-
-    // Generate responsive bot reply
-    let replyText = "";
-    if (txt === "B") {
-      replyText = "<i data-lucide='party-popper'></i> <b>CORRECT!</b> Green plants are primary producers because they make their own food through photosynthesis.<br><br> <b>Explanation:</b> Chlorophyll captures solar energy to convert CO2 and water into glucose.<br><br> Want to practice 20 more questions? Tap here: <a onclick=\"navigate('practice')\" class=\"text-emerald-400 font-bold underline cursor-pointer\">Start Mock Session</a>";
-    } else if (["A", "C", "D"].includes(txt)) {
-      replyText = " <b>INCORRECT.</b> The correct answer was <b>B (Green plant)</b>.<br><br> <b>Explanation:</b> Grasshoppers are primary consumers; lions are top carnivores; frogs are secondary consumers. Only green plants make food from scratch.<br><br> Study the topic step-by-step: <a onclick=\"navigate('practice')\" class=\"text-emerald-400 font-bold underline cursor-pointer\">Review Practice Engine</a>";
-    } else {
-      replyText = " Welcome to <b>ExamEdge Opt-In Daily Question Bot!</b><br><br>Please respond only with the letter <b>A</b>, <b>B</b>, <b>C</b>, or <b>D</b> to answer the active question above.";
-    }
-
-    WHATSAPP_SESSION.messages.push({
-      sender: "bot",
-      text: replyText,
-      time: timeStr
-    });
-
-    renderWhatsAppMessages();
-  }, 1500);
-}
-
-// Allows direct sharing of questions from the study mode feedback screen to the WhatsApp simulator widget
-function triggerWhatsAppDailyChallengeSim(questionId) {
-  const q = ExamEdgeDB.getQuestions().find(item => item.id === questionId);
-  if (!q) return;
-
-  const now = new Date();
-  const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-
-  const textFormat = `
-    ⭐ <b>Student shared a new challenge!</b><br>
-    <b>Subject:</b> ${q.subject}<br>
-    <b>Topic:</b> ${q.topic}<br>
-    <b>Question:</b> <i>${q.question}</i><br>
-    A) ${q.options.A}<br>
-    B) ${q.options.B}<br>
-    C) ${q.options.C}<br>
-    D) ${q.options.D}<br><br>
-    Reply with <b>A</b>, <b>B</b>, <b>C</b>, or <b>D</b>!
-  `;
-
-  WHATSAPP_SESSION.messages.push({
-    sender: "bot",
-    text: textFormat,
-    time: timeStr
-  });
-
-  // Re-link simulated bot answering check to match new shared question answer keys
-  // For simplicity, we trigger the bot widget open so the student sees it immediately!
-  if (!WHATSAPP_SESSION.open) {
-    toggleWhatsApp();
-  } else {
-    renderWhatsAppMessages();
-  }
-
-  showToast("Question shared to WhatsApp Simulator!", "success");
-}
 
 // ----------------------------------------------------
 // PLATFORM LEVEL MISC ASSISTS
@@ -2307,13 +2164,5 @@ function setupEventListeners() {
     logo.addEventListener("click", () => navigate("dashboard"));
   }
 
-  // Bind key inputs for SMS widget
-  const whatsappInput = document.getElementById("whatsapp-input-field");
-  if (whatsappInput) {
-    whatsappInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        sendWhatsAppMessage();
-      }
-    });
-  }
+
 }

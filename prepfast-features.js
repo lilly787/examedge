@@ -511,31 +511,7 @@ PrepFastFeatures.renderPlanCalendar = function (plan) {
     .join("");
 };
 
-// ——— WhatsApp API ———
-const _sendWhatsAppMessage = window.sendWhatsAppMessage;
-window.sendWhatsAppMessage = async function sendWhatsAppApi() {
-  const input = document.getElementById("whatsapp-input-field");
-  const txt = input?.value.trim().toUpperCase();
-  if (!txt) return;
 
-  if (PrepFastBridge?.apiOnline) {
-    try {
-      const res = await PrepFastAPI.whatsappSimulate("2348000000000", txt);
-      const now = new Date();
-      const timeStr = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-      WHATSAPP_SESSION.messages.push({ sender: "student", text: txt, time: timeStr });
-      WHATSAPP_SESSION.messages.push({
-        sender: "bot",
-        text: res.reply.replace(/\n/g, "<br>"),
-        time: timeStr,
-      });
-      input.value = "";
-      renderWhatsAppMessages();
-      return;
-    } catch (_) {}
-  }
-  if (typeof _sendWhatsAppMessage === "function") _sendWhatsAppMessage();
-};
 
 // ——— Offline download ———
 window.downloadSubjectOffline = async function (subject) {

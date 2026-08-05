@@ -173,12 +173,7 @@ const PrepFastAPI = {
     });
   },
 
-  async whatsappSimulate(from, body) {
-    return PrepFastAPI.request("/whatsapp/simulate", {
-      method: "POST",
-      body: JSON.stringify({ from, body }),
-    });
-  },
+
 
   // Parent portal
   async linkChild(code) {
