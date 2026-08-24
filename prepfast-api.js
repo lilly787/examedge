@@ -250,6 +250,13 @@ const PrepFastAPI = {
     });
   },
 
+  async initPayment(plan) {
+    return PrepFastAPI.request("/payments/initialize", {
+      method: "POST",
+      body: JSON.stringify({ plan }),
+    });
+  },
+
   // Admin specific APIs
   async adminLogin(password) {
     return PrepFastAPI.request("/auth/admin/login", {

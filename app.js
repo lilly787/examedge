@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Role-aware initial routing
   if (!CURRENT_USER) {
-    navigate("auth");
+    window.location.replace("register.html#login");
   } else {
     const role = CURRENT_USER.role || "student";
     const rolePortals = {
@@ -74,7 +74,7 @@ function navigate(viewName) {
 
   // Handle Auth guard
   if (!CURRENT_USER && viewName !== "auth") {
-    navigate("auth");
+    window.location.replace("register.html#login");
     return;
   }
 
@@ -1956,7 +1956,8 @@ async function openPaystackSim() {
 
   const token = PrepFastAPI.getToken();
   if (!token) {
-    showToast("Please log out and log back in to pay for Premium.", "error");
+    showToast("Please log in to access Premium.", "error");
+    window.location.replace("register.html#login");
     return;
   }
 
@@ -1992,6 +1993,16 @@ async function openPaystackSim() {
     // Real Paystack — redirect to checkout
     window.location.href = init.authorization_url;
   } catch (e) {
+    // If token was rejected (401), clear it and send to login
+    if (e.status === 401) {
+      overlay.classList.add("hidden");
+      overlay.classList.remove("flex");
+      PrepFastAPI.setToken(null);
+      localStorage.removeItem("PREPFAST_LOGGED_IN");
+      showToast("Session expired. Please log in again.", "error");
+      setTimeout(() => window.location.replace("register.html#login"), 1500);
+      return;
+    }
     overlay.innerHTML = `
       <div class="bg-[#12101f] border border-rose-500/20 rounded-2xl p-8 max-w-md w-full text-center">
         <p class="text-rose-400 font-semibold mb-4">${e.message || 'Payment failed to initialize'}</p>

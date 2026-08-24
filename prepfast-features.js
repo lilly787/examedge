@@ -83,40 +83,7 @@ window.verifyOTPCode = async function verifyOTPCodeApi() {
   }
 };
 
-// ——— Paystack ———
-window.openPaystackSim = async function openPaystackReal() {
-  const overlay = document.getElementById("paystack-sim-overlay");
-  if (!overlay) return;
 
-  if (!PrepFastAPI.getToken()) {
-    showToast("Please log in first", "error");
-    navigate("auth");
-    return;
-  }
-
-  overlay.classList.remove("hidden");
-  overlay.classList.add("flex");
-  overlay.innerHTML = `<div class="text-white text-center p-8">Initializing Paystack…</div>`;
-
-  try {
-    const init = await PrepFastAPI.initPayment("monthly");
-
-    if (init.simulated || !init.authorization_url) {
-      overlay.innerHTML = `
-        <div class="bg-[#12101f] border border-indigo-500/20 rounded-2xl p-8 max-w-md w-full text-center">
-          <h3 class="text-xl font-bold text-white mb-2">Dev Payment Mode</h3>
-          <p class="text-gray-400 text-sm mb-6">Paystack keys not set. Activate Premium for testing?</p>
-          <button onclick="PrepFastFeatures.devActivatePremium()" class="w-full bg-emerald-500 text-slate-950 font-bold py-3 rounded-xl mb-3">Activate Premium (Dev)</button>
-          <button onclick="closePaystackSim()" class="text-indigo-400 text-sm">Cancel</button>
-        </div>`;
-      return;
-    }
-
-    window.location.href = init.authorization_url;
-  } catch (e) {
-    overlay.innerHTML = `<div class="text-rose-400 p-6">${e.message}</div>`;
-  }
-};
 
 const SUBJECT_ID_TO_NAME = {
   math: "Mathematics",
@@ -412,7 +379,7 @@ PrepFastFeatures.generatePlan = async function () {
   const user = PrepFastDB.getUser();
   if (!user) {
     showToast("Please log in first", "error");
-    navigate("auth");
+    window.location.replace("register.html#login");
     return;
   }
   const examDate = user.exam_date;

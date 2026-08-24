@@ -1231,6 +1231,12 @@
       else if (state.step === 3) completeReg();
     }
   });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.hash === '#login') {
+      showLogin();
+    }
+  });
 </script>
 </body>
 </html>
