@@ -2006,13 +2006,6 @@ function submitPaystackOTP() {
   // Legacy stub — no longer used
 }
 
-  `;
-  refreshIcons();
-
-  overlay.classList.remove("hidden");
-  overlay.classList.add("flex");
-}
-
 function closePaystackSim(success = false) {
   const overlay = document.getElementById("paystack-sim-overlay");
   overlay.classList.add("hidden");
