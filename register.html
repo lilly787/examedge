@@ -1005,6 +1005,10 @@
           email: data.user.email,
           phone: data.user.phone,
           role: data.user.role,
+          subjects: data.user.subjects || mapSubjectIds(state.subjects),
+          ss_class: data.user.ss_class || state.cls,
+          exam_target: data.user.exam_target || state.examTarget,
+          subscription_tier: data.user.subscription_tier || 'free',
           createdAt: new Date().toISOString()
         };
         localStorage.setItem('prepfast_user', JSON.stringify(userObj));
@@ -1049,6 +1053,10 @@
       email: user.email || "",
       phone: user.phone,
       role: user.role,
+      subjects: user.subjects,
+      ss_class: user.ss_class,
+      exam_target: user.exam_target,
+      subscription_tier: user.subscription_tier,
       createdAt: user.joinedAt
     };
     localStorage.setItem('prepfast_user', JSON.stringify(userObj));
@@ -1067,7 +1075,7 @@
     goStep(4);
     document.getElementById('form-title').textContent = 'You\'re In!';
     document.getElementById('form-subtitle').textContent = 'Your PrepFast account is all set.';
-    refreshIcons();
+    if (typeof lucide !== 'undefined') lucide.createIcons();
     const map = {
       student: 'index.html',
       teacher: 'teacher.html',
