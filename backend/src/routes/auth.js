@@ -1,5 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const { query } = require("../db/pool");
 const config = require("../config");
@@ -367,6 +368,108 @@ router.get("/me", authRequired, async (req, res) => {
     payload.student = s.rows[0];
   }
   res.json(payload);
+});
+
+router.post("/register-email", async (req, res) => {
+  try {
+    const { email, password, name, phone, school_name, role = "student" } = req.body;
+    if (!email || !password) return res.status(400).json({ error: "Email and password required" });
+
+    // Check if email already exists
+    const existing = await query("SELECT id FROM users WHERE email = $1", [email]);
+    if (existing.rows.length > 0) return res.status(400).json({ error: "Email already registered" });
+
+    const id = uuidv4();
+    const hash = await bcrypt.hash(password, 10);
+    const normalizedPhone = phone ? normalizePhone(phone) : null;
+
+    await query(
+      `INSERT INTO users (id, name, email, password_hash, phone, role, school_name, subscription_tier)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, 'free')`,
+      [id, name || "Student", email, hash, normalizedPhone, role, school_name || null]
+    );
+
+    if (role === "student") {
+      const linkCode = `PF-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+      await query(
+        `INSERT INTO students (user_id, ss_class, subjects, exam_target, parent_link_code)
+         VALUES ($1, 'SS3', '["Mathematics","English Language"]', 'WAEC', $2)`,
+        [id, linkCode]
+      );
+    }
+
+    const userResult = await query("SELECT * FROM users WHERE id = $1", [id]);
+    const user = userResult.rows[0];
+    const token = signToken(user);
+    
+    let student = null;
+    if (user.role === "student") {
+      const s = await query("SELECT * FROM students WHERE user_id = $1", [user.id]);
+      student = s.rows[0];
+    }
+
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        subscription_tier: user.subscription_tier,
+        ...(student && {
+          ss_class: student.ss_class,
+          subjects: student.subjects,
+          parent_link_code: student.parent_link_code,
+        }),
+      }
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+router.post("/login-email", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) return res.status(400).json({ error: "Email and password required" });
+
+    const userResult = await query("SELECT * FROM users WHERE email = $1", [email]);
+    if (!userResult.rows.length) return res.status(401).json({ error: "Invalid credentials" });
+
+    const user = userResult.rows[0];
+    if (!user.password_hash) return res.status(401).json({ error: "Please login with OTP (no password set)" });
+
+    const match = await bcrypt.compare(password, user.password_hash);
+    if (!match) return res.status(401).json({ error: "Invalid credentials" });
+
+    const token = signToken(user);
+    
+    let student = null;
+    if (user.role === "student") {
+      const s = await query("SELECT * FROM students WHERE user_id = $1", [user.id]);
+      student = s.rows[0];
+    }
+
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        subscription_tier: user.subscription_tier,
+        ...(student && {
+          ss_class: student.ss_class,
+          subjects: student.subjects,
+          parent_link_code: student.parent_link_code,
+        }),
+      }
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 });
 
 module.exports = router;

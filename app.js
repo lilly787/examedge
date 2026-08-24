@@ -1950,79 +1950,62 @@ function handleLogout() {
 // ----------------------------------------------------
 
 // 1. Simulated Paystack Payment Sandbox Gateway
-function openPaystackSim() {
+async function openPaystackSim() {
   const overlay = document.getElementById("paystack-sim-overlay");
+  if (!overlay) return;
+
+  const token = PrepFastAPI.getToken();
+  if (!token) {
+    showToast("Please log out and log back in to pay for Premium.", "error");
+    return;
+  }
+
+  overlay.classList.remove("hidden");
+  overlay.classList.add("flex");
   overlay.innerHTML = `
-    <div class="glass-panel w-full max-w-sm p-6 rounded-2xl border border-indigo-500/20 relative shadow-2xl overflow-hidden text-center">
-      
-      <!-- Close button -->
-      <button onclick="closePaystackSim()" class="absolute top-4 right-4 text-gray-400 hover:text-white font-bold text-lg">&times;</button>
-
-      <!-- Paystack Logo Mock -->
-      <div class="flex justify-center items-center gap-1.5 mb-4">
-        <span class="text-emerald-400"><i data-lucide="zap" class="icon-sm"></i></span>
-        <span class="text-white font-black tracking-tight text-sm">paystack</span>
-        <span class="text-xs text-gray-500">SANDBOX</span>
+    <div class="bg-[#12101f] border border-indigo-500/20 rounded-2xl p-8 max-w-md w-full text-center">
+      <div class="flex justify-center items-center gap-2 mb-4">
+        <span class="text-emerald-400"><i data-lucide="zap" style="width:20px;height:20px"></i></span>
+        <span class="text-white font-black tracking-tight">paystack</span>
       </div>
+      <p class="text-gray-300 text-sm mb-2">ExamEdge Student Premium</p>
+      <h2 class="text-3xl font-black text-white mb-1">₦2,500<span class="text-base text-gray-400">/month</span></h2>
+      <p class="text-xs text-gray-500 mb-6">Unlimited questions, AI tutor, all subjects</p>
+      <div class="text-gray-400 text-sm animate-pulse">Initializing secure payment…</div>
+    </div>`;
+  refreshIcons();
 
-      <!-- Price summary -->
-      <div class="mb-6">
-        <span class="text-xs text-gray-400 font-bold block uppercase tracking-wider">ExamEdge Student Premium</span>
-        <h2 class="text-2xl font-black text-white mt-1">₦2,500.00</h2>
-        <span class="text-xs text-emerald-400 font-semibold block mt-1">chidi.adebayo@gmail.com</span>
-      </div>
+  try {
+    const init = await PrepFastAPI.initPayment("monthly");
 
-      <!-- card input fields -->
-      <div id="paystack-card-view">
-        <div class="text-left mb-4">
-          <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Card Number</label>
-          <div class="bg-indigo-950/40 border border-indigo-900/60 rounded-xl p-3 flex items-center gap-2">
-            <span class="text-sm"></span>
-            <input type="text" placeholder="4012 8888 8888 1881" class="w-full bg-transparent text-sm text-white placeholder-gray-700 outline-none font-semibold">
-          </div>
-        </div>
+    if (init.simulated || !init.authorization_url) {
+      overlay.innerHTML = `
+        <div class="bg-[#12101f] border border-indigo-500/20 rounded-2xl p-8 max-w-md w-full text-center">
+          <h3 class="text-xl font-bold text-white mb-2">Dev Payment Mode</h3>
+          <p class="text-gray-400 text-sm mb-6">Click below to activate Premium for testing.</p>
+          <button onclick="PrepFastFeatures.devActivatePremium()" class="w-full bg-emerald-500 text-slate-950 font-bold py-3 rounded-xl mb-3">Activate Premium (Dev)</button>
+          <button onclick="closePaystackSim()" class="text-indigo-400 text-sm">Cancel</button>
+        </div>`;
+      return;
+    }
 
-        <div class="grid grid-cols-2 gap-4 mb-6">
-          <div class="text-left">
-            <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Expiry Date</label>
-            <input type="text" placeholder="MM / YY" class="w-full bg-indigo-950/40 border border-indigo-900/60 rounded-xl p-3 text-sm text-white placeholder-gray-700 outline-none font-semibold">
-          </div>
-          <div class="text-left">
-            <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">CVV</label>
-            <input type="text" placeholder="123" class="w-full bg-indigo-950/40 border border-indigo-900/60 rounded-xl p-3 text-sm text-white placeholder-gray-700 outline-none font-semibold">
-          </div>
-        </div>
+    // Real Paystack — redirect to checkout
+    window.location.href = init.authorization_url;
+  } catch (e) {
+    overlay.innerHTML = `
+      <div class="bg-[#12101f] border border-rose-500/20 rounded-2xl p-8 max-w-md w-full text-center">
+        <p class="text-rose-400 font-semibold mb-4">${e.message || 'Payment failed to initialize'}</p>
+        <button onclick="closePaystackSim()" class="text-indigo-400 text-sm">Close</button>
+      </div>`;
+  }
+}
 
-        <button onclick="processPaystackCard()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black py-3.5 rounded-xl shadow-lg shadow-emerald-500/10 transition-all text-sm">
-          Pay ₦2,500
-        </button>
-      </div>
+// Legacy stubs — no longer used but kept to avoid JS errors
+function processPaystackCard() {}
+function submitPaystackOTP() {
+  // Legacy stub — no longer used
+}
 
-      <!-- OTP Authorization View -->
-      <div id="paystack-otp-view" class="hidden">
-        <p class="text-gray-400 text-xs mb-4 leading-relaxed">A simulated bank 4-digit security code has been sent to your phone. Enter it below.</p>
-        
-        <input type="text" id="paystack-otp-input" placeholder="Enter Mock Bank Code" class="w-full bg-indigo-950/40 border border-indigo-900/60 rounded-xl p-3.5 text-center text-lg font-bold text-white placeholder-gray-700 outline-none mb-4">
-
-        <button onclick="submitPaystackOTP()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black py-3.5 rounded-xl transition-all text-sm">
-          Authorize Charge
-        </button>
-      </div>
-
-      <!-- Success Screen -->
-      <div id="paystack-success-view" class="hidden">
-        <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full flex items-center justify-center text-xl mx-auto mb-4">
-          <i data-lucide="check" style="width:20px;height:20px"></i>
-        </div>
-        <h3 class="text-lg font-bold text-white mb-2">Payment Successful!</h3>
-        <p class="text-xs text-gray-400 mb-6">Your student account has been successfully upgraded to Premium. Restarting dashboard.</p>
-        
-        <button onclick="closePaystackSim(true)" class="w-full bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold py-3 rounded-xl transition-all text-xs">
-          Return to Dashboard
-        </button>
-      </div>
-
-    </div>
   `;
   refreshIcons();
 

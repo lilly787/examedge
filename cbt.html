@@ -1113,9 +1113,10 @@
       let qs = getFilteredQuestions();
       if (qs.length === 0) return;
 
-      // Shuffle question order and option order, then limit to 20 for snappy sessions
+      // Shuffle question order and option order. Limit to 20 for snappy sessions UNLESS a specific year is selected
+      let limit = (session.year !== 'all') ? qs.length : Math.min(20, qs.length);
       qs = qs.sort(() => Math.random() - 0.5)
-             .slice(0, Math.min(20, qs.length))
+             .slice(0, limit)
              .map(q => shuffleQuestionOptions(q));
 
       session.questions = qs;

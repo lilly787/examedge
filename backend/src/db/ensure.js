@@ -38,6 +38,14 @@ async function ensureDatabaseReady() {
     await query("ALTER TABLE users ADD COLUMN IF NOT EXISTS school_name TEXT");
   }
 
+  // Ensure users table has password_hash
+  try {
+    await query("SELECT password_hash FROM users LIMIT 1");
+  } catch {
+    console.log("[DB] Adding users.password_hash column...");
+    await query("ALTER TABLE users ADD COLUMN IF NOT EXISTS password_hash TEXT");
+  }
+
   // Ensure schools table has email, phone, address
   try {
     await query("SELECT email FROM schools LIMIT 1");
