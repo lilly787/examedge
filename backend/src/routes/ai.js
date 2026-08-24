@@ -22,14 +22,6 @@ router.post("/tutor", authRequired, async (req, res) => {
     const q = await query("SELECT * FROM questions WHERE id = $1", [question_id]);
     if (!q.rows.length) return res.status(404).json({ error: "Question not found" });
 
-    const user = await query("SELECT subscription_tier FROM users WHERE id = $1", [req.user.id]);
-    if (user.rows[0].subscription_tier === "free") {
-      return res.status(403).json({
-        error: "AI Tutor requires Premium",
-        upgrade: true,
-      });
-    }
-
     const result = await tutorReply({
       question: q.rows[0],
       studentAnswer: student_answer,
@@ -49,15 +41,15 @@ router.post("/study-plan", authRequired, async (req, res) => {
     }
 
     const subjectList = Array.isArray(subjects) ? subjects : [];
-    
+
     // Attempt Gemini generation first
     let generated;
     try {
-      generated = await generateStudyPlan({ 
-        examDate: exam_date, 
-        subjects: subjectList, 
-        weaknessMap: req.user.weakness_map || {}, 
-        hoursPerDay: hours_per_day 
+      generated = await generateStudyPlan({
+        examDate: exam_date,
+        subjects: subjectList,
+        weaknessMap: req.user.weakness_map || {},
+        hoursPerDay: hours_per_day
       });
     } catch (err) {
       console.error("[study-plan] Gemini failed:", err.message);
