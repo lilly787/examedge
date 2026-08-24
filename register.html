@@ -914,10 +914,10 @@
     state.childName = childName;
     state.childStudentId = childStudentId;
 
-    document.getElementById('otp-phone-shown').textContent = `+234 ${phone}`;
+    document.getElementById('otp-phone-shown')?.textContent || `+234 ${phone}`; // Safely ignore missing elements
 
     const btn = document.getElementById('btn-send-otp');
-    btn.textContent = 'Sending code…';
+    btn.textContent = 'Processing...';
     btn.disabled = true;
 
     if (window.PREPFAST_CONFIG?.useApi !== false) {
@@ -927,6 +927,8 @@
 
     if (!state.password || state.password.length < 6) {
       showErr('step1', 'Please enter a password (min 6 characters).');
+      btn.textContent = 'Continue →';
+      btn.disabled = false;
       return;
     }
 
