@@ -90,6 +90,31 @@ async function ensureDatabaseReady() {
       )
     `);
   }
+
+  // Ensure payments table exists
+  const hasPayments = await tableExists("payments");
+  if (!hasPayments) {
+    console.log("[DB] Creating payments table...");
+    await query(`
+      CREATE TABLE IF NOT EXISTS payments (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+        reference TEXT NOT NULL UNIQUE,
+        amount_kobo INTEGER NOT NULL,
+        status TEXT NOT NULL DEFAULT 'pending',
+        plan TEXT NOT NULL DEFAULT 'monthly',
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `);
+  }
+
+  // Ensure users table has email column
+  try {
+    await query("SELECT email FROM users LIMIT 1");
+  } catch {
+    console.log("[DB] Adding users.email column...");
+    await query("ALTER TABLE users ADD COLUMN IF NOT EXISTS email TEXT");
+  }
 }
 
 module.exports = { ensureDatabaseReady, migrateSchema };

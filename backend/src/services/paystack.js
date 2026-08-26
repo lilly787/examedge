@@ -30,6 +30,9 @@ async function initializePayment(userId, plan) {
 
   const user = await query("SELECT email, phone, name FROM users WHERE id = $1", [userId]);
   const u = user.rows[0];
+  if (!u) throw new Error("User not found");
+
+  const email = u.email || (u.phone ? `${u.phone.replace(/\D/g, "")}@examedge.app` : `user${Date.now()}@examedge.app`);
 
   const res = await fetch("https://api.paystack.co/transaction/initialize", {
     method: "POST",
@@ -38,7 +41,7 @@ async function initializePayment(userId, plan) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: u.email || `${u.phone}@prepfast.app`,
+      email,
       amount,
       reference,
       callback_url: `${config.appUrl}/index.html?payment=success`,

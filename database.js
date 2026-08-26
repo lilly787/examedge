@@ -364,7 +364,7 @@ const PrepFastDB = {
       storage.set("daily_limit", limitInfo);
     }
 
-    const limitMax = 20;
+    const limitMax = 50;
     const reached = user && user.subscription_tier === "free" && limitInfo.count >= limitMax;
 
     return {
